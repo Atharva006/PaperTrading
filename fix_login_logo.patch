@@ -1,0 +1,32 @@
+--- src/pages/Login.tsx
++++ src/pages/Login.tsx
+@@ -58,15 +58,18 @@
+         
+         {/* Logo Header */}
+         <div className="flex flex-col items-center mb-8">
+-          <Link to="/" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="mb-8">
+-            <span className="text-[13px] font-bold text-[#8c8c8c] hover:text-white transition-colors tracking-widest">[ TRADE EDGE ]</span>
++          <Link to="/" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="mb-10 group flex items-center gap-3">
++            {/* Sleek Custom Logo Mark */}
++            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#d97757] to-[#9b4931] flex items-center justify-center shadow-[0_0_20px_rgba(217,119,87,0.4)] relative overflow-hidden transition-transform group-hover:scale-105 duration-300">
++              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
++              {/* Abstract Edge/Chart Symbol */}
++              <div className="relative w-4 h-4 border-t-[3px] border-r-[3px] border-white transform -rotate-45 translate-y-[2px]" />
++              <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white rounded-full" />
++            </div>
++            {/* Typography */}
++            <span className="text-2xl font-black tracking-tighter text-white">TRADE<span className="text-[#d97757]">EDGE</span></span>
+           </Link>
+-          <div className="w-14 h-14 bg-[#18181b]/80 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-2xl backdrop-blur-md">
+-            <Target className="w-7 h-7 text-[#d97757]" />
+-          </div>
+-          <h2 className="text-center text-3xl font-black text-white tracking-tight">
+-            {isSignUp ? 'Create your arsenal.' : 'Welcome back.'}
+-          </h2>
++          
++          <h2 className="text-center text-3xl font-black text-white tracking-tight leading-tight">
++            {isSignUp ? 'Create your arsenal.' : 'Welcome back.'}
++          </h2>
+           <p className="mt-3 text-center text-sm text-[#8c8c8c] font-medium">
+             {isSignUp ? 'Enter your details to start journaling your trades.' : 'Sign in to access your live performance metrics.'}
+           </p>

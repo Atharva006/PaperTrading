@@ -1,0 +1,28 @@
+const fs = require('fs');
+const file = 'src/pages/Journal.tsx';
+let content = fs.readFileSync(file, 'utf8');
+const lines = content.split('\n');
+
+const before = lines.slice(0, 423); // lines 1 to 423
+const after = lines.slice(462); // line 463 onwards
+
+const replacement = [
+  '      {isAdding && (',
+  '        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">',
+  '          <div className="bg-[#1a1d24] border border-[#2d323e] rounded-xl shadow-2xl w-full max-w-4xl flex flex-col max-h-[95vh]">',
+  '            <div className="flex justify-between items-center p-4 border-b border-[#2d323e]">',
+  '              <h2 className="text-lg font-bold text-white">{editingTradeId ? \\'Edit Trade\\' : \\'Log New Trade\\'}</h2>',
+  '              <button onClick={() => handleCloseModal()} className="text-textMuted hover:text-white transition-colors">',
+  '                <X className="w-5 h-5" />',
+  '              </button>',
+  '            </div>',
+  '            ',
+  '            <div className="flex px-4 border-b border-[#2d323e]">',
+  '              {[',
+  '                { name: \\'Trade Details\\', label: \\'Trade Details\\' },',
+  '                { name: \\'Psychology & Review\\', label: \\'Psychology & Review\\' },',
+  '                { name: \\'Screenshots\\', label: \\`Screenshots (\\${[screenshotBeforeFile, screenshotDuringFile, screenshotAfterFile].filter(Boolean).length})\\` }',
+  '              ].map(tab => ('
+];
+
+fs.writeFileSync(file, [...before, ...replacement, ...after].join('\n'));

@@ -1,0 +1,120 @@
+import React from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { useStore } from '../store/useStore';
+import { supabase } from '../lib/supabase';
+import { 
+  BarChart2, LayoutDashboard, BookOpen, Calendar as CalendarIcon, 
+  PieChart, CreditCard, Image as ImageIcon,
+  LogOut, User, Settings, FileText, Newspaper, FileOutput, Sun
+} from 'lucide-react';
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: (string | undefined | null | false)[]) {
+  return twMerge(clsx(inputs));
+}
+
+const navItems = [
+  { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+  { name: 'Journal', path: '/dashboard/journal', icon: BookOpen },
+  { name: 'Calendar', path: '/dashboard/calendar', icon: CalendarIcon },
+  { name: 'Accounts', path: '/dashboard/accounts', icon: CreditCard },
+  { name: 'Analytics', path: '/dashboard/analysis', icon: PieChart },
+  { name: 'Screenshots', path: '/dashboard/screenshots', icon: ImageIcon },
+];
+
+const bottomNavItems = [
+  { name: 'Home', path: '/', icon: LayoutDashboard },
+  { name: 'Settings', path: '/dashboard/profile', icon: Settings },
+];
+
+export default function DashboardLayout() {
+  const { user, accounts, activeAccountId, setActiveAccount } = useStore();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
+
+  return (
+    <div className="flex h-screen overflow-hidden bg-[#09090b]">
+      {/* Sidebar */}
+      <aside className="w-64 bg-[#121214] border-r border-[#27272a] flex flex-col hidden md:flex">
+        
+        {/* Brand Header */}
+        <div className="pt-6 px-6 pb-4">
+          <div className="flex items-center gap-3 mb-6 group cursor-default">
+            {/* Sleek Custom Logo Mark */}
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#d97757] to-[#9b4931] flex items-center justify-center shadow-[0_0_15px_rgba(217,119,87,0.4)] relative overflow-hidden transition-transform group-hover:scale-105 duration-300">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+              <div className="relative w-3 h-3 border-t-[2.5px] border-r-[2.5px] border-white transform -rotate-45 translate-y-[1px]" />
+              <div className="absolute bottom-1.5 left-1.5 w-1 h-1 bg-white rounded-full" />
+            </div>
+            {/* Typography */}
+            <span className="text-lg font-black tracking-tighter text-white">TRADE<span className="text-[#d97757]">EDGE</span></span>
+          </div>
+          
+          {/* Active Account Selector */}
+          <div className="bg-[#18181b] border border-[#27272a] rounded-lg p-3">
+            <p className="text-white text-xs font-bold mb-1 truncate capitalize">
+              {user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'Guest'}
+            </p>
+            <select 
+              className="w-full bg-[#121214] border border-[#27272a] rounded text-[11px] text-textMuted p-1.5 focus:outline-none focus:border-[#3f3f46] transition-colors"
+              value={activeAccountId || ''}
+              onChange={(e) => setActiveAccount(e.target.value)}
+            >
+              <option value="" disabled>Select an Account</option>
+              {accounts.map(acc => (
+                <option key={acc.id} value={acc.id}>{acc.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        
+        <div className="flex-1 overflow-y-auto py-2 scrollbar-hide">
+          <nav className="space-y-1 px-4">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  end={item.path === '/dashboard'}
+                  className={({ isActive }) => cn(
+                    "flex items-center gap-3 px-3 py-2 rounded-full text-xs font-semibold transition-all duration-200",
+                    isActive 
+                      ? "text-[#60a5fa] border border-[#3b82f6] bg-[#3b82f6]/10 shadow-[0_0_10px_rgba(59,130,246,0.15)]" 
+                      : "text-textMuted hover:text-white border border-transparent"
+                  )}
+                >
+                  <Icon className="w-4 h-4" />
+                  {item.name}
+                </NavLink>
+              );
+            })}
+          </nav>
+        </div>
+
+        <div className="p-4 space-y-1 mt-auto border-t border-[#27272a]">
+          {bottomNavItems.map(item => (
+            <NavLink key={item.name} to={item.path} className="flex items-center gap-3 px-3 py-2 text-xs font-semibold text-textMuted hover:text-white transition-colors border border-transparent">
+              <item.icon className="w-3.5 h-3.5" /> {item.name}
+            </NavLink>
+          ))}
+          <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2 text-xs font-semibold text-textMuted hover:text-danger transition-colors border border-transparent">
+            <LogOut className="w-3.5 h-3.5" /> Logout
+          </button>
+        </div>
+      </aside>
+      
+      {/* Main Content Area */}
+      <div className="flex flex-col flex-1 overflow-hidden relative bg-[#09090b]">
+        <main className="flex-1 overflow-y-auto p-8 relative">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+}

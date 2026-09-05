@@ -1,0 +1,1 @@
+export default function Reports() { return <div className="p-8 text-white"><h1 className="text-2xl font-bold mb-4">Reports</h1><p className="text-textMuted">Advanced reporting coming soon.</p></div>; }
