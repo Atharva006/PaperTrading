@@ -10,18 +10,18 @@ export default function Terms() {
           <ArrowLeft className="w-4 h-4" /> Back to Home
         </Link>
         
-        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">Terms of Service</h1>
-        <p className="text-[#d97757] font-semibold tracking-wider text-xs uppercase mb-10">Last Updated: September 2026</p>
+        <h1 className="text-4xl sm:text-5xl font-black font-serif text-white tracking-tight mb-4">Terms of Service</h1>
+        <p className="text-[#C6A15B] font-semibold tracking-wider text-xs uppercase mb-10">Last Updated: October 2026 · CNRX | Cendrix Capital</p>
         
-        <div className="space-y-8 text-[#8c8c8c] leading-relaxed">
+        <div className="space-y-8 text-[#8F9BAE] leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">1. Acceptance of Terms</h2>
-            <p>By accessing or using Trade Edge, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you do not have permission to access the service.</p>
+            <h2 className="text-xl font-bold font-serif text-white mb-3">1. Acceptance of Terms</h2>
+            <p>By accessing or using CNRX (operated by Cendrix Capital), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you do not have permission to access the simulated paper trading platform.</p>
           </section>
           
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">2. Not Financial Advice</h2>
-            <p>Trade Edge is a journaling and analytics software tool. Nothing provided within the application constitutes financial, investment, legal, or tax advice. We do not recommend trades, guarantee profits, or promise funding. You are entirely responsible for the risks associated with trading financial markets.</p>
+            <h2 className="text-xl font-bold font-serif text-white mb-3">2. Simulated Trading & Not Financial Advice</h2>
+            <p>CNRX is a strictly simulated virtual paper trading and execution testing platform. Nothing provided within the application constitutes financial, investment, legal, or tax advice. We do not recommend trades, execute live capital brokerage, guarantee profits, or promise funding. You are entirely responsible for your own trading research and strategy testing.</p>
           </section>
           
           <section>

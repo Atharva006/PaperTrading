@@ -1,11 +1,12 @@
 {
-  "name": "trade-edge",
+  "name": "cnrx",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "test": "vitest run",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -13,6 +14,7 @@
     "@supabase/supabase-js": "^2.115.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "lightweight-charts": "^5.2.1",
     "lucide-react": "^1.41.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
@@ -33,6 +35,7 @@
     "postcss": "^8.5.28",
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",
-    "vite": "^8.2.0"
+    "vite": "^8.2.0",
+    "vitest": "^5.0.4"
   }
 }

@@ -1,95 +1,106 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useStore } from './store/useStore';
 import { supabase } from './lib/supabase';
+import { useTradingStore } from './store/useTradingStore';
+import { marketDataService } from './services/market/MarketDataService';
 
 // Layouts
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 
-// Pages
+// Paper Trading Pages
+import Dashboard from './pages/Dashboard';
+import MarketWatchPage from './pages/MarketWatchPage';
+import TerminalPage from './pages/TerminalPage';
+import DerivativesExplorerPage from './pages/DerivativesExplorerPage';
+import OptionChainPage from './pages/OptionChainPage';
+import PositionsPage from './pages/PositionsPage';
+import HoldingsPage from './pages/HoldingsPage';
+import OrdersPage from './pages/OrdersPage';
+import TradebookPage from './pages/TradebookPage';
+import PortfolioPage from './pages/PortfolioPage';
+import AnalyticsPage from './pages/AnalyticsPage';
+import SettingsPage from './pages/SettingsPage';
+import Login from './pages/Login';
 import Landing from './pages/Landing';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
-import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Journal from './pages/Journal';
-import TradeDetails from "./pages/TradeDetails";
-import Calendar from './pages/Calendar';
-import Analysis from './pages/Analysis';
-import Accounts from './pages/Accounts';
-import Profile from './pages/Profile';
-import Screenshots from './pages/Screenshots';
-import Payouts from './pages/Payouts';
-import Reports from './pages/Reports';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const user = useStore((state) => state.user);
-  if (!user) {
-    // Preserve URL hash if there's an OAuth error so the login page can display it
-    const hash = window.location.hash;
-    return <Navigate to={`/login${hash}`} replace />;
-  }
-  return <>{children}</>;
-};
+// Legacy pages preserved
+import Journal from './pages/Journal';
+import Calendar from './pages/Calendar';
+import Accounts from './pages/Accounts';
+import Screenshots from './pages/Screenshots';
 
 function App() {
-  const setUser = useStore(state => state.setUser);
-  const [isInitializing, setIsInitializing] = useState(true);
+  const { init } = useTradingStore();
+  const [isResetOpen, setIsResetOpen] = useState(false);
 
   useEffect(() => {
-    // Check active session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setIsInitializing(false);
-    });
+    let active = true;
+    try {
+      supabase.auth.getSession().then(({ data: { session } }) => {
+        if (!active) return;
+        if (session?.user) {
+          init(session.user.id, session.user.email, session.user.user_metadata?.full_name);
+        } else {
+          init();
+        }
+      }).catch(() => {
+        if (active) init();
+      });
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setIsInitializing(false);
-    });
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        if (session?.user) {
+          init(session.user.id, session.user.email, session.user.user_metadata?.full_name);
+        }
+      });
 
-    return () => subscription.unsubscribe();
-  }, [setUser]);
-
-  if (isInitializing) {
-    return (
-      <div className="min-h-screen bg-[#09090b] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#d97757] border-t-transparent animate-spin"></div>
-      </div>
-    );
-  }
+      return () => {
+        active = false;
+        subscription.unsubscribe();
+      };
+    } catch {
+      init();
+    }
+  }, [init]);
 
   return (
     <BrowserRouter>
       <Routes>
+        {/* Auth Layout for Landing and Login */}
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/landing" element={<Landing />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/login" element={useStore.getState().user ? <Navigate to="/dashboard" replace /> : <Login />} />
+          <Route path="/login" element={<Login />} />
         </Route>
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }
-        >
+        {/* Paper Trading Terminal Dashboard Layout */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="watchlist" element={<MarketWatchPage />} />
+          <Route path="terminal" element={<TerminalPage />} />
+          <Route path="derivatives" element={<DerivativesExplorerPage />} />
+          <Route path="option-chain" element={<OptionChainPage />} />
+          <Route path="positions" element={<PositionsPage />} />
+          <Route path="holdings" element={<HoldingsPage />} />
+          <Route path="orders" element={<OrdersPage />} />
+          <Route path="tradebook" element={<TradebookPage />} />
+          <Route path="portfolio" element={<PortfolioPage onOpenReset={() => setIsResetOpen(true)} />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
+          <Route path="settings" element={<SettingsPage onOpenReset={() => setIsResetOpen(true)} />} />
+
+          {/* Preserved legacy routes */}
           <Route path="journal" element={<Journal />} />
-          <Route path="trade/:id" element={<TradeDetails />} />
           <Route path="calendar" element={<Calendar />} />
-          <Route path="analysis" element={<Analysis />} />
           <Route path="accounts" element={<Accounts />} />
-          <Route path="profile" element={<Profile />} />
           <Route path="screenshots" element={<Screenshots />} />
-          <Route path="payouts" element={<Payouts />} />
-          <Route path="reports" element={<Reports />} />
         </Route>
+
+        {/* Catch-all redirect */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     </BrowserRouter>
   );

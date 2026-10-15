@@ -3,22 +3,122 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-bg-midnight: #0B1424;
+    --color-bg-charcoal: #10141C;
+    --color-bg-surface: #0E1728;
+    --color-bg-surface-elevated: #14223A;
+    --color-gold: #C6A15B;
+    --color-gold-light: #E2C889;
+    --color-gold-dark: #8F6E2C;
+    --color-gold-glow: rgba(198, 161, 91, 0.15);
+    --color-gold-border: rgba(198, 161, 91, 0.22);
+    --color-text-primary: #F5F5F2;
+    --color-text-secondary: #A1A8B3;
+  }
+
   body {
-    @apply bg-background text-textMain antialiased selection:bg-primary selection:text-white;
+    background-color: #0B1424;
+    color: #F5F5F2;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: #C6A15B;
+    color: #0B1424;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
   }
 }
 
-/* Custom Scrollbar for a premium feel */
+/* Custom Prestige Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-background;
+  background: #0B1424;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-surfaceHover rounded;
+  background: #14223A;
+  border-radius: 3px;
+  border: 1px solid rgba(198, 161, 91, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-borderColor;
+  background: #C6A15B;
 }
+
+/* Cendrix Design System Utilities */
+.cendrix-card {
+  background-color: #0E1728;
+  border: 1px solid rgba(198, 161, 91, 0.18);
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cendrix-card:hover {
+  border-color: rgba(198, 161, 91, 0.35);
+  box-shadow: 0 14px 40px rgba(11, 20, 36, 0.7), 0 0 20px rgba(198, 161, 91, 0.1);
+}
+
+.cendrix-gold-gradient {
+  background: linear-gradient(135deg, #F2DEAC 0%, #C6A15B 50%, #9A7836 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-cendrix-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  background: linear-gradient(135deg, #E2C889 0%, #C6A15B 60%, #9A7836 100%);
+  color: #0B1424;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 0.5rem;
+  border: 1px solid #E2C889;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(198, 161, 91, 0.25);
+}
+
+.btn-cendrix-gold:hover {
+  background: linear-gradient(135deg, #F5E5C0 0%, #D8B46C 60%, #A98540 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.4);
+}
+
+.btn-cendrix-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.25rem;
+  background-color: rgba(14, 23, 40, 0.6);
+  color: #F5F5F2;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(198, 161, 91, 0.25);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+  backdrop-filter: blur(10px);
+}
+
+.btn-cendrix-outline:hover {
+  border-color: #C6A15B;
+  color: #C6A15B;
+  background-color: rgba(198, 161, 91, 0.08);
+  transform: translateY(-1px);
+}
+

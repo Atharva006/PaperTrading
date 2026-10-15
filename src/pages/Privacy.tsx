@@ -10,13 +10,13 @@ export default function Privacy() {
           <ArrowLeft className="w-4 h-4" /> Back to Home
         </Link>
         
-        <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-4">Privacy Policy</h1>
-        <p className="text-[#d97757] font-semibold tracking-wider text-xs uppercase mb-10">Last Updated: September 2026</p>
+        <h1 className="text-4xl sm:text-5xl font-black font-serif text-white tracking-tight mb-4">Privacy Policy</h1>
+        <p className="text-[#C6A15B] font-semibold tracking-wider text-xs uppercase mb-10">Last Updated: October 2026 · CNRX | Cendrix Capital</p>
         
-        <div className="space-y-8 text-[#8c8c8c] leading-relaxed">
+        <div className="space-y-8 text-[#8F9BAE] leading-relaxed">
           <section>
-            <h2 className="text-xl font-bold text-white mb-3">1. Information We Collect</h2>
-            <p>Trade Edge collects information you provide directly to us when creating an account, including your email address and authentication credentials. We also collect the trading data, journal entries, account balances, and screenshots you upload to your private dashboard to provide our analytics services.</p>
+            <h2 className="text-xl font-bold font-serif text-white mb-3">1. Information We Collect</h2>
+            <p>CNRX collects information you provide directly to us when creating a virtual trading account, including your email address and authentication credentials. We also record simulated trading data, order book history, virtual account balances, and ledger transactions in your private workspace.</p>
           </section>
           
           <section>

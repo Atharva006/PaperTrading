@@ -23,52 +23,55 @@ export default function Landing() {
   const handleMouseLeave = () => setIsHovering(false);
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#e5e5e5] relative overflow-x-hidden font-sans selection:bg-[#d97757]/30 cursor-none">
+    <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] relative overflow-x-hidden font-sans selection:bg-[#C6A15B] selection:text-[#0B1424] cursor-none">
       
-      {/* Fancy Cursor */}
+      {/* Fancy Gold Cursor */}
       <div 
-        className="pointer-events-none fixed top-0 left-0 w-8 h-8 rounded-full border border-[#d97757]/40 z-[100] transition-transform duration-75 ease-out flex items-center justify-center mix-blend-screen"
+        className="pointer-events-none fixed top-0 left-0 w-8 h-8 rounded-full border border-[#C6A15B]/50 z-[100] transition-transform duration-75 ease-out flex items-center justify-center mix-blend-screen"
         style={{ transform: `translate(${mousePosition.x - 16}px, ${mousePosition.y - 16}px) scale(${isHovering ? 1.8 : 1})` }}
       >
-        <div className="w-1.5 h-1.5 bg-[#d97757] rounded-full shadow-[0_0_10px_#d97757]" />
+        <div className="w-1.5 h-1.5 bg-[#C6A15B] rounded-full shadow-[0_0_10px_#C6A15B]" />
       </div>
 
-      {/* Dynamic Background / "Obstacles" */}
+      {/* Dynamic Background with Gold Beams */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#d97757]/15 rounded-full blur-[150px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#d97757]/10 rounded-full blur-[150px]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#C6A15B]/15 rounded-full blur-[150px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-[#C6A15B]/10 rounded-full blur-[150px]" />
         
         {/* Animated Beams */}
-        <div className="absolute top-[20%] left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-[#d97757]/20 to-transparent transform rotate-[-3deg] opacity-50" />
+        <div className="absolute top-[20%] left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-[#C6A15B]/30 to-transparent transform rotate-[-3deg] opacity-50" />
         <div className="absolute top-[65%] left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent transform rotate-[4deg] opacity-30" />
-        <div className="absolute top-[85%] left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-[#d97757]/10 to-transparent transform rotate-[-1deg] opacity-40" />
+        <div className="absolute top-[85%] left-[-10%] w-[120%] h-px bg-gradient-to-r from-transparent via-[#C6A15B]/20 to-transparent transform rotate-[-1deg] opacity-40" />
       </div>
 
       {/* Navbar */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#09090b]/80 backdrop-blur-md border-b border-white/5 py-3' : 'bg-transparent py-5'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0B1424]/90 backdrop-blur-md border-b border-[rgba(198,161,91,0.2)] py-3' : 'bg-transparent py-5'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 group cursor-none">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#d97757] to-[#9b4931] flex items-center justify-center shadow-[0_0_10px_rgba(217,119,87,0.4)] relative overflow-hidden transition-transform group-hover:scale-105 duration-300">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              <div className="relative w-2.5 h-2.5 border-t-[2px] border-r-[2px] border-white transform -rotate-45 translate-y-[1px]" />
-              <div className="absolute bottom-1 left-1 w-1 h-1 bg-white rounded-full" />
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#0E1728] border border-[rgba(198,161,91,0.4)] flex items-center justify-center p-1.5 shadow-[0_0_15px_rgba(198,161,91,0.2)]">
+              <img src="/monogram.svg" alt="CNRX" className="w-full h-full object-contain" />
             </div>
-            <span className="text-sm font-black tracking-tighter text-white">TRADE<span className="text-[#d97757]">EDGE</span></span>
+            <div>
+              <span className="text-xl font-serif font-bold tracking-wider text-[#F5F5F2] uppercase">
+                CN<span className="text-[#C6A15B]">RX</span>
+              </span>
+              <span className="hidden sm:inline-block ml-2 text-[9px] font-mono text-[#C6A15B] bg-[#C6A15B]/10 px-1.5 py-0.5 rounded border border-[#C6A15B]/30 uppercase">
+                Simulated Trading
+              </span>
+            </div>
           </div>
-          </div>
-          <div className="hidden md:flex gap-10 text-[13px] font-medium text-[#8c8c8c]">
-            <a href="#features" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-white transition-colors">Features</a>
-            <a href="#philosophy" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-white transition-colors">Philosophy</a>
-            <a href="#metrics" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-white transition-colors">Metrics</a>
+          <div className="hidden md:flex gap-10 text-[13px] font-medium text-[#A1A8B3]">
+            <a href="#features" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-[#F5F5F2] transition-colors">Features</a>
+            <a href="#philosophy" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-[#F5F5F2] transition-colors">Methodology</a>
+            <a href="#metrics" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="hover:text-[#F5F5F2] transition-colors">Analytics</a>
           </div>
           <div className="flex items-center gap-4">
-            <Link to="/login" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="text-[13px] font-medium text-[#8c8c8c] hover:text-white transition-colors">
-              Log In
+            <Link to="/login" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="text-[13px] font-medium text-[#A1A8B3] hover:text-[#F5F5F2] transition-colors">
+              Sign In
             </Link>
-            <Link to="/login" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="px-5 py-2 bg-[#d97757] hover:bg-[#c46547] text-[#131314] text-xs font-bold rounded-lg transition-colors shadow-[0_0_15px_rgba(217,119,87,0.3)]">
-              Start Journaling
+            <Link to="/dashboard" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="btn-cendrix-gold text-xs py-2 px-4 shadow-[0_0_20px_rgba(198,161,91,0.3)]">
+              Launch Platform
             </Link>
           </div>
         </div>
@@ -78,92 +81,92 @@ export default function Landing() {
       <div className="relative z-10">
         
         {/* Section 1: Hero */}
-        <section className="min-h-screen flex items-center justify-center pt-20 pb-24">
+        <section className="min-h-screen flex items-center justify-center pt-24 pb-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#18181b]/60 border border-[#d97757]/30 rounded-full text-[11px] font-semibold text-[#d97757] uppercase tracking-widest backdrop-blur-md shadow-[0_0_10px_rgba(217,119,87,0.1)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#d97757] animate-pulse"></span>
-              Built for Elite Performers
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#0E1728] border border-[rgba(198,161,91,0.3)] rounded-full text-[11px] font-semibold text-[#C6A15B] uppercase tracking-widest backdrop-blur-md shadow-[0_0_15px_rgba(198,161,91,0.15)] font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
+              Cendrix Capital Execution Engine
             </div>
-            <h1 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-[#8c8c8c] tracking-tighter mb-8 leading-[1.05] max-w-5xl mx-auto">
-              Conquer the Market.<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d97757] to-[#e89a7f]">Forged by Discipline.</span>
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#F5F5F2] via-[#E2C889] to-[#8F6E2C] tracking-tight mb-8 leading-[1.08] max-w-5xl mx-auto">
+              Precision. Discipline.<br/>
+              <span>Institutional Performance.</span>
             </h1>
-            <p className="text-lg md:text-xl text-[#8c8c8c] mb-12 leading-relaxed max-w-2xl mx-auto font-medium">
-              Trading is a game of psychology and execution. Bring absolute conviction to your strategy with deep analytics, structured journaling, and real-time risk tracking.
+            <p className="text-base sm:text-xl text-[#A1A8B3] mb-12 leading-relaxed max-w-2xl mx-auto font-normal">
+              CNRX is an institutional simulated paper trading terminal. Master the Indian stock, futures, and options markets with live Upstox ticks, realistic margin models, and transaction-audited performance telemetry.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <Link 
+                to="/dashboard" 
+                onMouseEnter={handleMouseEnter} 
+                onMouseLeave={handleMouseLeave}
+                className="btn-cendrix-gold py-4 px-8 text-sm tracking-wider"
+              >
+                Enter Simulated Trading (₹10L Virtual) <ArrowRight className="w-4 h-4 ml-1" />
+              </Link>
               <Link 
                 to="/login" 
                 onMouseEnter={handleMouseEnter} 
                 onMouseLeave={handleMouseLeave}
-                className="px-8 py-4 bg-[#d97757] hover:bg-[#c46547] text-[#131314] text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(217,119,87,0.3)] hover:shadow-[0_0_45px_rgba(217,119,87,0.5)] transform hover:-translate-y-1"
+                className="btn-cendrix-outline py-4 px-8 text-sm tracking-wider"
               >
-                Start Building Conviction <ArrowRight className="w-4 h-4" />
+                Sign In With Account
               </Link>
-              <a 
-                href="#features" 
-                onMouseEnter={handleMouseEnter} 
-                onMouseLeave={handleMouseLeave}
-                className="px-8 py-4 bg-[#18181b]/60 hover:bg-[#18181b] border border-white/5 hover:border-white/10 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center backdrop-blur-md"
-              >
-                Explore the Arsenal
-              </a>
             </div>
           </div>
         </section>
 
-        {/* Section 2: Social Proof / Conviction Banner */}
-        <section className="py-12 border-y border-white/5 bg-[#09090b]/80 backdrop-blur-md">
+        {/* Section 2: Social Proof / Metrics Banner */}
+        <section className="py-12 border-y border-[rgba(198,161,91,0.18)] bg-[#0E1728]/80 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left">
               <div>
-                <p className="text-3xl font-black text-white mb-1">3.4x</p>
-                <p className="text-[11px] uppercase tracking-wider text-[#8c8c8c] font-semibold">Higher Payout Rate</p>
+                <p className="text-3xl font-mono font-bold text-[#F5F5F2] mb-1">₹10,00,000</p>
+                <p className="text-[11px] uppercase tracking-wider text-[#A1A8B3] font-semibold">Virtual Starting Capital</p>
               </div>
               <div className="hidden md:block w-px h-12 bg-white/10"></div>
               <div>
-                <p className="text-3xl font-black text-white mb-1">100%</p>
-                <p className="text-[11px] uppercase tracking-wider text-[#8c8c8c] font-semibold">Data Transparency</p>
+                <p className="text-3xl font-mono font-bold text-[#10B981] mb-1">100% LIVE</p>
+                <p className="text-[11px] uppercase tracking-wider text-[#A1A8B3] font-semibold">Upstox Public Market Feed</p>
               </div>
               <div className="hidden md:block w-px h-12 bg-white/10"></div>
               <div>
-                <p className="text-3xl font-black text-white mb-1">&lt; 1ms</p>
-                <p className="text-[11px] uppercase tracking-wider text-[#8c8c8c] font-semibold">Analytics Rendering</p>
+                <p className="text-3xl font-mono font-bold text-[#F5F5F2] mb-1">&lt; 1ms</p>
+                <p className="text-[11px] uppercase tracking-wider text-[#A1A8B3] font-semibold">Order Matching Latency</p>
               </div>
               <div className="hidden md:block w-px h-12 bg-white/10"></div>
               <div>
-                <p className="text-3xl font-black text-white mb-1">0</p>
-                <p className="text-[11px] uppercase tracking-wider text-[#d97757] font-semibold">Spreadsheets Needed</p>
+                <p className="text-3xl font-mono font-bold text-[#C6A15B] mb-1">NSE & BSE</p>
+                <p className="text-[11px] uppercase tracking-wider text-[#C6A15B] font-semibold">Equity, Futures & Options</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 3: Anti-Excel Deep Dive */}
+        {/* Section 3: Deep Dive */}
         <section id="philosophy" className="py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
-                <div className="w-12 h-12 bg-[#d97757]/10 rounded-xl flex items-center justify-center border border-[#d97757]/20">
-                  <Database className="w-6 h-6 text-[#d97757]" />
+                <div className="w-12 h-12 bg-[#0E1728] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.3)] shadow-[0_0_15px_rgba(198,161,91,0.15)]">
+                  <Database className="w-6 h-6 text-[#C6A15B]" />
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-                  Ditch the Spreadsheets.<br/>
-                  <span className="text-[#8c8c8c]">Upgrade the Standard.</span>
+                <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] tracking-tight leading-[1.15]">
+                  Zero Mock Database.<br/>
+                  <span className="text-[#A1A8B3]">Live Market Realities.</span>
                 </h2>
-                <p className="text-lg text-[#8c8c8c] leading-relaxed">
-                  Stop fighting with clunky Excel formulas and breaking Notion templates. The modern trader requires speed, accuracy, and deep psychological insight. 
+                <p className="text-base text-[#A1A8B3] leading-relaxed">
+                  Real traders do not practice on fake random-number price simulators. CNRX connects to live NSE and BSE intraday feeds, computing realistic slippage, statutory STT, exchange turnover fees, and SEBI charges.
                 </p>
                 <ul className="space-y-4">
                   {[
-                    'Automated metrics like Profit Factor & Expectancy',
-                    'Zero manual math or formula breakages',
-                    'Built specifically for prop-firm max drawdown tracking',
-                    'Cloud-synced and instantly accessible anywhere'
+                    'Live Upstox streaming quotes with intraday public candles',
+                    'Realistic margin calculations for Delivery, Intraday, and F&O',
+                    'Realized & Unrealized MTM updated live per market tick',
+                    'Audited ledger of every order fill, transaction fee, and cash checkpoint'
                   ].map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-white text-sm font-medium">
-                      <div className="w-5 h-5 rounded-full bg-[#d97757]/20 flex items-center justify-center flex-shrink-0">
-                        <CheckCircle2 className="w-3 h-3 text-[#d97757]" />
+                    <li key={i} className="flex items-center gap-3 text-[#F5F5F2] text-sm font-medium">
+                      <div className="w-5 h-5 rounded-full bg-[#10B981]/20 flex items-center justify-center flex-shrink-0">
+                        <CheckCircle2 className="w-3 h-3 text-[#10B981]" />
                       </div>
                       {item}
                     </li>
@@ -171,21 +174,21 @@ export default function Landing() {
                 </ul>
               </div>
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#d97757]/20 to-transparent rounded-2xl blur-3xl" />
-                <div className="relative bg-[#18181b]/80 border border-white/10 rounded-2xl p-8 backdrop-blur-xl shadow-2xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#C6A15B]/20 to-transparent rounded-2xl blur-3xl" />
+                <div className="relative bg-[#0E1728] border border-[rgba(198,161,91,0.25)] rounded-2xl p-8 backdrop-blur-xl shadow-[0_15px_40px_rgba(0,0,0,0.5)]">
                   {/* Faux Dashboard UI Element */}
                   <div className="flex justify-between items-center border-b border-white/10 pb-4 mb-6">
                     <div>
-                      <p className="text-xs text-[#8c8c8c] font-semibold uppercase tracking-wider mb-1">Live Profit Factor</p>
-                      <p className="text-3xl font-black text-white">2.84<span className="text-lg text-success font-medium ml-2">Excellent</span></p>
+                      <p className="text-xs text-[#A1A8B3] font-semibold uppercase tracking-wider mb-1 font-mono">Virtual Account Equity</p>
+                      <p className="text-3xl font-mono font-bold text-[#F5F5F2]">₹10,24,550.00 <span className="text-sm text-[#10B981] font-semibold ml-2">+2.45%</span></p>
                     </div>
-                    <Activity className="w-10 h-10 text-[#d97757]" />
+                    <Activity className="w-10 h-10 text-[#C6A15B]" />
                   </div>
                   <div className="space-y-3">
-                    <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden">
-                      <div className="h-full bg-success w-[68%]" />
+                    <div className="h-2 w-full bg-[#0B1424] rounded-full overflow-hidden border border-white/5">
+                      <div className="h-full bg-gradient-to-r from-[#C6A15B] to-[#10B981] w-[74%]" />
                     </div>
-                    <p className="text-xs text-[#8c8c8c] font-medium text-right">68% Win Rate (Last 30 Days)</p>
+                    <p className="text-xs text-[#A1A8B3] font-mono text-right">NSE / BSE Live Session Active</p>
                   </div>
                 </div>
               </div>
@@ -194,95 +197,97 @@ export default function Landing() {
         </section>
 
         {/* Section 4: Detailed Features */}
-        <section id="features" className="py-32 relative">
+        <section id="features" className="py-24 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-20">
-              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-6">The Ultimate Arsenal</h2>
-              <p className="text-lg text-[#8c8c8c]">Everything you need to turn raw data into a measurable trading edge.</p>
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-4">CNRX Core Capabilities</h2>
+              <p className="text-base text-[#A1A8B3]">Engineered for serious market operators and quantitative strategy testing.</p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-6">
               <div 
                 onMouseEnter={handleMouseEnter} 
                 onMouseLeave={handleMouseLeave}
-                className="p-8 rounded-2xl bg-[#18181b]/40 backdrop-blur-xl border border-white/5 hover:bg-[#18181b]/80 hover:border-white/10 transition-all group"
+                className="p-8 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] hover:border-[rgba(198,161,91,0.45)] transition-all duration-300 group shadow-lg"
               >
-                <div className="w-12 h-12 bg-[#d97757]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[#d97757]/20">
-                  <Crosshair className="w-6 h-6 text-[#d97757]" />
+                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[rgba(198,161,91,0.3)]">
+                  <Crosshair className="w-6 h-6 text-[#C6A15B]" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Surgical Precision</h3>
-                <p className="text-[#8c8c8c] text-sm leading-relaxed">
-                  Track multi-phase funded accounts flawlessly. Monitor exact profit targets, daily loss limits, and max drawdowns across any prop firm or live broker.
+                <h3 className="text-lg font-serif font-bold text-[#F5F5F2] mb-2">Simulated Execution Engine</h3>
+                <p className="text-[#A1A8B3] text-sm leading-relaxed">
+                  Support for MARKET, LIMIT, SL, and SL-M order types across Delivery (CNC), Intraday (MIS), and Normal (NRML) contracts.
                 </p>
               </div>
               
               <div 
                 onMouseEnter={handleMouseEnter} 
                 onMouseLeave={handleMouseLeave}
-                className="p-8 rounded-2xl bg-[#18181b]/40 backdrop-blur-xl border border-white/5 hover:bg-[#18181b]/80 hover:border-white/10 transition-all group"
+                className="p-8 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] hover:border-[rgba(198,161,91,0.45)] transition-all duration-300 group shadow-lg"
               >
-                <div className="w-12 h-12 bg-[#d97757]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[#d97757]/20">
-                  <TrendingUp className="w-6 h-6 text-[#d97757]" />
+                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[rgba(198,161,91,0.3)]">
+                  <TrendingUp className="w-6 h-6 text-[#C6A15B]" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Unshakeable Metrics</h3>
-                <p className="text-[#8c8c8c] text-sm leading-relaxed">
-                  Live equity curves, dynamic win rates, and profit factors calculated in milliseconds. Know your mathematical edge so you can execute without hesitation.
+                <h3 className="text-lg font-serif font-bold text-[#F5F5F2] mb-2">Full Derivatives Chain</h3>
+                <p className="text-[#A1A8B3] text-sm leading-relaxed">
+                  Deep Option Chains with live Call/Put Open Interest, strike matrices, and real-time Greek calculations (Delta, Gamma, Theta, Vega).
                 </p>
               </div>
               
               <div 
                 onMouseEnter={handleMouseEnter} 
                 onMouseLeave={handleMouseLeave}
-                className="p-8 rounded-2xl bg-[#18181b]/40 backdrop-blur-xl border border-white/5 hover:bg-[#18181b]/80 hover:border-white/10 transition-all group"
+                className="p-8 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] hover:border-[rgba(198,161,91,0.45)] transition-all duration-300 group shadow-lg"
               >
-                <div className="w-12 h-12 bg-[#d97757]/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[#d97757]/20">
-                  <Zap className="w-6 h-6 text-[#d97757]" />
+                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform border border-[rgba(198,161,91,0.3)]">
+                  <Zap className="w-6 h-6 text-[#C6A15B]" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">Master Your Psychology</h3>
-                <p className="text-[#8c8c8c] text-sm leading-relaxed">
-                  Log emotional states, execution quality, and upload chart screenshots. Turn your worst mistakes into your greatest assets and build a titanium mindset.
+                <h3 className="text-lg font-serif font-bold text-[#F5F5F2] mb-2">TradingView Terminal</h3>
+                <p className="text-[#A1A8B3] text-sm leading-relaxed">
+                  Interactive multi-interval candlestick charting powered by TradingView Lightweight Charts with live bar rendering and tick updates.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Section 5: The "No Excuses" Final CTA */}
-        <section className="py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[#d97757]/5" />
+        {/* Section 5: The Final CTA */}
+        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#0B1424] to-[#0E1728]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 className="text-5xl font-black text-white mb-8 tracking-tight">Stop Gambling.<br/>Start Operating Like a Business.</h2>
-            <p className="text-xl text-[#8c8c8c] mb-12">
-              The top 1% of market operators don't guess their edge. They calculate it. Step up to institutional-grade analytics today.
+            <h2 className="text-4xl sm:text-5xl font-serif font-bold text-[#F5F5F2] mb-6 tracking-tight">
+              Begin Paper Trading With Live Precision.
+            </h2>
+            <p className="text-lg text-[#A1A8B3] mb-10 max-w-2xl mx-auto">
+              Test your edge against real market forces with zero capital at risk. ₹10,00,000 in virtual funds ready instantly.
             </p>
             <Link 
-              to="/login" 
+              to="/dashboard" 
               onMouseEnter={handleMouseEnter} 
               onMouseLeave={handleMouseLeave}
-              className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-[#d97757] hover:bg-[#c46547] text-[#131314] text-base font-bold rounded-2xl transition-all shadow-[0_0_40px_rgba(217,119,87,0.4)] hover:shadow-[0_0_60px_rgba(217,119,87,0.6)] transform hover:-translate-y-1"
+              className="btn-cendrix-gold py-4 px-10 text-sm tracking-wider"
             >
-              Access Your Journal Now <ChevronRight className="w-5 h-5" />
+              Launch CNRX Terminal <ChevronRight className="w-4 h-4 ml-1" />
             </Link>
           </div>
         </section>
 
         {/* Footer */}
-        <footer className="border-t border-white/5 py-12 bg-[#09090b]">
+        <footer className="border-t border-[rgba(198,161,91,0.18)] py-12 bg-[#0B1424]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-2 opacity-50 hover:opacity-100 transition-opacity">
-              <div className="w-5 h-5 rounded bg-[#d97757] flex items-center justify-center relative overflow-hidden">
-                <div className="relative w-2 h-2 border-t-[1.5px] border-r-[1.5px] border-white transform -rotate-45 translate-y-[0.5px]" />
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 rounded bg-[#0E1728] border border-[rgba(198,161,91,0.3)] flex items-center justify-center p-1">
+                <img src="/monogram.svg" alt="CNRX" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xs font-black tracking-tighter text-[#8c8c8c]">TRADE<span className="text-[#d97757]">EDGE</span></span>
+              <span className="text-sm font-serif font-bold tracking-wider text-[#F5F5F2]">
+                CN<span className="text-[#C6A15B]">RX</span>
+                <span className="text-xs text-[#A1A8B3] font-sans font-normal ml-2">by Cendrix Capital</span>
+              </span>
             </div>
-            </div>
-            <p className="text-xs text-[#8c8c8c] font-medium">© {new Date().getFullYear()} Trade Edge. All rights reserved.</p>
-            <div className="flex flex-wrap justify-center gap-6 text-xs font-medium text-[#8c8c8c]">
-              <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
-              <a href="mailto:atharva.bhosale@yahoo.com" className="hover:text-[#d97757] transition-colors">Support (atharva.bhosale@yahoo.com)</a>
-              <a href="https://www.linkedin.com/in/atharva--bhosale" target="_blank" rel="noopener noreferrer" className="hover:text-[#0a66c2] transition-colors">LinkedIn</a>
+            <p className="text-xs text-[#A1A8B3] font-medium">© {new Date().getFullYear()} Cendrix Capital · CNRX Platform. All rights reserved.</p>
+            <div className="flex flex-wrap justify-center gap-6 text-xs font-medium text-[#A1A8B3]">
+              <Link to="/privacy" className="hover:text-[#F5F5F2] transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-[#F5F5F2] transition-colors">Terms of Service</Link>
+              <a href="mailto:atharva.bhosale@yahoo.com" className="hover:text-[#C6A15B] transition-colors">Contact</a>
+              <a href="https://www.linkedin.com/in/atharva--bhosale" target="_blank" rel="noopener noreferrer" className="hover:text-[#C6A15B] transition-colors">LinkedIn</a>
             </div>
           </div>
         </footer>
