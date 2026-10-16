@@ -25,7 +25,8 @@ import {
   RefreshCw,
   Wallet,
   Clock,
-  Award
+  Award,
+  Play
 } from 'lucide-react';
 import { useTradingStore } from '../store/useTradingStore';
 
