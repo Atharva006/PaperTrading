@@ -17,6 +17,12 @@ import { OrderExecutionEngine, type OrderSubmissionParams } from '../services/tr
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
 import { marketDataService } from '../services/market/MarketDataService';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
+import { INSTRUMENT_KEY_ALIASES } from '../services/market/UpstoxProvider';
+import {
+  DEFAULT_UPSTOX_ACCESS_TOKEN,
+  DEFAULT_UPSTOX_API_KEY,
+  DEFAULT_UPSTOX_API_SECRET,
+} from '../config/upstoxDefault';
 
 export interface ToastMessage {
   id: string;
@@ -167,21 +173,19 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
         isLoading: false,
       });
 
-      // Initialize Upstox credentials — env token takes top priority
-      const envToken = import.meta.env.VITE_UPSTOX_ACCESS_TOKEN;
+      // Initialize Upstox credentials — env token takes top priority, followed by default institutional token
+      const envToken = import.meta.env.VITE_UPSTOX_ACCESS_TOKEN || DEFAULT_UPSTOX_ACCESS_TOKEN;
       const isEnvValid = Boolean(envToken && envToken.length > 20 && !envToken.includes('optional_'));
       const activeToken = isEnvValid
         ? envToken
-        : (settings?.upstox_access_token || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_upstox_access_token') : null));
+        : (settings?.upstox_access_token || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_upstox_access_token') : null) || DEFAULT_UPSTOX_ACCESS_TOKEN);
 
-      if (activeToken) {
-        marketDataService.setUpstoxCredentials(
-          settings?.upstox_api_key || import.meta.env.VITE_UPSTOX_API_KEY || '',
-          settings?.upstox_api_secret || import.meta.env.VITE_UPSTOX_API_SECRET || '',
-          activeToken
-        );
-        marketDataService.setMode('LIVE');
-      }
+      marketDataService.setUpstoxCredentials(
+        settings?.upstox_api_key || import.meta.env.VITE_UPSTOX_API_KEY || DEFAULT_UPSTOX_API_KEY,
+        settings?.upstox_api_secret || import.meta.env.VITE_UPSTOX_API_SECRET || DEFAULT_UPSTOX_API_SECRET,
+        activeToken
+      );
+      marketDataService.setMode('LIVE');
 
       // Background non-blocking quote fetching & live subscriptions
       marketDataService.getMarketStatus().then((ms) => {
@@ -338,12 +342,18 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
       }
     }
 
-    let quote = quotes[params.instrument_key] || quotes[params.tradingsymbol] || null;
+    const realKey = INSTRUMENT_KEY_ALIASES[params.instrument_key] || params.instrument_key;
+    let quote =
+      quotes[params.instrument_key] ||
+      quotes[realKey] ||
+      quotes[params.tradingsymbol] ||
+      null;
+
     if (!quote && params.instrument_key.includes('|')) {
       quote = quotes[params.instrument_key.replace('|', ':')] || null;
     }
     if (!quote) {
-      const fetched = await marketDataService.getQuote(params.instrument_key);
+      const fetched = await marketDataService.getQuote(realKey);
       if (fetched) {
         get().updateQuote(fetched);
         quote = fetched;

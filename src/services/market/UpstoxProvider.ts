@@ -13,6 +13,11 @@ import type {
 import type { MarketDataProvider } from './MarketDataProvider';
 import type { UpstoxQuotesResponse, UpstoxHistoricalCandleResponse, UpstoxOptionChainResponse } from '../../types/upstox';
 import { INDIAN_INSTRUMENTS_MASTER } from './indianInstruments';
+import {
+  DEFAULT_UPSTOX_ACCESS_TOKEN,
+  DEFAULT_UPSTOX_API_KEY,
+  DEFAULT_UPSTOX_API_SECRET,
+} from '../../config/upstoxDefault';
 
 export const INSTRUMENT_KEY_ALIASES: Record<string, string> = {
   // Commodities (Legacy/generic string aliases -> Real verified active Upstox contract tokens)
@@ -58,20 +63,20 @@ export class UpstoxProvider implements MarketDataProvider {
   private quoteCache = new Map<string, { quote: MarketQuote; fetchedAt: number }>();
 
   constructor(apiKey = '', apiSecret = '', accessToken = '', redirectUri = '') {
-    this.apiKey = apiKey || import.meta.env.VITE_UPSTOX_API_KEY || '';
-    this.apiSecret = apiSecret || import.meta.env.VITE_UPSTOX_API_SECRET || '';
+    this.apiKey = apiKey || import.meta.env.VITE_UPSTOX_API_KEY || DEFAULT_UPSTOX_API_KEY;
+    this.apiSecret = apiSecret || import.meta.env.VITE_UPSTOX_API_SECRET || DEFAULT_UPSTOX_API_SECRET;
     this.redirectUri = redirectUri || import.meta.env.VITE_UPSTOX_REDIRECT_URI || '';
     
-    // Check env token first — it takes precedence over stale localStorage
-    const envToken = import.meta.env.VITE_UPSTOX_ACCESS_TOKEN;
+    // Check env token first — it takes precedence over stale localStorage, then fall back to default institutional token
+    const envToken = import.meta.env.VITE_UPSTOX_ACCESS_TOKEN || DEFAULT_UPSTOX_ACCESS_TOKEN;
     const isEnvValid = Boolean(envToken && envToken.length > 20 && !envToken.includes('optional_'));
     const savedToken = typeof window !== 'undefined' ? localStorage.getItem('tradeedge_upstox_access_token') : null;
 
-    this.accessToken = accessToken || (isEnvValid ? envToken : savedToken) || '';
+    this.accessToken = accessToken || (isEnvValid ? envToken : savedToken) || DEFAULT_UPSTOX_ACCESS_TOKEN;
 
-    // Auto-sync valid env token to localStorage so all app components are aligned
-    if (isEnvValid && typeof window !== 'undefined') {
-      localStorage.setItem('tradeedge_upstox_access_token', envToken);
+    // Auto-sync valid token to localStorage so all app components are aligned
+    if (this.accessToken && typeof window !== 'undefined') {
+      localStorage.setItem('tradeedge_upstox_access_token', this.accessToken);
       localStorage.setItem('tradeedge_market_mode', 'LIVE');
     }
   }

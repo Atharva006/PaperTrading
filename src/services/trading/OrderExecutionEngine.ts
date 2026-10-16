@@ -117,8 +117,11 @@ export class OrderExecutionEngine {
       created_at: new Date().toISOString(),
     });
 
-    // Determine reference price for margin and execution (never default to fake price)
-    const marketPrice = (currentQuote && currentQuote.last_price > 0) ? currentQuote.last_price : (price > 0 ? price : 0);
+    // Determine reference price for margin and execution
+    const quotePrice =
+      (currentQuote && (currentQuote.last_price > 0 ? currentQuote.last_price : (currentQuote.close > 0 ? currentQuote.close : (currentQuote.open > 0 ? currentQuote.open : 0)))) ||
+      0;
+    const marketPrice = quotePrice > 0 ? quotePrice : (price > 0 ? price : 0);
     const referencePrice = marketPrice;
     const marginPrice = (order_type === 'LIMIT' && price > 0) ? price : marketPrice;
 

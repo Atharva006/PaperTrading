@@ -3,6 +3,7 @@ import { useTradingStore } from '../../store/useTradingStore';
 import { FinancialCalculations } from '../../services/trading/FinancialCalculations';
 import { marketDataService } from '../../services/market/MarketDataService';
 import { getZerodhaContractSpec } from '../../services/market/indianInstruments';
+import { INSTRUMENT_KEY_ALIASES } from '../../services/market/UpstoxProvider';
 import type { TransactionType, ProductType, OrderType } from '../../types/trading';
 import { X, RefreshCw, Minus, Plus } from 'lucide-react';
 
@@ -28,7 +29,12 @@ export const OrderTicket: React.FC = () => {
       }
     : selectedInstrument;
 
-  const quote = quotes[activeInstrument.instrument_key] || quotes[activeInstrument.tradingsymbol];
+  const realKey = INSTRUMENT_KEY_ALIASES[activeInstrument.instrument_key] || activeInstrument.instrument_key;
+  const quote =
+    quotes[activeInstrument.instrument_key] ||
+    quotes[realKey] ||
+    quotes[activeInstrument.tradingsymbol] ||
+    (activeInstrument.instrument_key.includes('|') ? quotes[activeInstrument.instrument_key.replace('|', ':')] : undefined);
   const marketPrice = quote && quote.last_price > 0 ? quote.last_price : (orderTicketInitialProps?.price || 0);
 
   const contractSpec = getZerodhaContractSpec(
@@ -74,14 +80,14 @@ export const OrderTicket: React.FC = () => {
   // Pre-fetch live quote from Upstox
   useEffect(() => {
     if (!isOrderTicketOpen) return;
-    marketDataService.getQuote(activeInstrument.instrument_key).then((q) => {
+    marketDataService.getQuote(realKey).then((q) => {
       if (q && q.last_price > 0) {
         updateQuote(q);
         setPrice(q.last_price);
         setTriggerPrice(q.last_price);
       }
     });
-  }, [isOrderTicketOpen, activeInstrument.instrument_key]);
+  }, [isOrderTicketOpen, realKey]);
 
   // Keep price updated when live quote arrives
   useEffect(() => {
@@ -498,14 +504,20 @@ export const OrderTicket: React.FC = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting || isInsufficientFunds}
+                disabled={isSubmitting || isInsufficientFunds || (orderType === 'MARKET' && marketPrice <= 0)}
                 className={`px-5 py-1.5 text-xs font-bold rounded shadow transition-all ${
                   transactionType === 'BUY'
                     ? 'btn-kite-blue'
                     : 'btn-kite-red'
                 } disabled:opacity-50`}
               >
-                {isSubmitting ? 'Submitting...' : transactionType === 'BUY' ? 'Buy' : 'Sell'}
+                {isSubmitting
+                  ? 'Submitting...'
+                  : (orderType === 'MARKET' && marketPrice <= 0)
+                  ? 'Fetching Live Price...'
+                  : transactionType === 'BUY'
+                  ? 'Buy'
+                  : 'Sell'}
               </button>
             </div>
           </div>
