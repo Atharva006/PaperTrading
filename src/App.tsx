@@ -46,13 +46,33 @@ function App() {
     }
 
     try {
-      supabase.auth.getSession().then(({ data: { session } }) => {
+      supabase.auth.getSession().then(async ({ data: { session } }) => {
         if (!active) return;
         if (session?.user) {
           init(session.user.id, session.user.email, session.user.user_metadata?.full_name);
-        } else {
-          init();
+          return;
         }
+
+        // Auto-login clients seamlessly with default institutional credentials
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email: 'trader@tradeedge.com',
+            password: 'TradeEdge@2026',
+          });
+          if (!active) return;
+          if (data?.session?.user && !error) {
+            init(
+              data.session.user.id,
+              data.session.user.email,
+              data.session.user.user_metadata?.full_name || 'Cendrix Institutional Trader'
+            );
+            return;
+          }
+        } catch {
+          // Fallback to offline institutional account
+        }
+
+        if (active) init();
       }).catch(() => {
         if (active) init();
       });
@@ -81,7 +101,7 @@ function App() {
           <Route path="/landing" element={<Landing />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Navigate to="/dashboard" replace />} />
         </Route>
 
         {/* Paper Trading Terminal Dashboard Layout */}

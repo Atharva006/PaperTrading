@@ -46,8 +46,9 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     } catch {
       // Ignored
     }
+    useTradingStore.getState().init();
     onClose();
-    navigate('/login');
+    navigate('/dashboard');
   };
 
   const navLinks = [

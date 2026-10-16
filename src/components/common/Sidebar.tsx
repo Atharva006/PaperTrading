@@ -37,7 +37,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
     } catch {
       // ignore
     } finally {
-      navigate('/login');
+      useTradingStore.getState().init();
+      navigate('/dashboard');
     }
   };
 

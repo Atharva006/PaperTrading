@@ -65,7 +65,8 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
     } catch {
       // Ignored
     }
-    navigate('/login');
+    useTradingStore.getState().init();
+    navigate('/dashboard');
   };
 
   const niftyQuote = quotes['NSE_INDEX|Nifty 50'] || quotes['NIFTY 50'];

@@ -44,8 +44,8 @@ export default function Landing() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link to="/login" className="text-xs font-semibold text-[#A1A1AA] hover:text-[#F5F5F5] transition-colors px-3 py-1.5">
-              Sign In
+            <Link to="/dashboard" className="text-xs font-semibold text-[#A1A1AA] hover:text-[#F5F5F5] transition-colors px-3 py-1.5">
+              Instant Access
             </Link>
             <Link to="/dashboard" className="btn-cendrix-gold text-xs py-2 px-4 shadow-sm">
               Launch Terminal
@@ -82,10 +82,10 @@ export default function Landing() {
                 Launch Workstation (₹10L Virtual) <ArrowRight className="w-4 h-4 ml-1" />
               </Link>
               <Link 
-                to="/login" 
+                to="/dashboard/terminal" 
                 className="btn-cendrix-outline py-3.5 px-8 text-xs tracking-wider"
               >
-                Sign In With Account
+                Live Trading Desk
               </Link>
             </div>
           </div>
