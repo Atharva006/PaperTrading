@@ -36,7 +36,7 @@ export class MarketDataService implements MarketDataProvider {
   }
 
   public get providerName(): string {
-    return 'Upstox Live Market Feed';
+    return 'Cendrix Institutional Live Market Feed (Upstox API v2)';
   }
 
   public get activeProvider(): MarketDataProvider {
@@ -94,7 +94,7 @@ export class MarketDataService implements MarketDataProvider {
   }
 
   public isConfigured(): boolean {
-    return this.activeProvider.isConfigured();
+    return this.upstoxProvider.isConfigured();
   }
 
   public async searchInstruments(
@@ -102,19 +102,15 @@ export class MarketDataService implements MarketDataProvider {
     exchange?: Exchange,
     type?: InstrumentType
   ): Promise<Instrument[]> {
-    return this.activeProvider.searchInstruments(query, exchange, type);
+    return this.upstoxProvider.searchInstruments(query, exchange, type);
   }
 
   public async getQuote(instrumentKey: string): Promise<MarketQuote | null> {
-    const realQuote = await this.upstoxProvider.getQuote(instrumentKey);
-    if (realQuote) return realQuote;
-    return this.activeProvider.getQuote(instrumentKey);
+    return this.upstoxProvider.getQuote(instrumentKey);
   }
 
   public async getQuotes(instrumentKeys: string[]): Promise<Record<string, MarketQuote>> {
-    const realQuotes = await this.upstoxProvider.getQuotes(instrumentKeys);
-    if (Object.keys(realQuotes).length > 0) return realQuotes;
-    return this.activeProvider.getQuotes(instrumentKeys);
+    return this.upstoxProvider.getQuotes(instrumentKeys);
   }
 
   public async getHistoricalCandles(
@@ -123,32 +119,29 @@ export class MarketDataService implements MarketDataProvider {
     toDate?: string,
     fromDate?: string
   ): Promise<OHLCV[]> {
-    // Upstox historical and intraday candle feeds provide real multi-day historical data
-    const realCandles = await this.upstoxProvider.getHistoricalCandles(instrumentKey, interval, toDate, fromDate);
-    if (realCandles && realCandles.length > 0) return realCandles;
-    return this.activeProvider.getHistoricalCandles(instrumentKey, interval, toDate, fromDate);
+    return this.upstoxProvider.getHistoricalCandles(instrumentKey, interval, toDate, fromDate);
   }
 
   public async getOptionChain(
     underlyingKey: string,
     expiry?: string
   ): Promise<OptionChainData | null> {
-    return this.activeProvider.getOptionChain(underlyingKey, expiry);
+    return this.upstoxProvider.getOptionChain(underlyingKey, expiry);
   }
 
   public async getExpiries(underlyingKey: string): Promise<string[]> {
-    return this.activeProvider.getExpiries(underlyingKey);
+    return this.upstoxProvider.getExpiries(underlyingKey);
   }
 
   public async getMarketStatus(): Promise<MarketStatus> {
-    return this.activeProvider.getMarketStatus();
+    return this.upstoxProvider.getMarketStatus();
   }
 
   public subscribeQuotes(
     instrumentKeys: string[],
     onTick: (quote: MarketQuote) => void
   ): () => void {
-    return this.activeProvider.subscribeQuotes(instrumentKeys, onTick);
+    return this.upstoxProvider.subscribeQuotes(instrumentKeys, onTick);
   }
 }
 

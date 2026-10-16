@@ -1,515 +1,511 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
-import { 
-  AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, PieChart, Pie, Cell 
-} from 'recharts';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  PlusCircle, 
-  LineChart, 
-  Layers, 
-  ArrowUpRight, 
-  ArrowDownRight, 
-  Clock, 
-  ShieldCheck, 
-  Activity,
-  Zap,
+import {
+  TrendingUp,
+  TrendingDown,
+  Plus,
   Briefcase,
-  CheckCircle2
+  PieChart,
+  ArrowRight,
+  ShieldCheck,
+  RotateCcw,
+  Clock,
+  Layers3,
+  ExternalLink,
 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { DynamicIsland } from '../components/common/DynamicIsland';
-import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { account, positions, holdings, trades, ledger, getMetrics, openOrderTicket, closePosition, quotes } = useTradingStore();
+  const {
+    account,
+    userName,
+    positions,
+    holdings,
+    trades,
+    orders,
+    cancelOrder,
+    getMetrics,
+    openOrderTicket,
+    closePosition,
+  } = useTradingStore();
   const navigate = useNavigate();
+
+  const [activeTab, setActiveTab] = useState<'POSITIONS' | 'HOLDINGS' | 'ORDERS' | 'TRADES'>('POSITIONS');
 
   const metrics = getMetrics();
   const openPositions = positions.filter((p) => !p.is_closed && p.quantity !== 0);
+  const pendingOrders = orders.filter((o) => o.status === 'PENDING');
 
-  const fmt = (n: number) =>
-    `₹${Math.abs(n).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-
-  const fmtInt = (n: number) =>
-    `₹${Math.abs(n).toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
-
-  // ── Construct Real Dynamic Equity Curve from Ledger & Trades ──────────
-  // Starts at account inception baseline (₹10,00,000) and plots real transaction checkpoints
-  const initialCap = metrics.initial_capital || 1000000;
-  const currentEq = metrics.account_equity;
-
-  const equityData: { name: string; equity: number; cash: number }[] = [
-    { name: 'Inception', equity: initialCap, cash: initialCap }
-  ];
-
-  // If user has ledger entries, map chronological balance progression
-  if (ledger.length > 0) {
-    const sortedLedger = [...ledger].sort(
-      (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
-    );
-    sortedLedger.forEach((entry, idx) => {
-      const timeStr = new Date(entry.created_at).toLocaleTimeString('en-IN', {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      equityData.push({
-        name: `${entry.entry_type} #${idx + 1} (${timeStr})`,
-        equity: entry.balance_after,
-        cash: entry.balance_after,
-      });
+  const fmt = (n?: number | null) =>
+    (typeof n === 'number' && !isNaN(n) ? n : 0).toLocaleString('en-IN', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
     });
-  }
 
-  // Always end with current real-time live equity
-  equityData.push({
-    name: 'Current Live',
-    equity: Math.round(currentEq * 100) / 100,
-    cash: Math.round(metrics.current_cash * 100) / 100,
-  });
-
-  // ── Asset Allocation ──────────────────────────────────────────────────
   const holdingsValue = holdings.reduce((s, h) => s + h.current_value, 0);
+  const holdingsInvestment = holdings.reduce((s, h) => s + h.invested_value, 0);
+  const holdingsPnL = holdingsValue - holdingsInvestment;
+  const holdingsPnLPct = holdingsInvestment > 0 ? (holdingsPnL / holdingsInvestment) * 100 : 0;
+
   const usedMargin = metrics.used_margin;
-  const freeCash = Math.max(0, metrics.current_cash - usedMargin);
-
-  const allocationData = [
-    { name: 'Free Virtual Cash', value: freeCash > 0 ? freeCash : initialCap, color: '#3b82f6' },
-    { name: 'Equity Holdings', value: holdingsValue, color: '#22c55e' },
-    { name: 'F&O Margin Blocked', value: usedMargin, color: '#C6A15B' },
-  ].filter(d => d.value > 0);
-
-  // Top Key Instruments to Spotlight on Dashboard
-  const spotlightKeys = [
-    'NSE_INDEX|Nifty 50',
-    'NSE_INDEX|Nifty Bank',
-    'NSE_EQ|INE081A01020', // TATASTEEL
-    'NSE_EQ|INE002A01018', // RELIANCE
-    'NSE_EQ|INE040A01034', // HDFCBANK
-    'NSE_EQ|INE467B01029', // TCS
-  ];
-
-  const spotlightInstruments = INDIAN_INSTRUMENTS_MASTER.filter(i =>
-    spotlightKeys.includes(i.instrument_key)
-  );
+  const availableMargin = metrics.available_margin;
 
   return (
-    <div className="space-y-6 pb-12 max-w-7xl mx-auto select-none font-sans">
-      {/* ── Dynamic Island Floating Command Hub ────────────────────────── */}
-      <DynamicIsland />
+    <div className="space-y-6 pb-12 w-full max-w-[1440px] mx-auto select-none font-sans text-xs text-[#f0f3f8]">
+      
+      {/* ── 1. Clean Zerodha Greeting Header ────────────────────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#1e2638]">
+        <div>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold text-[#f0f3f8]">
+              Hi, {userName?.split(' ')[0] || 'Trader'}
+            </h1>
+            <span className="w-2 h-2 rounded-full bg-[#00c087] animate-pulse" title="System Live" />
+          </div>
+          <div className="text-[11px] text-[#5c687a] mt-0.5 font-mono">
+            Account: <span className="text-[#9ca8ba]">{account?.account_number || 'IN-PT-LIVE001'}</span> · Institutional Paper Trading
+          </div>
+        </div>
 
-      {/* ── Institutional Portfolio Command Header ─────────────────────── */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#0E1728] via-[#101C30] to-[#0B1424] border border-[rgba(198,161,91,0.25)] shadow-[0_15px_40px_rgba(0,0,0,0.5),0_0_25px_rgba(198,161,91,0.08)] relative overflow-hidden">
-        {/* Subtle background glow */}
-        <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-[radial-gradient(circle_at_top_right,rgba(198,161,91,0.12),transparent_70%)] pointer-events-none" />
+        {/* Quick Action Pill Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => openOrderTicket()}
+            className="px-3 py-1.5 rounded bg-[#387ed1] hover:bg-[#2e6bb5] text-white font-bold text-xs flex items-center gap-1.5 transition-colors shadow-sm"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Place Order</span>
+          </button>
+          <button
+            onClick={() => navigate('/dashboard/terminal')}
+            className="px-3 py-1.5 rounded bg-[#141b27] hover:bg-[#1a2334] text-[#9ca8ba] hover:text-[#f0f3f8] border border-[#1e2638] font-semibold text-xs transition-colors"
+          >
+            Order Terminal
+          </button>
+          <button
+            onClick={() => navigate('/dashboard/commodities')}
+            className="px-3 py-1.5 rounded bg-[#141b27] hover:bg-[#1a2334] text-[#9ca8ba] hover:text-[#f0f3f8] border border-[#1e2638] font-semibold text-xs transition-colors"
+          >
+            MCX Commodities
+          </button>
+        </div>
+      </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-2 text-xs text-[#A1A8B3] font-medium mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              <span className="text-[#C6A15B] font-serif font-bold uppercase tracking-wider text-[11px]">
-                CNRX SIMULATED PLATFORM · CENDRIX CAPITAL
-              </span>
-              <span className="text-white/20">|</span>
-              <span className="font-mono text-[#A1A8B3]">{account?.account_number || 'IN-PT-LIVE001'}</span>
+      {/* ── 2. Authentic Zerodha Kite Two-Column Financial Overview ─────── */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 py-2">
+        
+        {/* Left Column: Equity Overview */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#1e2638]">
+            <div className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-[#387ed1]" />
+              <h2 className="text-sm font-bold text-[#f0f3f8]">Equity</h2>
             </div>
+            <Link
+              to="/dashboard/portfolio"
+              className="text-[11px] text-[#387ed1] hover:underline flex items-center gap-1 font-semibold"
+            >
+              <span>View statement</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
 
-            <div className="flex flex-wrap items-baseline gap-4">
-              <h1 className="text-3xl sm:text-4xl font-extrabold font-mono text-[#F5F5F2] tracking-tight">
-                {fmt(metrics.account_equity)}
-              </h1>
+          <div className="flex items-baseline gap-3">
+            <div>
+              <span className="text-[10px] text-[#5c687a] uppercase font-mono font-semibold block">Available margin</span>
+              <div className="text-2xl sm:text-3xl font-extrabold font-mono text-[#f0f3f8] mt-0.5">
+                ₹{fmt(availableMargin)}
+              </div>
+            </div>
+          </div>
+
+          {/* Flat 2-Column Metrics Grid (No Cards!) */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-1 border-t border-[#171d2b]">
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Margin used:</span>
+              <span className="font-bold text-[#387ed1]">₹{fmt(usedMargin)}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Available cash:</span>
+              <span className="font-bold text-[#f0f3f8]">₹{fmt(availableMargin)}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Opening balance:</span>
+              <span className="text-[#9ca8ba]">₹{fmt(account?.initial_balance || 1000000)}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Realized P&L:</span>
+              <span className={`font-bold ${metrics.realized_pnl >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                {metrics.realized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.realized_pnl)}
+              </span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Unrealized MTM:</span>
+              <span className={`font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                {metrics.unrealized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.unrealized_pnl)}
+              </span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Total Charges Paid:</span>
+              <span className="text-[#9ca8ba]">₹{fmt(metrics.total_brokerage_paid)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Holdings & Portfolio Overview */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#1e293b]">
+            <div className="flex items-center gap-2">
+              <PieChart className="w-4 h-4 text-[#00c087]" />
+              <h2 className="text-sm font-bold text-[#f0f3f8]">
+                Holdings & Positions ({holdings.length + openPositions.length})
+              </h2>
+            </div>
+            <Link
+              to="/dashboard/holdings"
+              className="text-[11px] text-[#387ed1] hover:underline flex items-center gap-1 font-semibold"
+            >
+              <span>View analytics</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="flex items-baseline gap-3">
+            <div>
+              <span className="text-[10px] text-[#5c687a] uppercase font-mono font-semibold block">Total P&L</span>
               <div
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold font-mono ${
-                  metrics.overall_net_pnl >= 0
-                    ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
-                    : 'bg-[#F43F5E]/15 text-[#F43F5E] border border-[#F43F5E]/30'
+                className={`text-2xl sm:text-3xl font-extrabold font-mono mt-0.5 flex items-center gap-2 ${
+                  metrics.overall_net_pnl >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'
                 }`}
               >
-                {metrics.overall_net_pnl >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                 <span>
-                  {metrics.overall_net_pnl >= 0 ? '+' : '-'}{fmt(metrics.overall_net_pnl)} ({metrics.overall_return_percent.toFixed(2)}%)
+                  {metrics.overall_net_pnl >= 0 ? '+' : ''}₹{fmt(metrics.overall_net_pnl)}
+                </span>
+                <span className="text-xs px-1.5 py-0.5 rounded font-bold font-mono bg-[#141b27] border border-[#1e2638]">
+                  {metrics.overall_return_percent >= 0 ? '+' : ''}{metrics.overall_return_percent.toFixed(2)}%
                 </span>
               </div>
             </div>
+          </div>
 
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[#A1A8B3] mt-3">
-              <span>
-                Initial Capital: <strong className="text-[#F5F5F2] font-mono">₹10,00,000.00</strong>
-              </span>
-              <span>
-                Available Cash: <strong className="text-[#F5F5F2] font-mono">{fmt(metrics.current_cash)}</strong>
-              </span>
-              <span>
-                Buying Power: <strong className="text-[#C6A15B] font-mono">{fmt(metrics.available_margin)}</strong>
-              </span>
+          {/* Flat 2-Column Metrics Grid (No Cards!) */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-1 border-t border-[#171d2b]">
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Current value:</span>
+              <span className="font-bold text-[#f0f3f8]">₹{fmt(metrics.account_equity)}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Investment:</span>
+              <span className="text-[#9ca8ba]">₹{fmt(metrics.initial_capital)}</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Open Positions:</span>
+              <span className="font-bold text-[#f0f3f8]">{openPositions.length} active</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Pending Orders:</span>
+              <span className="font-bold text-[#387ed1]">{pendingOrders.length} pending</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Completed Fills:</span>
+              <span className="text-[#9ca8ba]">{trades.length} fills</span>
+            </div>
+            <div className="flex justify-between py-1 border-b border-[#171d2b]/60">
+              <span className="text-[#5c687a]">Win Rate %:</span>
+              <span className="font-bold text-[#00c087]">{metrics.win_rate}%</span>
             </div>
           </div>
-
-          {/* Quick Actions */}
-          <div className="flex items-center gap-3 self-start md:self-auto">
-            <button
-              onClick={() => navigate('/dashboard/terminal')}
-              className="btn-cendrix-outline text-xs py-2 px-4"
-            >
-              <LineChart className="w-4 h-4 text-[#C6A15B]" />
-              <span>Open Terminal</span>
-            </button>
-            <button
-              onClick={() => openOrderTicket()}
-              className="btn-cendrix-gold text-xs py-2 px-5"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Place Order</span>
-            </button>
-          </div>
         </div>
 
-        {/* ── Unified Metric Strip (Institutional Cendrix Layout) ── */}
-        <div className="mt-8 pt-6 border-t border-[rgba(198,161,91,0.18)] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 text-xs">
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Unrealized MTM</span>
-            <p className={`text-base font-mono font-bold mt-0.5 ${metrics.unrealized_pnl >= 0 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-              {metrics.unrealized_pnl >= 0 ? '+' : ''}{fmt(metrics.unrealized_pnl)}
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Realized P&L</span>
-            <p className={`text-base font-mono font-bold mt-0.5 ${metrics.realized_pnl >= 0 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-              {metrics.realized_pnl >= 0 ? '+' : ''}{fmt(metrics.realized_pnl)}
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Blocked Margin</span>
-            <p className="text-base font-mono font-bold text-[#C6A15B] mt-0.5">
-              {fmt(metrics.used_margin)}
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Win Rate</span>
-            <p className="text-base font-mono font-bold text-[#10B981] mt-0.5">
-              {metrics.win_rate}%
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Max Drawdown</span>
-            <p className="text-base font-mono font-bold text-[#F43F5E] mt-0.5">
-              {metrics.max_drawdown_percent.toFixed(1)}%
-            </p>
-          </div>
-
-          <div className="p-3 rounded-xl bg-[#0B1424]/60 border border-[rgba(198,161,91,0.15)]">
-            <span className="text-[10px] text-[#A1A8B3] uppercase font-semibold tracking-wider">Taxes & Fees</span>
-            <p className="text-base font-mono font-bold text-[#A1A8B3] mt-0.5">
-              ₹{metrics.total_brokerage_paid.toFixed(2)}
-            </p>
-          </div>
-        </div>
       </div>
 
-      {/* ── Live Market Spotlight Strip ─────────────────────────────────── */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between text-xs px-1">
-          <span className="font-bold text-[#A1A8B3] uppercase tracking-wider text-[11px] flex items-center gap-2">
-            <Activity className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span>Live Market Spotlight (NSE / BSE)</span>
-          </span>
-          <button
-            onClick={() => navigate('/dashboard/watchlist')}
-            className="text-xs text-[#C6A15B] hover:text-[#E2C889] hover:underline font-semibold flex items-center gap-1"
-          >
-            <span>Full Market Watch</span>
-            <span>→</span>
-          </button>
+      {/* ── 3. Flat Tabbed Trading Desk (Authentic Zerodha Tables) ───────── */}
+      <div className="pt-2">
+        {/* Flat Horizontal Tabs */}
+        <div className="flex items-center gap-6 border-b border-[#1e2638] text-xs font-semibold">
+          {[
+            { id: 'POSITIONS', label: `Positions (${openPositions.length})` },
+            { id: 'HOLDINGS', label: `Holdings (${holdings.length})` },
+            { id: 'ORDERS', label: `Open Orders (${pendingOrders.length})` },
+            { id: 'TRADES', label: `Executed Trades (${trades.length})` },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={`pb-2.5 transition-colors relative ${
+                activeTab === tab.id
+                  ? 'text-[#387ed1] font-bold border-b-2 border-[#387ed1]'
+                  : 'text-[#9ca8ba] hover:text-[#f0f3f8]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {spotlightInstruments.map((inst) => {
-            const q = quotes[inst.instrument_key];
-            const price = q ? q.last_price : 0;
-            const change = q ? q.change : 0;
-            const changePercent = q ? q.change_percent : 0;
-            const isPos = change >= 0;
-
-            return (
-              <div
-                key={inst.instrument_key}
-                onClick={() => openOrderTicket({
-                  instrument_key: inst.instrument_key,
-                  tradingsymbol: inst.tradingsymbol,
-                  exchange: inst.exchange,
-                  instrument_type: inst.instrument_type,
-                  lot_size: inst.lot_size,
-                  price: price,
-                })}
-                className="p-3.5 rounded-xl bg-[#0E1728] hover:bg-[#132038] border border-[rgba(198,161,91,0.18)] hover:border-[rgba(198,161,91,0.45)] cursor-pointer transition-all duration-200 shadow-[0_4px_15px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_25px_rgba(198,161,91,0.12)] group"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-[#F5F5F2] text-xs tracking-tight group-hover:text-[#C6A15B] transition-colors">
-                    {inst.tradingsymbol}
-                  </span>
-                  <span className="text-[9px] text-[#A1A8B3] font-mono px-1 py-0.5 rounded bg-white/[0.04]">
-                    {inst.exchange}
-                  </span>
-                </div>
-
-                <div className="mt-2 flex items-baseline justify-between">
-                  <span className="font-mono font-bold text-[#F5F5F2] text-sm">
-                    {price > 0 ? `₹${price.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : 'Live...'}
-                  </span>
-                  {price > 0 && (
-                    <span className={`text-[10px] font-mono font-bold ${isPos ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-                      {isPos ? '+' : ''}{changePercent.toFixed(2)}%
-                    </span>
-                  )}
+        {/* Tab 1: Positions Table */}
+        {activeTab === 'POSITIONS' && (
+          <div className="mt-2">
+            {openPositions.length === 0 ? (
+              <div className="py-16 text-center text-[#5c687a] text-xs">
+                You have no open positions.
+                <div className="mt-1 text-[11px] text-[#387ed1]">
+                  Search instruments in the MarketWatch on the left to place buy/sell orders.
                 </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── Charts Grid: Real Dynamic Equity Curve + Allocation ─────────── */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Real Dynamic Equity Growth Curve */}
-        <div className="lg:col-span-2 p-6 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] shadow-[0_8px_30px_rgba(0,0,0,0.4)] space-y-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-sm font-bold text-[#F5F5F2] flex items-center gap-2">
-                <span>Account Equity Performance</span>
-                <span className="text-[10px] bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30 px-2 py-0.5 rounded-full font-mono font-bold">
-                  TRANSACTION AUDITED
-                </span>
-              </h3>
-              <p className="text-xs text-[#A1A8B3] mt-0.5">
-                Real cumulative equity progression mapped from executed fills and live portfolio MTM
-              </p>
-            </div>
-            <span className="text-xs font-mono font-bold text-[#C6A15B]">
-              ₹{metrics.account_equity.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-            </span>
-          </div>
-
-          <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={equityData}>
-                <defs>
-                  <linearGradient id="eqGoldGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#C6A15B" stopOpacity={0.35} />
-                    <stop offset="95%" stopColor="#C6A15B" stopOpacity={0.0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid stroke="#14223A" strokeDasharray="3 3" />
-                <XAxis dataKey="name" stroke="#6E7683" fontSize={10} tickLine={false} />
-                <YAxis
-                  stroke="#6E7683"
-                  fontSize={10}
-                  domain={['auto', 'auto']}
-                  tickFormatter={(val) => `₹${(val / 1000).toFixed(0)}k`}
-                  tickLine={false}
-                />
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#0B1424', borderColor: 'rgba(198,161,91,0.3)', borderRadius: '8px', color: '#F5F5F2' }}
-                  formatter={(val: any) => [`₹${Number(val).toLocaleString()}`, 'Equity']}
-                />
-                <Area type="monotone" dataKey="equity" stroke="#C6A15B" strokeWidth={2.5} fill="url(#eqGoldGradient)" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Asset Allocation Donut */}
-        <div className="p-6 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] shadow-[0_8px_30px_rgba(0,0,0,0.4)] space-y-4 flex flex-col justify-between">
-          <div>
-            <h3 className="text-sm font-bold text-[#F5F5F2]">Portfolio Capital Allocation</h3>
-            <p className="text-xs text-[#A1A8B3] mt-0.5">Cash vs Delivery vs F&O Margin</p>
-          </div>
-
-          <div className="h-44 w-full flex items-center justify-center">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={allocationData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={75}
-                  paddingAngle={6}
-                  dataKey="value"
-                >
-                  {allocationData.map((entry, index) => {
-                    const colors = ['#C6A15B', '#10B981', '#3B82F6'];
-                    return <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />;
-                  })}
-                </Pie>
-                <Tooltip
-                  contentStyle={{ backgroundColor: '#0B1424', borderColor: 'rgba(198,161,91,0.3)', borderRadius: '8px', color: '#F5F5F2' }}
-                  formatter={(val: any) => [`₹${Number(val).toLocaleString()}`, 'Allocation']}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="space-y-2 text-xs">
-            {allocationData.map((a, idx) => {
-              const colors = ['#C6A15B', '#10B981', '#3B82F6'];
-              const col = colors[idx % colors.length];
-              return (
-                <div key={a.name} className="flex items-center justify-between text-[#A1A8B3]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: col }} />
-                    <span>{a.name}</span>
-                  </div>
-                  <span className="font-mono text-[#F5F5F2] font-semibold">₹{a.value.toLocaleString()}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Active Open Positions Section ─────────────────────────────────── */}
-      <div className="p-6 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] shadow-[0_8px_30px_rgba(0,0,0,0.4)] space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold text-[#F5F5F2]">Active Open Positions</h3>
-            <span className="px-2.5 py-0.5 rounded-full bg-[#C6A15B]/15 text-[#C6A15B] font-bold text-xs border border-[#C6A15B]/30 font-mono">
-              {openPositions.length} Open
-            </span>
-          </div>
-          <button
-            onClick={() => navigate('/dashboard/positions')}
-            className="text-xs text-[#C6A15B] hover:text-[#E2C889] hover:underline font-semibold"
-          >
-            Manage Positions →
-          </button>
-        </div>
-
-        {openPositions.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[#A1A8B3] border border-dashed border-[rgba(198,161,91,0.2)] rounded-xl bg-[#0B1424]/40">
-            <Briefcase className="w-6 h-6 mx-auto mb-2 text-[#C6A15B]/60" />
-            <p className="text-[#F5F5F2] font-medium">No active open positions currently.</p>
-            <p className="text-[11px] text-[#A1A8B3] mt-0.5">Use the Place Order button or Terminal to enter simulated positions.</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.08] text-[#A1A8B3] text-[10px] uppercase font-semibold">
-                  <th className="py-2.5 px-3">Instrument</th>
-                  <th className="py-2.5 px-3">Product</th>
-                  <th className="py-2.5 px-3 text-right">Qty</th>
-                  <th className="py-2.5 px-3 text-right">Avg Entry</th>
-                  <th className="py-2.5 px-3 text-right">LTP</th>
-                  <th className="py-2.5 px-3 text-right">Unrealized MTM</th>
-                  <th className="py-2.5 px-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.05] font-mono">
-                {openPositions.map((p) => {
-                  const isLong = p.quantity > 0;
-                  const isProfit = p.unrealized_pnl >= 0;
-                  const avgPrice = isLong ? p.buy_price : p.sell_price;
-
-                  return (
-                    <tr key={p.id} className="hover:bg-[#14223A]/50 transition-colors">
-                      <td className="py-3 px-3 font-sans font-bold text-[#F5F5F2]">
-                        <div className="flex items-center gap-1.5">
-                          <span className={`w-1.5 h-1.5 rounded-full ${isLong ? 'bg-[#10B981]' : 'bg-[#F43F5E]'}`} />
-                          <span>{p.tradingsymbol}</span>
-                          <span className="text-[9px] bg-white/[0.05] text-[#A1A8B3] px-1 rounded font-normal font-mono">
-                            {p.exchange}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-3 text-[#A1A8B3] font-sans text-[11px]">{p.product}</td>
-                      <td className="py-3 px-3 text-right font-bold text-[#F5F5F2]">
-                        {p.quantity > 0 ? `+${p.quantity}` : p.quantity}
-                      </td>
-                      <td className="py-3 px-3 text-right text-[#F5F5F2]">₹{avgPrice.toFixed(2)}</td>
-                      <td className="py-3 px-3 text-right text-[#F5F5F2]">₹{p.last_price.toFixed(2)}</td>
-                      <td className={`py-3 px-3 text-right font-bold ${isProfit ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-                        {isProfit ? '+' : ''}₹{p.unrealized_pnl.toFixed(2)}
-                      </td>
-                      <td className="py-3 px-3 text-right font-sans">
-                        <button
-                          onClick={() => closePosition(p.id)}
-                          className="px-2.5 py-1 rounded-md bg-[#F43F5E]/15 hover:bg-[#F43F5E]/30 text-[#F43F5E] text-[11px] font-bold border border-[#F43F5E]/30 transition-all"
-                        >
-                          Square Off
-                        </button>
-                      </td>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1e2638] text-[10px] text-[#5c687a] uppercase tracking-wider font-mono">
+                      <th className="py-2.5 px-3">Product</th>
+                      <th className="py-2.5 px-3">Instrument</th>
+                      <th className="py-2.5 px-3 text-right">Qty.</th>
+                      <th className="py-2.5 px-3 text-right">Avg. Price</th>
+                      <th className="py-2.5 px-3 text-right">LTP</th>
+                      <th className="py-2.5 px-3 text-right">P&L (MTM)</th>
+                      <th className="py-2.5 px-3 text-right">Chg. %</th>
+                      <th className="py-2.5 px-3 text-right">Action</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                  </thead>
+                  <tbody className="divide-y divide-[#171d2b] font-mono">
+                    {openPositions.map((pos) => {
+                      const pnl = pos.unrealized_pnl || 0;
+                      const isPos = pnl >= 0;
+                      const avgPrice = pos.quantity > 0 ? pos.buy_price : pos.sell_price;
+                      const ltp = pos.last_price || avgPrice;
+                      const chgPct = avgPrice > 0 ? ((ltp - avgPrice) / avgPrice) * 100 : 0;
+
+                      return (
+                        <tr key={pos.id} className="hover:bg-[#121824] transition-colors">
+                          <td className="py-2.5 px-3">
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#141b27] text-[#387ed1] border border-[#1e2638]">
+                              {pos.product}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-bold text-[#f0f3f8] font-sans">
+                            {pos.tradingsymbol}
+                            <span className="text-[10px] text-[#5c687a] ml-1.5 font-mono">{pos.exchange}</span>
+                          </td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${pos.quantity > 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {pos.quantity > 0 ? `+${pos.quantity}` : pos.quantity}
+                          </td>
+                          <td className="py-2.5 px-3 text-right text-[#9ca8ba]">₹{fmt(avgPrice)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#f0f3f8]">₹{fmt(ltp)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {isPos ? '+' : ''}₹{fmt(pnl)}
+                          </td>
+                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {isPos ? '+' : ''}{chgPct.toFixed(2)}%
+                          </td>
+                          <td className="py-2.5 px-3 text-right">
+                            <button
+                              onClick={() => closePosition(pos.id)}
+                              className="px-2.5 py-1 rounded bg-[#df514c]/15 hover:bg-[#df514c] text-[#df514c] hover:text-white font-bold text-[11px] border border-[#df514c]/30 transition-colors"
+                            >
+                              Square Off
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+
+                {/* Total P&L Footer Summary */}
+                <div className="flex items-center justify-between py-3 px-3 border-t border-[#1e2638] font-mono text-xs">
+                  <span className="text-[#5c687a] font-semibold uppercase">Total Open Positions P&L</span>
+                  <span className={`text-base font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                    {metrics.unrealized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.unrealized_pnl)}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         )}
-      </div>
 
-      {/* ── Recent Executed Trades Stream ─────────────────────────────────── */}
-      <div className="p-6 rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.2)] shadow-[0_8px_30px_rgba(0,0,0,0.4)] space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold text-[#F5F5F2]">Recent Trade Executions</h3>
-            <span className="text-xs text-[#A1A8B3]">({trades.length} Total Executed)</span>
-          </div>
-          <button
-            onClick={() => navigate('/dashboard/tradebook')}
-            className="text-xs text-[#C6A15B] hover:text-[#E2C889] hover:underline font-semibold"
-          >
-            Full Trade Book →
-          </button>
-        </div>
-
-        {trades.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[#A1A8B3] border border-dashed border-[rgba(198,161,91,0.2)] rounded-xl bg-[#0B1424]/40">
-            <Clock className="w-6 h-6 mx-auto mb-2 text-[#C6A15B]/60" />
-            <p className="text-[#F5F5F2] font-medium">No executed trades recorded yet.</p>
-            <p className="text-[11px] text-[#A1A8B3] mt-0.5">Orders filled by the simulation engine will stream here with full execution audit.</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="border-b border-white/[0.08] text-[#A1A8B3] text-[10px] uppercase font-semibold">
-                  <th className="py-2.5 px-3">Time</th>
-                  <th className="py-2.5 px-3">Instrument</th>
-                  <th className="py-2.5 px-3">Side</th>
-                  <th className="py-2.5 px-3 text-right">Qty</th>
-                  <th className="py-2.5 px-3 text-right">Price</th>
-                  <th className="py-2.5 px-3 text-right">Charges</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/[0.05] font-mono">
-                {trades.slice(0, 5).map((t) => (
-                  <tr key={t.id} className="hover:bg-[#14223A]/50 transition-colors">
-                    <td className="py-3 px-3 text-[#A1A8B3] font-sans text-[11px]">
-                      {new Date(t.trade_time).toLocaleTimeString('en-IN')}
-                    </td>
-                    <td className="py-3 px-3 font-sans font-bold text-[#F5F5F2]">{t.tradingsymbol}</td>
-                    <td className="py-3 px-3 font-sans">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                        t.transaction_type === 'BUY' ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30' : 'bg-[#F43F5E]/15 text-[#F43F5E] border border-[#F43F5E]/30'
-                      }`}>
-                        {t.transaction_type}
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 text-right text-[#F5F5F2] font-bold">{t.quantity}</td>
-                    <td className="py-3 px-3 text-right text-[#F5F5F2] font-bold">₹{t.execution_price.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-right text-[#A1A8B3]">₹{t.charges.total_charges.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* Tab 2: Holdings Table */}
+        {activeTab === 'HOLDINGS' && (
+          <div className="mt-2">
+            {holdings.length === 0 ? (
+              <div className="py-16 text-center text-[#5c687a] text-xs">
+                You have no equity holdings.
+                <div className="mt-1 text-[11px] text-[#387ed1]">
+                  Buy equity scrips with product CNC (Cash & Carry) to build long-term holdings.
+                </div>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1e2638] text-[10px] text-[#5c687a] uppercase tracking-wider font-mono">
+                      <th className="py-2.5 px-3">Instrument</th>
+                      <th className="py-2.5 px-3 text-right">Qty.</th>
+                      <th className="py-2.5 px-3 text-right">Avg. Price</th>
+                      <th className="py-2.5 px-3 text-right">LTP</th>
+                      <th className="py-2.5 px-3 text-right">Cur. Value</th>
+                      <th className="py-2.5 px-3 text-right">P&L</th>
+                      <th className="py-2.5 px-3 text-right">Net Chg. %</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#171d2b] font-mono">
+                    {holdings.map((h) => {
+                      const isPos = h.pnl >= 0;
+                      return (
+                        <tr key={h.id} className="hover:bg-[#121824] transition-colors">
+                          <td className="py-2.5 px-3 font-bold text-[#f0f3f8] font-sans">
+                            {h.tradingsymbol}
+                            <span className="text-[10px] text-[#5c687a] ml-1.5 font-mono">{h.exchange}</span>
+                          </td>
+                          <td className="py-2.5 px-3 text-right text-[#f0f3f8]">{h.quantity}</td>
+                          <td className="py-2.5 px-3 text-right text-[#9ca8ba]">₹{fmt(h.average_price)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#f0f3f8]">₹{fmt(h.last_price)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#f0f3f8]">₹{fmt(h.current_value)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {isPos ? '+' : ''}₹{fmt(h.pnl)}
+                          </td>
+                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {isPos ? '+' : ''}{h.pnl_percentage.toFixed(2)}%
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
+
+        {/* Tab 3: Open Orders Table */}
+        {activeTab === 'ORDERS' && (
+          <div className="mt-2">
+            {pendingOrders.length === 0 ? (
+              <div className="py-16 text-center text-[#5c687a] text-xs">
+                No pending or limit orders in the book.
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1e293b] text-[10px] text-[#5c687a] uppercase tracking-wider font-mono">
+                      <th className="py-2.5 px-3">Time</th>
+                      <th className="py-2.5 px-3">Side</th>
+                      <th className="py-2.5 px-3">Instrument</th>
+                      <th className="py-2.5 px-3">Product</th>
+                      <th className="py-2.5 px-3">Type</th>
+                      <th className="py-2.5 px-3 text-right">Qty</th>
+                      <th className="py-2.5 px-3 text-right">Price</th>
+                      <th className="py-2.5 px-3 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#171d2b] font-mono">
+                    {pendingOrders.map((o) => (
+                      <tr key={o.id} className="hover:bg-[#121824] transition-colors">
+                        <td className="py-2.5 px-3 text-[#5c687a]">
+                          {new Date(o.created_at).toLocaleTimeString()}
+                        </td>
+                        <td className="py-2.5 px-3 font-bold">
+                          <span
+                            className={`px-1.5 py-0.5 rounded text-[10px] ${
+                              o.transaction_type === 'BUY'
+                                ? 'bg-[#387ed1]/15 text-[#387ed1]'
+                                : 'bg-[#df514c]/15 text-[#df514c]'
+                            }`}
+                          >
+                            {o.transaction_type}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 font-bold text-[#f0f3f8] font-sans">
+                          {o.tradingsymbol}
+                        </td>
+                        <td className="py-2.5 px-3 text-[#9ca8ba]">{o.product}</td>
+                        <td className="py-2.5 px-3 text-[#9ca8ba]">{o.order_type}</td>
+                        <td className="py-2.5 px-3 text-right font-bold text-[#f0f3f8]">{o.quantity}</td>
+                        <td className="py-2.5 px-3 text-right font-bold text-[#f0f3f8]">
+                          {o.price > 0 ? `₹${fmt(o.price)}` : 'MARKET'}
+                        </td>
+                        <td className="py-2.5 px-3 text-right">
+                          <button
+                            onClick={() => cancelOrder(o.id)}
+                            className="px-2 py-0.5 rounded bg-[#df514c]/15 hover:bg-[#df514c] text-[#df514c] hover:text-white font-bold text-[11px] border border-[#df514c]/30 transition-colors"
+                          >
+                            Cancel
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tab 4: Executed Trades Table */}
+        {activeTab === 'TRADES' && (
+          <div className="mt-2">
+            {trades.length === 0 ? (
+              <div className="py-16 text-center text-[#5c687a] text-xs">
+                No executed trades today yet.
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-[#1e293b] text-[10px] text-[#5c687a] uppercase tracking-wider font-mono">
+                      <th className="py-2.5 px-3">Time</th>
+                      <th className="py-2.5 px-3">Trade ID</th>
+                      <th className="py-2.5 px-3">Side</th>
+                      <th className="py-2.5 px-3">Instrument</th>
+                      <th className="py-2.5 px-3 text-right">Qty</th>
+                      <th className="py-2.5 px-3 text-right">Price</th>
+                      <th className="py-2.5 px-3 text-right">Charges</th>
+                      <th className="py-2.5 px-3 text-right">Realized P&L</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#171d2b] font-mono">
+                    {trades.map((t) => {
+                      const pnl = t.realized_pnl || 0;
+                      const isPos = pnl >= 0;
+                      return (
+                        <tr key={t.id} className="hover:bg-[#121824] transition-colors">
+                          <td className="py-2.5 px-3 text-[#5c687a]">
+                            {new Date(t.trade_time).toLocaleTimeString()}
+                          </td>
+                          <td className="py-2.5 px-3 text-[#5c687a]">{t.trade_id.slice(-8)}</td>
+                          <td className="py-2.5 px-3 font-bold">
+                            <span
+                              className={`px-1.5 py-0.5 rounded text-[10px] ${
+                                t.transaction_type === 'BUY'
+                                  ? 'bg-[#387ed1]/15 text-[#387ed1]'
+                                  : 'bg-[#df514c]/15 text-[#df514c]'
+                              }`}
+                            >
+                              {t.transaction_type}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-3 font-bold text-[#f0f3f8] font-sans">
+                            {t.tradingsymbol}
+                          </td>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#f0f3f8]">{t.quantity}</td>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#f0f3f8]">₹{fmt(t.price)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#5c687a]">₹{fmt(t.charges?.total_charges || 0)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                            {pnl !== 0 ? `${isPos ? '+' : ''}₹${fmt(pnl)}` : '—'}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        )}
+
       </div>
+
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
-import { BookOpenCheck, Download, Search, ShieldCheck } from 'lucide-react';
+import { Download, Search, Layers } from 'lucide-react';
 
 export default function TradebookPage() {
   const { trades } = useTradingStore();
@@ -15,7 +15,6 @@ export default function TradebookPage() {
   const totalCharges = trades.reduce((s, t) => s + t.charges.total_charges, 0);
   const totalBrokerage = trades.reduce((s, t) => s + t.charges.brokerage, 0);
   const totalStt = trades.reduce((s, t) => s + t.charges.stt, 0);
-  const totalGst = trades.reduce((s, t) => s + t.charges.gst, 0);
 
   const handleExportCSV = () => {
     if (filtered.length === 0) return;
@@ -49,111 +48,132 @@ export default function TradebookPage() {
   };
 
   return (
-    <div className="space-y-6 pb-12 max-w-7xl mx-auto select-none">
-      {/* ── Summary Ribbon ──────────────────────────────────────────────── */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-xl bg-[#0B1424]/90 border border-[#C6A15B]/15 shadow-md">
-          <span className="text-[10px] text-[#8F9BAE] uppercase font-bold tracking-wider">Total Executions</span>
-          <p className="text-xl font-mono font-bold text-white mt-1">{trades.length} fills</p>
+    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#f0f3f8] pb-12 space-y-4">
+      {/* ── 1. Top Zerodha Header Strip ─────────────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#1e2638]">
+        {/* Title */}
+        <div className="flex items-center gap-6">
+          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] flex items-center gap-2">
+            <span>Tradebook</span>
+            <span className="text-xs font-mono font-normal text-[#788296]">
+              ({trades.length} trades)
+            </span>
+          </h1>
+
+          {/* Search bar */}
+          <div className="flex items-center gap-2 px-2.5 py-1 bg-[#121722] border border-[#1e2638] rounded focus-within:border-[#387ed1] w-44 sm:w-56 transition-colors">
+            <Search className="w-3.5 h-3.5 text-[#58647a]" />
+            <input
+              type="text"
+              placeholder="Search trade ID or symbol..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="bg-transparent text-xs text-[#f0f3f8] placeholder-[#58647a] focus:outline-none w-full"
+            />
+          </div>
         </div>
-        <div className="p-4 rounded-xl bg-[#0B1424]/90 border border-[#C6A15B]/15 shadow-md">
-          <span className="text-[10px] text-[#8F9BAE] uppercase font-bold tracking-wider">Total Brokerage Paid</span>
-          <p className="text-xl font-mono font-bold text-white mt-1">₹{totalBrokerage.toFixed(2)}</p>
-        </div>
-        <div className="p-4 rounded-xl bg-[#0B1424]/90 border border-[#C6A15B]/15 shadow-md">
-          <span className="text-[10px] text-[#8F9BAE] uppercase font-bold tracking-wider">Total STT / CTT Paid</span>
-          <p className="text-xl font-mono font-bold text-white mt-1">₹{totalStt.toFixed(2)}</p>
-        </div>
-        <div className="p-4 rounded-xl bg-[#0B1424]/90 border border-[#C6A15B]/15 shadow-md">
-          <span className="text-[10px] text-[#8F9BAE] uppercase font-bold tracking-wider">All Regulatory Charges</span>
-          <p className="text-xl font-mono font-bold text-[#C6A15B] mt-1">₹{totalCharges.toFixed(2)}</p>
+
+        {/* Right Financial Telemetry & Action Buttons */}
+        <div className="flex flex-wrap items-center gap-6 text-xs">
+          <div className="hidden sm:flex items-center gap-6">
+            <div className="flex items-baseline gap-1.5 font-mono">
+              <span className="text-[#788296] text-[11px]">Brokerage:</span>
+              <span className="text-[#c4cbd4] font-medium">₹{totalBrokerage.toFixed(2)}</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 font-mono">
+              <span className="text-[#788296] text-[11px]">STT/CTT:</span>
+              <span className="text-[#c4cbd4] font-medium">₹{totalStt.toFixed(2)}</span>
+            </div>
+            <div className="flex items-baseline gap-1.5 font-mono">
+              <span className="text-[#788296] text-[11px]">Total Charges:</span>
+              <span className="text-[#387ed1] font-semibold">₹{totalCharges.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <button
+            onClick={handleExportCSV}
+            className="px-2.5 py-1 text-xs text-[#788296] hover:text-[#f0f3f8] border border-[#1e2638] hover:border-[#387ed1] rounded transition-colors flex items-center gap-1.5"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download</span>
+          </button>
         </div>
       </div>
 
-      {/* ── Trade Book Table Card ───────────────────────────────────────── */}
-      <div className="p-5 rounded-2xl bg-[#0E1728]/95 border border-[#C6A15B]/20 shadow-xl space-y-4 backdrop-blur-md">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <BookOpenCheck className="w-5 h-5 text-[#C6A15B]" />
-            <h3 className="text-base font-bold font-serif text-white tracking-wide">Execution Trade Book</h3>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0B1424] border border-[#1F2D48] rounded-xl text-xs">
-              <Search className="w-3.5 h-3.5 text-[#8F9BAE]" />
-              <input
-                type="text"
-                placeholder="Search fills..."
-                className="bg-transparent text-white focus:outline-none text-xs w-36 placeholder-[#8F9BAE]"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-
-            <button
-              onClick={handleExportCSV}
-              className="px-3 py-1.5 rounded-lg bg-[#14223A] hover:bg-[#1C2E4C] border border-[#C6A15B]/20 text-xs font-semibold text-[#C6A15B] hover:text-white flex items-center gap-1.5 transition-colors"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Export CSV</span>
-            </button>
-          </div>
-        </div>
-
+      {/* ── 2. Full-Width Edge-to-Edge Tradebook Table (No Outer Box) ────── */}
+      <div className="mt-2">
         {filtered.length === 0 ? (
-          <div className="py-16 text-center text-xs text-[#8F9BAE]">
-            No execution records found.
+          <div className="py-24 text-center">
+            <div className="w-12 h-12 mx-auto rounded-full bg-[#151b28] border border-[#1e2638] flex items-center justify-center text-[#788296] mb-3">
+              <Layers className="w-6 h-6" />
+            </div>
+            <p className="text-sm font-medium text-[#c4cbd4]">No executed trades</p>
+            <p className="text-xs text-[#58647a] mt-1">Filled orders will automatically record here with verified regulatory charge breakdowns.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#1F2D48] text-[#8F9BAE] text-[10px] uppercase font-semibold">
-                  <th className="py-3 px-3">Trade ID / Time</th>
-                  <th className="py-3 px-3">Side</th>
-                  <th className="py-3 px-3">Instrument</th>
-                  <th className="py-3 px-3">Product</th>
-                  <th className="py-3 px-3">Quantity</th>
-                  <th className="py-3 px-3">Price</th>
-                  <th className="py-3 px-3">Brokerage</th>
-                  <th className="py-3 px-3">STT</th>
-                  <th className="py-3 px-3">GST</th>
-                  <th className="py-3 px-3 text-right">Total Charges</th>
+                <tr className="border-b border-[#1e2638] text-[#788296] text-[11px] font-medium">
+                  <th className="py-2.5 px-3">Fill Time</th>
+                  <th className="py-2.5 px-3">Type</th>
+                  <th className="py-2.5 px-3">Instrument</th>
+                  <th className="py-2.5 px-3">Product</th>
+                  <th className="py-2.5 px-3 text-right">Qty.</th>
+                  <th className="py-2.5 px-3 text-right">Price</th>
+                  <th className="py-2.5 px-3 text-right">Charges</th>
+                  <th className="py-2.5 px-3 text-right">Order Ref</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1F2D48]/60 font-mono">
-                {filtered.map((t) => (
-                  <tr key={t.id} className="hover:bg-[#14223A]/40 transition-colors">
-                    <td className="py-3 px-3">
-                      <div className="font-bold text-white">{t.trade_id}</div>
-                      <div className="text-[10px] text-[#8F9BAE] font-sans">
-                        {new Date(t.executed_at).toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                      </div>
-                    </td>
-                    <td className="py-3 px-3 font-sans">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${t.transaction_type === 'BUY' ? 'bg-[#38BDF8]/20 text-[#7DD3FC]' : 'bg-[#F43F5E]/20 text-[#FDA4AF]'}`}>
-                        {t.transaction_type}
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 font-bold text-white">
-                      <span>{t.tradingsymbol}</span>
-                      <span className="text-[10px] text-[#8F9BAE] font-normal ml-1.5">{t.exchange}</span>
-                    </td>
-                    <td className="py-3 px-3 text-[#A1A8B3] font-sans">
-                      <span className="text-[10px] bg-[#14223A] border border-[#1F2D48] text-[#E2C889] px-1.5 py-0.5 rounded font-bold">
-                        {t.product}
-                      </span>
-                    </td>
-                    <td className="py-3 px-3 text-white font-bold">{t.quantity}</td>
-                    <td className="py-3 px-3 font-bold text-white">₹{t.execution_price.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-[#A1A8B3]">₹{t.charges.brokerage.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-[#A1A8B3]">₹{t.charges.stt.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-[#A1A8B3]">₹{t.charges.gst.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-right text-[#C6A15B] font-bold">
-                      ₹{t.charges.total_charges.toFixed(2)}
-                    </td>
-                  </tr>
-                ))}
+              <tbody className="divide-y divide-[#1e2638]/60 font-mono">
+                {filtered.map((t) => {
+                  const isBuy = t.transaction_type === 'BUY';
+                  return (
+                    <tr key={t.id || t.trade_id} className="hover:bg-[#121724] transition-colors group">
+                      <td className="py-2.5 px-3 text-[#788296]">
+                        {new Date(t.executed_at).toLocaleTimeString('en-IN', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit',
+                        })}
+                      </td>
+                      <td className="py-2.5 px-3 font-sans">
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                          isBuy
+                            ? 'bg-[#387ed1]/15 text-[#387ed1] border border-[#387ed1]/30'
+                            : 'bg-[#df514c]/15 text-[#df514c] border border-[#df514c]/30'
+                        }`}>
+                          {t.transaction_type}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 font-sans">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-medium text-[#f0f3f8] group-hover:text-[#387ed1] transition-colors">
+                            {t.tradingsymbol}
+                          </span>
+                          <span className="text-[10px] text-[#58647a] font-mono">{t.exchange}</span>
+                        </div>
+                      </td>
+                      <td className="py-2.5 px-3 font-sans">
+                        <span className="text-[10px] bg-[#161d2c] border border-[#1e2638] text-[#788296] px-1.5 py-0.5 rounded font-mono font-medium">
+                          {t.product}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#c4cbd4] font-medium">
+                        {t.quantity}
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#f0f3f8] font-medium">
+                        ₹{t.execution_price.toFixed(2)}
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#788296]">
+                        ₹{t.charges.total_charges.toFixed(2)}
+                      </td>
+                      <td className="py-2.5 px-3 text-right text-[#58647a] text-[11px]">
+                        {t.order_id || t.trade_id}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

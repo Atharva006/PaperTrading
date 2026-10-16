@@ -2,23 +2,22 @@ import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTradingStore } from '../../store/useTradingStore';
 import { supabase } from '../../lib/supabase';
-import {
-  LayoutDashboard,
-  Eye,
-  LineChart,
-  Binary,
-  Layers,
-  Briefcase,
-  Layers3,
-  Clock,
-  BookOpenCheck,
-  Receipt,
-  PieChart,
-  Settings,
+import { 
+  LayoutDashboard, 
+  TrendingUp, 
+  Activity, 
+  Layers, 
+  Binary, 
+  Briefcase, 
+  Clock, 
+  ShieldCheck, 
+  BookOpenCheck, 
+  Receipt, 
+  PieChart, 
+  SlidersHorizontal,
   RotateCcw,
   LogOut,
-  ShieldCheck,
-  Sparkles,
+  Flame
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -26,66 +25,56 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
-  const { positions, orders, account, userName } = useTradingStore();
+  const { account, positions, orders } = useTradingStore();
   const navigate = useNavigate();
 
-  const openPositionsCount = positions.filter((p) => !p.is_closed && p.quantity !== 0).length;
-  const pendingOrdersCount = orders.filter((o) => o.status === 'PENDING').length;
+  const openPositionsCount = positions.filter((p) => p.net_quantity !== 0).length;
+  const pendingOrdersCount = orders.filter((o) => o.status === 'PENDING' || o.status === 'TRIGGER_PENDING').length;
 
   const handleLogout = async () => {
     try {
       await supabase.auth.signOut();
     } catch {
-      // Ignored if offline
+      // ignore
+    } finally {
+      navigate('/login');
     }
-    navigate('/login');
   };
 
   const navLinks = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-    { name: 'Market Watch', path: '/dashboard/watchlist', icon: Eye },
-    { name: 'Terminal / Chart', path: '/dashboard/terminal', icon: LineChart },
-    { name: 'F&O Explorer', path: '/dashboard/derivatives', icon: Binary },
+    { name: 'Market Watch', path: '/dashboard/watchlist', icon: TrendingUp },
+    { name: 'Terminal', path: '/dashboard/terminal', icon: Activity },
+    { name: 'Commodities (MCX)', path: '/dashboard/commodities', icon: Flame, badge: 'MCX', badgeColor: 'bg-[#D4AF65]/15 text-[#D4AF65]' },
     { name: 'Option Chain', path: '/dashboard/option-chain', icon: Layers },
-    {
-      name: 'Positions',
-      path: '/dashboard/positions',
-      icon: Briefcase,
-      badge: openPositionsCount > 0 ? openPositionsCount : undefined,
-      badgeColor: 'bg-gold text-midnight font-bold',
-    },
-    { name: 'Holdings', path: '/dashboard/holdings', icon: Layers3 },
-    {
-      name: 'Orders',
-      path: '/dashboard/orders',
-      icon: Clock,
-      badge: pendingOrdersCount > 0 ? pendingOrdersCount : undefined,
-      badgeColor: 'bg-blue-500/80 text-white',
-    },
-    { name: 'Trade Book', path: '/dashboard/tradebook', icon: BookOpenCheck },
-    { name: 'Portfolio Statement', path: '/dashboard/portfolio', icon: Receipt },
-    { name: 'P&L Analytics', path: '/dashboard/analytics', icon: PieChart },
-    { name: 'Settings & API', path: '/dashboard/settings', icon: Settings },
+    { name: 'Derivatives Explorer', path: '/dashboard/derivatives', icon: Binary },
+    { name: 'Positions', path: '/dashboard/positions', icon: Briefcase, badge: openPositionsCount || undefined, badgeColor: 'bg-[#00C087]/20 text-[#00C087]' },
+    { name: 'Orders', path: '/dashboard/orders', icon: Clock, badge: pendingOrdersCount || undefined, badgeColor: 'bg-[#D4AF65]/20 text-[#D4AF65]' },
+    { name: 'Holdings', path: '/dashboard/holdings', icon: ShieldCheck },
+    { name: 'Tradebook', path: '/dashboard/tradebook', icon: BookOpenCheck },
+    { name: 'Portfolio Ledger', path: '/dashboard/portfolio', icon: Receipt },
+    { name: 'Analytics', path: '/dashboard/analytics', icon: PieChart },
+    { name: 'Settings', path: '/dashboard/settings', icon: SlidersHorizontal },
   ];
 
   return (
-    <aside className="w-64 bg-[#0B1424] border-r border-[rgba(198,161,91,0.18)] flex flex-col h-screen select-none relative z-30">
+    <aside className="w-64 bg-[#080808] border-r border-[#242424] flex flex-col h-screen select-none relative z-30">
       {/* Brand & Monogram Header */}
-      <div className="p-4 border-b border-[rgba(198,161,91,0.15)] bg-gradient-to-b from-[#0F192B] to-[#0B1424]">
+      <div className="p-4 border-b border-[#242424] bg-[#030303]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[#0E1728] border border-[rgba(198,161,91,0.4)] flex items-center justify-center shadow-[0_0_15px_rgba(198,161,91,0.2)] p-1.5 overflow-hidden">
-            <img src="/monogram.svg" alt="CNRX Monogram" className="w-full h-full object-contain" />
+          <div className="w-9 h-9 rounded-lg bg-[#080808] border border-[#242424] flex items-center justify-center p-1 overflow-hidden">
+            <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-serif text-lg font-bold tracking-wider text-[#F5F5F2] uppercase">
-                CN<span className="text-[#C6A15B]">RX</span>
+              <span className="font-cinzel text-base font-bold tracking-wider text-[#F5F5F5] uppercase">
+                CENDRIX
               </span>
-              <span className="text-[9px] font-mono font-bold tracking-widest text-[#C6A15B] bg-[#C6A15B]/10 border border-[#C6A15B]/30 px-1 py-0.2 rounded">
-                SIM
+              <span className="text-[9px] font-mono font-bold tracking-widest text-[#D4AF65] bg-[#D4AF65]/10 border border-[#D4AF65]/30 px-1 py-0.2 rounded">
+                CNRX
               </span>
             </div>
-            <p className="text-[10px] text-[#A1A8B3] uppercase tracking-wider font-medium">
+            <p className="text-[10px] text-[#71717A] uppercase tracking-wider font-medium">
               Cendrix Capital
             </p>
           </div>
@@ -93,21 +82,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
 
         {/* Institutional Virtual Account Card */}
         {account && (
-          <div className="mt-4 p-3 bg-[#0E1728] rounded-xl border border-[rgba(198,161,91,0.2)] shadow-[0_4px_20px_rgba(0,0,0,0.35)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-[radial-gradient(ellipse_at_top_right,rgba(198,161,91,0.15),transparent_70%)] pointer-events-none" />
-            <div className="flex items-center justify-between text-[11px] text-[#A1A8B3] font-medium mb-1">
+          <div className="mt-4 p-3 bg-[#0D0D0D] rounded-xl border border-[#242424]">
+            <div className="flex items-center justify-between text-[11px] text-[#A1A1AA] font-medium mb-1">
               <span>Virtual Available Cash</span>
-              <span className="inline-flex items-center gap-1 text-[#10B981] font-mono text-[9px] font-bold bg-[#10B981]/10 px-1.5 py-0.5 rounded border border-[#10B981]/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span className="inline-flex items-center gap-1 text-[#00C087] font-mono text-[9px] font-bold bg-[#00C087]/10 px-1.5 py-0.5 rounded border border-[#00C087]/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C087] animate-pulse" />
                 ACTIVE
               </span>
             </div>
-            <div className="text-base font-bold font-mono text-[#F5F5F2]">
+            <div className="text-base font-bold font-mono text-[#F5F5F5]">
               ₹{account.cash_balance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
-            <div className="mt-2 pt-2 border-t border-white/[0.06] flex justify-between text-[10px] text-[#A1A8B3]">
+            <div className="mt-2 pt-2 border-t border-[#191919] flex justify-between text-[10px] text-[#71717A]">
               <span>Used Margin:</span>
-              <span className="font-mono text-[#C6A15B] font-semibold">
+              <span className="font-mono text-[#D4AF65] font-semibold">
                 ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
               </span>
             </div>
@@ -125,20 +113,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
               to={item.path}
               end={item.path === '/dashboard'}
               className={({ isActive }) => `
-                flex items-center justify-between px-3 py-2.5 rounded-lg font-medium transition-all duration-200
+                flex items-center justify-between px-3 py-2 rounded-lg font-medium transition-colors
                 ${
                   isActive
-                    ? 'bg-gradient-to-r from-[rgba(198,161,91,0.16)] to-[rgba(198,161,91,0.04)] text-[#F5F5F2] border border-[rgba(198,161,91,0.4)] shadow-[0_0_15px_rgba(198,161,91,0.1)] font-semibold'
-                    : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A]/50 border border-transparent hover:border-white/5'
+                    ? 'bg-[#131313] text-[#F5F5F5] border border-[#242424] font-semibold'
+                    : 'text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-[#131313]/60 border border-transparent'
                 }
               `}
             >
               <div className="flex items-center gap-2.5">
-                <Icon className="w-4 h-4 text-[#C6A15B]" />
+                <Icon className="w-4 h-4 text-[#D4AF65]" />
                 <span className="tracking-wide">{item.name}</span>
               </div>
               {item.badge !== undefined && (
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${item.badgeColor || 'bg-white/10'}`}>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${item.badgeColor || 'bg-[#191919] text-[#71717A]'}`}>
                   {item.badge}
                 </span>
               )}
@@ -148,26 +136,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
       </nav>
 
       {/* Footer Controls: Reset Virtual Balance & Logout */}
-      <div className="p-3 border-t border-[rgba(198,161,91,0.15)] space-y-2 bg-[#0B1424]">
+      <div className="p-3 border-t border-[#242424] space-y-2 bg-[#080808]">
         {/* Reset Virtual Account Button */}
         <button
           onClick={onOpenReset}
           className="w-full btn-cendrix-outline text-xs justify-center py-2"
           title="Reset your virtual funds back to ₹10,00,000"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
+          <RotateCcw className="w-3.5 h-3.5 text-[#D4AF65]" />
           <span>Reset Virtual ₹10L</span>
         </button>
 
         {/* User Info & Sign Out */}
         <div className="flex items-center justify-between pt-1 px-1">
-          <div className="truncate text-[11px] text-[#A1A8B3]">
-            <p className="font-semibold text-[#F5F5F2] truncate">{userName}</p>
-            <p className="truncate text-[9px] font-mono text-[#C6A15B]">CNRX SIMULATOR</p>
+          <div className="truncate text-[11px] text-[#A1A1AA]">
+            <p className="font-semibold text-[#F5F5F5] truncate">Cendrix Trader</p>
+            <p className="truncate text-[9px] font-mono text-[#D4AF65]">CNRX SIMULATOR</p>
           </div>
           <button
             onClick={handleLogout}
-            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F43F5E] hover:bg-[#14223A] transition-colors"
+            className="p-1.5 rounded-lg text-[#71717A] hover:text-[#FF4D67] hover:bg-[#131313] transition-colors"
             title="Sign Out"
           >
             <LogOut className="w-4 h-4" />
@@ -177,4 +165,3 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
     </aside>
   );
 };
-

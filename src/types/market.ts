@@ -1,4 +1,4 @@
-export type Exchange = 'NSE' | 'BSE' | 'NFO' | 'BFO' | 'MCX';
+export type Exchange = 'NSE' | 'BSE' | 'NFO' | 'BFO' | 'MCX' | 'NCDEX';
 
 export type InstrumentType = 
   | 'EQUITY' 
@@ -6,7 +6,9 @@ export type InstrumentType =
   | 'FUTSTK' 
   | 'FUTIDX' 
   | 'OPTSTK' 
-  | 'OPTIDX';
+  | 'OPTIDX'
+  | 'COMMODITY'
+  | 'FUTCOM';
 
 export type OptionType = 'CE' | 'PE';
 

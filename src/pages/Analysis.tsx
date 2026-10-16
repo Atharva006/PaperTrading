@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { TrendingUp, Target, Brain, Compass, Clock, Activity, LineChart, Zap } from 'lucide-react';
+import { TrendingUp, Target, Brain, Compass, Clock, Activity, Zap, FileSpreadsheet } from 'lucide-react';
 import type { Trade } from '../data/mockData';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -154,23 +153,11 @@ export default function Analysis() {
                 </div>
               ))}
             </div>
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6">
-              <h3 className="text-sm font-medium text-[#8c8c8c] mb-6">Net P&amp;L by Strategy</h3>
-              <div className="h-[260px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={byStrategy}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                    <XAxis dataKey="name" stroke="#8c8c8c" fontSize={10} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#8c8c8c" fontSize={10} tickLine={false} axisLine={false} tickFormatter={v => `$${v}`} />
-                    <Tooltip cursor={{ fill: 'rgba(255,255,255,0.02)' }} contentStyle={{ backgroundColor: '#18181b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }} />
-                    <Bar dataKey="totalPnl" name="Net P&L" radius={[4, 4, 0, 0]} maxBarSize={60}>
-                      {byStrategy.map((entry, i) => (
-                        <Cell key={i} fill={entry.totalPnl >= 0 ? '#10b981' : '#ef4444'} fillOpacity={0.8} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-white/5">
+                <h3 className="text-sm font-medium text-[#8c8c8c]">Net P&amp;L by Strategy</h3>
               </div>
+              <GroupTable data={byStrategy} />
             </div>
           </>
         );
@@ -209,41 +196,12 @@ export default function Analysis() {
       // ── Execution ─────────────────────────────────────────────────────────
       case 'Execution': {
         if (!trades.length) return <EmptyState />;
-        const execColors = ['#10b981', '#d97757', '#3b82f6', '#ef4444', '#8b5cf6'];
-        const pieData = byExecution.map((e, i) => ({ name: e.name, value: e.count, color: execColors[i % execColors.length] }));
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6">
-              <h3 className="text-sm font-medium text-[#8c8c8c] mb-6">Execution Quality Distribution</h3>
-              {pieData.length ? (
-                <>
-                  <div className="h-[220px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie data={pieData} innerRadius={55} outerRadius={80} paddingAngle={4} dataKey="value">
-                          {pieData.map((e, i) => <Cell key={i} fill={e.color} />)}
-                        </Pie>
-                        <Tooltip contentStyle={{ backgroundColor: '#18181b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-4 mt-4">
-                    {pieData.map(d => (
-                      <div key={d.name} className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                        <span className="text-xs text-[#e5e5e5]">{d.name} ({d.value})</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              ) : <EmptyState />}
+          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-white/5">
+              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Execution Quality</h3>
             </div>
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/5">
-                <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Execution Quality</h3>
-              </div>
-              <GroupTable data={byExecution} />
-            </div>
+            <GroupTable data={byExecution} />
           </div>
         );
       }
@@ -251,41 +209,12 @@ export default function Analysis() {
       // ── Psychology ───────────────────────────────────────────────────────
       case 'Psychology': {
         if (!trades.length) return <EmptyState />;
-        const psychColors = ['#10b981', '#d97757', '#3b82f6', '#ef4444', '#8b5cf6', '#f59e0b'];
-        const pieData = byPsych.map((e, i) => ({ name: e.name, value: e.count, color: psychColors[i % psychColors.length] }));
         return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6">
-              <h3 className="text-sm font-medium text-[#8c8c8c] mb-6">Pre-Trade Emotion Distribution</h3>
-              {pieData.length ? (
-                <>
-                  <div className="h-[220px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie data={pieData} innerRadius={55} outerRadius={80} paddingAngle={4} dataKey="value">
-                          {pieData.map((e, i) => <Cell key={i} fill={e.color} />)}
-                        </Pie>
-                        <Tooltip contentStyle={{ backgroundColor: '#18181b', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px' }} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-4 mt-4">
-                    {pieData.map(d => (
-                      <div key={d.name} className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
-                        <span className="text-xs text-[#e5e5e5]">{d.name} ({d.value})</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              ) : <EmptyState />}
+          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-white/5">
+              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Pre-Trade Emotion</h3>
             </div>
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/5">
-                <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Pre-Trade Emotion</h3>
-              </div>
-              <GroupTable data={byPsych} />
-            </div>
+            <GroupTable data={byPsych} />
           </div>
         );
       }

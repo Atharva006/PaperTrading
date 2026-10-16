@@ -3,7 +3,6 @@ import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
 import type { Instrument } from '../types/market';
-import { Binary, PlusCircle, ArrowUpRight, ArrowDownRight, Info, ShieldCheck } from 'lucide-react';
 
 export default function DerivativesExplorerPage() {
   const { openOrderTicket, quotes, setSelectedInstrument } = useTradingStore();
@@ -32,29 +31,31 @@ export default function DerivativesExplorerPage() {
   };
 
   return (
-    <div className="space-y-6 pb-12 max-w-7xl mx-auto select-none">
-      {/* ── Header & Filters ───────────────────────────────────────────── */}
-      <div className="p-5 rounded-2xl bg-[#0E1728]/95 border border-[#C6A15B]/20 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
+    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#f0f3f8] pb-12 space-y-4">
+      {/* ── 1. Top Zerodha Header Strip ─────────────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-[#1e2638]">
         <div>
-          <h2 className="text-xl font-bold font-serif text-white tracking-tight flex items-center gap-2">
-            <Binary className="w-5 h-5 text-[#C6A15B]" />
-            <span>Futures & Derivatives Explorer</span>
-          </h2>
-          <p className="text-xs text-[#8F9BAE] mt-0.5">
-            NSE & BSE Index Futures & Single Stock Futures contracts with accurate lot sizes and margin calculation · CNRX
+          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] flex items-center gap-2">
+            <span>Futures & Derivatives</span>
+            <span className="text-xs font-mono font-normal text-[#788296]">
+              ({futures.length} contracts)
+            </span>
+          </h1>
+          <p className="text-xs text-[#788296] mt-0.5">
+            NSE & BSE Index & Stock Futures with verified lot sizes and real-time margin requirements
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        <div className="flex items-center gap-2 bg-[#0B1424] p-1 rounded-xl border border-[#1F2D48]">
+        {/* Filter Sub-Tabs */}
+        <div className="flex items-center gap-4 text-xs font-medium">
           {(['ALL', 'INDEX', 'STOCK'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`pb-1 border-b-2 transition-all ${
                 filterType === t
-                  ? 'bg-gradient-to-r from-[#C6A15B] to-[#E2C889] text-[#0B1424] font-bold shadow-md'
-                  : 'text-[#8F9BAE] hover:text-white'
+                  ? 'border-[#387ed1] text-[#387ed1] font-semibold'
+                  : 'border-transparent text-[#788296] hover:text-[#c4cbd4]'
               }`}
             >
               {t === 'ALL' ? 'All Futures' : t === 'INDEX' ? 'Index Futures' : 'Stock Futures'}
@@ -63,87 +64,87 @@ export default function DerivativesExplorerPage() {
         </div>
       </div>
 
-      {/* ── Futures Contracts Table ─────────────────────────────────────── */}
-      <div className="p-5 rounded-2xl bg-[#0E1728]/95 border border-[#C6A15B]/20 shadow-xl backdrop-blur-md">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs">
-            <thead>
-              <tr className="border-b border-[#1F2D48] text-[#8F9BAE] text-[10px] uppercase font-semibold">
-                <th className="py-3 px-3">Contract</th>
-                <th className="py-3 px-3">Type</th>
-                <th className="py-3 px-3">Expiry</th>
-                <th className="py-3 px-3">Lot Size</th>
-                <th className="py-3 px-3">Future LTP</th>
-                <th className="py-3 px-3">Underlying Spot</th>
-                <th className="py-3 px-3">Basis (Spread)</th>
-                <th className="py-3 px-3">Est. Margin / Lot</th>
-                <th className="py-3 px-3 text-right">Simulated Action</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#1F2D48]/60 font-mono">
-              {futures.map((inst) => {
-                const quote = quotes[inst.instrument_key];
-                const underlyingQuote = inst.underlying_key ? quotes[inst.underlying_key] : null;
+      {/* ── 2. Full-Width Futures Table (Edge-to-Edge) ───────────────────── */}
+      <div className="overflow-x-auto mt-2">
+        <table className="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr className="border-b border-[#1e2638] text-[#788296] text-[11px] font-medium font-mono">
+              <th className="py-2.5 px-3">Contract</th>
+              <th className="py-2.5 px-3">Segment</th>
+              <th className="py-2.5 px-3">Expiry</th>
+              <th className="py-2.5 px-3 text-right">Lot Size</th>
+              <th className="py-2.5 px-3 text-right">Future LTP (₹)</th>
+              <th className="py-2.5 px-3 text-right">Underlying Spot</th>
+              <th className="py-2.5 px-3 text-right">Basis</th>
+              <th className="py-2.5 px-3 text-right">Margin / Lot</th>
+              <th className="py-2.5 px-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#1e2638]/60 font-mono">
+            {futures.map((inst) => {
+              const quote = quotes[inst.instrument_key];
+              const underlyingQuote = inst.underlying_key ? quotes[inst.underlying_key] : null;
 
-                const spot = underlyingQuote?.last_price || (quote ? quote.last_price * 0.998 : 24500);
-                const ltp = quote?.last_price || (spot ? spot * 1.002 : 24550);
-                const basis = ltp - spot;
+              const spot = underlyingQuote?.last_price || (quote ? quote.last_price * 0.998 : 24500);
+              const ltp = quote?.last_price || (spot ? spot * 1.002 : 24550);
+              const basis = ltp - spot;
 
-                const marginPerLot = FinancialCalculations.calculateRequiredMargin({
-                  instrumentType: inst.instrument_type,
-                  product: 'NRML',
-                  transactionType: 'BUY',
-                  quantity: inst.lot_size,
-                  price: ltp,
-                });
+              const marginPerLot = FinancialCalculations.calculateRequiredMargin({
+                instrumentType: inst.instrument_type,
+                product: 'NRML',
+                transactionType: 'BUY',
+                quantity: inst.lot_size,
+                price: ltp,
+              });
 
-                return (
-                  <tr key={inst.instrument_key} className="hover:bg-[#14223A]/40 group transition-colors">
-                    <td className="py-3 px-3 font-bold text-white">
-                      <div className="flex items-center gap-2">
-                        <span>{inst.tradingsymbol}</span>
-                        <span className="text-[10px] text-[#8F9BAE] font-normal">{inst.exchange}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-3 text-[#A1A8B3] font-sans">
-                      <span className="text-[10px] bg-[#14223A] border border-[#1F2D48] text-[#E2C889] px-1.5 py-0.5 rounded font-bold">
-                        {inst.instrument_type}
+              return (
+                <tr key={inst.instrument_key} className="hover:bg-[#121724] group transition-colors">
+                  <td className="py-2.5 px-3 font-sans">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium text-[#f0f3f8] group-hover:text-[#387ed1] transition-colors">
+                        {inst.tradingsymbol}
                       </span>
-                    </td>
-                    <td className="py-3 px-3 text-[#A1A8B3] font-sans">
-                      {inst.expiry ? new Date(inst.expiry).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Monthly'}
-                    </td>
-                    <td className="py-3 px-3 text-white font-bold">{inst.lot_size}</td>
-                    <td className="py-3 px-3 font-bold text-white">₹{ltp.toFixed(2)}</td>
-                    <td className="py-3 px-3 text-[#A1A8B3]">₹{spot.toFixed(2)}</td>
-                    <td className={`py-3 px-3 font-bold ${basis >= 0 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-                      {basis >= 0 ? '+' : ''}{basis.toFixed(2)}
-                    </td>
-                    <td className="py-3 px-3 text-[#C6A15B] font-bold">
-                      ₹{marginPerLot.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-                    </td>
-                    <td className="py-3 px-3 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <button
-                          onClick={() => handleTrade(inst, 'BUY')}
-                          className="px-3 py-1 bg-[#38BDF8] hover:bg-[#0284C7] text-[#0B1424] text-xs font-bold rounded-lg transition-colors shadow-sm"
-                        >
-                          BUY
-                        </button>
-                        <button
-                          onClick={() => handleTrade(inst, 'SELL')}
-                          className="px-3 py-1 bg-[#F43F5E] hover:bg-[#E11D48] text-white text-xs font-bold rounded-lg transition-colors shadow-sm"
-                        >
-                          SELL
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                      <span className="text-[10px] text-[#58647a] font-mono">{inst.exchange}</span>
+                    </div>
+                  </td>
+                  <td className="py-2.5 px-3 text-[#788296] font-sans">
+                    <span className="text-[10px] bg-[#161d2c] border border-[#1e2638] text-[#788296] px-1.5 py-0.5 rounded font-mono">
+                      {inst.instrument_type}
+                    </span>
+                  </td>
+                  <td className="py-2.5 px-3 text-[#788296] font-sans">
+                    {inst.expiry ? new Date(inst.expiry).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Monthly'}
+                  </td>
+                  <td className="py-2.5 px-3 text-right text-[#c4cbd4] font-medium">{inst.lot_size}</td>
+                  <td className="py-2.5 px-3 text-right font-medium text-[#f0f3f8]">₹{ltp.toFixed(2)}</td>
+                  <td className="py-2.5 px-3 text-right text-[#788296]">₹{spot.toFixed(2)}</td>
+                  <td className={`py-2.5 px-3 text-right font-medium ${basis >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                    {basis >= 0 ? '+' : ''}{basis.toFixed(2)}
+                  </td>
+                  <td className="py-2.5 px-3 text-right text-[#387ed1] font-medium">
+                    ₹{marginPerLot.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                  </td>
+                  <td className="py-2.5 px-3 text-right">
+                    <div className="flex items-center justify-end gap-1.5">
+                      <button
+                        onClick={() => handleTrade(inst, 'BUY')}
+                        className="px-2 py-0.5 bg-[#387ed1] hover:bg-[#2e6bb5] text-white text-[11px] font-bold rounded transition-colors"
+                      >
+                        B
+                      </button>
+                      <button
+                        onClick={() => handleTrade(inst, 'SELL')}
+                        className="px-2 py-0.5 bg-[#df514c] hover:bg-[#c93f3a] text-white text-[11px] font-bold rounded transition-colors"
+                      >
+                        S
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

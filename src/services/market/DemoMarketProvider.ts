@@ -38,6 +38,26 @@ const BASE_PRICES: Record<string, number> = {
   'NSE_EQ|INE280A01028': 3450.00, // TITAN
   'NSE_EQ|INE075A01022': 510.40,  // WIPRO
   'NSE_EQ|INE081A01020': 158.20,  // TATASTEEL
+  // Commodities (MCX Bullion, Energy, Base Metals & NCDEX Agri)
+  'MCX_FO|GOLD': 76450.00,
+  'MCX_FO|GOLDM': 76420.00,
+  'MCX_FO|GOLDPETAL': 7650.00,
+  'MCX_FO|SILVER': 91250.00,
+  'MCX_FO|SILVERM': 91220.00,
+  'MCX_FO|SILVERMIC': 91180.00,
+  'MCX_FO|CRUDEOIL': 5980.00,
+  'MCX_FO|CRUDEOILM': 5985.00,
+  'MCX_FO|NATURALGAS': 218.40,
+  'MCX_FO|NATGASMINI': 218.60,
+  'MCX_FO|COPPER': 834.50,
+  'MCX_FO|ZINC': 276.80,
+  'MCX_FO|ZINCMINI': 276.90,
+  'MCX_FO|ALUMINIUM': 238.20,
+  'MCX_FO|LEAD': 184.60,
+  'MCX_FO|NICKEL': 1420.00,
+  'NCDEX_FO|JEERAMINI': 24850.00,
+  'NCDEX_FO|DHANIYA': 7420.00,
+  'NCDEX_FO|CASTOR': 6180.00,
 };
 
 export class DemoMarketProvider implements MarketDataProvider {
@@ -48,7 +68,6 @@ export class DemoMarketProvider implements MarketDataProvider {
 
   constructor() {
     this.initDefaultQuotes();
-    this.startTickerSimulation();
   }
 
   public isConfigured(): boolean {

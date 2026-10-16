@@ -7,6 +7,7 @@ export interface ChargeCalculationParams {
   transactionType: TransactionType;
   quantity: number;
   price: number;
+  multiplier?: number;
 }
 
 export interface MarginRequirementParams {
@@ -16,6 +17,7 @@ export interface MarginRequirementParams {
   quantity: number;
   price: number;
   underlyingPrice?: number;
+  multiplier?: number;
 }
 
 export class FinancialCalculations {
@@ -24,8 +26,8 @@ export class FinancialCalculations {
    * Based on SEBI / NSE / Upstox fee schedule.
    */
   public static calculateCharges(params: ChargeCalculationParams): RegulatoryCharges {
-    const { instrumentType, product, transactionType, quantity, price } = params;
-    const turnover = quantity * price;
+    const { instrumentType, product, transactionType, quantity, price, multiplier = 1 } = params;
+    const turnover = quantity * price * multiplier;
 
     if (turnover <= 0 || quantity <= 0) {
       return {
@@ -80,6 +82,15 @@ export class FinancialCalculations {
         stt = isSell ? turnover * 0.001 : 0; // 0.1% on sell premium
         exchange_charges = turnover * 0.0003503; // NSE Opt 0.03503% on premium
         stamp_duty = isBuy ? turnover * 0.00003 : 0; // 0.003% on buy premium
+        break;
+
+      case 'COMMODITY':
+      case 'FUTCOM':
+        // Commodities (MCX / NCDEX): Min of ₹20 or 0.05%
+        brokerage = Math.min(20, turnover * 0.0005);
+        stt = isSell ? turnover * 0.0001 : 0; // CTT 0.01% on sell side
+        exchange_charges = turnover * 0.000021; // MCX approx 0.0021%
+        stamp_duty = isBuy ? turnover * 0.00002 : 0; // 0.002% on buy side
         break;
 
       case 'INDEX':
@@ -174,8 +185,8 @@ export class FinancialCalculations {
    * Calculates estimated margin required to enter an order or hold a position.
    */
   public static calculateRequiredMargin(params: MarginRequirementParams): number {
-    const { instrumentType, product, transactionType, quantity, price, underlyingPrice } = params;
-    const notional = quantity * price;
+    const { instrumentType, product, transactionType, quantity, price, underlyingPrice, multiplier = 1 } = params;
+    const notional = quantity * price * multiplier;
 
     if (quantity <= 0 || price <= 0) return 0;
 
@@ -207,6 +218,13 @@ export class FinancialCalculations {
           const marginRate = product === 'MIS' ? 0.12 : 0.22;
           return Math.round((underlyingNotional * marginRate + notional) * 100) / 100;
         }
+      }
+
+      case 'COMMODITY':
+      case 'FUTCOM': {
+        // MCX Commodity Futures: ~12% SPAN + Exposure margin (MIS: ~5%)
+        const marginRate = product === 'MIS' ? 0.05 : 0.12;
+        return Math.round(notional * marginRate * 100) / 100;
       }
 
       default:

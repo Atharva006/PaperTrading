@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTradingStore } from '../../store/useTradingStore';
 import { marketDataService } from '../../services/market/MarketDataService';
 import type { OptionChainData, OptionContract } from '../../types/market';
-import { INDIAN_INSTRUMENTS_MASTER } from '../../services/market/indianInstruments';
-import { RefreshCw, TrendingUp, TrendingDown, Eye, Sliders, ChevronDown } from 'lucide-react';
+import { RefreshCw, Sliders } from 'lucide-react';
 
 export const OptionChainTable: React.FC = () => {
   const { openOrderTicket, quotes } = useTradingStore();
@@ -62,75 +61,70 @@ export const OptionChainTable: React.FC = () => {
     });
   };
 
-  const spot = chainData?.underlying_price || quotes[selectedUnderlying]?.last_price || 24500;
+  const spot = chainData?.underlying_price || quotes[selectedUnderlying]?.last_price || 23000;
   const strikes = chainData?.strikes || [];
 
   return (
-    <div className="flex flex-col bg-[#0E1728]/95 border border-[#C6A15B]/20 rounded-xl overflow-hidden select-none shadow-xl backdrop-blur-md">
-      {/* ── Control Header ─────────────────────────────────────────────── */}
-      <div className="p-4 border-b border-[#1F2D48] bg-[#0B1424]/90 flex flex-wrap items-center justify-between gap-4">
+    <div className="w-full flex flex-col select-none text-[#f0f3f8] font-sans">
+      {/* ── 1. Top Zerodha Control Strip ─────────────────────────────────── */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-3 border-b border-[#1e2638]">
         <div className="flex flex-wrap items-center gap-3">
+          {/* Title */}
+          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] mr-2">
+            Option Chain
+          </h1>
+
           {/* Underlying Selector */}
-          <div>
-            <label className="block text-[10px] text-[#8F9BAE] uppercase font-bold mb-1">
-              Underlying
-            </label>
-            <select
-              value={selectedUnderlying}
-              onChange={(e) => {
-                setSelectedUnderlying(e.target.value);
-                setSelectedExpiry('');
-              }}
-              className="bg-[#14223A] border border-[#1F2D48] text-xs font-bold text-white rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#C6A15B]"
-            >
-              {underlyings.map((u) => (
-                <option key={u.key} value={u.key}>
-                  {u.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={selectedUnderlying}
+            onChange={(e) => {
+              setSelectedUnderlying(e.target.value);
+              setSelectedExpiry('');
+            }}
+            className="bg-[#121722] border border-[#1e2638] text-xs font-semibold text-[#f0f3f8] rounded px-2.5 py-1 focus:outline-none focus:border-[#387ed1]"
+          >
+            {underlyings.map((u) => (
+              <option key={u.key} value={u.key}>
+                {u.name}
+              </option>
+            ))}
+          </select>
 
           {/* Expiry Selector */}
-          <div>
-            <label className="block text-[10px] text-[#8F9BAE] uppercase font-bold mb-1">
-              Expiry Date
-            </label>
-            <select
-              value={selectedExpiry}
-              onChange={(e) => setSelectedExpiry(e.target.value)}
-              className="bg-[#14223A] border border-[#1F2D48] text-xs font-bold text-white rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#C6A15B]"
-            >
-              {chainData?.available_expiries.map((exp) => (
-                <option key={exp} value={exp}>
-                  {new Date(exp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
-                </option>
-              ))}
-            </select>
-          </div>
+          <select
+            value={selectedExpiry}
+            onChange={(e) => setSelectedExpiry(e.target.value)}
+            className="bg-[#121722] border border-[#1e2638] text-xs font-semibold text-[#f0f3f8] rounded px-2.5 py-1 focus:outline-none focus:border-[#387ed1]"
+          >
+            {chainData?.available_expiries.map((exp) => (
+              <option key={exp} value={exp}>
+                {new Date(exp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+              </option>
+            ))}
+          </select>
 
           {/* Spot Price Display */}
-          <div className="pl-3 border-l border-[#1F2D48]">
-            <span className="block text-[10px] text-[#8F9BAE] uppercase font-bold">Spot Price</span>
-            <span className="text-sm font-bold font-mono text-white">
+          <div className="flex items-baseline gap-1.5 pl-3 border-l border-[#1e2638] font-mono">
+            <span className="text-[11px] text-[#788296]">Spot:</span>
+            <span className="text-sm font-bold text-[#f0f3f8]">
               ₹{spot.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </span>
           </div>
         </div>
 
         {/* PCR, Max Pain & Greeks Toggle */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           {chainData && (
-            <div className="flex items-center gap-3 text-xs">
-              <div className="bg-[#14223A] border border-[#1F2D48] px-2.5 py-1 rounded-lg">
-                <span className="text-[#8F9BAE] text-[10px] mr-1.5 font-semibold">PCR:</span>
-                <span className={`font-mono font-bold ${chainData.pcr >= 1 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
+            <div className="flex items-center gap-2 text-xs">
+              <div className="px-2 py-0.5 rounded border border-[#1e2638] bg-[#121722]">
+                <span className="text-[#788296] text-[10px] mr-1">PCR:</span>
+                <span className={`font-mono font-semibold ${chainData.pcr >= 1 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
                   {chainData.pcr.toFixed(2)}
                 </span>
               </div>
-              <div className="bg-[#14223A] border border-[#1F2D48] px-2.5 py-1 rounded-lg hidden sm:block">
-                <span className="text-[#8F9BAE] text-[10px] mr-1.5 font-semibold">Max Pain:</span>
-                <span className="font-mono font-bold text-[#E2C889]">
+              <div className="px-2 py-0.5 rounded border border-[#1e2638] bg-[#121722] hidden sm:block">
+                <span className="text-[#788296] text-[10px] mr-1">Max Pain:</span>
+                <span className="font-mono font-semibold text-[#387ed1]">
                   {chainData.max_pain || 'ATM'}
                 </span>
               </div>
@@ -139,10 +133,10 @@ export const OptionChainTable: React.FC = () => {
 
           <button
             onClick={() => setShowGreeks(!showGreeks)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded text-xs font-medium border transition-colors flex items-center gap-1.5 ${
               showGreeks
-                ? 'bg-[#C6A15B]/20 border-[#C6A15B] text-[#E2C889] font-bold'
-                : 'bg-[#14223A] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
+                ? 'bg-[#387ed1]/15 border-[#387ed1] text-[#387ed1]'
+                : 'bg-[#121722] border-[#1e2638] text-[#788296] hover:text-[#f0f3f8]'
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
@@ -151,97 +145,97 @@ export const OptionChainTable: React.FC = () => {
 
           <button
             onClick={fetchChain}
-            className="p-1.5 rounded-lg bg-[#14223A] border border-[#1F2D48] text-[#8F9BAE] hover:text-[#C6A15B] transition-colors"
+            className="p-1 rounded text-[#788296] hover:text-[#387ed1] border border-[#1e2638] bg-[#121722] transition-colors"
             title="Refresh Option Chain"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#C6A15B]' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#387ed1]' : ''}`} />
           </button>
         </div>
       </div>
 
-      {/* ── Option Chain Table ──────────────────────────────────────────── */}
-      <div className="overflow-x-auto max-h-[600px] scrollbar-hide">
+      {/* ── 2. Full-Width Option Chain Table (Edge-to-Edge) ───────────────── */}
+      <div className="overflow-x-auto max-h-[700px] mt-2">
         <table className="w-full text-left border-collapse text-xs">
-          <thead className="bg-[#0B1424] sticky top-0 z-20 border-b border-[#1F2D48] text-[11px] font-semibold text-[#8F9BAE]">
+          <thead className="bg-[#0c1018] sticky top-0 z-20 border-b border-[#1e2638] text-[11px] font-medium text-[#788296]">
             <tr>
               {/* CALLS HEADER */}
-              <th colSpan={showGreeks ? 5 : 3} className="text-center py-2 px-3 border-r border-[#1F2D48] bg-[#38BDF8]/10 text-[#7DD3FC]">
+              <th colSpan={showGreeks ? 5 : 3} className="text-center py-1.5 px-3 border-r border-[#1e2638] bg-[#387ed1]/10 text-[#387ed1] font-mono">
                 CALLS (CE)
               </th>
               {/* STRIKE HEADER */}
-              <th className="text-center py-2 px-4 bg-[#14223A] text-[#C6A15B] font-bold font-serif">
+              <th className="text-center py-1.5 px-4 bg-[#121722] text-[#f0f3f8] font-bold">
                 STRIKE
               </th>
               {/* PUTS HEADER */}
-              <th colSpan={showGreeks ? 5 : 3} className="text-center py-2 px-3 border-l border-[#1F2D48] bg-[#F43F5E]/10 text-[#FDA4AF]">
+              <th colSpan={showGreeks ? 5 : 3} className="text-center py-1.5 px-3 border-l border-[#1e2638] bg-[#df514c]/10 text-[#df514c] font-mono">
                 PUTS (PE)
               </th>
             </tr>
-            <tr className="border-b border-[#1F2D48] text-[10px] uppercase text-[#8F9BAE]">
+            <tr className="border-b border-[#1e2638] text-[10px] uppercase font-mono text-[#788296]">
               {/* CALL SUBHEADERS */}
-              <th className="py-1.5 px-2">OI</th>
-              <th className="py-1.5 px-2">Volume</th>
-              {showGreeks && <th className="py-1.5 px-2">IV %</th>}
-              {showGreeks && <th className="py-1.5 px-2">Delta</th>}
-              <th className="py-1.5 px-2 text-right border-r border-[#1F2D48]">Call LTP (₹)</th>
+              <th className="py-1 px-2">OI</th>
+              <th className="py-1 px-2">Volume</th>
+              {showGreeks && <th className="py-1 px-2">IV %</th>}
+              {showGreeks && <th className="py-1 px-2">Delta</th>}
+              <th className="py-1 px-2 text-right border-r border-[#1e2638]">LTP (₹)</th>
 
               {/* STRIKE */}
-              <th className="py-1.5 px-4 text-center bg-[#0B1424] text-[#C6A15B]">Price</th>
+              <th className="py-1 px-4 text-center bg-[#0c1018] text-[#788296]">Strike</th>
 
               {/* PUT SUBHEADERS */}
-              <th className="py-1.5 px-2 text-left border-l border-[#1F2D48]">Put LTP (₹)</th>
-              {showGreeks && <th className="py-1.5 px-2">Delta</th>}
-              {showGreeks && <th className="py-1.5 px-2">IV %</th>}
-              <th className="py-1.5 px-2">Volume</th>
-              <th className="py-1.5 px-2">OI</th>
+              <th className="py-1 px-2 text-left border-l border-[#1e2638]">LTP (₹)</th>
+              {showGreeks && <th className="py-1 px-2">Delta</th>}
+              {showGreeks && <th className="py-1 px-2">IV %</th>}
+              <th className="py-1 px-2">Volume</th>
+              <th className="py-1 px-2">OI</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1F2D48]/60 font-mono text-[11px]">
+          <tbody className="divide-y divide-[#1e2638]/60 font-mono text-[11px]">
             {strikes.map((row) => {
               const strike = row.strike_price;
               const call = row.call;
               const put = row.put;
-              const isAtm = Math.abs(strike - spot) <= 30;
+              const isAtm = Math.abs(strike - spot) <= 35;
               const isCallItm = strike < spot;
               const isPutItm = strike > spot;
 
               return (
                 <tr
                   key={strike}
-                  className={`hover:bg-[#14223A]/40 transition-colors ${
-                    isAtm ? 'bg-[#C6A15B]/10 font-bold' : ''
+                  className={`hover:bg-[#121724] transition-colors ${
+                    isAtm ? 'bg-[#387ed1]/10 font-bold' : ''
                   }`}
                 >
                   {/* CALL: OI */}
-                  <td className={`py-1.5 px-2 text-[#A1A8B3] ${isCallItm ? 'bg-[#38BDF8]/5' : ''}`}>
-                    {call ? call.oi.toLocaleString() : '-'}
+                  <td className={`py-1.5 px-2 text-[#788296] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                    {call ? call.oi.toLocaleString('en-IN') : '-'}
                   </td>
 
                   {/* CALL: Volume */}
-                  <td className={`py-1.5 px-2 text-[#8F9BAE] ${isCallItm ? 'bg-[#38BDF8]/5' : ''}`}>
-                    {call ? call.volume.toLocaleString() : '-'}
+                  <td className={`py-1.5 px-2 text-[#58647a] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                    {call ? call.volume.toLocaleString('en-IN') : '-'}
                   </td>
 
                   {/* CALL: IV */}
                   {showGreeks && (
-                    <td className={`py-1.5 px-2 text-[#A1A8B3] ${isCallItm ? 'bg-[#38BDF8]/5' : ''}`}>
+                    <td className={`py-1.5 px-2 text-[#788296] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
                       {call?.greeks ? `${call.greeks.iv.toFixed(1)}%` : '-'}
                     </td>
                   )}
 
                   {/* CALL: Delta */}
                   {showGreeks && (
-                    <td className={`py-1.5 px-2 text-[#38BDF8] ${isCallItm ? 'bg-[#38BDF8]/5' : ''}`}>
+                    <td className={`py-1.5 px-2 text-[#387ed1] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
                       {call?.greeks ? call.greeks.delta.toFixed(2) : '-'}
                     </td>
                   )}
 
                   {/* CALL: LTP (Interactive Trade Button) */}
-                  <td className={`py-1.5 px-2 text-right border-r border-[#1F2D48] ${isCallItm ? 'bg-[#38BDF8]/10 font-bold text-white' : 'text-[#7DD3FC]'}`}>
+                  <td className={`py-1.5 px-2 text-right border-r border-[#1e2638] ${isCallItm ? 'bg-[#387ed1]/10 font-bold text-[#f0f3f8]' : 'text-[#387ed1]'}`}>
                     {call ? (
                       <button
                         onClick={() => handleTradeOption(call, 'BUY')}
-                        className="px-2 py-0.5 rounded bg-[#38BDF8]/20 hover:bg-[#38BDF8] text-[#7DD3FC] hover:text-white transition-colors"
+                        className="px-2 py-0.5 rounded bg-[#387ed1]/15 hover:bg-[#387ed1] text-[#387ed1] hover:text-white transition-colors"
                         title={`Buy ${call.tradingsymbol}`}
                       >
                         ₹{call.ltp.toFixed(2)}
@@ -252,16 +246,16 @@ export const OptionChainTable: React.FC = () => {
                   </td>
 
                   {/* CENTER: STRIKE PRICE */}
-                  <td className={`py-1.5 px-4 text-center font-bold font-mono ${isAtm ? 'bg-gradient-to-r from-[#C6A15B] to-[#E2C889] text-[#0B1424] shadow-md' : 'bg-[#0B1424] text-white'}`}>
+                  <td className={`py-1.5 px-4 text-center font-bold font-mono ${isAtm ? 'bg-[#387ed1] text-white shadow-sm' : 'bg-[#0c1018] text-[#f0f3f8]'}`}>
                     {strike}
                   </td>
 
                   {/* PUT: LTP (Interactive Trade Button) */}
-                  <td className={`py-1.5 px-2 text-left border-l border-[#1F2D48] ${isPutItm ? 'bg-[#F43F5E]/10 font-bold text-white' : 'text-[#FDA4AF]'}`}>
+                  <td className={`py-1.5 px-2 text-left border-l border-[#1e2638] ${isPutItm ? 'bg-[#df514c]/10 font-bold text-[#f0f3f8]' : 'text-[#df514c]'}`}>
                     {put ? (
                       <button
                         onClick={() => handleTradeOption(put, 'BUY')}
-                        className="px-2 py-0.5 rounded bg-[#F43F5E]/20 hover:bg-[#F43F5E] text-[#FDA4AF] hover:text-white transition-colors"
+                        className="px-2 py-0.5 rounded bg-[#df514c]/15 hover:bg-[#df514c] text-[#df514c] hover:text-white transition-colors"
                         title={`Buy ${put.tradingsymbol}`}
                       >
                         ₹{put.ltp.toFixed(2)}
@@ -273,26 +267,26 @@ export const OptionChainTable: React.FC = () => {
 
                   {/* PUT: Delta */}
                   {showGreeks && (
-                    <td className={`py-1.5 px-2 text-[#F43F5E] ${isPutItm ? 'bg-[#F43F5E]/5' : ''}`}>
+                    <td className={`py-1.5 px-2 text-[#df514c] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
                       {put?.greeks ? put.greeks.delta.toFixed(2) : '-'}
                     </td>
                   )}
 
                   {/* PUT: IV */}
                   {showGreeks && (
-                    <td className={`py-1.5 px-2 text-[#A1A8B3] ${isPutItm ? 'bg-[#F43F5E]/5' : ''}`}>
+                    <td className={`py-1.5 px-2 text-[#788296] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
                       {put?.greeks ? `${put.greeks.iv.toFixed(1)}%` : '-'}
                     </td>
                   )}
 
                   {/* PUT: Volume */}
-                  <td className={`py-1.5 px-2 text-[#8F9BAE] ${isPutItm ? 'bg-[#F43F5E]/5' : ''}`}>
-                    {put ? put.volume.toLocaleString() : '-'}
+                  <td className={`py-1.5 px-2 text-[#58647a] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                    {put ? put.volume.toLocaleString('en-IN') : '-'}
                   </td>
 
                   {/* PUT: OI */}
-                  <td className={`py-1.5 px-2 text-[#A1A8B3] ${isPutItm ? 'bg-[#F43F5E]/5' : ''}`}>
-                    {put ? put.oi.toLocaleString() : '-'}
+                  <td className={`py-1.5 px-2 text-[#788296] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                    {put ? put.oi.toLocaleString('en-IN') : '-'}
                   </td>
                 </tr>
               );

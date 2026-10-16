@@ -62,6 +62,7 @@ interface TradingStoreState {
   addToast: (type: 'success' | 'error' | 'info' | 'warning', title: string, message: string) => void;
   removeToast: (id: string) => void;
   updateQuote: (quote: MarketQuote) => void;
+  updateQuotesBatch: (quotes: MarketQuote[]) => void;
   setActiveWatchlist: (watchlistId: string) => void;
   addToWatchlist: (watchlistId: string, instrument: Instrument) => Promise<void>;
   removeFromWatchlist: (watchlistId: string, instrumentKey: string) => Promise<void>;
@@ -95,8 +96,8 @@ const getInitialAccount = (): PaperAccount => {
 
 export const useTradingStore = create<TradingStoreState>((set, get) => ({
   userId: DEFAULT_USER_ID,
-  userEmail: 'trader@tradeedge.com',
-  userName: 'Institutional Trader',
+  userEmail: 'trader@cendrixcapital.com',
+  userName: 'Cendrix Institutional Trader',
   account: getInitialAccount(),
   orders: [],
   trades: [],
@@ -166,16 +167,20 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
         isLoading: false,
       });
 
-      // Initialize Upstox credentials if saved
-      const savedToken = settings?.upstox_access_token || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_upstox_access_token') : null);
-      if (savedToken) {
+      // Initialize Upstox credentials — env token takes top priority
+      const envToken = import.meta.env.VITE_UPSTOX_ACCESS_TOKEN;
+      const isEnvValid = Boolean(envToken && envToken.length > 20 && !envToken.includes('optional_'));
+      const activeToken = isEnvValid
+        ? envToken
+        : (settings?.upstox_access_token || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_upstox_access_token') : null));
+
+      if (activeToken) {
         marketDataService.setUpstoxCredentials(
           settings?.upstox_api_key || import.meta.env.VITE_UPSTOX_API_KEY || '',
           settings?.upstox_api_secret || import.meta.env.VITE_UPSTOX_API_SECRET || '',
-          savedToken
+          activeToken
         );
-        const effectiveMode = settings?.market_data_mode || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_market_mode') as any : null) || 'LIVE';
-        marketDataService.setMode(effectiveMode);
+        marketDataService.setMode('LIVE');
       }
 
       // Background non-blocking quote fetching & live subscriptions
@@ -184,18 +189,29 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
       }).catch(() => {});
 
       const allKeys = new Set<string>();
-      INDIAN_INSTRUMENTS_MASTER.slice(0, 20).forEach(i => allKeys.add(i.instrument_key));
+      INDIAN_INSTRUMENTS_MASTER.forEach(i => allKeys.add(i.instrument_key));
       allKeys.add('NSE_EQ|INE081A01020'); // TATASTEEL
       watchlists.forEach(w => w.items.forEach(i => allKeys.add(i.instrument_key)));
       positions.forEach(p => allKeys.add(p.instrument_key));
       holdings.forEach(h => allKeys.add(h.instrument_key));
 
       marketDataService.getQuotes(Array.from(allKeys)).then((initialQuotes) => {
-        Object.values(initialQuotes).forEach(q => get().updateQuote(q));
+        get().updateQuotesBatch(Object.values(initialQuotes));
       }).catch(() => {});
 
+      let pendingTicks: MarketQuote[] = [];
+      let rafId: any = null;
+
       marketDataService.subscribeQuotes(Array.from(allKeys), (quote) => {
-        get().updateQuote(quote);
+        pendingTicks.push(quote);
+        if (!rafId) {
+          rafId = requestAnimationFrame(() => {
+            const batch = pendingTicks;
+            pendingTicks = [];
+            rafId = null;
+            get().updateQuotesBatch(batch);
+          });
+        }
       });
     } catch (err) {
       console.warn('Initialization background warning:', err);
@@ -203,14 +219,19 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
     }
   },
 
-  updateQuote: (quote: MarketQuote) => {
+  updateQuotesBatch: (quotesList: MarketQuote[]) => {
+    if (!quotesList || quotesList.length === 0) return;
     const prevQuotes = get().quotes;
-    const newQuotes = { ...prevQuotes, [quote.instrument_key]: quote };
+    const newQuotes = { ...prevQuotes };
+    quotesList.forEach((q) => {
+      newQuotes[q.instrument_key] = q;
+      if (q.tradingsymbol) newQuotes[q.tradingsymbol] = q;
+    });
 
-    // Recalculate positions unrealized P&L
     const positions = get().positions.map((p) => {
       if (p.is_closed || p.quantity === 0) return p;
-      if (p.instrument_key === quote.instrument_key) {
+      const quote = newQuotes[p.instrument_key];
+      if (quote) {
         const uPnL = FinancialCalculations.calculateUnrealizedPnL(
           p.quantity,
           p.quantity > 0 ? p.buy_price : p.sell_price,
@@ -226,9 +247,9 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
       return p;
     });
 
-    // Recalculate holdings current value & day change
     const holdings = get().holdings.map((h) => {
-      if (h.instrument_key === quote.instrument_key) {
+      const quote = newQuotes[h.instrument_key];
+      if (quote) {
         const currentVal = h.quantity * quote.last_price;
         const pnl = currentVal - h.invested_value;
         const pnlPct = h.invested_value > 0 ? (pnl / h.invested_value) * 100 : 0;
@@ -245,10 +266,9 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
       return h;
     });
 
-    // Recalculate account equity
     const account = get().account;
     if (account) {
-      const totalUnrealized = positions.filter(p => !p.is_closed).reduce((s, p) => s + p.unrealized_pnl, 0);
+      const totalUnrealized = positions.filter((p) => !p.is_closed).reduce((s, p) => s + p.unrealized_pnl, 0);
       const totalHoldingsVal = holdings.reduce((s, h) => s + h.current_value, 0);
       account.account_equity = account.cash_balance + totalUnrealized + totalHoldingsVal;
     }
@@ -256,7 +276,7 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
     set({ quotes: newQuotes, positions, holdings, account });
 
     // Check pending orders trigger conditions
-    const pendingOrders = get().orders.filter(o => o.status === 'PENDING');
+    const pendingOrders = get().orders.filter((o) => o.status === 'PENDING');
     if (pendingOrders.length > 0 && account) {
       const evalResult = OrderExecutionEngine.evaluatePendingOrders(
         pendingOrders,
@@ -268,18 +288,18 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
 
       if (evalResult.newTrades.length > 0) {
         // Pending orders were filled!
-        const allOrders = get().orders.map(o => {
-          const updated = evalResult.updatedOrders.find(uo => uo.id === o.id);
+        const allOrders = get().orders.map((o) => {
+          const updated = evalResult.updatedOrders.find((uo) => uo.id === o.id);
           return updated || o;
         });
 
         // Persist to storage
-        evalResult.updatedOrders.forEach(o => tradingRepo.saveOrder(o));
-        evalResult.newTrades.forEach(t => tradingRepo.saveTrade(t));
+        evalResult.updatedOrders.forEach((o) => tradingRepo.saveOrder(o));
+        evalResult.newTrades.forEach((t) => tradingRepo.saveTrade(t));
         tradingRepo.saveAccount(evalResult.updatedAccount);
-        evalResult.updatedPositions.forEach(p => tradingRepo.savePosition(p));
-        evalResult.updatedHoldings.forEach(h => tradingRepo.saveHolding(h));
-        evalResult.newLedgerEntries.forEach(l => tradingRepo.saveLedgerEntry(l));
+        evalResult.updatedPositions.forEach((p) => tradingRepo.savePosition(p));
+        evalResult.updatedHoldings.forEach((h) => tradingRepo.saveHolding(h));
+        evalResult.newLedgerEntries.forEach((l) => tradingRepo.saveLedgerEntry(l));
 
         set({
           orders: allOrders,
@@ -290,7 +310,7 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
           ledger: [...evalResult.newLedgerEntries, ...get().ledger],
         });
 
-        evalResult.newTrades.forEach(trade => {
+        evalResult.newTrades.forEach((trade) => {
           get().addToast(
             'success',
             'Order Triggered & Executed',
@@ -299,6 +319,10 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
         });
       }
     }
+  },
+
+  updateQuote: (quote: MarketQuote) => {
+    get().updateQuotesBatch([quote]);
   },
 
   placeOrder: async (params) => {

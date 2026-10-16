@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useTradingStore } from '../../store/useTradingStore';
 import { FinancialCalculations } from '../../services/trading/FinancialCalculations';
 import { marketDataService } from '../../services/market/MarketDataService';
+import { getZerodhaContractSpec } from '../../services/market/indianInstruments';
 import type { TransactionType, ProductType, OrderType } from '../../types/trading';
-import { X, ArrowDownRight, ArrowUpRight, AlertCircle, ShieldAlert, RefreshCw } from 'lucide-react';
+import { X, RefreshCw, Minus, Plus } from 'lucide-react';
 
 export const OrderTicket: React.FC = () => {
   const {
@@ -30,10 +31,25 @@ export const OrderTicket: React.FC = () => {
   const quote = quotes[activeInstrument.instrument_key] || quotes[activeInstrument.tradingsymbol];
   const marketPrice = quote && quote.last_price > 0 ? quote.last_price : (orderTicketInitialProps?.price || 0);
 
-  const defaultProduct: ProductType =
-    activeInstrument.instrument_type.startsWith('FUT') || activeInstrument.instrument_type.startsWith('OPT')
-      ? 'NRML'
-      : 'CNC';
+  const contractSpec = getZerodhaContractSpec(
+    activeInstrument.tradingsymbol,
+    activeInstrument.instrument_type,
+    activeInstrument.exchange,
+    activeInstrument.lot_size
+  );
+
+  const isCommodity =
+    activeInstrument.instrument_type === 'COMMODITY' ||
+    activeInstrument.instrument_type === 'FUTCOM' ||
+    activeInstrument.exchange === 'MCX' ||
+    activeInstrument.exchange === 'NCDEX';
+
+  const isFandO =
+    activeInstrument.instrument_type.startsWith('FUT') ||
+    activeInstrument.instrument_type.startsWith('OPT') ||
+    isCommodity;
+
+  const defaultProduct: ProductType = isFandO ? 'NRML' : 'CNC';
 
   const [transactionType, setTransactionType] = useState<TransactionType>(
     orderTicketInitialProps?.transaction_type || 'BUY'
@@ -47,16 +63,15 @@ export const OrderTicket: React.FC = () => {
     orderTicketInitialProps?.order_type || 'MARKET'
   );
 
-  const lotSize = activeInstrument.lot_size || 1;
-  const isDerivative = lotSize > 1;
+  const [variety, setVariety] = useState<'REGULAR' | 'AMO'>('REGULAR');
 
   const [lots, setLots] = useState(1);
-  const [quantity, setQuantity] = useState(lotSize);
+  const [quantity, setQuantity] = useState(contractSpec.lotSize);
   const [price, setPrice] = useState(marketPrice > 0 ? marketPrice : 0);
   const [triggerPrice, setTriggerPrice] = useState(marketPrice > 0 ? marketPrice : 0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Immediately pre-fetch real live quote from Upstox if not yet in cache
+  // Pre-fetch live quote from Upstox
   useEffect(() => {
     if (!isOrderTicketOpen) return;
     marketDataService.getQuote(activeInstrument.instrument_key).then((q) => {
@@ -76,7 +91,7 @@ export const OrderTicket: React.FC = () => {
     }
   }, [quote?.last_price, orderType]);
 
-  // Sync state when orderTicketInitialProps changes
+  // Sync state when props change
   useEffect(() => {
     if (orderTicketInitialProps) {
       if (orderTicketInitialProps.transaction_type) setTransactionType(orderTicketInitialProps.transaction_type);
@@ -84,7 +99,10 @@ export const OrderTicket: React.FC = () => {
       if (orderTicketInitialProps.order_type) setOrderType(orderTicketInitialProps.order_type);
       if (orderTicketInitialProps.quantity) {
         setQuantity(orderTicketInitialProps.quantity);
-        setLots(Math.max(1, Math.round(orderTicketInitialProps.quantity / lotSize)));
+        setLots(Math.max(1, Math.round(orderTicketInitialProps.quantity / contractSpec.lotSize)));
+      } else {
+        setQuantity(contractSpec.lotSize);
+        setLots(1);
       }
       if (orderTicketInitialProps.price) {
         setPrice(orderTicketInitialProps.price);
@@ -94,50 +112,51 @@ export const OrderTicket: React.FC = () => {
         setTriggerPrice(marketPrice);
       }
     } else {
-      setQuantity(lotSize);
+      setQuantity(contractSpec.lotSize);
       setLots(1);
       if (marketPrice > 0) {
         setPrice(marketPrice);
         setTriggerPrice(marketPrice);
       }
     }
-  }, [orderTicketInitialProps, lotSize, marketPrice]);
+  }, [orderTicketInitialProps, contractSpec.lotSize, marketPrice]);
 
   if (!isOrderTicketOpen) return null;
 
   const handleLotsChange = (newLots: number) => {
     const validLots = Math.max(1, newLots);
     setLots(validLots);
-    setQuantity(validLots * lotSize);
+    setQuantity(validLots * contractSpec.lotSize);
   };
 
   const handleQuantityChange = (newQty: number) => {
     const validQty = Math.max(1, newQty);
     setQuantity(validQty);
-    if (lotSize > 1) {
-      setLots(Math.ceil(validQty / lotSize));
+    if (contractSpec.lotSize > 1) {
+      setLots(Math.max(1, Math.ceil(validQty / contractSpec.lotSize)));
     }
   };
 
-  // Effective price used for calculations
   const effectivePrice = orderType === 'MARKET' ? marketPrice : price;
 
-  // Margin calculation
+  // Real margin requirement using exact Zerodha contract multiplier
   const requiredMargin = FinancialCalculations.calculateRequiredMargin({
     instrumentType: activeInstrument.instrument_type,
     product,
     transactionType,
     quantity,
     price: effectivePrice,
+    multiplier: contractSpec.multiplier,
   });
 
-  // Estimated regulatory charges
+  // Estimated regulatory and broker charges
   const charges = FinancialCalculations.calculateCharges({
     instrumentType: activeInstrument.instrument_type,
     product,
     transactionType,
     quantity,
     price: effectivePrice,
+    multiplier: contractSpec.multiplier,
   });
 
   const availableCash = account ? account.cash_balance - account.used_margin : 0;
@@ -157,7 +176,7 @@ export const OrderTicket: React.FC = () => {
       product,
       order_type: orderType,
       quantity,
-      lot_size: lotSize,
+      lot_size: contractSpec.lotSize,
       price: orderType === 'LIMIT' || orderType === 'SL' ? price : 0,
       trigger_price: orderType === 'SL' || orderType === 'SL_M' ? triggerPrice : 0,
     });
@@ -168,150 +187,280 @@ export const OrderTicket: React.FC = () => {
     }
   };
 
+  const isDerivative = contractSpec.lotSize > 1 || isCommodity || isFandO;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0B1424]/80 backdrop-blur-md select-none">
-      <div className="bg-[#0E1728] border border-[rgba(198,161,91,0.3)] rounded-2xl max-w-md w-full shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_30px_rgba(198,161,91,0.15)] overflow-hidden animate-in fade-in zoom-in-95">
-        {/* Ticket Top Header */}
-        <div className={`p-4 ${transactionType === 'BUY' ? 'bg-[#10B981]/10 border-b border-[#10B981]/25' : 'bg-[#F43F5E]/10 border-b border-[#F43F5E]/25'} flex items-center justify-between`}>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold px-1.5 py-0.5 rounded bg-[#0B1424] text-[#A1A8B3] border border-white/5">
-                {activeInstrument.exchange}
-              </span>
-              <h3 className="text-sm font-bold text-[#F5F5F2] tracking-tight">
-                {activeInstrument.tradingsymbol}
-              </h3>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm select-none">
+      <div className="bg-[#111622] border border-[#1e293b] rounded-lg max-w-[460px] w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 font-sans">
+        
+        {/* ── Zerodha Kite Banner Header ───────────────────────────────── */}
+        <div className={`px-4 py-3 flex items-center justify-between text-white ${
+          transactionType === 'BUY' ? 'bg-[#387ed1]' : 'bg-[#df514c]'
+        }`}>
+          <div className="flex items-center gap-3">
+            {/* Buy / Sell Toggle Pill */}
+            <div className="flex items-center bg-black/25 rounded p-0.5 border border-white/20">
+              <button
+                type="button"
+                onClick={() => setTransactionType('BUY')}
+                className={`px-2.5 py-1 text-xs font-bold rounded transition-colors ${
+                  transactionType === 'BUY' ? 'bg-white text-[#387ed1]' : 'text-white hover:text-white/80'
+                }`}
+              >
+                BUY
+              </button>
+              <button
+                type="button"
+                onClick={() => setTransactionType('SELL')}
+                className={`px-2.5 py-1 text-xs font-bold rounded transition-colors ${
+                  transactionType === 'SELL' ? 'bg-white text-[#df514c]' : 'text-white hover:text-white/80'
+                }`}
+              >
+                SELL
+              </button>
             </div>
-            <div className="flex items-center gap-2 mt-1">
-              <span className="text-xs text-[#A1A8B3] font-medium">LTP:</span>
-              {marketPrice > 0 ? (
-                <span className="text-xs font-mono font-bold text-[#F5F5F2]">
-                  ₹{marketPrice.toFixed(2)}
+
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-sm font-bold tracking-tight">{activeInstrument.tradingsymbol}</span>
+                <span className="text-[10px] font-mono px-1 py-0.2 rounded bg-black/25 text-white/90">
+                  {activeInstrument.exchange}
                 </span>
-              ) : (
-                <span className="text-[11px] text-[#C6A15B] font-medium flex items-center gap-1 font-mono">
-                  <RefreshCw className="w-3 h-3 animate-spin" />
-                  <span>Fetching Live Upstox...</span>
-                </span>
-              )}
-              {quote && (
-                <span className={`text-[11px] font-mono font-medium ${quote.change >= 0 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
-                  {quote.change >= 0 ? '+' : ''}{quote.change.toFixed(2)} ({quote.change_percent.toFixed(2)}%)
-                </span>
-              )}
+              </div>
+              <div className="flex items-center gap-2 text-xs font-mono">
+                <span className="text-white/80 font-medium">₹{marketPrice > 0 ? marketPrice.toFixed(2) : '—'}</span>
+                {quote && (
+                  <span className="text-[11px] text-white/90">
+                    {quote.change >= 0 ? '+' : ''}{quote.change.toFixed(2)} ({quote.change_percent.toFixed(2)}%)
+                  </span>
+                )}
+              </div>
             </div>
           </div>
+
           <button
             onClick={closeOrderTicket}
-            className="text-[#A1A8B3] hover:text-[#F5F5F2] p-1 rounded-lg transition-colors"
+            className="p-1 rounded text-white/80 hover:text-white hover:bg-black/20 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
-          {/* BUY / SELL Switch */}
-          <div className="grid grid-cols-2 gap-2 bg-[#0B1424] p-1 rounded-xl border border-white/5">
-            <button
-              type="button"
-              onClick={() => setTransactionType('BUY')}
-              className={`py-2 text-xs font-bold rounded-lg transition-all ${
-                transactionType === 'BUY'
-                  ? 'bg-[#10B981] text-[#0B1424] shadow-[0_0_15px_rgba(16,185,129,0.35)] font-bold'
-                  : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
-              }`}
-            >
-              BUY (Long)
-            </button>
-            <button
-              type="button"
-              onClick={() => setTransactionType('SELL')}
-              className={`py-2 text-xs font-bold rounded-lg transition-all ${
-                transactionType === 'SELL'
-                  ? 'bg-[#F43F5E] text-white shadow-[0_0_15px_rgba(244,63,94,0.35)] font-bold'
-                  : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
-              }`}
-            >
-              SELL (Short)
-            </button>
+        {/* ── Zerodha Order Form Body ──────────────────────────────────── */}
+        <form onSubmit={handleSubmit} noValidate className="p-4 space-y-4 text-xs">
+          
+          {/* Variety Tabs: Regular | AMO */}
+          <div className="flex items-center gap-4 pb-2 border-b border-[#1e293b] text-[#9ca8ba]">
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <input
+                type="radio"
+                name="order_variety"
+                checked={variety === 'REGULAR'}
+                onChange={() => setVariety('REGULAR')}
+                className="accent-[#387ed1] w-3.5 h-3.5"
+              />
+              <span className={`text-xs ${variety === 'REGULAR' ? 'text-[#f0f3f8] font-semibold' : ''}`}>Regular</span>
+            </label>
+            <label className="flex items-center gap-1.5 cursor-pointer">
+              <input
+                type="radio"
+                name="order_variety"
+                checked={variety === 'AMO'}
+                onChange={() => setVariety('AMO')}
+                className="accent-[#387ed1] w-3.5 h-3.5"
+              />
+              <span className={`text-xs ${variety === 'AMO' ? 'text-[#f0f3f8] font-semibold' : ''}`}>AMO</span>
+            </label>
           </div>
 
-          {/* Product Type (CNC / MIS / NRML) */}
-          <div>
-            <label className="block text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-wider mb-1.5">
-              Product Type
-            </label>
+          {/* Product Type (MIS vs CNC / NRML) */}
+          <div className="space-y-1.5">
+            <span className="text-[11px] text-[#5c687a] uppercase font-semibold">Product</span>
             <div className="grid grid-cols-2 gap-2">
               {activeInstrument.instrument_type === 'EQUITY' ? (
                 <>
-                  <button
-                    type="button"
-                    onClick={() => setProduct('CNC')}
-                    className={`py-2 px-3 text-xs font-medium rounded-lg border transition-colors ${
-                      product === 'CNC'
-                        ? 'bg-[#C6A15B]/20 border-[#C6A15B] text-[#E2C889] font-bold shadow-sm'
-                        : 'bg-[#0B1424] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
-                    }`}
-                  >
-                    CNC (Delivery)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setProduct('MIS')}
-                    className={`py-2 px-3 text-xs font-medium rounded-lg border transition-colors ${
-                      product === 'MIS'
-                        ? 'bg-[#C6A15B]/20 border-[#C6A15B] text-[#E2C889] font-bold shadow-sm'
-                        : 'bg-[#0B1424] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
-                    }`}
-                  >
-                    MIS (Intraday 5x)
-                  </button>
+                  <label className={`flex items-center gap-2 p-2 rounded border cursor-pointer transition-colors ${
+                    product === 'CNC' ? 'bg-[#151b2a] border-[#387ed1] text-[#f0f3f8]' : 'bg-[#0e131f] border-[#1e293b] text-[#9ca8ba]'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="product_type"
+                      checked={product === 'CNC'}
+                      onChange={() => setProduct('CNC')}
+                      className="accent-[#387ed1]"
+                    />
+                    <div>
+                      <span className="font-bold text-xs block">CNC</span>
+                      <span className="text-[10px] text-[#5c687a]">Longterm (Delivery)</span>
+                    </div>
+                  </label>
+
+                  <label className={`flex items-center gap-2 p-2 rounded border cursor-pointer transition-colors ${
+                    product === 'MIS' ? 'bg-[#151b2a] border-[#387ed1] text-[#f0f3f8]' : 'bg-[#0e131f] border-[#1e293b] text-[#9ca8ba]'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="product_type"
+                      checked={product === 'MIS'}
+                      onChange={() => setProduct('MIS')}
+                      className="accent-[#387ed1]"
+                    />
+                    <div>
+                      <span className="font-bold text-xs block">MIS</span>
+                      <span className="text-[10px] text-[#5c687a]">Intraday (5x)</span>
+                    </div>
+                  </label>
                 </>
               ) : (
                 <>
-                  <button
-                    type="button"
-                    onClick={() => setProduct('NRML')}
-                    className={`py-2 px-3 text-xs font-medium rounded-lg border transition-colors ${
-                      product === 'NRML'
-                        ? 'bg-[#C6A15B]/20 border-[#C6A15B] text-[#E2C889] font-bold shadow-sm'
-                        : 'bg-[#0B1424] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
-                    }`}
-                  >
-                    NRML (Overnight F&O)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setProduct('MIS')}
-                    className={`py-2 px-3 text-xs font-medium rounded-lg border transition-colors ${
-                      product === 'MIS'
-                        ? 'bg-[#C6A15B]/20 border-[#C6A15B] text-[#E2C889] font-bold shadow-sm'
-                        : 'bg-[#0B1424] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
-                    }`}
-                  >
-                    MIS (Intraday F&O)
-                  </button>
+                  <label className={`flex items-center gap-2 p-2 rounded border cursor-pointer transition-colors ${
+                    product === 'NRML' ? 'bg-[#151b2a] border-[#387ed1] text-[#f0f3f8]' : 'bg-[#0e131f] border-[#1e293b] text-[#9ca8ba]'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="product_type"
+                      checked={product === 'NRML'}
+                      onChange={() => setProduct('NRML')}
+                      className="accent-[#387ed1]"
+                    />
+                    <div>
+                      <span className="font-bold text-xs block">NRML</span>
+                      <span className="text-[10px] text-[#5c687a]">Overnight / Carryforward</span>
+                    </div>
+                  </label>
+
+                  <label className={`flex items-center gap-2 p-2 rounded border cursor-pointer transition-colors ${
+                    product === 'MIS' ? 'bg-[#151b2a] border-[#387ed1] text-[#f0f3f8]' : 'bg-[#0e131f] border-[#1e293b] text-[#9ca8ba]'
+                  }`}>
+                    <input
+                      type="radio"
+                      name="product_type"
+                      checked={product === 'MIS'}
+                      onChange={() => setProduct('MIS')}
+                      className="accent-[#387ed1]"
+                    />
+                    <div>
+                      <span className="font-bold text-xs block">MIS</span>
+                      <span className="text-[10px] text-[#5c687a]">Intraday Margin</span>
+                    </div>
+                  </label>
                 </>
               )}
             </div>
           </div>
 
-          {/* Order Type (MARKET / LIMIT / SL / SL-M) */}
-          <div>
-            <label className="block text-[11px] font-semibold text-[#8F9BAE] uppercase tracking-wider mb-1.5">
-              Order Type
-            </label>
+          {/* Quantity & Lots Controls */}
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="text-[#5c687a] uppercase font-semibold">
+                {isDerivative ? 'Contract Sizing & Quantity' : 'Quantity'}
+              </span>
+              <span className="font-mono text-[#387ed1] font-semibold">
+                {contractSpec.lotDescription}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              {isDerivative ? (
+                <div>
+                  <label className="block text-[10px] text-[#9ca8ba] mb-1">Number of Lots</label>
+                  <div className="flex items-center border border-[#1e293b] rounded bg-[#0e131f]">
+                    <button
+                      type="button"
+                      onClick={() => handleLotsChange(lots - 1)}
+                      className="px-2.5 py-1.5 text-[#9ca8ba] hover:text-white hover:bg-[#1a2235] transition-colors"
+                    >
+                      <Minus className="w-3.5 h-3.5" />
+                    </button>
+                    <input
+                      type="number"
+                      min="1"
+                      value={lots}
+                      onChange={(e) => handleLotsChange(parseInt(e.target.value) || 1)}
+                      className="w-full bg-transparent text-center font-mono font-bold text-[#f0f3f8] text-xs focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleLotsChange(lots + 1)}
+                      className="px-2.5 py-1.5 text-[#9ca8ba] hover:text-white hover:bg-[#1a2235] transition-colors"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+
+              <div className={isDerivative ? '' : 'col-span-2'}>
+                <label className="block text-[10px] text-[#9ca8ba] mb-1">
+                  Total {contractSpec.unit}
+                </label>
+                <div className="flex items-center border border-[#1e293b] rounded bg-[#0e131f] px-3 py-1.5">
+                  <input
+                    type="number"
+                    min="1"
+                    step="any"
+                    value={quantity}
+                    onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                    className="w-full bg-transparent font-mono font-bold text-[#f0f3f8] text-xs focus:outline-none"
+                  />
+                  <span className="text-[11px] font-mono text-[#9ca8ba] shrink-0 ml-1">
+                    {contractSpec.unit}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Price & Trigger Price */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-[10px] text-[#9ca8ba] mb-1">
+                Price ({orderType === 'MARKET' ? 'Market' : 'Limit'})
+              </label>
+              <input
+                type="number"
+                step="any"
+                disabled={orderType === 'MARKET'}
+                value={orderType === 'MARKET' ? marketPrice : price}
+                onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
+                className={`w-full border rounded px-3 py-1.5 font-mono text-xs focus:outline-none ${
+                  orderType === 'MARKET'
+                    ? 'bg-[#0a0d14] border-[#1e293b] text-[#5c687a] cursor-not-allowed'
+                    : 'bg-[#0e131f] border-[#1e293b] text-[#f0f3f8] focus:border-[#387ed1]'
+                }`}
+              />
+            </div>
+
+            <div>
+              <label className="block text-[10px] text-[#9ca8ba] mb-1">Trigger Price</label>
+              <input
+                type="number"
+                step="any"
+                disabled={orderType !== 'SL' && orderType !== 'SL_M'}
+                value={triggerPrice}
+                onChange={(e) => setTriggerPrice(parseFloat(e.target.value) || 0)}
+                className={`w-full border rounded px-3 py-1.5 font-mono text-xs focus:outline-none ${
+                  orderType !== 'SL' && orderType !== 'SL_M'
+                    ? 'bg-[#0a0d14] border-[#1e293b] text-[#5c687a] cursor-not-allowed'
+                    : 'bg-[#0e131f] border-[#1e293b] text-[#f0f3f8] focus:border-[#387ed1]'
+                }`}
+              />
+            </div>
+          </div>
+
+          {/* Order Type Radio Pills (Market, Limit, SL, SL-M) */}
+          <div className="space-y-1">
+            <span className="text-[11px] text-[#5c687a] uppercase font-semibold">Order Type</span>
             <div className="grid grid-cols-4 gap-1.5">
               {(['MARKET', 'LIMIT', 'SL', 'SL_M'] as OrderType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setOrderType(type)}
-                  className={`py-1.5 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`py-1.5 text-xs font-semibold rounded border transition-colors ${
                     orderType === type
-                      ? 'bg-gradient-to-r from-[#C6A15B] to-[#E2C889] text-[#0B1424] font-bold border-transparent shadow-sm'
-                      : 'bg-[#0B1424] border-[#1F2D48] text-[#8F9BAE] hover:text-white'
+                      ? 'bg-[#387ed1] text-white border-[#387ed1]'
+                      : 'bg-[#0e131f] border-[#1e293b] text-[#9ca8ba] hover:text-white'
                   }`}
                 >
                   {type === 'SL_M' ? 'SL-M' : type}
@@ -320,111 +469,47 @@ export const OrderTicket: React.FC = () => {
             </div>
           </div>
 
-          {/* Quantity & Lots */}
-          <div className="grid grid-cols-2 gap-3">
-            {isDerivative ? (
-              <div>
-                <label className="block text-[11px] font-semibold text-[#8F9BAE] uppercase tracking-wider mb-1">
-                  Lots (1 lot = {lotSize})
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={lots}
-                  onChange={(e) => handleLotsChange(parseInt(e.target.value) || 1)}
-                  className="w-full bg-[#0B1424] border border-[#1F2D48] rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#C6A15B]"
-                />
-              </div>
-            ) : null}
-
-            <div className={isDerivative ? '' : 'col-span-2'}>
-              <label className="block text-[11px] font-semibold text-[#a1a1aa] uppercase tracking-wider mb-1">
-                Total Quantity (Shares/Units)
-              </label>
-              <input
-                type="number"
-                min="1"
-                step={lotSize > 1 ? lotSize : 1}
-                value={quantity}
-                onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                className="w-full bg-[#0B1424] border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]"
-              />
-            </div>
-          </div>
-
-          {/* Price & Trigger Price Inputs */}
-          {(orderType === 'LIMIT' || orderType === 'SL') && (
-            <div>
-              <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1">
-                Limit Price (₹)
-              </label>
-              <input
-                type="number"
-                step="0.05"
-                value={price}
-                onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
-                className="w-full bg-[#0B1424] border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]"
-              />
-            </div>
-          )}
-
-          {(orderType === 'SL' || orderType === 'SL_M') && (
-            <div>
-              <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1">
-                Trigger Price (₹)
-              </label>
-              <input
-                type="number"
-                step="0.05"
-                value={triggerPrice}
-                onChange={(e) => setTriggerPrice(parseFloat(e.target.value) || 0)}
-                className="w-full bg-[#0B1424] border border-white/10 rounded-lg px-3 py-2 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]"
-              />
-            </div>
-          )}
-
-          {/* Financial Summary & Breakdown */}
-          <div className="p-3 bg-[#0B1424] rounded-xl border border-[rgba(198,161,91,0.2)] text-xs space-y-1.5">
-            <div className="flex justify-between text-[#A1A8B3]">
-              <span>Required Margin / Funds:</span>
-              <span className={`font-mono font-bold ${isInsufficientFunds ? 'text-[#F43F5E]' : 'text-[#F5F5F2]'}`}>
-                ₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </span>
-            </div>
-            <div className="flex justify-between text-[#A1A8B3]">
-              <span>Available Virtual Funds:</span>
-              <span className="font-mono text-[#C6A15B]">
-                ₹{availableCash.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </span>
-            </div>
-            <div className="flex justify-between text-[#A1A8B3]/70 pt-1 border-t border-white/5 text-[11px]">
-              <span>Est. Charges (Brokerage + STT + GST):</span>
-              <span className="font-mono text-[#A1A8B3]">₹{charges.total_charges.toFixed(2)}</span>
-            </div>
-          </div>
-
           {/* Insufficient Funds Warning */}
           {isInsufficientFunds && (
-            <div className="flex items-center gap-2 p-2.5 rounded-lg bg-[#F43F5E]/10 border border-[#F43F5E]/30 text-xs text-[#F43F5E]">
-              <AlertCircle className="w-4 h-4 shrink-0" />
-              <span>Insufficient virtual funds to place this order.</span>
+            <div className="p-2.5 rounded bg-[#df514c]/10 border border-[#df514c]/30 text-[#df514c] text-[11px] leading-relaxed">
+              Insufficient virtual funds. Margin required: ₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}, available cash: ₹{availableCash.toLocaleString('en-IN', { minimumFractionDigits: 2 })}.
             </div>
           )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={isSubmitting || isInsufficientFunds}
-            className={`w-full py-3 rounded-xl text-xs font-bold transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed ${
-              transactionType === 'BUY'
-                ? 'bg-[#10B981] hover:bg-[#059669] text-[#0B1424] shadow-[0_0_20px_rgba(16,185,129,0.35)]'
-                : 'bg-[#F43F5E] hover:bg-[#E11D48] text-white shadow-[0_0_20px_rgba(244,63,94,0.35)]'
-            }`}
-          >
-            {isSubmitting
-              ? 'Executing...'
-              : `${transactionType} ${quantity} ${activeInstrument.tradingsymbol} (Simulated Paper Order)`}
-          </button>
+          {/* ── Zerodha Action Footer ─────────────────────────────────── */}
+          <div className="pt-3 border-t border-[#1e293b] flex items-center justify-between">
+            <div className="text-[11px] font-mono leading-tight">
+              <div className="text-[#9ca8ba]">
+                Margin: <span className="text-[#f0f3f8] font-bold">₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div className="text-[#5c687a]">
+                Charges: ₹{charges.total_charges.toFixed(2)}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={closeOrderTicket}
+                className="btn-kite-outline px-3 py-1.5 text-xs"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                disabled={isSubmitting || isInsufficientFunds}
+                className={`px-5 py-1.5 text-xs font-bold rounded shadow transition-all ${
+                  transactionType === 'BUY'
+                    ? 'btn-kite-blue'
+                    : 'btn-kite-red'
+                } disabled:opacity-50`}
+              >
+                {isSubmitting ? 'Submitting...' : transactionType === 'BUY' ? 'Buy' : 'Sell'}
+              </button>
+            </div>
+          </div>
+
         </form>
       </div>
     </div>

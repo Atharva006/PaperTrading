@@ -34,8 +34,7 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        if (isOpen) onClose();
-        else onClose(); // parent handles toggle
+        onClose();
       }
       if (e.key === 'Escape' && isOpen) {
         onClose();
@@ -73,31 +72,31 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-[#0B1424]/80 backdrop-blur-md select-none">
-      <div className="bg-[#0E1728] border border-[rgba(198,161,91,0.3)] rounded-2xl max-w-xl w-full shadow-[0_25px_60px_rgba(0,0,0,0.8),0_0_30px_rgba(198,161,91,0.15)] overflow-hidden animate-in fade-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-[#030303]/80 backdrop-blur-sm select-none">
+      <div className="bg-[#0D0D0D] border border-[#242424] rounded-xl max-w-xl w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[rgba(198,161,91,0.18)] bg-[#0B1424]">
-          <Search className="w-4 h-4 text-[#C6A15B]" />
+        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#242424] bg-[#080808]">
+          <Search className="w-4 h-4 text-[#D4AF65]" />
           <input
             autoFocus
             type="text"
-            className="flex-1 bg-transparent text-sm text-[#F5F5F2] placeholder-[#A1A8B3]/50 focus:outline-none"
+            className="flex-1 bg-transparent text-xs sm:text-sm text-[#F5F5F5] placeholder-[#71717A] focus:outline-none"
             placeholder="Search Indian stocks (TATASTEEL, RELIANCE), indices (NIFTY), or derivatives..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button
             onClick={onClose}
-            className="text-[#A1A8B3] hover:text-[#F5F5F2] p-1 rounded-lg"
+            className="text-[#71717A] hover:text-[#F5F5F5] p-1 rounded"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Results List */}
-        <div className="max-h-[380px] overflow-y-auto divide-y divide-white/[0.05]">
+        <div className="max-h-[380px] overflow-y-auto divide-y divide-[#191919]">
           {results.length === 0 ? (
-            <div className="p-8 text-center text-xs text-[#A1A8B3]">
+            <div className="p-8 text-center text-xs text-[#71717A]">
               No Indian instruments found matching "{query}"
             </div>
           ) : (
@@ -107,32 +106,32 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
                 <div
                   key={inst.instrument_key}
                   onClick={() => handleSelectInstrument(inst)}
-                  className="flex items-center justify-between p-3.5 hover:bg-[#14223A]/60 cursor-pointer transition-colors group"
+                  className="flex items-center justify-between p-3 hover:bg-[#131313] cursor-pointer transition-colors group"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#0B1424] text-[#A1A8B3] border border-white/5">
+                    <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#080808] text-[#71717A] border border-[#242424]">
                       {inst.exchange}
                     </span>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
+                        <span className="text-xs font-bold text-[#F5F5F5] group-hover:text-[#D4AF65] transition-colors">
                           {inst.tradingsymbol}
                         </span>
-                        <span className="text-[10px] text-[#A1A8B3] font-medium">
+                        <span className="text-[10px] text-[#71717A] font-medium">
                           {inst.instrument_type}
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#A1A8B3] truncate max-w-xs">{inst.name}</p>
+                      <p className="text-[11px] text-[#A1A1AA] truncate max-w-xs">{inst.name}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
                     {quote && (
-                      <div className="text-right">
-                        <div className="text-xs font-mono font-bold text-[#F5F5F2]">
+                      <div className="text-right font-mono">
+                        <div className="text-xs font-bold text-[#F5F5F5]">
                           ₹{quote.last_price.toFixed(2)}
                         </div>
-                        <div className={`text-[10px] font-mono ${quote.change >= 0 ? 'text-[#10B981]' : 'text-[#F43F5E]'}`}>
+                        <div className={`text-[10px] ${quote.change >= 0 ? 'text-[#00C087]' : 'text-[#FF4D67]'}`}>
                           {quote.change >= 0 ? '+' : ''}{quote.change.toFixed(2)} ({quote.change_percent.toFixed(2)}%)
                         </div>
                       </div>
@@ -141,7 +140,7 @@ export const QuickSearchModal: React.FC<QuickSearchModalProps> = ({ isOpen, onCl
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={(e) => handleAddWatchlist(e, inst)}
-                        className="p-1.5 rounded-lg bg-[#0B1424] hover:bg-[#14223A] border border-[rgba(198,161,91,0.2)] text-[#A1A8B3] hover:text-[#C6A15B] transition-colors"
+                        className="p-1.5 rounded bg-[#080808] hover:bg-[#131313] border border-[#242424] text-[#71717A] hover:text-[#D4AF65] transition-colors"
                         title="Add to Watchlist"
                       >
                         <Plus className="w-3.5 h-3.5" />

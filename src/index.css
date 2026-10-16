@@ -4,121 +4,179 @@
 
 @layer base {
   :root {
-    --color-bg-midnight: #0B1424;
-    --color-bg-charcoal: #10141C;
-    --color-bg-surface: #0E1728;
-    --color-bg-surface-elevated: #14223A;
-    --color-gold: #C6A15B;
-    --color-gold-light: #E2C889;
-    --color-gold-dark: #8F6E2C;
-    --color-gold-glow: rgba(198, 161, 91, 0.15);
-    --color-gold-border: rgba(198, 161, 91, 0.22);
-    --color-text-primary: #F5F5F2;
-    --color-text-secondary: #A1A8B3;
+    --color-bg-pitch: #0a0d14;
+    --color-bg-charcoal: #0e131f;
+    --color-bg-surface: #111622;
+    --color-bg-surface-elevated: #151b2a;
+    --color-bg-surface-hover: #1a2235;
+    --color-border-primary: #1e293b;
+    --color-border-subtle: #162030;
+    --color-kite-blue: #387ed1;
+    --color-kite-blue-light: #4184f3;
+    --color-kite-red: #df514c;
+    --color-text-primary: #f0f3f8;
+    --color-text-secondary: #9ca8ba;
+    --color-text-muted: #5c687a;
+    --color-positive: #00c087;
+    --color-negative: #df514c;
   }
 
   body {
-    background-color: #0B1424;
-    color: #F5F5F2;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #0a0d14;
+    color: #f0f3f8;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: #C6A15B;
-    color: #0B1424;
+    background-color: #387ed1;
+    color: #ffffff;
+  }
+
+  .font-mono {
+    font-feature-settings: "tnum" on, "zero" on;
+    font-variant-numeric: tabular-nums;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.025em;
+    letter-spacing: -0.015em;
   }
 }
 
-/* Custom Prestige Scrollbar */
+/* Zerodha Kite Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B1424;
+  background: #0a0d14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #14223A;
+  background: #1e293b;
   border-radius: 3px;
-  border: 1px solid rgba(198, 161, 91, 0.15);
+  border: 1px solid #162030;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C6A15B;
+  background: #387ed1;
 }
 
-/* Cendrix Design System Utilities */
-.cendrix-card {
-  background-color: #0E1728;
-  border: 1px solid rgba(198, 161, 91, 0.18);
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* Zerodha Kite Card Style */
+.kite-card, .cendrix-card {
+  background-color: #111622;
+  border: 1px solid #1e293b;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.cendrix-card:hover {
-  border-color: rgba(198, 161, 91, 0.35);
-  box-shadow: 0 14px 40px rgba(11, 20, 36, 0.7), 0 0 20px rgba(198, 161, 91, 0.1);
+.kite-card:hover, .cendrix-card:hover {
+  border-color: #2b3952;
 }
 
-.cendrix-gold-gradient {
-  background: linear-gradient(135deg, #F2DEAC 0%, #C6A15B 50%, #9A7836 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.btn-cendrix-gold {
+/* Zerodha Signature Buy Button (Blue) */
+.btn-kite-blue, .btn-cendrix-gold {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.55rem 1.25rem;
-  background: linear-gradient(135deg, #E2C889 0%, #C6A15B 60%, #9A7836 100%);
-  color: #0B1424;
-  font-weight: 700;
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  border-radius: 0.5rem;
-  border: 1px solid #E2C889;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 18px rgba(198, 161, 91, 0.25);
-}
-
-.btn-cendrix-gold:hover {
-  background: linear-gradient(135deg, #F5E5C0 0%, #D8B46C 60%, #A98540 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.4);
-}
-
-.btn-cendrix-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.25rem;
-  background-color: rgba(14, 23, 40, 0.6);
-  color: #F5F5F2;
+  padding: 0.45rem 1rem;
+  background-color: #387ed1;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  border: 1px solid rgba(198, 161, 91, 0.25);
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #387ed1;
   cursor: pointer;
-  transition: all 0.2s ease-out;
-  backdrop-filter: blur(10px);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.btn-cendrix-outline:hover {
-  border-color: #C6A15B;
-  color: #C6A15B;
-  background-color: rgba(198, 161, 91, 0.08);
-  transform: translateY(-1px);
+.btn-kite-blue:hover, .btn-cendrix-gold:hover {
+  background-color: #2769b5;
+  border-color: #2769b5;
 }
 
+/* Zerodha Signature Sell Button (Orange-Red) */
+.btn-kite-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background-color: #df514c;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  border-radius: 0.25rem;
+  border: 1px solid #df514c;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-kite-red:hover {
+  background-color: #cc3b36;
+  border-color: #cc3b36;
+}
+
+/* Zerodha Outline Button */
+.btn-kite-outline, .btn-cendrix-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background-color: #111622;
+  color: #9ca8ba;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  border: 1px solid #1e293b;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-kite-outline:hover, .btn-cendrix-outline:hover {
+  border-color: #387ed1;
+  color: #f0f3f8;
+  background-color: #151b2a;
+}
+
+/* Financial Movement Classes */
+.text-market-up {
+  color: #00c087;
+}
+
+.text-market-down {
+  color: #df514c;
+}
+
+.bg-market-up-subtle {
+  background-color: rgba(0, 192, 135, 0.1);
+  border: 1px solid rgba(0, 192, 135, 0.25);
+  color: #00c087;
+}
+
+.bg-market-down-subtle {
+  background-color: rgba(223, 81, 76, 0.1);
+  border: 1px solid rgba(223, 81, 76, 0.25);
+  color: #df514c;
+}
+
+/* Live tick price pulse animation */
+@keyframes flash-green {
+  0% { background-color: rgba(0, 192, 135, 0.3); }
+  100% { background-color: transparent; }
+}
+
+@keyframes flash-red {
+  0% { background-color: rgba(223, 81, 76, 0.3); }
+  100% { background-color: transparent; }
+}
+
+.animate-flash-green {
+  animation: flash-green 0.6s ease-out;
+}
+
+.animate-flash-red {
+  animation: flash-red 0.6s ease-out;
+}

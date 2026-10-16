@@ -11,6 +11,7 @@ import type {
 } from '../../types/trading';
 import type { MarketQuote } from '../../types/market';
 import { FinancialCalculations } from './FinancialCalculations';
+import { getZerodhaContractSpec } from '../market/indianInstruments';
 
 export interface OrderSubmissionParams {
   account: PaperAccount;
@@ -144,6 +145,9 @@ export class OrderExecutionEngine {
       };
     }
 
+    const contractSpec = getZerodhaContractSpec(tradingsymbol, instrument_type, exchange, lot_size);
+    const contractMultiplier = contractSpec.multiplier;
+
     // Calculate required margin
     const requiredMargin = FinancialCalculations.calculateRequiredMargin({
       instrumentType: instrument_type,
@@ -151,6 +155,7 @@ export class OrderExecutionEngine {
       transactionType: transaction_type,
       quantity,
       price: marginPrice,
+      multiplier: contractMultiplier,
     });
 
     // 1. Check Cash and Margin
@@ -240,6 +245,7 @@ export class OrderExecutionEngine {
       transactionType: transaction_type,
       quantity,
       price: fillPrice,
+      multiplier: contractMultiplier,
     });
 
     const trade: Trade = {
@@ -418,7 +424,8 @@ export class OrderExecutionEngine {
           transaction_type,
           quantity,
           price: fillPrice,
-          lot_size,
+          multiplier: contractMultiplier,
+          lot_size: contractSpec.lotSize,
         }
       );
 

@@ -5,6 +5,10 @@
       "destination": "https://nfs.faireconomy.media/ff_calendar_thisweek.json"
     },
     {
+      "source": "/upstox/(.*)",
+      "destination": "https://api.upstox.com/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

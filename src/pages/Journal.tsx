@@ -761,7 +761,7 @@ export default function Journal() {
                 <button type="button" onClick={() => handleCloseModal()} disabled={isSubmitting} className="px-4 py-2 text-sm font-medium text-textMain hover:text-white transition-colors disabled:opacity-50">
                   Cancel
                 </button>
-                <button type="submit" form="tradeForm" disabled={isSubmitting} className="px-6 py-2 bg-gradient-to-r from-[#C6A15B] to-[#E2C889] hover:from-[#B38F46] hover:to-[#D4B774] text-[#0B1424] rounded-lg text-sm font-bold transition-all shadow-md disabled:opacity-50">
+                <button type="submit" form="tradeForm" disabled={isSubmitting} className="btn-cendrix-gold px-6 py-2 rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50">
                   {isSubmitting ? 'Saving...' : 'Save Trade'}
                 </button>
               </div>

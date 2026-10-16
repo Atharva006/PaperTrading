@@ -1,4 +1,4 @@
-import { supabase } from '../../lib/supabase';
+import { supabase, isSupabaseConfigured } from '../../lib/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import type { 
   PaperAccount, 
@@ -11,6 +11,9 @@ import type {
   UserSettings 
 } from '../../types/trading';
 import type { TradingRepository } from './TradingRepository';
+import { LocalTradingRepo } from './LocalTradingRepo';
+
+const localRepo = new LocalTradingRepo();
 
 const DEFAULT_INITIAL_WATCHLISTS: Watchlist[] = [
   {
@@ -20,9 +23,9 @@ const DEFAULT_INITIAL_WATCHLISTS: Watchlist[] = [
     is_default: true,
     sort_order: 0,
     items: [
-      { instrument_key: 'NSE_INDEX|Nifty 50', tradingsymbol: 'NIFTY 50', exchange: 'NSE', instrument_type: 'INDEX', sort_order: 0 },
-      { instrument_key: 'NSE_INDEX|Nifty Bank', tradingsymbol: 'BANK NIFTY', exchange: 'NSE', instrument_type: 'INDEX', sort_order: 1 },
-      { instrument_key: 'BSE_INDEX|SENSEX', tradingsymbol: 'SENSEX', exchange: 'BSE', instrument_type: 'INDEX', sort_order: 2 },
+      { id: 'wli-idx-1', instrument_key: 'NSE_INDEX|Nifty 50', tradingsymbol: 'NIFTY 50', exchange: 'NSE', instrument_type: 'INDEX', sort_order: 0 },
+      { id: 'wli-idx-2', instrument_key: 'NSE_INDEX|Nifty Bank', tradingsymbol: 'BANK NIFTY', exchange: 'NSE', instrument_type: 'INDEX', sort_order: 1 },
+      { id: 'wli-idx-3', instrument_key: 'BSE_INDEX|SENSEX', tradingsymbol: 'SENSEX', exchange: 'BSE', instrument_type: 'INDEX', sort_order: 2 },
     ],
     created_at: new Date().toISOString(),
   },
@@ -33,11 +36,28 @@ const DEFAULT_INITIAL_WATCHLISTS: Watchlist[] = [
     is_default: false,
     sort_order: 1,
     items: [
-      { instrument_key: 'NSE_EQ|INE081A01020', tradingsymbol: 'TATASTEEL', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 0 },
-      { instrument_key: 'NSE_EQ|INE002A01018', tradingsymbol: 'RELIANCE', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 1 },
-      { instrument_key: 'NSE_EQ|INE040A01034', tradingsymbol: 'HDFCBANK', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 2 },
-      { instrument_key: 'NSE_EQ|INE467B01029', tradingsymbol: 'TCS', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 3 },
-      { instrument_key: 'NSE_EQ|INE009A01021', tradingsymbol: 'INFY', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 4 },
+      { id: 'wli-eq-1', instrument_key: 'NSE_EQ|INE081A01020', tradingsymbol: 'TATASTEEL', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 0 },
+      { id: 'wli-eq-2', instrument_key: 'NSE_EQ|INE002A01018', tradingsymbol: 'RELIANCE', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 1 },
+      { id: 'wli-eq-3', instrument_key: 'NSE_EQ|INE040A01034', tradingsymbol: 'HDFCBANK', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 2 },
+      { id: 'wli-eq-4', instrument_key: 'NSE_EQ|INE467B01029', tradingsymbol: 'TCS', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 3 },
+      { id: 'wli-eq-5', instrument_key: 'NSE_EQ|INE009A01021', tradingsymbol: 'INFY', exchange: 'NSE', instrument_type: 'EQUITY', sort_order: 4 },
+    ],
+    created_at: new Date().toISOString(),
+  },
+  {
+    id: 'c0000000-0000-0000-0000-000000000003',
+    user_id: '00000000-0000-0000-0000-000000000001',
+    name: 'MCX Commodities',
+    is_default: false,
+    sort_order: 2,
+    items: [
+      { id: 'wli-mcx-1', instrument_key: 'MCX_FO|571445', tradingsymbol: 'GOLDM26NOVFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 0 },
+      { id: 'wli-mcx-2', instrument_key: 'MCX_FO|495213', tradingsymbol: 'GOLD26DECFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 1 },
+      { id: 'wli-mcx-3', instrument_key: 'MCX_FO|483080', tradingsymbol: 'SILVERM26NOVFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 2 },
+      { id: 'wli-mcx-4', instrument_key: 'MCX_FO|569900', tradingsymbol: 'CRUDEOIL26OCTFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 3 },
+      { id: 'wli-mcx-5', instrument_key: 'MCX_FO|570750', tradingsymbol: 'NATURALGAS26OCTFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 4 },
+      { id: 'wli-mcx-6', instrument_key: 'MCX_FO|574829', tradingsymbol: 'COPPER26OCTFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 5 },
+      { id: 'wli-mcx-7', instrument_key: 'MCX_FO|574834', tradingsymbol: 'ZINC26OCTFUT', exchange: 'MCX', instrument_type: 'FUTCOM', sort_order: 6 },
     ],
     created_at: new Date().toISOString(),
   },
@@ -533,6 +553,18 @@ export class SupabaseTradingRepo implements TradingRepository {
     }
   }
 
+  public async deletePosition(positionId: string): Promise<void> {
+    if (!isSupabaseConfigured) {
+      return localRepo.deletePosition(positionId);
+    }
+    try {
+      await supabase.from('positions').delete().eq('id', positionId);
+    } catch {
+      // ignore
+    }
+    return localRepo.deletePosition(positionId);
+  }
+
   public async getHoldings(accountId: string): Promise<Holding[]> {
     try {
       const { data, error } = await supabase
@@ -607,6 +639,18 @@ export class SupabaseTradingRepo implements TradingRepository {
     } catch (err) {
       console.warn('Failed to upsert holding to Supabase:', err);
     }
+  }
+
+  public async deleteHolding(holdingId: string): Promise<void> {
+    if (!isSupabaseConfigured) {
+      return localRepo.deleteHolding(holdingId);
+    }
+    try {
+      await supabase.from('holdings').delete().eq('id', holdingId);
+    } catch {
+      // ignore
+    }
+    return localRepo.deleteHolding(holdingId);
   }
 
   public async getLedger(accountId: string): Promise<LedgerEntry[]> {
@@ -842,4 +886,5 @@ export class SupabaseTradingRepo implements TradingRepository {
 }
 
 export const supabaseTradingRepo = new SupabaseTradingRepo();
-export const tradingRepo = supabaseTradingRepo;
+export const localTradingRepo = localRepo;
+export const tradingRepo: TradingRepository = isSupabaseConfigured ? supabaseTradingRepo : localRepo;
