@@ -96,7 +96,7 @@ function App() {
       <Routes>
         {/* Auth Layout for Landing and Login */}
         <Route element={<AuthLayout />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/landing" element={<Landing />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
