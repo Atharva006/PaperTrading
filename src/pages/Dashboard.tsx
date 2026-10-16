@@ -58,7 +58,7 @@ export default function Dashboard() {
         <div>
           <div className="flex items-center gap-2.5">
             <h1 className="font-serif text-2xl font-bold tracking-wide text-[#F5F5F2]">
-              Welcome, <span className="text-[#C6A15B]">{userName && !userName.toLowerCase().includes('cendrix') && userName !== 'Trader' ? userName.split(' ')[0] : 'Amit'}</span>
+              Welcome, <span className="text-[#C6A15B]">{userName?.split(' ')[0] || 'Trader'}</span>
             </h1>
             <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" title="System Live · NSE & MCX Connected" />
           </div>
