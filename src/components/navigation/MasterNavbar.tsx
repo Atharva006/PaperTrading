@@ -213,7 +213,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
               className="flex items-center gap-2 p-1 rounded hover:bg-[#14223A] border border-transparent hover:border-[rgba(198,161,91,0.22)] transition-colors"
             >
               <div className="w-7 h-7 rounded-full bg-[#0F192B] border border-[#C6A15B]/50 flex items-center justify-center text-xs font-bold font-mono text-[#C6A15B]">
-                {userName ? userName.slice(0, 2).toUpperCase() : 'CN'}
+                {userName && !userName.toLowerCase().includes('cendrix') ? userName.slice(0, 2).toUpperCase() : 'AM'}
               </div>
               <ChevronDown className="w-3.5 h-3.5 text-[#A1A8B3]" />
             </button>
@@ -221,7 +221,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
             {isUserMenuOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-[#0F192B] border border-[rgba(198,161,91,0.25)] rounded-md shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans">
                 <div className="px-3 py-2 border-b border-[#14223A]">
-                  <p className="text-xs font-bold text-[#F5F5F2] truncate font-serif tracking-wide">{userName || 'Cendrix Institutional Client'}</p>
+                  <p className="text-xs font-bold text-[#F5F5F2] truncate font-serif tracking-wide">{userName && !userName.toLowerCase().includes('cendrix') ? userName : 'Amit'}</p>
                   <p className="text-[10px] text-[#C6A15B] font-mono tracking-wider font-semibold">CENDRIX CAPITAL</p>
                   {account && (
                     <div className="mt-1 pt-1 border-t border-[rgba(198,161,91,0.15)] flex justify-between text-[10px] font-mono text-[#A1A8B3]">
