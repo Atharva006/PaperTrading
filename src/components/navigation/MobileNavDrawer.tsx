@@ -56,7 +56,6 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     { name: 'Terminal / Chart', path: '/dashboard/terminal', icon: LineChart },
     { name: 'Market Watch', path: '/dashboard/watchlist', icon: Eye },
     { name: 'MCX Commodities', path: '/dashboard/commodities', icon: Flame },
-    { name: 'Option Chain', path: '/dashboard/option-chain', icon: Layers },
     { name: 'F&O Explorer', path: '/dashboard/derivatives', icon: Binary },
     {
       name: 'Positions',

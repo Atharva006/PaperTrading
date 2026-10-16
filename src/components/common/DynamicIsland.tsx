@@ -5,7 +5,7 @@ import {
   TrendingDown, 
   PlusCircle, 
   LineChart, 
-  Layers, 
+  Flame, 
   ChevronDown, 
   ChevronUp,
 } from 'lucide-react';
@@ -148,11 +148,11 @@ export const DynamicIsland: React.FC = () => {
                   <span>Terminal Chart</span>
                 </button>
                 <button
-                  onClick={() => navigate('/dashboard/option-chain')}
+                  onClick={() => navigate('/dashboard/commodities')}
                   className="px-3 py-1.5 rounded-lg bg-[#0D0D0D] hover:bg-[#141414] border border-[#242424] text-[#F5F5F5] text-xs font-semibold flex items-center gap-1.5 transition-colors"
                 >
-                  <Layers className="w-3.5 h-3.5 text-[#F0D79A]" />
-                  <span>Option Chain</span>
+                  <Flame className="w-3.5 h-3.5 text-[#D4AF65]" />
+                  <span>Commodities</span>
                 </button>
               </div>
 

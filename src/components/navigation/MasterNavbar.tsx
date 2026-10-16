@@ -89,7 +89,6 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
     },
     { name: 'Terminal', path: '/dashboard/terminal' },
     { name: 'Commodities', path: '/dashboard/commodities' },
-    { name: 'Options', path: '/dashboard/option-chain' },
     { name: 'Funds', path: '/dashboard/portfolio' },
     { name: 'Analytics', path: '/dashboard/analytics' },
   ];

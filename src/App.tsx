@@ -14,7 +14,6 @@ import MarketWatchPage from './pages/MarketWatchPage';
 import TerminalPage from './pages/TerminalPage';
 import DerivativesExplorerPage from './pages/DerivativesExplorerPage';
 import CommoditiesPage from './pages/CommoditiesPage';
-import OptionChainPage from './pages/OptionChainPage';
 import PositionsPage from './pages/PositionsPage';
 import HoldingsPage from './pages/HoldingsPage';
 import OrdersPage from './pages/OrdersPage';
@@ -111,7 +110,7 @@ function App() {
           <Route path="terminal" element={<TerminalPage />} />
           <Route path="derivatives" element={<DerivativesExplorerPage />} />
           <Route path="commodities" element={<CommoditiesPage />} />
-          <Route path="option-chain" element={<OptionChainPage />} />
+          <Route path="option-chain" element={<Navigate to="/dashboard/commodities" replace />} />
           <Route path="positions" element={<PositionsPage />} />
           <Route path="holdings" element={<HoldingsPage />} />
           <Route path="orders" element={<OrdersPage />} />
