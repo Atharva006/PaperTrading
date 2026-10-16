@@ -27,13 +27,13 @@ export class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#07090e] text-[#f0f3f8] flex items-center justify-center p-6">
-          <div className="max-w-md w-full bg-[#0d111a] border border-[#1e2638] rounded-xl p-6 text-center shadow-2xl">
-            <div className="w-12 h-12 rounded-full bg-[#df514c]/10 border border-[#df514c]/30 text-[#df514c] flex items-center justify-center mx-auto mb-4">
+        <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] flex items-center justify-center p-6">
+          <div className="max-w-md w-full cendrix-card rounded-xl p-8 text-center shadow-2xl border border-[#14223A]">
+            <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <h2 className="text-lg font-semibold text-[#f0f3f8] mb-2">Something went wrong</h2>
-            <p className="text-xs text-[#788296] mb-4">
+            <h2 className="text-xl font-serif font-bold text-[#F5F5F2] mb-2">Something went wrong</h2>
+            <p className="text-xs text-[#A1A8B3] mb-6">
               {this.state.error?.message || 'An unexpected rendering error occurred in the workspace.'}
             </p>
             <button
@@ -41,10 +41,10 @@ export class ErrorBoundary extends Component<Props, State> {
                 this.setState({ hasError: false, error: null });
                 window.location.reload();
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#387ed1] hover:bg-[#2c6cb5] text-white text-xs font-medium rounded transition-colors"
+              className="inline-flex items-center gap-2 btn-cendrix-gold px-5 py-2.5 text-xs font-bold rounded-lg shadow-md"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reload Application</span>
+              <span>Reload Workspace</span>
             </button>
           </div>
         </div>

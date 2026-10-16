@@ -106,14 +106,14 @@ export const ZerodhaMarketWatch: React.FC = () => {
     n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
-    <div className="flex flex-col h-full bg-[#10141e] text-[#f0f3f8] select-none font-sans text-xs border-r border-[#1e2638]">
+    <div className="flex flex-col h-full bg-[#10141C] text-[#F5F5F2] select-none font-sans text-xs border-r border-[#14223A]">
       {/* ── 1. Search Bar at Top ────────────────────────────────────────── */}
-      <div className="p-2.5 border-b border-[#1e2638] bg-[#0d111a] relative">
-        <div className="flex items-center gap-2 px-2.5 py-1.5 bg-[#141b27] border border-[#1e2638] rounded focus-within:border-[#387ed1] transition-colors">
-          <Search className="w-3.5 h-3.5 text-[#5c687a] shrink-0" />
+      <div className="p-2.5 border-b border-[#14223A] bg-[#0B1424] relative">
+        <div className="flex items-center gap-2 px-2.5 py-1.5 bg-[#0F192B] border border-[rgba(198,161,91,0.22)] rounded focus-within:border-[#C6A15B] transition-colors">
+          <Search className="w-3.5 h-3.5 text-[#A1A8B3] shrink-0" />
           <input
             type="text"
-            className="w-full bg-transparent text-xs text-[#f0f3f8] placeholder-[#5c687a] focus:outline-none"
+            className="w-full bg-transparent text-xs text-[#F5F5F2] placeholder-[#6E7683] focus:outline-none"
             placeholder="Search (eg: infy, bse, nifty, crudeoil)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -121,12 +121,12 @@ export const ZerodhaMarketWatch: React.FC = () => {
           {searchQuery ? (
             <button
               onClick={() => setSearchQuery('')}
-              className="text-[#5c687a] hover:text-[#f0f3f8]"
+              className="text-[#A1A8B3] hover:text-[#F5F5F2]"
             >
               <X className="w-3 h-3" />
             </button>
           ) : (
-            <span className="text-[10px] font-mono text-[#5c687a] shrink-0">
+            <span className="text-[10px] font-mono text-[#C6A15B] font-semibold shrink-0">
               {currentWl?.items.length || 0}/50
             </span>
           )}
@@ -151,26 +151,26 @@ export const ZerodhaMarketWatch: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="font-semibold text-[#f0f3f8]">{inst.tradingsymbol}</span>
-                      <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#0d111a] text-[#387ed1] border border-[#1e2638]">
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#0B1424] text-[#C6A15B] border border-[#14223A] font-semibold">
                         {inst.exchange}
                       </span>
                     </div>
-                    <div className="text-[10px] text-[#5c687a]">{inst.name}</div>
+                    <div className="text-[10px] text-[#6E7683]">{inst.name}</div>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {price > 0 && (
-                      <span className="font-mono text-xs font-bold text-[#f0f3f8]">
+                      <span className="font-mono text-xs font-bold text-[#F5F5F2]">
                         ₹{fmt(price)}
                       </span>
                     )}
                     <button
                       type="button"
                       disabled={alreadyAdded}
-                      className={`p-1 rounded text-xs ${
+                      className={`p-1.5 rounded-md text-xs font-semibold transition-all ${
                         alreadyAdded
-                          ? 'text-[#5c687a]'
-                          : 'bg-[#387ed1]/15 text-[#387ed1] hover:bg-[#387ed1] hover:text-white'
+                          ? 'text-[#6E7683] bg-[#0B1424]'
+                          : 'bg-[#C6A15B]/15 text-[#E2C889] hover:bg-[#C6A15B] hover:text-[#070D18]'
                       }`}
                     >
                       <Plus className="w-3.5 h-3.5" />
@@ -214,10 +214,10 @@ export const ZerodhaMarketWatch: React.FC = () => {
                 onClick={() => handleSelectInstrument(master as Instrument)}
                 className={`flex items-center justify-between px-3 py-2.5 cursor-pointer transition-colors border-l-2 ${
                   isSelected
-                    ? 'border-[#387ed1] bg-[#141b27]'
+                    ? 'border-[#C6A15B] bg-[#14223A]/70 shadow-sm'
                     : isHovered
-                    ? 'border-transparent bg-[#121824]'
-                    : 'border-transparent hover:bg-[#121824]'
+                    ? 'border-transparent bg-[#14223A]/40'
+                    : 'border-transparent hover:bg-[#14223A]/30'
                 }`}
               >
                 {/* Symbol & Exchange */}
@@ -225,12 +225,12 @@ export const ZerodhaMarketWatch: React.FC = () => {
                   <div className="flex items-center gap-1.5">
                     <span
                       className={`font-semibold text-xs truncate ${
-                        isSelected ? 'text-[#387ed1]' : 'text-[#f0f3f8]'
+                        isSelected ? 'text-[#C6A15B]' : 'text-[#F5F5F2]'
                       }`}
                     >
                       {item.tradingsymbol}
                     </span>
-                    <span className="text-[9px] font-mono text-[#5c687a] uppercase shrink-0">
+                    <span className="text-[9px] font-mono text-[#6E7683] uppercase shrink-0">
                       {item.exchange}
                     </span>
                   </div>
@@ -243,7 +243,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
                       type="button"
                       title="Buy (B)"
                       onClick={(e) => handleBuy(master as Instrument, e)}
-                      className="w-5 h-5 rounded bg-[#387ed1] hover:bg-[#2e6bb5] text-white font-bold text-[10px] flex items-center justify-center transition-colors shadow-sm"
+                      className="w-5 h-5 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] flex items-center justify-center transition-all shadow-sm"
                     >
                       B
                     </button>
@@ -251,7 +251,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
                       type="button"
                       title="Sell (S)"
                       onClick={(e) => handleSell(master as Instrument, e)}
-                      className="w-5 h-5 rounded bg-[#df514c] hover:bg-[#c93f3a] text-white font-bold text-[10px] flex items-center justify-center transition-colors shadow-sm"
+                      className="w-5 h-5 rounded bg-rose-600 hover:bg-rose-500 text-white font-bold text-[10px] flex items-center justify-center transition-all shadow-sm"
                     >
                       S
                     </button>
@@ -259,7 +259,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
                       type="button"
                       title="Order Terminal / Depth"
                       onClick={(e) => handleOpenTerminal(master as Instrument, e)}
-                      className="p-1 rounded text-[#9ca8ba] hover:text-[#f0f3f8] hover:bg-[#1e2638] transition-colors"
+                      className="p-1 rounded text-[#A1A8B3] hover:text-[#C6A15B] hover:bg-[#14223A] transition-colors"
                     >
                       <Activity className="w-3.5 h-3.5" />
                     </button>
@@ -270,7 +270,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
                         e.stopPropagation();
                         removeFromWatchlist(currentWl.id, item.instrument_key);
                       }}
-                      className="p-1 rounded text-[#9ca8ba] hover:text-[#df514c] hover:bg-[#1e2638] transition-colors"
+                      className="p-1 rounded text-[#A1A8B3] hover:text-rose-400 hover:bg-[#14223A] transition-colors"
                     >
                       <Trash2 className="w-3 h-3" />
                     </button>
@@ -278,13 +278,13 @@ export const ZerodhaMarketWatch: React.FC = () => {
                 ) : (
                   /* Price & Change Telemetry (When not hovered) */
                   <div className="text-right font-mono shrink-0">
-                    <div className="text-xs font-bold text-[#f0f3f8]">
+                    <div className="text-xs font-bold text-[#F5F5F2]">
                       {price > 0 ? fmt(price) : '—'}
                     </div>
                     {price > 0 && (
                       <div
                         className={`text-[10px] flex items-center justify-end gap-0.5 ${
-                          isPos ? 'text-[#00c087]' : 'text-[#df514c]'
+                          isPos ? 'text-emerald-400' : 'text-rose-400'
                         }`}
                       >
                         {isPos ? '+' : ''}
@@ -297,16 +297,16 @@ export const ZerodhaMarketWatch: React.FC = () => {
             );
           })
         ) : (
-          <div className="py-16 text-center text-[#5c687a] text-xs">
+          <div className="py-16 text-center text-[#6E7683] text-xs">
             No instruments in this watchlist.
-            <div className="text-[11px] text-[#387ed1] mt-1">Search above to add scrips.</div>
+            <div className="text-[11px] text-[#C6A15B] mt-1 font-mono">Search above to add scrips.</div>
           </div>
         )}
       </div>
 
       {/* ── 3. Numbered Watchlist Tabs at Bottom (1, 2, 3, 4, 5) ──────── */}
-      <div className="border-t border-[#1e2638] bg-[#0d111a] flex items-center justify-between px-2 py-1.5 text-xs font-mono">
-        <div className="flex items-center gap-1">
+      <div className="border-t border-[#14223A] bg-[#0B1424] flex items-center justify-between px-2.5 py-2 text-xs font-mono">
+        <div className="flex items-center gap-1.5">
           {watchlists.map((wl, index) => {
             const isActive = activeWatchlistId === wl.id;
             return (
@@ -316,8 +316,8 @@ export const ZerodhaMarketWatch: React.FC = () => {
                 title={wl.name}
                 className={`w-7 h-7 rounded text-xs font-bold transition-all flex items-center justify-center ${
                   isActive
-                    ? 'bg-[#387ed1] text-white'
-                    : 'text-[#9ca8ba] hover:text-[#f0f3f8] hover:bg-[#141b27]'
+                    ? 'bg-[#C6A15B] text-[#070D18] shadow-sm shadow-[#C6A15B]/30'
+                    : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A]'
                 }`}
               >
                 {index + 1}
@@ -326,7 +326,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
           })}
         </div>
 
-        <div className="text-[11px] text-[#5c687a] truncate max-w-[140px] font-sans">
+        <div className="text-[11px] text-[#A1A8B3] truncate max-w-[140px] font-sans font-medium">
           {currentWl?.name || 'Watchlist'}
         </div>
       </div>

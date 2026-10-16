@@ -4,34 +4,47 @@
 
 @layer base {
   :root {
-    --color-bg-pitch: #0a0d14;
-    --color-bg-charcoal: #0e131f;
-    --color-bg-surface: #111622;
-    --color-bg-surface-elevated: #151b2a;
-    --color-bg-surface-hover: #1a2235;
-    --color-border-primary: #1e293b;
-    --color-border-subtle: #162030;
+    /* Cendrix Capital Root Design Tokens */
+    --color-bg-midnight: #0B1424;
+    --color-bg-charcoal: #10141C;
+    --color-bg-surface: #0F192B;
+    --color-bg-surface-elevated: #14223A;
+    --color-bg-card: #0E1728;
+    --color-bg-card-hover: #132038;
+
+    --color-gold: #C6A15B;
+    --color-gold-light: #E2C889;
+    --color-gold-dark: #8F6E2C;
+    --color-gold-glow: rgba(198, 161, 91, 0.15);
+    --color-gold-border: rgba(198, 161, 91, 0.22);
+    --color-gold-border-bright: rgba(198, 161, 91, 0.55);
+
+    --color-text-primary: #F5F5F2;
+    --color-text-secondary: #A1A8B3;
+    --color-text-tertiary: #6E7683;
+    --color-text-gold: #C6A15B;
+
+    --color-border-subtle: rgba(255, 255, 255, 0.07);
+    --color-border-medium: rgba(255, 255, 255, 0.12);
+    --color-border-hairline: #14223A;
+
     --color-kite-blue: #387ed1;
-    --color-kite-blue-light: #4184f3;
     --color-kite-red: #df514c;
-    --color-text-primary: #f0f3f8;
-    --color-text-secondary: #9ca8ba;
-    --color-text-muted: #5c687a;
     --color-positive: #00c087;
     --color-negative: #df514c;
   }
 
   body {
-    background-color: #0a0d14;
-    color: #f0f3f8;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background-color: #0B1424;
+    color: #F5F5F2;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: #387ed1;
-    color: #ffffff;
+    background-color: #C6A15B;
+    color: #0B1424;
   }
 
   .font-mono {
@@ -40,42 +53,105 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.015em;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.02em;
   }
 }
 
-/* Zerodha Kite Dark Scrollbar */
+/* Cendrix Custom Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0d14;
+  background: #0B1424;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #14223A;
   border-radius: 3px;
-  border: 1px solid #162030;
+  border: 1px solid rgba(198, 161, 91, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #387ed1;
+  background: #C6A15B;
 }
 
-/* Zerodha Kite Card Style */
-.kite-card, .cendrix-card {
-  background-color: #111622;
-  border: 1px solid #1e293b;
+/* Cendrix Hairline Dividers */
+.hairline-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(198, 161, 91, 0.3) 50%, transparent 100%);
+}
+
+/* Cendrix Prestige Cards */
+.cendrix-card, .kite-card {
+  background-color: #0E1728;
+  border: 1px solid rgba(198, 161, 91, 0.2);
   border-radius: 0.375rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  transition: all 0.2s ease;
 }
 
-.kite-card:hover, .cendrix-card:hover {
-  border-color: #2b3952;
+.cendrix-card:hover, .kite-card:hover {
+  border-color: rgba(198, 161, 91, 0.45);
+  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.08);
 }
 
-/* Zerodha Signature Buy Button (Blue) */
-.btn-kite-blue, .btn-cendrix-gold {
+/* Cendrix Signature Gold Button */
+.btn-cendrix-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background: linear-gradient(135deg, #D4B26F 0%, #C6A15B 60%, #A68037 100%);
+  color: #070D18;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid #E2C889;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(198, 161, 91, 0.22);
+}
+
+.btn-cendrix-gold:hover {
+  background: linear-gradient(135deg, #E2C889 0%, #D4B26F 60%, #B89043 100%);
+  color: #05080E;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(198, 161, 91, 0.35);
+}
+
+/* Cendrix Signature Outline Button */
+.btn-cendrix-outline, .btn-kite-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background-color: rgba(14, 23, 40, 0.7);
+  color: #F5F5F2;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(198, 161, 91, 0.25);
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.btn-cendrix-outline:hover, .btn-kite-outline:hover {
+  border-color: #C6A15B;
+  color: #C6A15B;
+  background-color: rgba(198, 161, 91, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Zerodha Execution Buttons (Blue Buy / Red Sell) */
+.btn-kite-blue {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -88,15 +164,14 @@
   border-radius: 0.25rem;
   border: 1px solid #387ed1;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
-.btn-kite-blue:hover, .btn-cendrix-gold:hover {
+.btn-kite-blue:hover {
   background-color: #2769b5;
   border-color: #2769b5;
 }
 
-/* Zerodha Signature Sell Button (Orange-Red) */
 .btn-kite-red {
   display: inline-flex;
   align-items: center;
@@ -110,7 +185,7 @@
   border-radius: 0.25rem;
   border: 1px solid #df514c;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .btn-kite-red:hover {
@@ -118,30 +193,7 @@
   border-color: #cc3b36;
 }
 
-/* Zerodha Outline Button */
-.btn-kite-outline, .btn-cendrix-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  background-color: #111622;
-  color: #9ca8ba;
-  font-weight: 500;
-  font-size: 0.8125rem;
-  border: 1px solid #1e293b;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-kite-outline:hover, .btn-cendrix-outline:hover {
-  border-color: #387ed1;
-  color: #f0f3f8;
-  background-color: #151b2a;
-}
-
-/* Financial Movement Classes */
+/* Financial Movement Indicators */
 .text-market-up {
   color: #00c087;
 }
@@ -151,18 +203,18 @@
 }
 
 .bg-market-up-subtle {
-  background-color: rgba(0, 192, 135, 0.1);
-  border: 1px solid rgba(0, 192, 135, 0.25);
+  background-color: rgba(0, 192, 135, 0.12);
+  border: 1px solid rgba(0, 192, 135, 0.3);
   color: #00c087;
 }
 
 .bg-market-down-subtle {
-  background-color: rgba(223, 81, 76, 0.1);
-  border: 1px solid rgba(223, 81, 76, 0.25);
+  background-color: rgba(223, 81, 76, 0.12);
+  border: 1px solid rgba(223, 81, 76, 0.3);
   color: #df514c;
 }
 
-/* Live tick price pulse animation */
+/* Live tick price flash animation */
 @keyframes flash-green {
   0% { background-color: rgba(0, 192, 135, 0.3); }
   100% { background-color: transparent; }

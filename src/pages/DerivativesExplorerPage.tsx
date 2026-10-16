@@ -31,31 +31,36 @@ export default function DerivativesExplorerPage() {
   };
 
   return (
-    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#f0f3f8] pb-12 space-y-4">
-      {/* ── 1. Top Zerodha Header Strip ─────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-[#1e2638]">
+    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-4">
+      {/* ── 1. Top Cendrix Header Strip ─────────────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
         <div>
-          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] flex items-center gap-2">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+              Quantitative Derivatives Desk · Margin Engine
+            </span>
+          </div>
+          <h1 className="text-2xl font-serif tracking-tight text-[#F5F5F2] flex items-center gap-2.5">
             <span>Futures & Derivatives</span>
-            <span className="text-xs font-mono font-normal text-[#788296]">
+            <span className="text-xs font-mono font-normal text-[#A1A8B3]">
               ({futures.length} contracts)
             </span>
           </h1>
-          <p className="text-xs text-[#788296] mt-0.5">
+          <p className="text-xs text-[#A1A8B3] mt-0.5">
             NSE & BSE Index & Stock Futures with verified lot sizes and real-time margin requirements
           </p>
         </div>
 
         {/* Filter Sub-Tabs */}
-        <div className="flex items-center gap-4 text-xs font-medium">
+        <div className="flex items-center gap-4 text-xs font-mono">
           {(['ALL', 'INDEX', 'STOCK'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`pb-1 border-b-2 transition-all ${
+              className={`pb-1.5 px-1 border-b-2 transition-all font-semibold ${
                 filterType === t
-                  ? 'border-[#387ed1] text-[#387ed1] font-semibold'
-                  : 'border-transparent text-[#788296] hover:text-[#c4cbd4]'
+                  ? 'border-[#C6A15B] text-[#C6A15B]'
+                  : 'border-transparent text-[#6E7683] hover:text-[#F5F5F2]'
               }`}
             >
               {t === 'ALL' ? 'All Futures' : t === 'INDEX' ? 'Index Futures' : 'Stock Futures'}
@@ -64,23 +69,23 @@ export default function DerivativesExplorerPage() {
         </div>
       </div>
 
-      {/* ── 2. Full-Width Futures Table (Edge-to-Edge) ───────────────────── */}
-      <div className="overflow-x-auto mt-2">
+      {/* ── 2. Full-Width Futures Table ───────────────────── */}
+      <div className="overflow-x-auto mt-2 cendrix-card rounded-xl border border-[#14223A]">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#1e2638] text-[#788296] text-[11px] font-medium font-mono">
-              <th className="py-2.5 px-3">Contract</th>
-              <th className="py-2.5 px-3">Segment</th>
-              <th className="py-2.5 px-3">Expiry</th>
-              <th className="py-2.5 px-3 text-right">Lot Size</th>
-              <th className="py-2.5 px-3 text-right">Future LTP (₹)</th>
-              <th className="py-2.5 px-3 text-right">Underlying Spot</th>
-              <th className="py-2.5 px-3 text-right">Basis</th>
-              <th className="py-2.5 px-3 text-right">Margin / Lot</th>
-              <th className="py-2.5 px-3 text-right">Actions</th>
+            <tr className="border-b border-[#14223A] text-[#6E7683] text-[11px] font-mono uppercase bg-[#0B1424]">
+              <th className="py-3 px-4">Contract</th>
+              <th className="py-3 px-4">Segment</th>
+              <th className="py-3 px-4">Expiry</th>
+              <th className="py-3 px-4 text-right">Lot Size</th>
+              <th className="py-3 px-4 text-right">Future LTP (₹)</th>
+              <th className="py-3 px-4 text-right">Underlying Spot</th>
+              <th className="py-3 px-4 text-right">Basis</th>
+              <th className="py-3 px-4 text-right">Margin / Lot</th>
+              <th className="py-3 px-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#1e2638]/60 font-mono">
+          <tbody className="divide-y divide-[#14223A] font-mono">
             {futures.map((inst) => {
               const quote = quotes[inst.instrument_key];
               const underlyingQuote = inst.underlying_key ? quotes[inst.underlying_key] : null;
@@ -98,43 +103,43 @@ export default function DerivativesExplorerPage() {
               });
 
               return (
-                <tr key={inst.instrument_key} className="hover:bg-[#121724] group transition-colors">
-                  <td className="py-2.5 px-3 font-sans">
+                <tr key={inst.instrument_key} className="hover:bg-[#14223A]/40 group transition-colors">
+                  <td className="py-3 px-4 font-sans">
                     <div className="flex items-center gap-2">
-                      <span className="font-medium text-[#f0f3f8] group-hover:text-[#387ed1] transition-colors">
+                      <span className="font-semibold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
                         {inst.tradingsymbol}
                       </span>
-                      <span className="text-[10px] text-[#58647a] font-mono">{inst.exchange}</span>
+                      <span className="text-[10px] text-[#C6A15B] font-mono px-1 py-0.2 rounded bg-[#0B1424] border border-[#14223A]">{inst.exchange}</span>
                     </div>
                   </td>
-                  <td className="py-2.5 px-3 text-[#788296] font-sans">
-                    <span className="text-[10px] bg-[#161d2c] border border-[#1e2638] text-[#788296] px-1.5 py-0.5 rounded font-mono">
+                  <td className="py-3 px-4 text-[#A1A8B3] font-sans">
+                    <span className="text-[10px] bg-[#0B1424] border border-[#14223A] text-[#A1A8B3] px-2 py-0.5 rounded font-mono">
                       {inst.instrument_type}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-[#788296] font-sans">
+                  <td className="py-3 px-4 text-[#A1A8B3] font-sans">
                     {inst.expiry ? new Date(inst.expiry).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Monthly'}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-[#c4cbd4] font-medium">{inst.lot_size}</td>
-                  <td className="py-2.5 px-3 text-right font-medium text-[#f0f3f8]">₹{ltp.toFixed(2)}</td>
-                  <td className="py-2.5 px-3 text-right text-[#788296]">₹{spot.toFixed(2)}</td>
-                  <td className={`py-2.5 px-3 text-right font-medium ${basis >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                  <td className="py-3 px-4 text-right text-[#F5F5F2] font-semibold">{inst.lot_size}</td>
+                  <td className="py-3 px-4 text-right font-bold text-[#F5F5F2]">₹{ltp.toFixed(2)}</td>
+                  <td className="py-3 px-4 text-right text-[#A1A8B3]">₹{spot.toFixed(2)}</td>
+                  <td className={`py-3 px-4 text-right font-semibold ${basis >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                     {basis >= 0 ? '+' : ''}{basis.toFixed(2)}
                   </td>
-                  <td className="py-2.5 px-3 text-right text-[#387ed1] font-medium">
+                  <td className="py-3 px-4 text-right text-[#E2C889] font-bold">
                     ₹{marginPerLot.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                   </td>
-                  <td className="py-2.5 px-3 text-right">
+                  <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         onClick={() => handleTrade(inst, 'BUY')}
-                        className="px-2 py-0.5 bg-[#387ed1] hover:bg-[#2e6bb5] text-white text-[11px] font-bold rounded transition-colors"
+                        className="px-2 py-0.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold rounded transition-colors shadow-sm"
                       >
                         B
                       </button>
                       <button
                         onClick={() => handleTrade(inst, 'SELL')}
-                        className="px-2 py-0.5 bg-[#df514c] hover:bg-[#c93f3a] text-white text-[11px] font-bold rounded transition-colors"
+                        className="px-2 py-0.5 bg-rose-600 hover:bg-rose-500 text-white text-[11px] font-bold rounded transition-colors shadow-sm"
                       >
                         S
                       </button>

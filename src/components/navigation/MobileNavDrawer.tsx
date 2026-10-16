@@ -87,45 +87,48 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
       />
 
       {/* Slide-out Menu Panel */}
-      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#030303] border-l border-[#242424] shadow-2xl flex flex-col z-50 select-none animate-in slide-in-from-right duration-200">
+      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B1424] border-l border-[#14223A] shadow-2xl flex flex-col z-50 select-none animate-in slide-in-from-right duration-200">
         
         {/* Drawer Header */}
-        <div className="p-4 border-b border-[#191919] flex items-center justify-between">
+        <div className="p-4 border-b border-[#14223A] flex items-center justify-between bg-[#10141C]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#080808] border border-[#242424] flex items-center justify-center p-1 overflow-hidden">
+            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center p-1 overflow-hidden">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
             <div>
-              <span className="font-serif text-base font-bold tracking-wider text-[#F5F5F5] uppercase">
-                CENDRIX <span className="text-[#D4AF65]">CAPITAL</span>
+              <span className="font-serif text-base font-bold tracking-wider text-[#F5F5F2] uppercase">
+                CENDRIX <span className="text-[#C6A15B]">CAPITAL</span>
               </span>
-              <p className="text-[9px] text-[#71717A] uppercase tracking-wider font-mono">
-                CNRX Institutional
+              <p className="text-[9px] text-[#A1A8B3] uppercase tracking-wider font-mono">
+                PROPRIETARY TRADING
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-[#131313] transition-colors"
+            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-colors"
           >
-            <X className="w-5 h-5 text-[#D4AF65]" />
+            <X className="w-5 h-5 text-[#C6A15B]" />
           </button>
         </div>
 
         {/* Account Telemetry Summary */}
         {account && (
-          <div className="m-3 p-3 bg-[#0D0D0D] rounded-xl border border-[#242424]">
-            <div className="flex justify-between items-center text-[10px] text-[#71717A] font-mono uppercase font-bold">
-              <span>Virtual Equity</span>
-              <span className="text-[#00C087]">LIVE</span>
+          <div className="m-3 p-3.5 bg-[#0E1728] rounded-xl border border-[rgba(198,161,91,0.2)]">
+            <div className="flex justify-between items-center text-[10px] text-[#A1A8B3] font-mono uppercase font-bold">
+              <span>Virtual Portfolio Equity</span>
+              <span className="text-[#10B981] flex items-center gap-1 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                LIVE
+              </span>
             </div>
-            <div className="text-base font-bold font-mono text-[#F5F5F5] mt-0.5">
+            <div className="text-base font-bold font-mono text-[#F5F5F2] mt-0.5">
               ₹{account.account_equity.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </div>
-            <div className="mt-2 pt-2 border-t border-[#191919] flex justify-between text-[11px] font-mono text-[#A1A1AA]">
+            <div className="mt-2 pt-2 border-t border-[#14223A] flex justify-between text-[11px] font-mono text-[#A1A8B3]">
               <span>Cash: ₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
-              <span className="text-[#D4AF65]">Margin: ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+              <span className="text-[#C6A15B] font-semibold">Margin: ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
             </div>
           </div>
         )}
@@ -144,13 +147,13 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                   flex items-center justify-between px-3 py-2.5 rounded-lg font-medium transition-all
                   ${
                     isActive
-                      ? 'bg-[#131313] text-[#F5F5F5] font-bold border border-[#333333] shadow-sm'
-                      : 'text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-[#0D0D0D]'
+                      ? 'bg-[#14223A] text-[#F5F5F2] font-bold border border-[rgba(198,161,91,0.3)] shadow-[0_2px_12px_rgba(198,161,91,0.15)]'
+                      : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#10141C]'
                   }
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-[#D4AF65]" />
+                  <Icon className="w-4 h-4 text-[#C6A15B]" />
                   <span className="tracking-wide">{item.name}</span>
                 </div>
                 {item.badge !== undefined && (
@@ -164,21 +167,21 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         </nav>
 
         {/* Footer Actions */}
-        <div className="p-3 border-t border-[#191919] space-y-2 bg-[#030303]">
+        <div className="p-3 border-t border-[#14223A] space-y-2 bg-[#10141C]">
           <button
             onClick={() => {
               onClose();
               onOpenReset();
             }}
-            className="w-full btn-cendrix-outline text-xs justify-center py-2"
+            className="w-full btn-cendrix-outline text-xs justify-center py-2 rounded-lg"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-[#D4AF65]" />
+            <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span>Reset Virtual Funds to ₹10L</span>
           </button>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#FF4D67] hover:bg-[#131313] rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#EF4444] hover:bg-[#14223A] rounded-lg transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>

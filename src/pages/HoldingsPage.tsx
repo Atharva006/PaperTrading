@@ -66,27 +66,27 @@ export default function HoldingsPage() {
   };
 
   return (
-    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#f0f3f8] pb-12">
-      {/* ── 1. Top Zerodha Header Strip ─────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#1e2638]">
+    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#F5F5F2] pb-12">
+      {/* ── 1. Top Cendrix Capital Header Strip ─────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
         {/* Title */}
         <div className="flex items-center gap-6">
-          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] flex items-center gap-2">
-            <span>Holdings</span>
-            <span className="text-xs font-mono font-normal text-[#788296]">
-              ({holdings.length})
+          <h1 className="font-serif text-2xl font-bold tracking-wide text-[#F5F5F2] flex items-center gap-2.5">
+            <span>Portfolio Holdings</span>
+            <span className="text-xs font-mono font-normal text-[#A1A8B3]">
+              ({holdings.length} assets)
             </span>
           </h1>
 
           {/* Search bar */}
-          <div className="flex items-center gap-2 px-2.5 py-1 bg-[#121722] border border-[#1e2638] rounded focus-within:border-[#387ed1] w-44 sm:w-56 transition-colors">
-            <Search className="w-3.5 h-3.5 text-[#58647a]" />
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0B1424] border border-[#14223A] rounded-lg focus-within:border-[#C6A15B] w-48 sm:w-64 transition-all">
+            <Search className="w-3.5 h-3.5 text-[#A1A8B3]" />
             <input
               type="text"
               placeholder="Search holdings..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent text-xs text-[#f0f3f8] placeholder-[#58647a] focus:outline-none w-full"
+              className="bg-transparent text-xs text-[#F5F5F2] placeholder-[#6E7683] focus:outline-none w-full"
             />
           </div>
         </div>
@@ -95,20 +95,20 @@ export default function HoldingsPage() {
         <div className="flex flex-wrap items-center gap-6 text-xs">
           <div className="hidden sm:flex items-center gap-6">
             <div className="flex items-baseline gap-1.5 font-mono">
-              <span className="text-[#788296] text-[11px]">Total investment:</span>
-              <span className="text-[#c4cbd4] font-medium">
+              <span className="text-[#A1A8B3] text-[11px]">Invested:</span>
+              <span className="text-[#F5F5F2] font-medium">
                 ₹{totalInvested.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             </div>
             <div className="flex items-baseline gap-1.5 font-mono">
-              <span className="text-[#788296] text-[11px]">Current value:</span>
-              <span className="text-[#f0f3f8] font-semibold">
+              <span className="text-[#A1A8B3] text-[11px]">Current value:</span>
+              <span className="text-[#F5F5F2] font-semibold">
                 ₹{totalCurrent.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             </div>
             <div className="flex items-baseline gap-1.5 font-mono">
-              <span className="text-[#788296] text-[11px]">Total P&L:</span>
-              <span className={`font-semibold ${totalPnL >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+              <span className="text-[#A1A8B3] text-[11px]">Total P&L:</span>
+              <span className={`font-bold ${totalPnL >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                 {totalPnL >= 0 ? '+' : ''}₹{totalPnL.toLocaleString('en-IN', { minimumFractionDigits: 2 })} ({totalPnLPct.toFixed(2)}%)
               </span>
             </div>
@@ -116,31 +116,31 @@ export default function HoldingsPage() {
 
           <button
             onClick={handleExportCSV}
-            className="px-2.5 py-1 text-xs text-[#788296] hover:text-[#f0f3f8] border border-[#1e2638] hover:border-[#387ed1] rounded transition-colors flex items-center gap-1.5"
+            className="btn-cendrix-outline px-3.5 py-1.5 text-xs rounded-lg transition-all flex items-center gap-1.5 font-semibold"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download</span>
+            <Download className="w-3.5 h-3.5 text-[#C6A15B]" />
+            <span>Download CSV</span>
           </button>
         </div>
       </div>
 
-      {/* ── 2. Full-Width Edge-to-Edge Holdings Table (No Outer Box) ─────── */}
-      <div className="mt-2">
+      {/* ── 2. Holdings Table ─────── */}
+      <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)] mt-5">
         {filteredHoldings.length === 0 ? (
           <div className="py-24 text-center">
-            <div className="w-12 h-12 mx-auto rounded-full bg-[#151b28] border border-[#1e2638] flex items-center justify-center text-[#788296] mb-3">
+            <div className="w-12 h-12 mx-auto rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center text-[#C6A15B] mb-3">
               <Layers className="w-6 h-6" />
             </div>
-            <p className="text-sm font-medium text-[#c4cbd4]">You don't have any equity holdings yet</p>
-            <p className="text-xs text-[#58647a] mt-1">
-              Place CNC (Cash & Carry) buy orders on NSE/BSE stocks to hold them in your portfolio.
+            <p className="font-serif text-base font-bold text-[#F5F5F2]">No equity holdings currently in portfolio</p>
+            <p className="text-xs text-[#A1A8B3] mt-1.5 max-w-md mx-auto">
+              Execute CNC (Cash & Carry) buy orders on NSE equities to accumulate long-term assets.
             </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#1e2638] text-[#788296] text-[11px] font-medium">
+                <tr className="border-b border-[#14223A] text-[#6E7683] text-[10px] uppercase font-mono tracking-wider">
                   <th className="py-2.5 px-3">Instrument</th>
                   <th className="py-2.5 px-3 text-right">Qty.</th>
                   <th className="py-2.5 px-3 text-right">Avg. cost</th>
@@ -151,47 +151,47 @@ export default function HoldingsPage() {
                   <th className="py-2.5 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1e2638]/60 font-mono">
+              <tbody className="divide-y divide-[#14223A]/50 font-mono">
                 {filteredHoldings.map((h) => {
                   const isProfit = h.pnl >= 0;
                   return (
-                    <tr key={h.id} className="hover:bg-[#121724] transition-colors group">
+                    <tr key={h.id} className="hover:bg-[#14223A]/40 transition-colors group">
                       <td className="py-2.5 px-3 font-sans">
                         <div className="flex items-center gap-2">
-                          <span className="font-medium text-[#f0f3f8] group-hover:text-[#387ed1] transition-colors">
+                          <span className="font-bold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
                             {h.tradingsymbol}
                           </span>
-                          <span className="text-[10px] text-[#58647a] font-mono">{h.exchange}</span>
+                          <span className="text-[10px] text-[#A1A8B3] font-mono">{h.exchange}</span>
                         </div>
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#c4cbd4] font-medium">
+                      <td className="py-2.5 px-3 text-right text-[#F5F5F2] font-semibold">
                         {h.quantity}
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#c4cbd4]">
+                      <td className="py-2.5 px-3 text-right text-[#A1A8B3]">
                         {h.average_price.toFixed(2)}
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#f0f3f8] font-medium">
+                      <td className="py-2.5 px-3 text-right text-[#F5F5F2] font-semibold">
                         {h.last_price.toFixed(2)}
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#c4cbd4]">
+                      <td className="py-2.5 px-3 text-right text-[#F5F5F2]">
                         {h.current_value.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className={`py-2.5 px-3 text-right font-semibold ${isProfit ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                      <td className={`py-2.5 px-3 text-right font-bold ${isProfit ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                         {isProfit ? '+' : ''}{h.pnl.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </td>
-                      <td className={`py-2.5 px-3 text-right ${isProfit ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                      <td className={`py-2.5 px-3 text-right ${isProfit ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                         {isProfit ? '+' : ''}{h.pnl_percentage.toFixed(2)}%
                       </td>
-                      <td className="py-2.5 px-3 text-right space-x-1.5 font-sans">
+                      <td className="py-2.5 px-3 text-right space-x-2 font-sans">
                         <button
                           onClick={() => handleBuyMore(h)}
-                          className="px-2 py-0.5 rounded text-[11px] font-medium text-[#387ed1] hover:bg-[#387ed1] hover:text-white border border-[#387ed1]/30 transition-colors"
+                          className="px-2.5 py-1 rounded-md text-[11px] font-bold text-[#10B981] bg-[#10B981]/15 hover:bg-[#10B981] hover:text-white border border-[#10B981]/30 transition-all"
                         >
                           Add
                         </button>
                         <button
                           onClick={() => handleSellHolding(h)}
-                          className="px-2 py-0.5 rounded text-[11px] font-medium text-[#df514c] hover:bg-[#df514c] hover:text-white border border-[#df514c]/30 transition-colors"
+                          className="px-2.5 py-1 rounded-md text-[11px] font-bold text-[#EF4444] bg-[#EF4444]/15 hover:bg-[#EF4444] hover:text-white border border-[#EF4444]/30 transition-all"
                         >
                           Exit
                         </button>
@@ -203,18 +203,18 @@ export default function HoldingsPage() {
             </table>
 
             {/* ── 3. Sticky Bottom Total P&L Strip ─────────────────────── */}
-            <div className="flex items-center justify-between py-3 px-3 mt-4 border-t border-b border-[#1e2638] bg-[#0c1018]">
-              <div className="flex items-center gap-6 text-xs text-[#788296] font-medium">
+            <div className="flex items-center justify-between py-3.5 px-4 mt-5 rounded-lg border border-[#14223A] bg-[#0B1424]">
+              <div className="flex items-center gap-6 text-xs text-[#A1A8B3] font-medium font-mono">
                 <div>
-                  Total invested: <span className="text-[#f0f3f8] font-bold">₹{totalInvested.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                  Total invested: <span className="text-[#F5F5F2] font-bold">₹{totalInvested.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                 </div>
                 <div>
-                  Current value: <span className="text-[#f0f3f8] font-bold">₹{totalCurrent.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                  Current value: <span className="text-[#F5F5F2] font-bold">₹{totalCurrent.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                 </div>
               </div>
               <div className="flex items-baseline gap-2 font-mono">
-                <span className="text-xs text-[#788296]">Total P&L:</span>
-                <span className={`text-base font-bold ${totalPnL >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                <span className="text-xs text-[#A1A8B3]">Total P&L:</span>
+                <span className={`text-base font-bold ${totalPnL >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                   {totalPnL >= 0 ? '+' : ''}₹{totalPnL.toLocaleString('en-IN', { minimumFractionDigits: 2 })} ({totalPnLPct.toFixed(2)}%)
                 </span>
               </div>

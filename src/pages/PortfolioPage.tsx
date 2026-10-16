@@ -37,56 +37,56 @@ export default function PortfolioPage({ onOpenReset }: PortfolioPageProps) {
   };
 
   return (
-    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#f0f3f8] pb-12 space-y-4">
-      {/* ── 1. Top Zerodha Header Strip ─────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#1e2638]">
+    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-5">
+      {/* ── 1. Top Cendrix Capital Header Strip ─────────────────────────── */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
         <div>
-          <h1 className="text-xl font-medium tracking-tight text-[#f0f3f8] flex items-center gap-2">
-            <span>Funds & Statement</span>
+          <h1 className="font-serif text-2xl font-bold tracking-wide text-[#F5F5F2] flex items-center gap-2.5">
+            <span>Capital Funds & Statement</span>
           </h1>
-          <p className="text-xs text-[#788296] mt-0.5">Double-entry ledger & virtual equity balance</p>
+          <p className="text-xs text-[#A1A8B3] mt-1 font-mono">Institutional double-entry ledger & portfolio telemetry</p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
             onClick={onOpenReset}
-            className="px-2.5 py-1 rounded border border-[#1e2638] hover:border-[#df514c] text-xs font-medium text-[#788296] hover:text-[#df514c] flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-1.5 rounded-lg border border-[rgba(198,161,91,0.25)] hover:border-[#C6A15B] text-xs font-semibold text-[#C6A15B] hover:text-[#F5F5F2] hover:bg-[#14223A] flex items-center gap-1.5 transition-all"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span>Reset Account</span>
           </button>
           <button
             onClick={handleExportCSV}
-            className="px-2.5 py-1 text-xs text-[#788296] hover:text-[#f0f3f8] border border-[#1e2638] hover:border-[#387ed1] rounded transition-colors flex items-center gap-1.5"
+            className="btn-cendrix-outline px-3.5 py-1.5 text-xs rounded-lg transition-all flex items-center gap-1.5 font-semibold"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span>Download CSV</span>
           </button>
         </div>
       </div>
 
-      {/* ── 2. Flat Two-Column Account Balances ──────────────────────────── */}
+      {/* ── 2. Account Balances Cards ──────────────────────────── */}
       {account && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-3 border-b border-[#1e2638]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left: Equity Telemetry */}
-          <div className="space-y-2.5">
-            <h3 className="text-xs font-semibold text-[#788296] uppercase tracking-wider">Equity Funds</h3>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Available margin</span>
-                <span className="text-base font-bold font-mono text-[#00c087]">
+          <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)] space-y-3">
+            <h3 className="font-serif text-sm font-bold text-[#F5F5F2] tracking-wide">Margin & Liquidity</h3>
+            <div className="space-y-2.5 text-xs font-mono">
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Available margin</span>
+                <span className="text-lg font-bold text-[#10B981]">
                   ₹{(account.cash_balance - account.used_margin).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Used margin</span>
-                <span className="font-mono text-[#f0f3f8] font-medium">
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Used margin</span>
+                <span className="text-[#C6A15B] font-bold">
                   ₹{account.used_margin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Available cash</span>
-                <span className="font-mono text-[#c4cbd4]">
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Available cash balance</span>
+                <span className="text-[#F5F5F2] font-semibold">
                   ₹{account.cash_balance.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                 </span>
               </div>
@@ -94,22 +94,22 @@ export default function PortfolioPage({ onOpenReset }: PortfolioPageProps) {
           </div>
 
           {/* Right: Portfolio Summary */}
-          <div className="space-y-2.5">
-            <h3 className="text-xs font-semibold text-[#788296] uppercase tracking-wider">Account Value</h3>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Total account equity</span>
-                <span className="text-base font-bold font-mono text-[#f0f3f8]">
+          <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)] space-y-3">
+            <h3 className="font-serif text-sm font-bold text-[#F5F5F2] tracking-wide">Portfolio Valuation</h3>
+            <div className="space-y-2.5 text-xs font-mono">
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Account equity</span>
+                <span className="text-lg font-bold text-[#F5F5F2]">
                   ₹{account.account_equity.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                 </span>
               </div>
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Initial virtual capital</span>
-                <span className="font-mono text-[#788296]">₹10,00,000.00</span>
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Initial starting capital</span>
+                <span className="text-[#A1A8B3]">₹10,00,000.00</span>
               </div>
-              <div className="flex justify-between items-baseline py-1 border-b border-[#1e2638]/50">
-                <span className="text-[#788296]">Simulated execution</span>
-                <span className="text-[11px] font-mono text-[#387ed1]">Instant fill @ Live LTP</span>
+              <div className="flex justify-between items-baseline py-1.5 border-b border-[#14223A]">
+                <span className="text-[#A1A8B3]">Execution model</span>
+                <span className="text-[11px] font-mono text-[#C6A15B] font-semibold">Cendrix Live Fill Engine</span>
               </div>
             </div>
           </div>
@@ -117,18 +117,18 @@ export default function PortfolioPage({ onOpenReset }: PortfolioPageProps) {
       )}
 
       {/* ── 3. Ledger Filter Tabs ────────────────────────────────────────── */}
-      <div className="flex items-center justify-between gap-4 pt-2">
-        <h2 className="text-sm font-semibold text-[#f0f3f8]">Financial Ledger</h2>
+      <div className="flex items-center justify-between gap-4 pt-3">
+        <h2 className="font-serif text-base font-bold text-[#F5F5F2]">Ledger Transactions</h2>
 
-        <div className="flex items-center gap-3 text-xs">
+        <div className="flex items-center gap-4 text-xs font-medium">
           {(['ALL', 'TRADE_DEBIT', 'TRADE_CREDIT', 'CHARGES', 'PNL_REALIZED', 'RESET'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`pb-0.5 border-b-2 transition-all ${
+              className={`pb-1.5 border-b-2 transition-all ${
                 filterType === t
-                  ? 'border-[#387ed1] text-[#387ed1] font-semibold'
-                  : 'border-transparent text-[#788296] hover:text-[#c4cbd4]'
+                  ? 'border-[#C6A15B] text-[#C6A15B] font-bold shadow-[0_1px_8px_rgba(198,161,91,0.25)]'
+                  : 'border-transparent text-[#A1A8B3] hover:text-[#F5F5F2]'
               }`}
             >
               {t.replace('_', ' ')}
@@ -137,21 +137,21 @@ export default function PortfolioPage({ onOpenReset }: PortfolioPageProps) {
         </div>
       </div>
 
-      {/* ── 4. Edge-to-Edge Ledger Table (No Outer Box) ───────────────────── */}
-      <div className="mt-2">
+      {/* ── 4. Ledger Table ───────────────────── */}
+      <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)]">
         {filtered.length === 0 ? (
           <div className="py-24 text-center">
-            <div className="w-12 h-12 mx-auto rounded-full bg-[#151b28] border border-[#1e2638] flex items-center justify-center text-[#788296] mb-3">
+            <div className="w-12 h-12 mx-auto rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center text-[#C6A15B] mb-3">
               <Layers className="w-6 h-6" />
             </div>
-            <p className="text-sm font-medium text-[#c4cbd4]">No ledger entries</p>
-            <p className="text-xs text-[#58647a] mt-1">Trades and account events will appear here.</p>
+            <p className="font-serif text-base font-bold text-[#F5F5F2]">No ledger transactions recorded</p>
+            <p className="text-xs text-[#A1A8B3] mt-1.5">Executed orders and margin settlements will be audited here.</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#1e2638] text-[#788296] text-[11px] font-medium">
+                <tr className="border-b border-[#14223A] text-[#6E7683] text-[10px] uppercase font-mono tracking-wider">
                   <th className="py-2.5 px-3">Date & Time</th>
                   <th className="py-2.5 px-3">Type</th>
                   <th className="py-2.5 px-3">Description</th>
@@ -160,30 +160,30 @@ export default function PortfolioPage({ onOpenReset }: PortfolioPageProps) {
                   <th className="py-2.5 px-3 text-right">Balance (₹)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#1e2638]/60 font-mono">
+              <tbody className="divide-y divide-[#14223A]/50 font-mono">
                 {filtered.map((item) => (
-                  <tr key={item.id} className="hover:bg-[#121724] transition-colors">
-                    <td className="py-2.5 px-3 text-[#788296]">
+                  <tr key={item.id} className="hover:bg-[#14223A]/40 transition-colors">
+                    <td className="py-2.5 px-3 text-[#A1A8B3]">
                       {new Date(item.created_at).toLocaleString('en-IN', {
                         dateStyle: 'short',
                         timeStyle: 'medium',
                       })}
                     </td>
                     <td className="py-2.5 px-3 font-sans">
-                      <span className="text-[10px] bg-[#161d2c] border border-[#1e2638] text-[#788296] px-1.5 py-0.5 rounded font-mono">
+                      <span className="text-[10px] bg-[#0F192B] border border-[rgba(198,161,91,0.25)] text-[#C6A15B] px-1.5 py-0.5 rounded font-mono font-bold">
                         {item.entry_type}
                       </span>
                     </td>
-                    <td className="py-2.5 px-3 text-[#f0f3f8] font-sans font-medium">
+                    <td className="py-2.5 px-3 text-[#F5F5F2] font-sans font-medium">
                       {item.description}
                     </td>
-                    <td className="py-2.5 px-3 text-right text-[#df514c] font-medium">
+                    <td className="py-2.5 px-3 text-right text-[#EF4444] font-medium">
                       {item.debit > 0 ? `-₹${item.debit.toFixed(2)}` : '—'}
                     </td>
-                    <td className="py-2.5 px-3 text-right text-[#00c087] font-medium">
+                    <td className="py-2.5 px-3 text-right text-[#10B981] font-medium">
                       {item.credit > 0 ? `+₹${item.credit.toFixed(2)}` : '—'}
                     </td>
-                    <td className="py-2.5 px-3 text-right text-[#c4cbd4] font-semibold">
+                    <td className="py-2.5 px-3 text-right text-[#F5F5F2] font-semibold">
                       ₹{item.balance_after.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>

@@ -94,34 +94,40 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0c0f17] border-b border-[#1e293b] select-none shadow-md font-sans">
+    <header className="sticky top-0 z-40 bg-[#0B1424] border-b border-[rgba(198,161,91,0.22)] select-none shadow-xl shadow-black/40 font-sans">
       <div className="max-w-[1920px] mx-auto px-4 h-14 flex items-center justify-between gap-4">
         
-        {/* ── Left Side: Cendrix Brand & Zerodha Market Badges ─────────── */}
-        <div className="flex items-center gap-6 shrink-0">
+        {/* ── Left Side: Cendrix Brand Wordmark & Session Pill ───────────── */}
+        <div className="flex items-center gap-5 shrink-0">
           {/* Brand Logo & Name */}
           <NavLink
             to="/dashboard"
-            className="flex items-center gap-2.5 group transition-transform active:scale-95"
+            className="flex items-center gap-3 group transition-transform active:scale-95"
           >
-            <div className="w-7 h-7 rounded bg-[#111622] border border-[#1e293b] flex items-center justify-center p-0.5 overflow-hidden">
+            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1 overflow-hidden shadow-sm shadow-[#C6A15B]/10">
               <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain" />
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-bold text-sm tracking-wider text-[#f0f3f8]">
-                CENDRIX
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-sm tracking-[0.16em] text-[#F5F5F2]">
+                CENDRIX CAPITAL
               </span>
-              <span className="text-[10px] font-mono font-bold text-[#387ed1] bg-[#387ed1]/10 border border-[#387ed1]/30 px-1 py-0.2 rounded">
-                CNRX
+              <span className="text-[8px] font-mono tracking-[0.22em] text-[#C6A15B] font-semibold uppercase">
+                PROPRIETARY TRADING
               </span>
             </div>
           </NavLink>
 
-          {/* Zerodha Top Market Indices Badges */}
-          <div className="hidden lg:flex items-center gap-4 text-xs font-mono border-l border-[#1e293b] pl-5">
+          {/* Cendrix Live Status Pill */}
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
+            <span className="tracking-widest uppercase font-semibold">LIVE TICKS · NSE & MCX</span>
+          </div>
+
+          {/* Top Market Indices Badges */}
+          <div className="hidden 2xl:flex items-center gap-4 text-xs font-mono border-l border-[rgba(198,161,91,0.18)] pl-5">
             <div className="flex items-center gap-2">
-              <span className="text-[#9ca8ba] font-medium font-sans text-[11px]">NIFTY 50</span>
-              <span className="text-[#f0f3f8] font-bold">
+              <span className="text-[#A1A8B3] font-medium font-sans text-[11px]">NIFTY 50</span>
+              <span className="text-[#F5F5F2] font-bold">
                 {niftyQuote ? fmt(niftyQuote.last_price) : '24,520.50'}
               </span>
               {niftyQuote && (
@@ -131,11 +137,11 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
               )}
             </div>
 
-            <div className="w-px h-3.5 bg-[#1e293b]" />
+            <div className="w-px h-3.5 bg-[rgba(198,161,91,0.2)]" />
 
             <div className="flex items-center gap-2">
-              <span className="text-[#9ca8ba] font-medium font-sans text-[11px]">SENSEX</span>
-              <span className="text-[#f0f3f8] font-bold">
+              <span className="text-[#A1A8B3] font-medium font-sans text-[11px]">SENSEX</span>
+              <span className="text-[#F5F5F2] font-bold">
                 {sensexQuote ? fmt(sensexQuote.last_price) : '80,450.00'}
               </span>
               {sensexQuote && (
@@ -147,7 +153,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           </div>
         </div>
 
-        {/* ── Center & Right: Zerodha Kite Nav Links ───────────────────── */}
+        {/* ── Center & Right: Cendrix Nav Links ────────────────────────── */}
         <nav className="hidden xl:flex items-center gap-6 text-xs font-medium">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
@@ -157,18 +163,18 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                 to={item.path}
                 className={`relative py-4 transition-colors flex items-center gap-1.5 ${
                   isActive
-                    ? 'text-[#387ed1] font-semibold'
-                    : 'text-[#9ca8ba] hover:text-[#f0f3f8]'
+                    ? 'text-[#C6A15B] font-semibold'
+                    : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
                 }`}
               >
-                <span>{item.name}</span>
+                <span className="tracking-wide uppercase text-[11px] font-semibold">{item.name}</span>
                 {item.badge !== undefined && (
-                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#387ed1] text-white">
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#C6A15B] text-[#0B1424]">
                     {item.badge}
                   </span>
                 )}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#387ed1]" />
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#C6A15B] shadow-sm shadow-[#C6A15B]/40" />
                 )}
               </NavLink>
             );
@@ -180,12 +186,12 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Search Shortcut */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded bg-[#111622] hover:bg-[#151b2a] border border-[#1e293b] text-[#9ca8ba] hover:text-[#f0f3f8] text-xs transition-colors"
-            title="Search Indian scrips, commodities, or options (⌘K)"
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-colors"
+            title="Search Indian scrips or MCX commodities (⌘K)"
           >
-            <Search className="w-3.5 h-3.5 text-[#387ed1]" />
+            <Search className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span className="hidden sm:inline text-[11px]">Search</span>
-            <kbd className="hidden md:inline-block text-[9px] font-mono bg-[#1a2235] px-1 py-0.2 rounded border border-[#1e293b] text-[#9ca8ba]">
+            <kbd className="hidden md:inline-block text-[9px] font-mono bg-[#14223A] px-1.5 py-0.2 rounded border border-[rgba(198,161,91,0.2)] text-[#C6A15B]">
               ⌘K
             </kbd>
           </button>
@@ -193,10 +199,10 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Order Trigger */}
           <button
             onClick={() => openOrderTicket()}
-            className="btn-kite-blue py-1.5 px-3 text-xs font-semibold rounded"
-            title="Open Zerodha Order Window"
+            className="btn-cendrix-gold py-1.5 px-3.5 text-xs font-bold rounded shadow-sm flex items-center gap-1.5"
+            title="Open Order Window"
           >
-            <PlusCircle className="w-3.5 h-3.5 mr-1" />
+            <PlusCircle className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Order</span>
           </button>
 
@@ -204,34 +210,34 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              className="flex items-center gap-2 p-1 rounded hover:bg-[#151b2a] border border-transparent hover:border-[#1e293b] transition-colors"
+              className="flex items-center gap-2 p-1 rounded hover:bg-[#14223A] border border-transparent hover:border-[rgba(198,161,91,0.22)] transition-colors"
             >
-              <div className="w-7 h-7 rounded-full bg-[#1e293b] border border-[#387ed1]/40 flex items-center justify-center text-xs font-bold font-mono text-[#387ed1]">
+              <div className="w-7 h-7 rounded-full bg-[#0F192B] border border-[#C6A15B]/50 flex items-center justify-center text-xs font-bold font-mono text-[#C6A15B]">
                 {userName ? userName.slice(0, 2).toUpperCase() : 'CN'}
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-[#9ca8ba]" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#A1A8B3]" />
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 mt-2 w-52 bg-[#111622] border border-[#1e293b] rounded-md shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans">
-                <div className="px-3 py-2 border-b border-[#1e293b]">
-                  <p className="text-xs font-bold text-[#f0f3f8] truncate">{userName || 'Cendrix Trader'}</p>
-                  <p className="text-[10px] text-[#387ed1] font-mono">CNRX SIMULATOR</p>
+              <div className="absolute right-0 mt-2 w-56 bg-[#0F192B] border border-[rgba(198,161,91,0.25)] rounded-md shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans">
+                <div className="px-3 py-2 border-b border-[#14223A]">
+                  <p className="text-xs font-bold text-[#F5F5F2] truncate font-serif tracking-wide">{userName || 'Cendrix Institutional Client'}</p>
+                  <p className="text-[10px] text-[#C6A15B] font-mono tracking-wider font-semibold">CENDRIX CAPITAL</p>
                   {account && (
-                    <div className="mt-1 pt-1 border-t border-[#1e293b]/60 flex justify-between text-[10px] font-mono text-[#9ca8ba]">
-                      <span>Cash:</span>
-                      <span className="text-[#f0f3f8] font-bold">₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+                    <div className="mt-1 pt-1 border-t border-[rgba(198,161,91,0.15)] flex justify-between text-[10px] font-mono text-[#A1A8B3]">
+                      <span>Cash Balance:</span>
+                      <span className="text-[#00c087] font-bold">₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="py-1 text-xs text-[#9ca8ba]">
+                <div className="py-1 text-xs text-[#A1A8B3]">
                   <NavLink
                     to="/dashboard/settings"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#151b2a] hover:text-[#f0f3f8] transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors"
                   >
-                    <Settings className="w-3.5 h-3.5 text-[#387ed1]" />
+                    <Settings className="w-3.5 h-3.5 text-[#C6A15B]" />
                     <span>Settings & API</span>
                   </NavLink>
 
@@ -240,29 +246,29 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                       setIsUserMenuOpen(false);
                       onOpenReset();
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#151b2a] hover:text-[#f0f3f8] transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors text-left"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-[#387ed1]" />
+                    <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
                     <span>Reset Account (₹10L)</span>
                   </button>
 
                   <NavLink
                     to="/dashboard/tradebook"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#151b2a] hover:text-[#f0f3f8] transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors"
                   >
-                    <BookOpenCheck className="w-3.5 h-3.5 text-[#387ed1]" />
+                    <BookOpenCheck className="w-3.5 h-3.5 text-[#C6A15B]" />
                     <span>Trade Book</span>
                   </NavLink>
                 </div>
 
-                <div className="border-t border-[#1e293b] pt-1 mt-1">
+                <div className="border-t border-[#14223A] pt-1 mt-1">
                   <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[#df514c] hover:bg-[#df514c]/10 transition-colors text-left font-medium"
                   >
                     <LogOut className="w-3.5 h-3.5" />
-                    <span>Sign Out</span>
+                    <span>Reset Session</span>
                   </button>
                 </div>
               </div>
@@ -272,9 +278,9 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={onToggleMobileNav}
-            className="xl:hidden p-1.5 rounded text-[#9ca8ba] hover:text-[#f0f3f8] hover:bg-[#151b2a] border border-[#1e293b]"
+            className="xl:hidden p-1.5 rounded text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] border border-[rgba(198,161,91,0.2)]"
           >
-            {isMobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isMobileNavOpen ? <X className="w-5 h-5 text-[#C6A15B]" /> : <Menu className="w-5 h-5 text-[#C6A15B]" />}
           </button>
         </div>
 

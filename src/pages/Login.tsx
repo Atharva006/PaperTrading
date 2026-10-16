@@ -74,12 +74,12 @@ export default function Login() {
   const [showManualLogin, setShowManualLogin] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#030303] text-[#F5F5F5] relative overflow-hidden font-sans selection:bg-[#D4AF65] selection:text-[#030303] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] relative overflow-hidden font-sans selection:bg-[#C6A15B] selection:text-[#0B1424] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       
       {/* Subtle Background Glow */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-[20%] left-[30%] w-[40%] h-[30%] bg-[#D4AF65]/5 rounded-full blur-[140px]" />
+        <div className="absolute top-[20%] left-[30%] w-[40%] h-[30%] bg-[#C6A15B]/10 rounded-full blur-[140px]" />
       </div>
 
       <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-[420px]">
@@ -87,54 +87,54 @@ export default function Login() {
         {/* Brand Header */}
         <div className="flex flex-col items-center mb-8">
           <Link to="/" className="mb-5 group flex items-center gap-3">
-            <div className="w-11 h-11 rounded-xl bg-[#080808] border border-[#242424] flex items-center justify-center p-1.5 shadow-md transition-transform group-hover:scale-105 duration-200 overflow-hidden">
+            <div className="w-11 h-11 rounded-xl bg-[#10141C] border border-[#14223A] flex items-center justify-center p-1.5 shadow-md transition-transform group-hover:scale-105 duration-200 overflow-hidden">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
             <div>
-              <span className="text-xl font-cinzel font-bold tracking-wider text-[#F5F5F5]">
+              <span className="text-xl font-serif font-bold tracking-wider text-[#F5F5F2]">
                 CENDRIX CAPITAL
               </span>
-              <p className="text-[10px] text-[#D4AF65] tracking-widest font-mono font-medium">
+              <p className="text-[10px] text-[#C6A15B] tracking-widest font-mono font-medium">
                 CNRX PLATFORM
               </p>
             </div>
           </Link>
           
-          <h2 className="text-center text-xl font-cinzel font-bold text-[#F5F5F5] tracking-tight">
+          <h2 className="text-center text-xl font-serif font-bold text-[#F5F5F2] tracking-tight">
             Institutional Paper Trading
           </h2>
-          <p className="mt-1 text-center text-xs text-[#71717A]">
+          <p className="mt-1 text-center text-xs text-[#A1A8B3]">
             Auto-authenticating client terminal with live Upstox ticks.
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-[#0D0D0D] border border-[#242424] py-7 px-6 sm:px-8 rounded-xl shadow-xl">
+        <div className="cendrix-card py-7 px-6 sm:px-8 rounded-xl shadow-2xl border border-[#14223A]">
           {!showManualLogin ? (
             <div className="space-y-5 text-center">
-              <div className="w-12 h-12 mx-auto rounded-full bg-[#D4AF65]/10 border border-[#D4AF65]/30 flex items-center justify-center">
-                <Target className="w-6 h-6 text-[#D4AF65] animate-pulse" />
+              <div className="w-12 h-12 mx-auto rounded-full bg-[#C6A15B]/10 border border-[#C6A15B]/30 flex items-center justify-center">
+                <Target className="w-6 h-6 text-[#C6A15B] animate-pulse" />
               </div>
 
               <div>
-                <h3 className="text-sm font-bold text-[#F5F5F5]">Auto-Connecting Session</h3>
-                <p className="text-xs text-[#71717A] mt-1">
+                <h3 className="text-sm font-bold text-[#F5F5F2]">Auto-Connecting Session</h3>
+                <p className="text-xs text-[#A1A8B3] mt-1">
                   Loading institutional allocation of ₹10,00,000 & Upstox market stream.
                 </p>
               </div>
 
-              <div className="p-3 bg-[#080808] border border-[#1e2638] rounded-lg text-left text-xs space-y-1.5 font-mono">
-                <div className="flex justify-between text-[#9ca8ba]">
+              <div className="p-3.5 bg-[#0B1424] border border-[#14223A] rounded-lg text-left text-xs space-y-1.5 font-mono">
+                <div className="flex justify-between text-[#6E7683]">
                   <span>Account:</span>
-                  <span className="text-[#f0f3f8] font-bold">Cendrix Institutional</span>
+                  <span className="text-[#F5F5F2] font-bold">Cendrix Institutional</span>
                 </div>
-                <div className="flex justify-between text-[#9ca8ba]">
+                <div className="flex justify-between text-[#6E7683]">
                   <span>Allocation:</span>
-                  <span className="text-[#00c087] font-bold">₹10,00,000</span>
+                  <span className="text-emerald-400 font-bold">₹10,00,000</span>
                 </div>
-                <div className="flex justify-between text-[#9ca8ba]">
+                <div className="flex justify-between text-[#6E7683]">
                   <span>Feed Provider:</span>
-                  <span className="text-[#387ed1] font-bold">Upstox Real-Time</span>
+                  <span className="text-[#C6A15B] font-bold">Upstox Real-Time</span>
                 </div>
               </div>
 
@@ -150,7 +150,7 @@ export default function Login() {
                 <button
                   type="button"
                   onClick={() => setShowManualLogin(true)}
-                  className="text-[11px] text-[#71717A] hover:text-[#A1A1AA] transition-colors"
+                  className="text-[11px] text-[#6E7683] hover:text-[#A1A8B3] transition-colors font-mono"
                 >
                   Administrator / Custom Login Options
                 </button>
@@ -160,38 +160,38 @@ export default function Login() {
             <>
               <form className="space-y-4" onSubmit={handleAuth}>
                 <div>
-                  <label className="block text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mb-1.5">Email Address</label>
+                  <label className="block text-xs font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1.5 font-mono">Email Address</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Mail className="h-4 w-4 text-[#71717A]" />
+                      <Mail className="h-4 w-4 text-[#6E7683]" />
                     </div>
                     <input
                       type="email" required value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="trader@cendrix.com"
-                      className="block w-full pl-9 pr-3 py-2 border border-[#242424] rounded-lg bg-[#080808] text-[#F5F5F5] focus:outline-none focus:border-[#D4AF65] transition-all text-xs placeholder:text-[#71717A]"
+                      placeholder="trader@cendrixcapital.com"
+                      className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-lg bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mb-1.5">Password</label>
+                  <label className="block text-xs font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1.5 font-mono">Password</label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Lock className="h-4 w-4 text-[#71717A]" />
+                      <Lock className="h-4 w-4 text-[#6E7683]" />
                     </div>
                     <input
                       type="password" required value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="block w-full pl-9 pr-3 py-2 border border-[#242424] rounded-lg bg-[#080808] text-[#F5F5F5] focus:outline-none focus:border-[#D4AF65] transition-all text-xs placeholder:text-[#71717A]"
+                      className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-lg bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
                     />
                   </div>
                 </div>
 
                 {error && (
-                  <div className="bg-[#FF4D67]/10 border border-[#FF4D67]/25 rounded-lg p-2.5">
-                    <p className="text-xs text-[#FF4D67] text-center font-medium">{error}</p>
+                  <div className="bg-rose-500/10 border border-rose-500/25 rounded-lg p-2.5">
+                    <p className="text-xs text-rose-400 text-center font-medium">{error}</p>
                   </div>
                 )}
 
@@ -209,7 +209,7 @@ export default function Login() {
               <div className="mt-5 flex flex-col items-center gap-3">
                 <button 
                   onClick={() => setShowManualLogin(false)} 
-                  className="text-xs text-[#D4AF65] hover:underline"
+                  className="text-xs text-[#C6A15B] hover:underline font-mono"
                 >
                   ← Back to 1-Click Instant Login
                 </button>
@@ -217,10 +217,10 @@ export default function Login() {
             </>
           )}
 
-          <div className="mt-5 pt-3 border-t border-[#191919] flex justify-center">
+          <div className="mt-5 pt-3 border-t border-[#14223A] flex justify-center">
             <Link 
               to="/dashboard" 
-              className="text-xs text-[#71717A] hover:text-[#F5F5F5] transition-colors flex items-center justify-center gap-1.5"
+              className="text-xs text-[#6E7683] hover:text-[#F5F5F2] transition-colors flex items-center justify-center gap-1.5"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Return to Terminal
             </Link>

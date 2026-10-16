@@ -166,27 +166,27 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/75 backdrop-blur-sm select-none animate-in fade-in duration-100">
       <div 
-        className="w-full max-w-2xl bg-[#111622] border border-[#1e293b] rounded-lg shadow-2xl overflow-hidden animate-in zoom-in-95 duration-100 font-sans"
+        className="w-full max-w-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.25)] rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden animate-in zoom-in-95 duration-100 font-sans"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3 border-b border-[#1e293b] bg-[#0c0f17]">
-          <Search className="w-4 h-4 text-[#387ed1] shrink-0" />
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#14223A] bg-[#0B1424]">
+          <Search className="w-4 h-4 text-[#C6A15B] shrink-0" />
           <input
             ref={inputRef}
             type="text"
-            className="flex-1 bg-transparent text-sm text-[#f0f3f8] placeholder-[#64748b] focus:outline-none font-sans"
-            placeholder="Type a command, page name, or search Indian stocks (TATASTEEL, NIFTY, GOLDM)..."
+            className="flex-1 bg-transparent text-sm text-[#F5F5F2] placeholder-[#6E7683] focus:outline-none font-sans"
+            placeholder="Search commands, instruments (TATASTEEL, NIFTY, GOLDM), or navigation..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <div className="flex items-center gap-2">
-            <kbd className="hidden sm:inline-block text-[10px] font-mono font-semibold bg-[#151b2a] border border-[#1e293b] px-1.5 py-0.5 rounded text-[#94a3b8]">
+            <kbd className="hidden sm:inline-block text-[10px] font-mono font-semibold bg-[#10141C] border border-[#14223A] px-1.5 py-0.5 rounded text-[#A1A8B3]">
               ESC
             </kbd>
             <button
               onClick={onClose}
-              className="p-1 rounded text-[#64748b] hover:text-[#f0f3f8] hover:bg-[#151b2a] transition-colors"
+              className="p-1 rounded text-[#6E7683] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -194,11 +194,11 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
         </div>
 
         {/* Results Stream */}
-        <div className="max-h-[400px] overflow-y-auto p-2 divide-y divide-[#1e293b]/60 scrollbar-hide">
+        <div className="max-h-[400px] overflow-y-auto p-2 divide-y divide-[#14223A]/60 scrollbar-hide">
           {filteredItems.length === 0 ? (
             <div className="py-12 text-center">
-              <p className="text-xs text-[#94a3b8] font-medium">No results found for "{query}"</p>
-              <p className="text-[11px] text-[#64748b] mt-1">Try searching for symbols like <span className="text-[#387ed1]">TATASTEEL</span>, <span className="text-[#387ed1]">NIFTY</span>, or <span className="text-[#387ed1]">Positions</span>.</p>
+              <p className="text-xs text-[#A1A8B3] font-medium">No results found for "{query}"</p>
+              <p className="text-[11px] text-[#6E7683] mt-1 font-mono">Try searching for symbols like <span className="text-[#C6A15B]">TATASTEEL</span>, <span className="text-[#C6A15B]">NIFTY</span>, or <span className="text-[#C6A15B]">Positions</span>.</p>
             </div>
           ) : (
             filteredItems.map((item, idx) => {
@@ -210,31 +210,31 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
                   onMouseEnter={() => setSelectedIndex(idx)}
                   className={`flex items-center justify-between p-2.5 rounded-lg cursor-pointer transition-all ${
                     isSelected
-                      ? 'bg-[#151b2a] border border-[#387ed1]/40'
-                      : 'hover:bg-[#151b2a]/60 border border-transparent'
+                      ? 'bg-[#10141C] border border-[#C6A15B]/40 shadow-sm'
+                      : 'hover:bg-[#10141C]/60 border border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className={`p-1.5 rounded border transition-colors ${
                       isSelected 
-                        ? 'bg-[#0c0f17] border-[#387ed1]/40' 
-                        : 'bg-[#0c0f17] border-[#1e293b]'
+                        ? 'bg-[#0B1424] border-[#C6A15B]/40 text-[#C6A15B]' 
+                        : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3]'
                     }`}>
                       {item.icon}
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <span className={`text-xs font-semibold truncate ${
-                          isSelected ? 'text-[#f0f3f8]' : 'text-[#94a3b8]'
+                          isSelected ? 'text-[#F5F5F2]' : 'text-[#A1A8B3]'
                         }`}>
                           {item.title}
                         </span>
-                        <span className="text-[9px] font-mono px-1.5 py-0.2 rounded border uppercase font-bold tracking-wider text-[#64748b] border-[#1e293b] bg-[#0c0f17]">
+                        <span className="text-[9px] font-mono px-1.5 py-0.5 rounded border uppercase font-bold tracking-wider text-[#C6A15B] border-[#14223A] bg-[#0B1424]">
                           {item.category}
                         </span>
                       </div>
                       {item.subtitle && (
-                        <p className="text-[11px] text-[#64748b] truncate font-sans">
+                        <p className="text-[11px] text-[#6E7683] truncate font-sans">
                           {item.subtitle}
                         </p>
                       )}
@@ -243,7 +243,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
 
                   <div className="flex items-center gap-2 shrink-0 pl-3">
                     {isSelected && (
-                      <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-[#387ed1] font-semibold">
+                      <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono text-[#C6A15B] font-semibold">
                         <span>Execute</span>
                         <ArrowRight className="w-3 h-3" />
                       </span>
@@ -256,19 +256,19 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
         </div>
 
         {/* Footer shortcuts helper */}
-        <div className="px-4 py-2 bg-[#0c0f17] border-t border-[#1e293b] flex items-center justify-between text-[11px] text-[#64748b] font-mono">
+        <div className="px-4 py-2.5 bg-[#0B1424] border-t border-[#14223A] flex items-center justify-between text-[11px] text-[#6E7683] font-mono">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
-              <kbd className="bg-[#151b2a] px-1 py-0.5 rounded border border-[#1e293b] text-[#94a3b8]">↑</kbd>
-              <kbd className="bg-[#151b2a] px-1 py-0.5 rounded border border-[#1e293b] text-[#94a3b8]">↓</kbd>
+              <kbd className="bg-[#10141C] px-1 py-0.5 rounded border border-[#14223A] text-[#A1A8B3]">↑</kbd>
+              <kbd className="bg-[#10141C] px-1 py-0.5 rounded border border-[#14223A] text-[#A1A8B3]">↓</kbd>
               <span>to navigate</span>
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="bg-[#151b2a] px-1 py-0.5 rounded border border-[#1e293b] text-[#94a3b8]">↵</kbd>
+              <kbd className="bg-[#10141C] px-1 py-0.5 rounded border border-[#14223A] text-[#A1A8B3]">↵</kbd>
               <span>to select</span>
             </span>
           </div>
-          <span className="text-[#387ed1] font-semibold text-[10px]">Zerodha Kite Quick Search · CNRX</span>
+          <span className="text-[#C6A15B] font-semibold text-[10px] tracking-wider uppercase font-mono">Cendrix Command Terminal</span>
         </div>
       </div>
     </div>
