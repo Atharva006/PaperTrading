@@ -25,9 +25,9 @@ A full-featured, responsive fintech paper-trading web application for the Indian
   - Stamp duty & SEBI turnover charges.
   - Separation of Gross P&L vs Net P&L.
 - **Dual-Mode Market Data Architecture**:
-  - **Upstox API v2**: Official integration for live quotes, historical OHLCV candles, and option chains.
+  - **Direct Exchange Gateway API**: Real-time integration for live quotes, historical OHLCV candles, and option chains.
   - **Deterministic High-Fidelity Demo Data Mode**: Realistic Indian market simulation with live tick streaming and historical candles when API credentials are not supplied or markets are closed.
-  - Adapter architecture allows easy addition of DhanHQ or other brokers later without changing the trading engine.
+  - Adapter architecture allows easy addition of alternative data providers later without changing the trading engine.
 - **Auditable Double-Entry Ledger & Reset Feature**:
   - Every fill, fee deduction, cash release, and profit/loss creates an immutable ledger entry.
   - Users can reset their virtual balance back to ₹10,00,000, creating an auditable account reset event.
@@ -43,7 +43,7 @@ A full-featured, responsive fintech paper-trading web application for the Indian
   9. Trade Book (Detailed executed fills and regulatory fee breakdown)
   10. Portfolio Statement (Account ledger with double-entry audit records)
   11. P&L Performance Analytics (Win rate, Profit factor, Max drawdown, Daily P&L chart)
-  12. Settings & API Configuration (Upstox API keys, OAuth login, mode toggle, slippage slider)
+  12. Settings & API Configuration (Exchange Gateway keys, OAuth login, mode toggle, slippage slider)
   13. Login & Registration (Supabase Auth + 1-Click Virtual Demo Trader Access)
   14. Quick Search Modal (Cmd+K / Ctrl+K keyboard shortcut across all NSE/BSE symbols)
   15. Legal (Terms of Service & Privacy Policy)
@@ -57,7 +57,7 @@ A full-featured, responsive fintech paper-trading web application for the Indian
 - **State Management**: Zustand
 - **Backend & Database**: Supabase (PostgreSQL, Supabase Auth, Row Level Security)
 - **Charts**: TradingView Lightweight Charts v5 & Recharts
-- **Market Data**: Upstox API v2 + Deterministic Demo Provider (DhanHQ extensible)
+- **Market Data**: Direct Exchange Gateway API + Deterministic Demo Provider
 - **Testing**: Vitest (Unit and integration tests for calculations and simulation engine)
 - **Icons**: Lucide React
 - **Deployment**: Vercel & Supabase
@@ -74,11 +74,11 @@ trade-edge/
 │   │   ├── market.ts                  # Instruments, Quotes, Candles, Option Chain, Greeks
 │   │   ├── trading.ts                 # Accounts, Orders, Trades, Positions, Holdings, Ledger
 │   │   ├── analytics.ts               # Performance KPIs, Equity Curve, Daily/Monthly P&L
-│   │   └── upstox.ts                  # Official Upstox v2 API schemas
+│   │   └── upstox.ts                  # Exchange Gateway v2 API schemas
 │   ├── services/
 │   │   ├── market/
-│   │   │   ├── MarketDataProvider.ts  # Generic provider interface (Upstox / Dhan / Demo)
-│   │   │   ├── UpstoxProvider.ts      # Upstox API v2 implementation & OAuth handler
+│   │   │   ├── MarketDataProvider.ts  # Generic provider interface
+│   │   │   ├── UpstoxProvider.ts      # Direct Exchange Gateway implementation & OAuth handler
 │   │   │   ├── DemoMarketProvider.ts  # Deterministic Indian market data generator & ticker
 │   │   │   ├── MarketDataService.ts   # Provider manager & caching service
 │   │   │   └── indianInstruments.ts   # Master catalog of NSE/BSE stocks, indices, and F&O
@@ -172,11 +172,11 @@ Configure the following variables in `.env.local`:
 VITE_SUPABASE_URL=https://your-project-ref.supabase.co
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-public-key
 
-# 2. Upstox Developer API v2
-VITE_UPSTOX_API_KEY=your_upstox_api_key_here
-VITE_UPSTOX_API_SECRET=your_upstox_api_secret_here
+# 2. Exchange Gateway API
+VITE_UPSTOX_API_KEY=your_exchange_api_key_here
+VITE_UPSTOX_API_SECRET=your_exchange_api_secret_here
 VITE_UPSTOX_REDIRECT_URI=http://localhost:5173/dashboard/settings
-VITE_UPSTOX_ACCESS_TOKEN=your_upstox_access_token_here
+VITE_UPSTOX_ACCESS_TOKEN=your_exchange_access_token_here
 
 # 3. Application Defaults
 VITE_DEFAULT_VIRTUAL_BALANCE=1000000
@@ -204,22 +204,22 @@ VITE_DEMO_MODE=false
 
 ---
 
-## 7. Upstox API Authentication Setup
+## 7. Direct Exchange Gateway Authentication Setup
 
-Upstox API v2 uses standard OAuth 2.0. Follow these steps to obtain API credentials:
+The Direct Exchange Gateway uses standard OAuth 2.0. Follow these steps to obtain API credentials:
 
-1. Log in to the [Upstox Developer Console](https://developer.upstox.com/).
+1. Log in to your Authorized Exchange Developer Console.
 2. Create a new App:
-   - **App Name**: `TradeEdge Paper Trading`
+   - **App Name**: `CNRX Paper Trading`
    - **Redirect URL**: `http://localhost:5173/dashboard/settings` (or your production Vercel URL)
 3. Copy the **API Key** (Client ID) and **API Secret**.
-4. Paste them into the **Settings & API** page (`/dashboard/settings`) in TradeEdge.
-5. Click **Authorize**:
-   - You will be redirected to the Upstox login dialog.
-   - Upon logging in, Upstox will redirect back with an authorization `code`.
-   - Exchange the `code` for an `access_token` via Upstox Token API (or generate a token in the Upstox Developer Portal).
-6. Save the `access_token` in Settings. The platform will automatically switch the active provider to **UPSTOX LIVE**.
-7. *SEBI Token Expiry Note*: Under Indian financial regulations, broker access tokens expire daily after 3:30 AM IST. Tokens must be renewed each trading morning.
+4. Paste them into the **Settings & API** page (`/dashboard/settings`).
+5. Click **Authorize 1-Click**:
+   - You will be redirected to the exchange authorization dialog.
+   - Upon logging in, the gateway will redirect back with an authorization `code`.
+   - Exchange the `code` for an `access_token` automatically via the Gateway Token API.
+6. Save the `access_token` in Settings. The platform will automatically switch the active provider to **EXCHANGE LIVE**.
+7. *SEBI Token Expiry Note*: Under Indian financial regulations, exchange access tokens expire daily after 3:30 AM IST. Tokens must be renewed each trading morning.
 
 ---
 
@@ -257,7 +257,7 @@ Upstox API v2 uses standard OAuth 2.0. Follow these steps to obtain API credenti
    - `VITE_UPSTOX_API_SECRET`
    - `VITE_UPSTOX_REDIRECT_URI`
 6. Click **Deploy**.
-7. In the Upstox Developer Portal, add your production Vercel domain to the Redirect URIs.
+7. In your Authorized Exchange Developer Portal, add your production Vercel domain to the Redirect URIs.
 
 ---
 

@@ -116,7 +116,7 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
   marketStatus: {
     exchange: 'NSE',
     status: 'OPEN',
-    message: 'Upstox Real-Time Live Feed Active',
+    message: 'Institutional Direct Exchange Feed Active',
     last_updated: new Date().toISOString(),
   },
   selectedInstrument: INDIAN_INSTRUMENTS_MASTER[0], // NIFTY 50 by default

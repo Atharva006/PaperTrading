@@ -44,7 +44,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
     const exchangeCode = async () => {
       setIsExchangingCode(true);
-      addToast('info', 'Upstox Authorization', 'Detected authorization code. Exchanging for live access token...');
+      addToast('info', 'Gateway Authorization', 'Detected authorization code. Exchanging for live access token...');
 
       const effectiveApiKey = apiKey || import.meta.env.VITE_UPSTOX_API_KEY || '';
       const effectiveApiSecret = apiSecret || import.meta.env.VITE_UPSTOX_API_SECRET || '';
@@ -72,7 +72,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
           });
         }
 
-        addToast('success', 'Upstox Live Connected!', 'Bearer access token generated. Live exchange quotes active.');
+        addToast('success', 'Exchange Gateway Connected!', 'Bearer access token generated. Live exchange quotes active.');
         handleTestConnection(res.access_token);
       } else {
         addToast('error', 'Token Exchange Failed', res.error || 'Could not exchange authorization code.');
@@ -95,9 +95,9 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
     setIsTesting(false);
 
     if (result.success) {
-      addToast('success', 'Connection Verified', `Connected to Upstox Live in ${result.latencyMs}ms! NIFTY 50 LTP: ₹${result.ltp?.toFixed(2)}`);
+      addToast('success', 'Connection Verified', `Connected to Direct Exchange Feed in ${result.latencyMs}ms! NIFTY 50 LTP: ₹${result.ltp?.toFixed(2)}`);
     } else {
-      addToast('warning', 'Upstox Disconnected', result.message);
+      addToast('warning', 'Gateway Disconnected', result.message);
     }
   };
 
@@ -128,7 +128,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
   const handleOAuthConnect = () => {
     if (!apiKey) {
-      addToast('error', 'API Key Required', 'Please enter your Upstox API Key (Client ID) before initiating authorization.');
+      addToast('error', 'API Key Required', 'Please enter your Exchange Gateway API Key (Client ID) before initiating authorization.');
       return;
     }
     const authUrl = `https://api.upstox.com/v2/login/authorization/dialog?response_type=code&client_id=${encodeURIComponent(apiKey)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
@@ -142,50 +142,44 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
         <div>
           <h2 className="text-lg font-cinzel font-bold text-[#F5F5F5] tracking-tight flex items-center gap-2">
             <Settings className="w-5 h-5 text-[#D4AF65]" />
-            <span>Settings & Market API Configuration</span>
+            <span>Settings & Market Gateway API Configuration</span>
           </h2>
           <p className="text-xs text-[#A1A1AA] mt-0.5">
-            Configure Upstox developer credentials, manage real-time feeds, and calibrate simulation slippage · CNRX
+            Configure direct exchange gateway credentials, manage real-time feeds, and calibrate simulation slippage · CNRX
           </p>
         </div>
 
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#242424] bg-[#080808] text-xs">
           <Server className="w-3.5 h-3.5 text-[#D4AF65]" />
           <span className="text-[#71717A]">Active Provider:</span>
-          <span className="font-bold text-[#F5F5F5] font-mono">{marketDataService.providerName}</span>
+          <span className="font-bold text-[#F5F5F5] font-mono">Institutional Direct Feed</span>
         </div>
       </div>
 
-      {/* ── Upstox API Credentials Card ─────────────────────────────────── */}
+      {/* ── Exchange Gateway API Credentials Card ─────────────────────────────────── */}
       <div className="p-5 rounded-xl bg-[#0D0D0D] border border-[#242424] space-y-5">
         <div className="flex items-start justify-between pb-4 border-b border-[#242424]">
           <div>
             <h3 className="text-sm font-bold text-[#F5F5F5] flex items-center gap-2">
               <Key className="w-4 h-4 text-[#D4AF65]" />
-              <span>Upstox API v2 Credentials</span>
+              <span>Direct Exchange Gateway Credentials</span>
             </h3>
             <p className="text-xs text-[#71717A] mt-0.5">
-              Connect your official Upstox Developer App to stream live quotes, commodities, and option chains
+              Connect your authorized exchange developer gateway to stream live quotes, commodities, and market depth
             </p>
           </div>
 
-          <a
-            href="https://upstox.com/developer/api-documentation/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-[#D4AF65] hover:underline flex items-center gap-1 font-semibold"
-          >
-            <span>Upstox Docs</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          <div className="text-xs text-[#D4AF65] flex items-center gap-1 font-semibold">
+            <span>Direct Gateway API</span>
+          </div>
         </div>
 
         <form onSubmit={handleSaveCredentials} className="space-y-4">
           {/* Environment Selector (Production vs Sandbox) */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-[#080808] rounded-lg border border-[#191919]">
             <div>
-              <span className="text-xs font-semibold text-[#F5F5F5]">Upstox Environment</span>
-              <p className="text-[11px] text-[#71717A]">Match your developer account app type (Live Account or Sandbox)</p>
+              <span className="text-xs font-semibold text-[#F5F5F5]">Gateway Environment</span>
+              <p className="text-[11px] text-[#71717A]">Match your developer account app type (Live Production or Sandbox)</p>
             </div>
             <div className="flex gap-1.5 bg-[#0D0D0D] p-1 rounded-md border border-[#242424] self-start sm:self-auto">
               <button
@@ -214,7 +208,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-[#A1A1AA] mb-1.5">
-                Upstox API Key (Client ID)
+                Exchange API Key (Client ID)
               </label>
               <input
                 type="text"
@@ -227,7 +221,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
             <div>
               <label className="block text-xs font-semibold text-[#A1A1AA] mb-1.5">
-                Upstox API Secret
+                Exchange API Secret
               </label>
               <input
                 type="password"
@@ -241,7 +235,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
           <div>
             <label className="block text-xs font-semibold text-[#A1A1AA] mb-1.5">
-              Redirect URI (Configured in Upstox Developer Portal)
+              Redirect URI (Configured in Developer Portal)
             </label>
             <input
               type="text"
@@ -267,7 +261,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             {isExchangingCode && (
               <div className="mb-3 p-3 bg-[#D4AF65]/10 border border-[#D4AF65]/30 rounded-lg flex items-center gap-2.5 text-xs text-[#D4AF65]">
                 <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Exchanging Upstox authorization code for live token...</span>
+                <span>Exchanging gateway authorization code for live token...</span>
               </div>
             )}
 
@@ -286,7 +280,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                   onClick={() => handleTestConnection()}
                   disabled={isTesting}
                   className="btn-cendrix-outline py-2 px-3 text-xs"
-                  title="Test Upstox API connection"
+                  title="Test gateway connection"
                 >
                   <Activity className={`w-3.5 h-3.5 ${isTesting ? 'animate-spin text-[#D4AF65]' : 'text-[#00C087]'}`} />
                   <span>{isTesting ? 'Testing...' : 'Test Connection'}</span>
@@ -296,7 +290,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                   type="button"
                   onClick={handleOAuthConnect}
                   className="btn-cendrix-gold py-2 px-3 text-xs"
-                  title="Login to Upstox and auto-generate Token"
+                  title="Authorize and auto-generate Token"
                 >
                   <span>Authorize 1-Click</span>
                   <ExternalLink className="w-3.5 h-3.5 ml-1" />
@@ -305,7 +299,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             </div>
 
             <p className="text-[11px] text-[#71717A] mt-1.5">
-              SEBI regulations require Upstox access tokens to be generated daily. Either click <strong>Authorize 1-Click</strong> or paste a token copied from your Upstox Developer Portal.
+              SEBI regulations require exchange access tokens to be generated daily. Either click <strong>Authorize 1-Click</strong> or paste a token copied from your developer portal.
             </p>
 
             {/* Diagnostic Result Card */}
@@ -322,7 +316,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 )}
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold">{testResult.success ? 'Upstox Live Connected' : 'Upstox Connection Failed'}</span>
+                    <span className="font-bold">{testResult.success ? 'Exchange Gateway Connected' : 'Gateway Connection Failed'}</span>
                     <span className="font-mono text-[11px] opacity-80">{testResult.latencyMs}ms</span>
                   </div>
                   <p className="text-[11px] mt-0.5 opacity-90">{testResult.message}</p>
@@ -362,7 +356,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                   mode === 'LIVE' ? 'bg-[#00C087] text-[#030303]' : 'text-[#71717A] hover:text-[#F5F5F5]'
                 }`}
               >
-                UPSTOX LIVE
+                DIRECT LIVE
               </button>
             </div>
           </div>

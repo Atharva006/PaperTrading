@@ -36,7 +36,7 @@ export class MarketDataService implements MarketDataProvider {
   }
 
   public get providerName(): string {
-    return 'Cendrix Institutional Live Market Feed (Upstox API v2)';
+    return 'Cendrix Institutional Live Exchange Feed';
   }
 
   public get activeProvider(): MarketDataProvider {

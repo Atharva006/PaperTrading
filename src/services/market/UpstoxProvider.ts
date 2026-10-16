@@ -51,7 +51,7 @@ export const INSTRUMENT_KEY_ALIASES: Record<string, string> = {
 };
 
 export class UpstoxProvider implements MarketDataProvider {
-  public readonly providerName = 'Upstox API v2 Live Feed';
+  public readonly providerName = 'Direct Institutional Exchange Feed';
   // Route through Vite /upstox proxy to avoid CORS — server makes the actual call to api.upstox.com
   private baseUrl = '/upstox/v2';
   private apiKey: string;
@@ -140,7 +140,7 @@ export class UpstoxProvider implements MarketDataProvider {
     const redirectUri = redirectUriOverride || this.redirectUri;
 
     if (!clientId || !clientSecret) {
-      return { success: false, error: 'Upstox API Key and Secret are required to exchange authorization code.' };
+      return { success: false, error: 'Exchange Gateway API Key and Secret are required to exchange authorization code.' };
     }
 
     try {
@@ -171,7 +171,7 @@ export class UpstoxProvider implements MarketDataProvider {
       this.accessToken = json.access_token;
       return { success: true, access_token: json.access_token };
     } catch (err: any) {
-      return { success: false, error: err.message || 'Network error connecting to Upstox' };
+      return { success: false, error: err.message || 'Network error connecting to Exchange Gateway' };
     }
   }
 
@@ -196,7 +196,7 @@ export class UpstoxProvider implements MarketDataProvider {
             return {
               success: true,
               latencyMs: latency,
-              message: `Connected to Upstox Live Feed (${latency}ms)`,
+              message: `Connected to Direct Exchange Feed (${latency}ms)`,
               ltp,
               isAuthenticated: true,
             };
@@ -220,7 +220,7 @@ export class UpstoxProvider implements MarketDataProvider {
         return {
           success: true,
           latencyMs: latency,
-          message: `Connected to Upstox Public Live Feed (${latency}ms)`,
+          message: `Connected to Public Exchange Feed (${latency}ms)`,
           ltp,
           isAuthenticated: false,
         };
@@ -232,7 +232,7 @@ export class UpstoxProvider implements MarketDataProvider {
     return {
       success: false,
       latencyMs: 0,
-      message: 'Could not connect to Upstox market feed.',
+      message: 'Could not connect to exchange market feed.',
     };
   }
 

@@ -104,7 +104,7 @@ export default function Login() {
             Institutional Paper Trading
           </h2>
           <p className="mt-1 text-center text-xs text-[#A1A8B3]">
-            Auto-authenticating client terminal with live Upstox ticks.
+            Auto-authenticating client terminal with live exchange ticks.
           </p>
         </div>
 
@@ -119,7 +119,7 @@ export default function Login() {
               <div>
                 <h3 className="text-sm font-bold text-[#F5F5F2]">Auto-Connecting Session</h3>
                 <p className="text-xs text-[#A1A8B3] mt-1">
-                  Loading institutional allocation of ₹10,00,000 & Upstox market stream.
+                  Loading institutional allocation of ₹10,00,000 & direct exchange market stream.
                 </p>
               </div>
 
@@ -134,7 +134,7 @@ export default function Login() {
                 </div>
                 <div className="flex justify-between text-[#6E7683]">
                   <span>Feed Provider:</span>
-                  <span className="text-[#C6A15B] font-bold">Upstox Real-Time</span>
+                  <span className="text-[#C6A15B] font-bold">Direct Exchange Gateway</span>
                 </div>
               </div>
 

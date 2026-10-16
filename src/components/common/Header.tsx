@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenSearch, onOpenReset }) => 
         <div className="flex items-center gap-2 px-2.5 py-1 bg-[#0D0D0D] border border-[#242424] rounded-lg text-xs font-mono">
           <span className={`w-2 h-2 rounded-full bg-[#00C087] animate-pulse`} />
           <span className="text-[11px] font-bold text-[#F5F5F5]">
-            {providerMode === 'LIVE' ? (marketDataService.isConfigured() ? 'UPSTOX LIVE' : 'LIVE FEED') : 'SIMULATION'}
+            {providerMode === 'LIVE' ? (marketDataService.isConfigured() ? 'EXCHANGE LIVE' : 'LIVE FEED') : 'SIMULATION'}
           </span>
         </div>
 

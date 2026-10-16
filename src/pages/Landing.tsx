@@ -166,13 +166,14 @@ export default function Landing() {
 
           <div className="hidden md:flex items-center gap-8 text-xs font-semibold text-[#A1A8B3]">
             <a href="#features" className="hover:text-[#F5F5F2] transition-colors">What We Provide</a>
+            <a href="#analytics-preview" className="hover:text-[#F5F5F2] transition-colors">Risk Analytics</a>
             <a href="#advantage" className="hover:text-[#F5F5F2] transition-colors">Our Advantage</a>
             <a href="#demo" className="hover:text-[#F5F5F2] transition-colors flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Interactive Demo</span>
             </a>
-            <a href="#pipeline" className="hover:text-[#F5F5F2] transition-colors">Live Data Feed</a>
-            <a href="#commodities" className="hover:text-[#F5F5F2] transition-colors">MCX Commodities</a>
+            <a href="#pipeline" className="hover:text-[#F5F5F2] transition-colors">Data Gateway</a>
+            <a href="#commodities" className="hover:text-[#F5F5F2] transition-colors">Commodities</a>
           </div>
 
           <div className="flex items-center gap-3">
@@ -198,7 +199,7 @@ export default function Landing() {
         <div className="flex items-center">
           <div className="px-4 py-2 bg-[#0B1424] border-r border-[#14223A] text-[10px] font-mono text-[#C6A15B] uppercase font-bold shrink-0 flex items-center gap-2 z-10 shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Live Ticks</span>
+            <span>Exchange Stream</span>
           </div>
 
           <div className="overflow-hidden whitespace-nowrap flex-1 py-2">
@@ -239,7 +240,7 @@ export default function Landing() {
             {/* Live Indicator Pill */}
             <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#0E1728] border border-[rgba(198,161,91,0.25)] rounded-full text-[11px] font-semibold text-[#C6A15B] uppercase tracking-widest font-mono shadow-[0_4px_20px_rgba(0,0,0,0.4)] animate-float">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Real-Time Upstox API v2 Stream · Zero Synthetic Drift</span>
+              <span>Direct Exchange Market Stream · Zero Synthetic Drift</span>
             </div>
 
             {/* Main Headline */}
@@ -252,7 +253,7 @@ export default function Landing() {
 
             {/* Subtitle Value Proposition */}
             <p className="text-base sm:text-lg md:text-xl text-[#A1A8B3] mb-10 leading-relaxed max-w-3xl mx-auto font-normal">
-              CNRX is India’s bespoke institutional paper trading workstation for <strong className="text-[#F5F5F2]">NSE/BSE Equities</strong>, <strong className="text-[#F5F5F2]">F&O Derivatives</strong>, and <strong className="text-[#C6A15B]">MCX Commodities</strong>. Execute against genuine exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
+              CNRX is India’s bespoke institutional paper trading workstation for <strong className="text-[#F5F5F2]">NSE/BSE Equities</strong>, <strong className="text-[#F5F5F2]">F&O Derivatives</strong>, and <strong className="text-[#C6A15B]">MCX Commodities</strong>. Execute against genuine direct exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
             </p>
 
             {/* Primary Action Buttons */}
@@ -279,7 +280,7 @@ export default function Landing() {
               </Link>
             </div>
 
-            {/* AI Generated Workstation Showcase Graphic with Glass HUD */}
+            {/* Workstation Showcase Graphic with Glass HUD */}
             <div className="relative mx-auto max-w-5xl rounded-2xl overflow-hidden border border-[rgba(198,161,91,0.3)] shadow-[0_25px_60px_rgba(0,0,0,0.8)] animate-gold-pulse group">
               <img 
                 src="/cendrix-terminal-hero.jpg" 
@@ -291,9 +292,9 @@ export default function Landing() {
               <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-[#0B1424]/85 backdrop-blur-md border border-[rgba(198,161,91,0.25)] rounded-xl p-3 sm:p-4 text-left shadow-2xl font-mono text-xs">
                 <div className="flex items-center gap-2 text-[#C6A15B] text-[10px] font-bold uppercase tracking-wider mb-1">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                  <span>Stream Gateway Active</span>
+                  <span>Direct Gateway Active</span>
                 </div>
-                <div className="text-sm sm:text-base font-bold text-[#F5F5F2]">Upstox WebSocket v2</div>
+                <div className="text-sm sm:text-base font-bold text-[#F5F5F2]">Direct Exchange Binary Feed</div>
                 <div className="text-[11px] text-[#A1A8B3]">Latency: &lt; 1ms matching</div>
               </div>
 
@@ -318,7 +319,7 @@ export default function Landing() {
 
               <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)]">
                 <p className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 mb-1">100% LIVE</p>
-                <p className="text-[10px] uppercase tracking-wider text-[#A1A8B3] font-semibold font-mono">Real-Time Upstox Feed</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#A1A8B3] font-semibold font-mono">Direct Exchange Market Feed</p>
               </div>
 
               <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)]">
@@ -359,7 +360,7 @@ export default function Landing() {
                 </div>
                 <h3 className="text-base font-serif font-bold text-[#F5F5F2]">Genuine Exchange Ticks</h3>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">
-                  Real-time market quotes streamed directly from the exchange via Upstox API v2. No synthetic curves or delayed mock prices.
+                  Real-time market quotes streamed directly from the exchange with microsecond binary feed. No synthetic curves or delayed mock prices.
                 </p>
                 <div className="text-[11px] font-mono text-[#C6A15B] pt-1">NSE · BSE · MCX Active</div>
               </div>
@@ -427,8 +428,92 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 6. Live Interactive Mini-Terminal Demo (Working On-Page) ────── */}
-        <section id="demo" className="py-20 border-y border-[#14223A] bg-[#0E1728]/70 relative">
+        {/* ── 6. Dedicated Image Showcase: Audited Quantitative Analytics ──── */}
+        <section id="analytics-preview" className="py-24 border-y border-[#14223A] bg-[#0E1728]/70">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              
+              {/* Left Column: Visual AI Graphic */}
+              <div className="relative rounded-2xl overflow-hidden border border-[rgba(198,161,91,0.3)] shadow-[0_20px_50px_rgba(0,0,0,0.8)] group order-2 lg:order-1">
+                <img 
+                  src="/cendrix-quant-analytics.jpg" 
+                  alt="Cendrix Quantitative Risk & Analytics Suite" 
+                  className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1424] via-transparent to-transparent opacity-60" />
+                
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-[#0B1424]/90 backdrop-blur-md border border-[rgba(198,161,91,0.25)] font-mono text-xs flex justify-between items-center">
+                  <div>
+                    <span className="text-[10px] text-[#C6A15B] font-bold uppercase tracking-wider block">Quantum Risk Suite</span>
+                    <span className="text-[#F5F5F2] font-semibold">Value-at-Risk · Max Drawdown · Sharpe Telemetry</span>
+                  </div>
+                  <span className="px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold text-[11px]">
+                    Live Audited
+                  </span>
+                </div>
+              </div>
+
+              {/* Right Column: Copy & Indicators */}
+              <div className="space-y-6 order-1 lg:order-2">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                      Institutional Risk Protocol
+                    </span>
+                  </div>
+                  <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F5F5F2] tracking-tight">
+                    Audited Quantitative Risk &<br />
+                    <span className="text-[#C6A15B]">Real-Time Equity Telemetry.</span>
+                  </h2>
+                </div>
+
+                <p className="text-sm text-[#A1A8B3] leading-relaxed">
+                  Professional trading demands more than a simple P&L number. Cendrix CNRX provides deep quantitative transparency into your trading edge, session volatility, win rate, and peak-to-trough drawdown — backed by double-entry accounting.
+                </p>
+
+                <div className="grid grid-cols-2 gap-4 text-xs font-mono">
+                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
+                    <span className="text-[10px] text-[#6E7683] uppercase block">Mathematical Win-Rate</span>
+                    <span className="text-xl font-bold text-emerald-400">Audited per Exit</span>
+                    <p className="text-[10px] text-[#A1A8B3] font-sans">Every completed position fill is checked against entry execution.</p>
+                  </div>
+
+                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
+                    <span className="text-[10px] text-[#6E7683] uppercase block">Drawdown Engine</span>
+                    <span className="text-xl font-bold text-rose-400">Peak-to-Trough</span>
+                    <p className="text-[10px] text-[#A1A8B3] font-sans">Continuous tracking of margin preservation and capital safety.</p>
+                  </div>
+
+                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
+                    <span className="text-[10px] text-[#6E7683] uppercase block">Regulatory Ledger</span>
+                    <span className="text-xl font-bold text-[#C6A15B]">Paise Precision</span>
+                    <p className="text-[10px] text-[#A1A8B3] font-sans">STT, CTT, GST and exchange charges audited per transaction.</p>
+                  </div>
+
+                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
+                    <span className="text-[10px] text-[#6E7683] uppercase block">CSV Statement Export</span>
+                    <span className="text-xl font-bold text-[#F5F5F2]">1-Click Download</span>
+                    <p className="text-[10px] text-[#A1A8B3] font-sans">Instant institutional statement export ready for strategy backchecks.</p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link 
+                    to="/dashboard/analytics" 
+                    className="btn-cendrix-gold py-3 px-6 text-xs font-bold tracking-wider inline-flex items-center gap-2"
+                  >
+                    <span>View Performance Analytics</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ── 7. Live Interactive Mini-Terminal Demo (Working On-Page) ────── */}
+        <section id="demo" className="py-20 border-b border-[#14223A] bg-[#0B1424] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-[10px] font-mono text-emerald-400 uppercase font-bold mb-3">
@@ -625,7 +710,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 7. Detailed Advantage Matrix (Cendrix vs Generic Simulators) ── */}
+        {/* ── 8. Detailed Advantage Matrix (Cendrix vs Generic Simulators) ── */}
         <section id="advantage" className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -659,7 +744,7 @@ export default function Landing() {
                     <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Market Price Authenticity</td>
                     <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>100% Genuine Upstox WebSocket API v2 Exchange Feeds</span>
+                      <span>100% Genuine Direct Exchange Market Data Feeds</span>
                     </td>
                     <td className="py-4 px-6 text-[#6E7683]">
                       Artificial synthetic random-walk curves or 15-min delayed quotes
@@ -737,7 +822,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 8. Multi-Asset Ecosystem with 3D Holographic AI Visual ─────── */}
+        {/* ── 9. Multi-Asset Ecosystem with 3D Holographic AI Visual ─────── */}
         <section id="commodities" className="py-24 border-t border-[#14223A] bg-[#0E1728]/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -883,7 +968,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 9. Real-Time Data Architecture Flowchart ───────────────────── */}
+        {/* ── 10. Real-Time Data Architecture Flowchart ──────────────────── */}
         <section id="pipeline" className="py-24 border-t border-[#14223A] bg-[#0B1424]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -896,7 +981,7 @@ export default function Landing() {
                 Real-Time Data Pipeline Architecture
               </h2>
               <p className="text-sm text-[#A1A8B3] leading-relaxed">
-                How genuine exchange order flow connects to your simulated workstation in less than one millisecond.
+                How genuine direct exchange order flow connects to your simulated workstation in less than one millisecond.
               </p>
             </div>
 
@@ -904,7 +989,7 @@ export default function Landing() {
             <div className="grid md:grid-cols-4 gap-4 relative">
               <div className="cendrix-card p-6 rounded-xl border border-[#14223A] space-y-3">
                 <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">01 / Exchange Feeds</div>
-                <div className="text-base font-serif font-bold text-[#F5F5F2]">Upstox API v2 Gateway</div>
+                <div className="text-base font-serif font-bold text-[#F5F5F2]">Direct Exchange Gateway</div>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">
                   Real-time binary WebSocket streaming from NSE, BSE, and MCX exchange servers.
                 </p>
@@ -937,7 +1022,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 10. The Final Call to Action ───────────────────────────────── */}
+        {/* ── 11. The Final Call to Action ───────────────────────────────── */}
         <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#0B1424] to-[#070D18] border-t border-[#14223A]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div className="w-16 h-16 mx-auto rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.3)] flex items-center justify-center p-2.5 mb-8 shadow-2xl">
@@ -968,7 +1053,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 11. Institutional Footer & Legal Disclosures ───────────────── */}
+        {/* ── 12. Institutional Footer & Legal Disclosures ───────────────── */}
         <footer className="border-t border-[#14223A] py-12 bg-[#070D18]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-8 border-b border-[#14223A]">

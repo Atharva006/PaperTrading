@@ -61,7 +61,7 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose,
     { id: 'nav-trades', title: 'Execution Tradebook', path: '/dashboard/tradebook', category: 'NAVIGATION', icon: <BookOpenCheck className="w-4 h-4 text-[#D4AF65]" />, subtitle: 'Audited execution fills & statutory charges' },
     { id: 'nav-ledger', title: 'Financial Ledger & Statements', path: '/dashboard/portfolio', category: 'NAVIGATION', icon: <Receipt className="w-4 h-4 text-[#60A5FA]" />, subtitle: 'Double-entry ledger & cash balance movements' },
     { id: 'nav-analytics', title: 'Performance Analytics', path: '/dashboard/analytics', category: 'NAVIGATION', icon: <PieChart className="w-4 h-4 text-[#00C087]" />, subtitle: 'Win rate, profit factor, max drawdown & daily P&L' },
-    { id: 'nav-settings', title: 'Settings & API Configuration', path: '/dashboard/settings', category: 'NAVIGATION', icon: <SlidersHorizontal className="w-4 h-4 text-[#A1A1AA]" />, subtitle: 'Upstox API keys, live/sim mode, slippage' },
+    { id: 'nav-settings', title: 'Settings & API Configuration', path: '/dashboard/settings', category: 'NAVIGATION', icon: <SlidersHorizontal className="w-4 h-4 text-[#A1A1AA]" />, subtitle: 'Exchange Gateway keys, live/sim mode, slippage' },
   ], []);
 
   const actionItems: NavItem[] = useMemo(() => [

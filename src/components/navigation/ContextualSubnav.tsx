@@ -39,7 +39,7 @@ export const ContextualSubnav: React.FC = () => {
       } else if (isMCXOpen) {
         setSessionInfo({ label: 'MCX COMMODITIES LIVE SESSION', isOpen: true });
       } else {
-        setSessionInfo({ label: 'MARKET POST-SESSION (LIVE UPSTOX FEEDS)', isOpen: false });
+        setSessionInfo({ label: 'MARKET POST-SESSION (DIRECT EXCHANGE FEEDS)', isOpen: false });
       }
     };
 
