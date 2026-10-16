@@ -24,6 +24,7 @@ import {
   Menu,
   X,
   User,
+  HelpCircle,
 } from 'lucide-react';
 
 interface MasterNavbarProps {
@@ -39,7 +40,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
   onToggleMobileNav,
   isMobileNavOpen,
 }) => {
-  const { positions, orders, account, userName, quotes, openOrderTicket } = useTradingStore();
+  const { positions, orders, account, userName, quotes, openOrderTicket, openGuide } = useTradingStore();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
@@ -181,8 +182,18 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           })}
         </nav>
 
-        {/* ── Far Right: Search, Quick Order & User Profile ───────────── */}
-        <div className="flex items-center gap-3">
+        {/* ── Far Right: Guide, Search, Quick Order & User Profile ───────────── */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Beginner Guide Walkthrough */}
+          <button
+            onClick={openGuide}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-colors"
+            title="Beginner Introduction & Trading Desk Guide"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
+            <span className="hidden md:inline text-[11px] font-medium">Guide</span>
+          </button>
+
           {/* Quick Search Shortcut */}
           <button
             onClick={onOpenSearch}
@@ -232,6 +243,17 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                 </div>
 
                 <div className="py-1 text-xs text-[#A1A8B3]">
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      openGuide();
+                    }}
+                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#C6A15B] transition-colors text-left text-xs font-medium"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
+                    <span>Beginner Desk Walkthrough</span>
+                  </button>
+
                   <NavLink
                     to="/dashboard/settings"
                     onClick={() => setIsUserMenuOpen(false)}

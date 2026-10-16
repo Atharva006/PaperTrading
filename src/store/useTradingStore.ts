@@ -55,6 +55,11 @@ interface TradingStoreState {
   isOrderTicketOpen: boolean;
   orderTicketInitialProps: Partial<OrderSubmissionParams> | null;
 
+  // Beginner Guide Tour state
+  isGuideOpen: boolean;
+  openGuide: () => void;
+  closeGuide: () => void;
+
   // Actions
   init: (userId?: string, email?: string, name?: string) => Promise<void>;
   placeOrder: (params: Omit<OrderSubmissionParams, 'account'>) => Promise<boolean>;
@@ -125,6 +130,7 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
   toasts: [],
   isOrderTicketOpen: false,
   orderTicketInitialProps: null,
+  isGuideOpen: false,
 
   init: async (userId, email, name) => {
     const targetUserId = userId || (typeof window !== 'undefined' ? localStorage.getItem('tradeedge_user_session_id') : null) || DEFAULT_USER_ID;
@@ -520,6 +526,14 @@ export const useTradingStore = create<TradingStoreState>((set, get) => ({
       isOrderTicketOpen: false,
       orderTicketInitialProps: null,
     });
+  },
+
+  openGuide: () => {
+    set({ isGuideOpen: true });
+  },
+
+  closeGuide: () => {
+    set({ isGuideOpen: false });
   },
 
   addToast: (type, title, message) => {

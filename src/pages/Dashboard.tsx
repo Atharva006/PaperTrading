@@ -12,6 +12,9 @@ import {
   Clock,
   Layers3,
   ExternalLink,
+  HelpCircle,
+  Sparkles,
+  X,
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -27,10 +30,18 @@ export default function Dashboard() {
     getMetrics,
     openOrderTicket,
     closePosition,
+    openGuide,
   } = useTradingStore();
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState<'POSITIONS' | 'HOLDINGS' | 'ORDERS' | 'TRADES'>('POSITIONS');
+  const [isQuickStartDismissed, setIsQuickStartDismissed] = useState(() => {
+    try {
+      return localStorage.getItem('cnrx_quickstart_dismissed') === 'true';
+    } catch {
+      return false;
+    }
+  });
 
   const metrics = getMetrics();
   const openPositions = positions.filter((p) => !p.is_closed && p.quantity !== 0);
@@ -92,6 +103,57 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
+
+      {/* ── Beginner Desk Quick Start Banner (Dismissible) ─────── */}
+      {!isQuickStartDismissed && (
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#10192A] via-[#0E1728] to-[#10141C] border border-[rgba(198,161,91,0.25)] relative overflow-hidden shadow-lg animate-in fade-in duration-300">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-10 h-10 rounded-xl bg-[#C6A15B]/10 border border-[#C6A15B]/30 flex items-center justify-center shrink-0">
+                <Sparkles className="w-5 h-5 text-[#C6A15B]" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono font-bold tracking-wider text-[#C6A15B] uppercase">
+                    Beginner Trading Desk Guide
+                  </span>
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-mono bg-[#10B981]/15 text-[#10B981] font-semibold border border-[#10B981]/30">
+                    ₹10,00,000 Active Virtual Balance
+                  </span>
+                </div>
+                <h3 className="font-serif text-sm sm:text-base font-bold text-[#F5F5F2] mt-0.5">
+                  New to CNRX? Discover how to analyze, place orders, and manage virtual risk
+                </h3>
+                <p className="text-xs text-[#A1A8B3] mt-1 leading-relaxed">
+                  1. Search scrips (⌘K) → 2. Inspect Candlestick Charts & Depth → 3. Place simulated orders (Market/Limit/SL) → 4. Track live MTM & Greeks.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
+              <button
+                onClick={openGuide}
+                className="btn-cendrix-gold px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md hover:brightness-110 active:scale-[0.98] transition-all"
+              >
+                <HelpCircle className="w-3.5 h-3.5 text-[#070D18]" />
+                <span>Start Walkthrough</span>
+              </button>
+              <button
+                onClick={() => {
+                  setIsQuickStartDismissed(true);
+                  try {
+                    localStorage.setItem('cnrx_quickstart_dismissed', 'true');
+                  } catch {}
+                }}
+                className="p-2 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-colors"
+                title="Dismiss banner"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── 2. Cendrix Capital Two-Column Financial Overview ─────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-1">

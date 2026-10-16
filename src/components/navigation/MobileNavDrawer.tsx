@@ -19,6 +19,7 @@ import {
   RotateCcw,
   LogOut,
   X,
+  HelpCircle,
 } from 'lucide-react';
 
 interface MobileNavDrawerProps {
@@ -32,7 +33,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
   onClose,
   onOpenReset,
 }) => {
-  const { positions, orders, account, userName } = useTradingStore();
+  const { positions, orders, account, userName, openGuide } = useTradingStore();
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -168,6 +169,17 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
 
         {/* Footer Actions */}
         <div className="p-3 border-t border-[#14223A] space-y-2 bg-[#10141C]">
+          <button
+            onClick={() => {
+              onClose();
+              openGuide();
+            }}
+            className="w-full btn-cendrix-gold text-xs justify-center py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-md"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-[#070D18]" />
+            <span>Beginner Desk Walkthrough</span>
+          </button>
+
           <button
             onClick={() => {
               onClose();

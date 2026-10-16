@@ -7,6 +7,7 @@ import { OrderTicket } from '../components/trading/OrderTicket';
 import { ToastContainer } from '../components/common/ToastContainer';
 import { ResetAccountModal } from '../components/common/ResetAccountModal';
 import { ZerodhaMarketWatch } from '../components/trading/ZerodhaMarketWatch';
+import { BeginnerGuideModal } from '../components/common/BeginnerGuideModal';
 
 export default function DashboardLayout() {
   const [isResetOpen, setIsResetOpen] = useState(false);
@@ -52,6 +53,7 @@ export default function DashboardLayout() {
       />
       <OrderTicket />
       <ResetAccountModal isOpen={isResetOpen} onClose={() => setIsResetOpen(false)} />
+      <BeginnerGuideModal onOpenSearch={() => setIsSearchOpen(true)} />
       <ToastContainer />
     </div>
   );
