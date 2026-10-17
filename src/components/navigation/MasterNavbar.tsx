@@ -120,7 +120,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" title="Live Market Feeds Active" />
               </div>
               <span className="text-[7.5px] sm:text-[8px] font-mono tracking-[0.2em] text-[#C6A15B] font-semibold uppercase whitespace-nowrap">
-                PROPRIETARY TRADING
+                SIMULATED FUND
               </span>
             </div>
           </NavLink>

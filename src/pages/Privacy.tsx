@@ -21,7 +21,7 @@ export default function Privacy() {
           
           <section>
             <h2 className="text-base font-bold font-cinzel text-[#F5F5F5] mb-2">2. How We Use Your Information</h2>
-            <p>The primary purpose of collecting your data is to generate your performance metrics, equity curves, and provide you with insights into your trading psychology. Your data is processed securely and is never sold to third-party marketing firms, hedge funds, or proprietary trading firms.</p>
+            <p>The primary purpose of collecting your data is to generate your performance metrics, equity curves, and provide you with insights into your trading psychology. Your data is processed securely and is never sold to third-party marketing firms, hedge funds, or external trading firms.</p>
           </section>
           
           <section>

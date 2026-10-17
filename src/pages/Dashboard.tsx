@@ -76,7 +76,7 @@ export default function Dashboard() {
           <div className="text-[11px] text-[#A1A8B3] mt-1 font-mono flex items-center gap-2">
             <span>Portfolio Account: <span className="text-[#F5F5F2] font-semibold">{account?.account_number || 'CNRX-LIVE-001'}</span></span>
             <span className="text-[#14223A]">|</span>
-            <span className="text-[#C6A15B] font-semibold tracking-wider uppercase text-[10px]">Cendrix Proprietary Simulation</span>
+            <span className="text-[#C6A15B] font-semibold tracking-wider uppercase text-[10px]">Cendrix Simulated Fund</span>
           </div>
         </div>
 

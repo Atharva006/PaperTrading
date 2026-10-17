@@ -26,7 +26,7 @@ export default function Terms() {
           
           <section>
             <h2 className="text-base font-bold font-cinzel text-[#F5F5F5] mb-2">3. User Responsibilities</h2>
-            <p>You are responsible for safeguarding the credentials you use to access the Service and for any activities or actions under your account. You agree not to misuse the platform or attempt to reverse-engineer our proprietary analytics engines.</p>
+            <p>You are responsible for safeguarding the credentials you use to access the Service and for any activities or actions under your account. You agree not to misuse the platform or attempt to reverse-engineer our internal quantitative analytics engines.</p>
           </section>
           
           <section>

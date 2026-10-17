@@ -105,7 +105,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 CENDRIX <span className="text-[#C6A15B]">CAPITAL</span>
               </span>
               <p className="text-[9px] text-[#A1A8B3] uppercase tracking-wider font-mono">
-                PROPRIETARY TRADING
+                SIMULATED FUND
               </p>
             </div>
           </div>

@@ -335,7 +335,7 @@ export default function Login() {
               </span>
               <div className="flex items-center gap-1.5">
                 <span className="text-[8.5px] text-[#C6A15B] tracking-[0.24em] font-mono font-semibold uppercase">
-                  PROPRIETARY TRADING
+                  SIMULATED FUND
                 </span>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
               </div>

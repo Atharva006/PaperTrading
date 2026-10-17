@@ -1110,7 +1110,7 @@ export default function Landing() {
                     CENDRIX CAPITAL · <span className="text-[#C6A15B] font-mono">CNRX</span>
                   </span>
                   <p className="text-[10px] text-[#6E7683] font-mono">
-                    Proprietary Quantitative Paper Trading Workstation
+                    Simulated Fund Quantitative Workstation
                   </p>
                 </div>
               </div>

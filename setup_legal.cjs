@@ -24,7 +24,7 @@ export default function Privacy() {
           
           <section>
             <h2 className="text-xl font-bold text-white mb-3">2. How We Use Your Information</h2>
-            <p>The primary purpose of collecting your data is to generate your performance metrics, equity curves, and provide you with insights into your trading psychology. Your data is processed securely and is never sold to third-party marketing firms, hedge funds, or proprietary trading firms.</p>
+            <p>The primary purpose of collecting your data is to generate your performance metrics, equity curves, and provide you with insights into your trading psychology. Your data is processed securely and is never sold to third-party marketing firms, hedge funds, or external trading firms.</p>
           </section>
           
           <section>
@@ -73,7 +73,7 @@ export default function Terms() {
           
           <section>
             <h2 className="text-xl font-bold text-white mb-3">3. User Responsibilities</h2>
-            <p>You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password. You agree not to upload malicious software, misuse the platform, or attempt to reverse-engineer our proprietary analytics engines.</p>
+            <p>You are responsible for safeguarding the password that you use to access the Service and for any activities or actions under your password. You agree not to upload malicious software, misuse the platform, or attempt to reverse-engineer our internal quantitative analytics engines.</p>
           </section>
           
           <section>
