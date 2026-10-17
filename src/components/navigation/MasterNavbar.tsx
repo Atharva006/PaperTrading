@@ -68,6 +68,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
     }
     if (typeof window !== 'undefined') {
       localStorage.removeItem('tradeedge_user_session_id');
+      localStorage.removeItem('tradeedge_auth_logged_in');
     }
     useTradingStore.getState().init();
     navigate('/login');

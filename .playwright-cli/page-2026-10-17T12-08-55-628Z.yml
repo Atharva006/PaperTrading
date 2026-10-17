@@ -1,0 +1,347 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - link "CENDRIX CAPITAL INSTITUTIONAL · CNRX" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e10]:
+        - generic [ref=e11]: CENDRIX CAPITAL
+        - generic [ref=e12]: INSTITUTIONAL · CNRX
+    - navigation [ref=e13]:
+      - link "Platform" [ref=e14] [cursor=pointer]:
+        - /url: "#hero"
+      - link "Asset Desks" [ref=e15] [cursor=pointer]:
+        - /url: "#markets"
+      - link "Execution Engine" [ref=e16] [cursor=pointer]:
+        - /url: "#features"
+      - link "How It Works" [ref=e17] [cursor=pointer]:
+        - /url: "#how-it-works"
+      - link "Comparison" [ref=e18] [cursor=pointer]:
+        - /url: "#comparison"
+    - generic [ref=e19]:
+      - link "Sign In" [ref=e20] [cursor=pointer]:
+        - /url: /login
+      - link "Launch Workstation" [ref=e21] [cursor=pointer]:
+        - /url: /dashboard
+  - generic [ref=e27]:
+    - generic [ref=e28]:
+      - generic [ref=e29]: "NEW: INSTITUTIONAL WORKSTATION 2.0"
+      - heading "INSTITUTIONAL MARKET EXECUTION." [level=1] [ref=e32]:
+        - text: INSTITUTIONAL MARKET
+        - generic [ref=e33]: EXECUTION.
+      - paragraph [ref=e34]:
+        - text: Direct market access across
+        - strong [ref=e35]: NSE Equities
+        - text: ","
+        - strong [ref=e36]: NIFTY Index Options
+        - text: ", and"
+        - strong [ref=e37]: MCX Bullion
+        - text: . Sub-millisecond matching, genuine Level-2 depth, and pre-trade RMS risk governance.
+      - generic [ref=e38]:
+        - link "Launch Workstation (₹10L Virtual)" [ref=e39] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Inspect Multi-Asset Depth" [ref=e43] [cursor=pointer]:
+          - /url: "#markets"
+      - generic [ref=e47]:
+        - generic [ref=e48]: ⚡ 0.8ms MATCHING ENGINE
+        - generic [ref=e49]: 🛡️ PRE-TRADE RMS GUARDS
+        - generic [ref=e50]: 🪙 MCX GOLD & SILVER 999.9
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - generic [ref=e54]: CNRX://TERMINAL_MUMBAI_BKC
+        - generic [ref=e59]: 0.8ms DMA ACTIVE
+      - generic [ref=e62]:
+        - img "Institutional Multi-Monitor Trading Workstation" [ref=e63]
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - generic [ref=e66]: NSE_INDEX // NIFTY 50
+            - generic [ref=e67]: ₹24,850.50
+          - generic [ref=e68]:
+            - generic [ref=e69]: LEVEL 2 (5B / 5A)
+            - generic [ref=e70]: +145.20 (+0.59%)
+        - generic [ref=e71]: MCX BULLION LINKED
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e74]: Available Margin
+          - generic [ref=e75]: ₹10,00,000.00
+          - generic [ref=e76]: 100% Virtual Risk Sandbox
+        - generic [ref=e77]:
+          - generic [ref=e78]: Execution Speed
+          - generic [ref=e79]: < 0.8ms Tick-to-Trade
+          - generic [ref=e80]: Zero Synthetic Drift
+  - generic [ref=e82]:
+    - generic [ref=e83]: NSE INDIA 500
+    - generic [ref=e86]: NIFTY 50 WEEKLY OPTIONS
+    - generic [ref=e89]: BANKNIFTY DERIVATIVES
+    - generic [ref=e92]: MCX GOLD 999.9 BULLION
+    - generic [ref=e95]: MCX SILVER MINI (5KG)
+    - generic [ref=e98]: COLOCATION MUMBAI BKC
+    - generic [ref=e101]: FIX 4.4 / 5.0 PROTOCOL
+    - generic [ref=e104]: SEBI COMPLIANT RMS
+    - generic [ref=e107]: ZERO SYNTHETIC SLIP
+    - generic [ref=e110]: KITE CONNECT API ADAPTER
+    - generic [ref=e113]: NSE INDIA 500
+    - generic [ref=e116]: NIFTY 50 WEEKLY OPTIONS
+    - generic [ref=e119]: BANKNIFTY DERIVATIVES
+    - generic [ref=e122]: MCX GOLD 999.9 BULLION
+    - generic [ref=e125]: MCX SILVER MINI (5KG)
+    - generic [ref=e128]: COLOCATION MUMBAI BKC
+    - generic [ref=e131]: FIX 4.4 / 5.0 PROTOCOL
+    - generic [ref=e134]: SEBI COMPLIANT RMS
+    - generic [ref=e137]: ZERO SYNTHETIC SLIP
+    - generic [ref=e140]: KITE CONNECT API ADAPTER
+  - generic [ref=e144]:
+    - generic [ref=e145]:
+      - text: REALITY AUDIT
+      - heading "RETAIL PLATFORMS VS CNRX WORKSTATION" [level=2] [ref=e146]
+      - paragraph [ref=e147]: Why serious quantitative and derivative traders discard retail simulator toys and trade on Cendrix.
+    - generic [ref=e148]:
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]: Standard Retail Paper Trading
+          - heading "Synthetic Fills & Unrealistic Alpha" [level=3] [ref=e157]
+          - list [ref=e158]:
+            - listitem [ref=e159]:
+              - generic [ref=e163]:
+                - strong [ref=e164]: "Synthetic Price Drift:"
+                - text: Fills execute at arbitrary mid-market prices without touching real exchange order queues.
+            - listitem [ref=e165]:
+              - generic [ref=e169]:
+                - strong [ref=e170]: "No Tax / STT Calculations:"
+                - text: Completely ignores SEBI STT, GST, stamp duty, and turnover charges, inflating fake profits.
+            - listitem [ref=e171]:
+              - generic [ref=e175]:
+                - strong [ref=e176]: "Missing Market Depth:"
+                - text: No Level-2 (5 Bid / 5 Ask) order book analysis to inspect institutional supply & demand.
+            - listitem [ref=e177]:
+              - generic [ref=e181]:
+                - strong [ref=e182]: "Platform Freeze on Expiry Days:"
+                - text: Weak WebSockets crash during heavy NIFTY/BANKNIFTY Thursday expiries.
+        - generic [ref=e183]: "RESULT: False confidence, severe slippage in live capital."
+      - generic [ref=e184]:
+        - generic [ref=e185]:
+          - generic [ref=e186]: Cendrix Capital Institutional Station
+          - heading "Audited Exchange Order Queues" [level=3] [ref=e191]
+          - list [ref=e192]:
+            - listitem [ref=e193]:
+              - generic [ref=e196]:
+                - strong [ref=e197]: "Sub-Millisecond In-Memory Matching:"
+                - text: Orders match strictly against real exchange ticks with zero artificial slippage.
+            - listitem [ref=e198]:
+              - generic [ref=e201]:
+                - strong [ref=e202]: "Audited Statutory Cost Modeling:"
+                - text: Automatically accounts for SEBI turnover, exchange fees, STT, and 18% GST.
+            - listitem [ref=e203]:
+              - generic [ref=e206]:
+                - strong [ref=e207]: "Live Level-2 (5 Bid / 5 Ask) Depth:"
+                - text: Real-time queue volume, order count, and spread tracking for precision fills.
+            - listitem [ref=e208]:
+              - generic [ref=e211]:
+                - strong [ref=e212]: "₹10,00,000 Institutional Sandbox:"
+                - text: Instant risk-free margin allocation with 1-click restore functionality anytime.
+        - generic [ref=e213]:
+          - generic [ref=e214]: "STATUS: 100% INSTITUTIONAL GRADE"
+          - link "Enter Station →" [ref=e215] [cursor=pointer]:
+            - /url: /dashboard
+  - generic [ref=e217]:
+    - generic [ref=e218]:
+      - text: CORE CAPABILITIES
+      - heading "PRECISION TOOLS FOR SERIOUS TRADERS" [level=2] [ref=e219]
+      - paragraph [ref=e220]: Engineered from the ground up for high-frequency quant funds, option writers, and commodities desks.
+    - generic [ref=e221]:
+      - generic [ref=e222]:
+        - generic [ref=e223]:
+          - heading "Sub-Millisecond Matching" [level=3] [ref=e228]
+          - paragraph [ref=e229]: In-memory order matching engine executing limit, market, and stop-loss orders in under 0.8ms without synthetic drift.
+        - generic [ref=e230]:
+          - generic [ref=e231]: CAPABILITY // 01
+          - generic [ref=e232]: →
+      - generic [ref=e233]:
+        - generic [ref=e234]:
+          - heading "Level 2 Market Depth (5B/5A)" [level=3] [ref=e238]
+          - paragraph [ref=e239]: Inspect genuine exchange bid-ask queues with real-time order sizes, cumulative depth percentages, and spread telemetry.
+        - generic [ref=e240]:
+          - generic [ref=e241]: CAPABILITY // 02
+          - generic [ref=e242]: →
+      - generic [ref=e243]:
+        - generic [ref=e244]:
+          - heading "Audited Statutory STT Engine" [level=3] [ref=e250]
+          - paragraph [ref=e251]: Comprehensive post-trade modeling of SEBI STT, CTT, GST, and exchange transaction fees for true net expectancy.
+        - generic [ref=e252]:
+          - generic [ref=e253]: CAPABILITY // 03
+          - generic [ref=e254]: →
+      - generic [ref=e255]:
+        - generic [ref=e256]:
+          - heading "MCX Gold & Bullion Gateway" [level=3] [ref=e260]
+          - paragraph [ref=e261]: Trade MCX Gold Mini (100g), Silver Mini (5kg), and Crude Oil with live contract multiplier calculations.
+        - generic [ref=e262]:
+          - generic [ref=e263]: CAPABILITY // 04
+          - generic [ref=e264]: →
+      - generic [ref=e265]:
+        - generic [ref=e266]:
+          - heading "Options Payoff & Greek Vectors" [level=3] [ref=e269]
+          - paragraph [ref=e270]: Real-time Delta, Gamma, Theta, and Vega exposure metrics with interactive strike price payoff visualizers.
+        - generic [ref=e271]:
+          - generic [ref=e272]: CAPABILITY // 05
+          - generic [ref=e273]: →
+      - generic [ref=e274]:
+        - generic [ref=e275]:
+          - heading "Pre-Trade RMS Risk Governance" [level=3] [ref=e279]
+          - paragraph [ref=e280]: Institutional margin limits, auto-square-off buffers, and Value-at-Risk (VaR) monitoring protecting portfolio capital.
+        - generic [ref=e281]:
+          - generic [ref=e282]: CAPABILITY // 06
+          - generic [ref=e283]: →
+  - generic [ref=e285]:
+    - text: EXECUTION PIPELINE
+    - heading "HOW CENDRIX CAPITAL WORKS" [level=2] [ref=e286]
+    - paragraph [ref=e287]: From virtual sandbox provisioning to algorithmic execution in 3 streamlined steps.
+    - generic [ref=e288]:
+      - generic [ref=e289]:
+        - generic [ref=e290]: "01"
+        - heading "Connect Sandbox" [level=3] [ref=e291]
+        - paragraph [ref=e292]: Receive an automatic grant of ₹10,00,000 INR simulated margin. Zero deposit required, zero credit card friction.
+      - generic [ref=e293]:
+        - generic [ref=e294]: "02"
+        - heading "Deploy Orders" [level=3] [ref=e295]
+        - paragraph [ref=e296]: Execute Indian Equities (Reliance, HDFC), NIFTY Options, and MCX Bullion with sub-millisecond matching.
+      - generic [ref=e297]:
+        - generic [ref=e298]: "03"
+        - heading "Audit Alpha & Risk" [level=3] [ref=e299]
+        - paragraph [ref=e300]: Inspect real-time P&L, MTM exposure, Options Greeks, and audited statutory tax breakdowns on every closed fill.
+  - generic [ref=e302]:
+    - generic [ref=e303]:
+      - text: BUILT FOR INSTITUTIONS
+      - heading "TAILORED FOR MULTI-ASSET DESKS" [level=2] [ref=e304]
+      - paragraph [ref=e305]: Explore how quantitative funds, option scalpers, and bullion dealers leverage Cendrix.
+    - generic [ref=e306]:
+      - generic [ref=e307]:
+        - generic [ref=e308]:
+          - generic [ref=e309]: QUANTITATIVE FUNDS
+          - heading "High-Frequency Algorithmic Testing" [level=3] [ref=e310]
+          - paragraph [ref=e311]: Deploy and backtest quantitative trading strategies against genuine tick streams. Audit true latency, queue priority, and slippage before deploying live client capital.
+          - generic [ref=e312]:
+            - generic [ref=e313]:
+              - generic [ref=e314]: "API Standard:"
+              - generic [ref=e315]: FIX 4.4 / JSON
+            - generic [ref=e316]:
+              - generic [ref=e317]: "Tick Resolution:"
+              - generic [ref=e318]: Microsecond
+            - generic [ref=e319]:
+              - generic [ref=e320]: "Double-Entry Audit:"
+              - generic [ref=e321]: Enabled
+        - link "Launch Quant Desk" [ref=e322] [cursor=pointer]:
+          - /url: /dashboard
+      - generic [ref=e326]:
+        - generic [ref=e327]:
+          - generic [ref=e328]: F&O & BULLION DEALERS
+          - heading "MCX Gold, Silver & Derivatives" [level=3] [ref=e329]
+          - img "MCX Gold 999.9 and Silver Bullion Trading" [ref=e331]
+          - paragraph [ref=e332]: Execute Gold Mini (100g), Silver Mini (5kg), and Weekly NIFTY Straddles with real contract multipliers and live statutory tax calculations.
+        - link "Explore MCX Bullion Desk" [ref=e333] [cursor=pointer]:
+          - /url: /dashboard/commodities
+      - generic [ref=e337]:
+        - generic [ref=e338]:
+          - generic [ref=e339]: RISK ALLOCATORS
+          - heading "Portfolio VaR & Risk Engine" [level=3] [ref=e340]
+          - img "Institutional Quantum Risk and VaR Analytics" [ref=e342]
+          - paragraph [ref=e343]: Inspect multidimensional Value-at-Risk yield surfaces, portfolio Delta/Theta Greeks, and stress-test margin drawdown curves.
+        - link "Inspect Risk Vectors" [ref=e344] [cursor=pointer]:
+          - /url: /dashboard/portfolio
+  - generic [ref=e349]:
+    - generic [ref=e350]:
+      - text: VERIFIED ALLOCATORS
+      - heading "WHAT INSTITUTIONS SAY" [level=2] [ref=e351]
+    - generic [ref=e352]:
+      - generic [ref=e353]:
+        - paragraph [ref=e366]: "\"Cendrix is the only platform in India that accurately factors in SEBI turnover and STT taxes on simulated F&O fills. It eliminated the synthetic expectancy bias our quant analysts struggled with.\""
+        - generic [ref=e367]:
+          - generic [ref=e368]: Vikram Singhania
+          - generic [ref=e369]: Chief Investment Officer, Kuber Quant Capital
+          - generic [ref=e370]: ₹450 Cr AUM
+      - generic [ref=e371]:
+        - paragraph [ref=e384]: "\"The MCX Bullion integration with genuine contract lot sizes (100g Gold / 5kg Silver) made it effortless to stress-test our commodity delta hedging algorithms before live deployment.\""
+        - generic [ref=e385]:
+          - generic [ref=e386]: Ananya Deshmukh
+          - generic [ref=e387]: Head of Derivatives, Apex Prop Trading
+          - generic [ref=e388]: Mumbai BKC
+      - generic [ref=e389]:
+        - paragraph [ref=e402]: "\"Sub-millisecond matching against real Level-2 exchange queues. No other paper trading simulator comes close to this level of fidelity. It feels indistinguishable from our live FIX engine.\""
+        - generic [ref=e403]:
+          - generic [ref=e404]: Rohit Mehta
+          - generic [ref=e405]: Senior Algo Architect, QuantEdge Technologies
+          - generic [ref=e406]: Bengaluru
+  - generic [ref=e408]:
+    - text: INSTANT SANDBOX ACCESS
+    - heading "START INSTITUTIONAL EXECUTION TODAY." [level=2] [ref=e409]
+    - paragraph [ref=e410]: Provision your ₹10,00,000 INR virtual margin. Trade Indian Equities, NIFTY Weekly Options, and MCX Bullion against live exchange queues.
+    - generic [ref=e411]:
+      - link "Launch Workstation (₹10L Virtual)" [ref=e412] [cursor=pointer]:
+        - /url: /dashboard
+      - link "Institutional Sign In" [ref=e416] [cursor=pointer]:
+        - /url: /login
+    - generic [ref=e418]:
+      - generic [ref=e419]: ✓ ZERO DEPOSIT
+      - generic [ref=e420]: ✓ ZERO CARD REQUIRED
+      - generic [ref=e421]: ✓ 1-CLICK RESET
+  - contentinfo [ref=e422]:
+    - generic [ref=e423]:
+      - generic [ref=e424]:
+        - generic [ref=e425]: CENDRIX CAPITAL
+        - paragraph [ref=e430]: CNRX Institutional Trading Station is a simulated multi-asset workstation for Indian Equities, Index Options, and MCX Commodities.
+        - generic [ref=e431]: SEBI IN-RA-000000 COMPLIANT ARCHITECTURE
+      - generic [ref=e432]:
+        - heading "Platform Modules" [level=4] [ref=e433]
+        - list [ref=e434]:
+          - listitem [ref=e435]:
+            - link "Terminal Workstation" [ref=e436] [cursor=pointer]:
+              - /url: /dashboard
+          - listitem [ref=e437]:
+            - link "MarketWatch & Scrips" [ref=e438] [cursor=pointer]:
+              - /url: /dashboard/watchlist
+          - listitem [ref=e439]:
+            - link "NIFTY Option Chain" [ref=e440] [cursor=pointer]:
+              - /url: /dashboard/derivatives
+          - listitem [ref=e441]:
+            - link "MCX Bullion Desk" [ref=e442] [cursor=pointer]:
+              - /url: /dashboard/commodities
+          - listitem [ref=e443]:
+            - link "Positions & Portfolio" [ref=e444] [cursor=pointer]:
+              - /url: /dashboard/positions
+      - generic [ref=e445]:
+        - heading "Risk & Governance" [level=4] [ref=e446]
+        - list [ref=e447]:
+          - listitem [ref=e448]:
+            - link "Pre-Trade RMS Rules" [ref=e449] [cursor=pointer]:
+              - /url: "#comparison"
+          - listitem [ref=e450]:
+            - link "Statutory STT & GST Modeling" [ref=e451] [cursor=pointer]:
+              - /url: "#features"
+          - listitem [ref=e452]:
+            - link "Colocation Latency Specs" [ref=e453] [cursor=pointer]:
+              - /url: "#hero"
+          - listitem [ref=e454]:
+            - link "Data Privacy Policy" [ref=e455] [cursor=pointer]:
+              - /url: /privacy
+          - listitem [ref=e456]:
+            - link "Terms of Service" [ref=e457] [cursor=pointer]:
+              - /url: /terms
+      - generic [ref=e458]:
+        - heading "Connectivity" [level=4] [ref=e459]
+        - paragraph [ref=e460]: Direct market gateways linked via Mumbai BKC colocation.
+        - generic [ref=e461]:
+          - link "X" [ref=e462] [cursor=pointer]:
+            - /url: "#"
+          - link "IN" [ref=e463] [cursor=pointer]:
+            - /url: "#"
+          - link "GH" [ref=e464] [cursor=pointer]:
+            - /url: "#"
+          - link "TG" [ref=e465] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e466]: "GATEWAY STATUS: 99.999% ONLINE"
+    - generic [ref=e467]:
+      - generic [ref=e468]: © 2026 CENDRIX CAPITAL (CNRX). All rights reserved. Strictly educational paper trading.
+      - generic [ref=e469]:
+        - link "Privacy" [ref=e470] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms" [ref=e471] [cursor=pointer]:
+          - /url: /terms
+        - link "Workstation Access" [ref=e472] [cursor=pointer]:
+          - /url: /login

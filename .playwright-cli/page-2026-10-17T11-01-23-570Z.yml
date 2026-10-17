@@ -1,0 +1,675 @@
+- generic [ref=e4]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Cendrix Capital CENDRIX CAPITAL CNRX" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Cendrix Capital" [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]: CENDRIX CAPITAL
+          - generic [ref=e12]: CNRX
+      - navigation [ref=e13]:
+        - link "Platform" [ref=e14] [cursor=pointer]:
+          - /url: "#features"
+        - link "Data Gateway" [ref=e15] [cursor=pointer]:
+          - /url: "#pipeline"
+        - link "Asset Desks" [ref=e16] [cursor=pointer]:
+          - /url: "#markets"
+        - link "Security" [ref=e17] [cursor=pointer]:
+          - /url: "#security"
+        - link "Capital Tiers" [ref=e18] [cursor=pointer]:
+          - /url: "#tiers"
+        - link "FAQ" [ref=e19] [cursor=pointer]:
+          - /url: "#faq"
+      - generic [ref=e20]:
+        - link "Sign In" [ref=e21] [cursor=pointer]:
+          - /url: /login
+        - link "Launch Workstation" [ref=e22] [cursor=pointer]:
+          - /url: /dashboard
+  - generic [ref=e27]:
+    - generic [ref=e28]: Exchange Tape
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: NIFTY 50
+        - generic [ref=e35]: NSE
+        - generic [ref=e36]: ₹24850.50
+        - generic [ref=e37]: +145.20 (0.59%)
+        - generic [ref=e41]: "|"
+      - generic [ref=e42]:
+        - generic [ref=e43]: BANKNIFTY
+        - generic [ref=e44]: NSE
+        - generic [ref=e45]: ₹51240.80
+        - generic [ref=e46]: "-112.40 (-0.22%)"
+        - generic [ref=e50]: "|"
+      - generic [ref=e51]:
+        - generic [ref=e52]: GOLDM
+        - generic [ref=e53]: MCX
+        - generic [ref=e54]: ₹76420.00
+        - generic [ref=e55]: +380.00 (0.50%)
+        - generic [ref=e59]: "|"
+      - generic [ref=e60]:
+        - generic [ref=e61]: SILVERM
+        - generic [ref=e62]: MCX
+        - generic [ref=e63]: ₹91540.00
+        - generic [ref=e64]: +620.00 (0.68%)
+        - generic [ref=e68]: "|"
+      - generic [ref=e69]:
+        - generic [ref=e70]: CRUDEOIL
+        - generic [ref=e71]: MCX
+        - generic [ref=e72]: ₹6185.00
+        - generic [ref=e73]: "-42.00 (-0.67%)"
+        - generic [ref=e77]: "|"
+      - generic [ref=e78]:
+        - generic [ref=e79]: RELIANCE
+        - generic [ref=e80]: NSE
+        - generic [ref=e81]: ₹2985.40
+        - generic [ref=e82]: +24.80 (0.84%)
+        - generic [ref=e86]: "|"
+      - generic [ref=e87]:
+        - generic [ref=e88]: HDFCBANK
+        - generic [ref=e89]: NSE
+        - generic [ref=e90]: ₹1682.15
+        - generic [ref=e91]: "-8.30 (-0.49%)"
+        - generic [ref=e95]: "|"
+      - generic [ref=e96]:
+        - generic [ref=e97]: TCS
+        - generic [ref=e98]: NSE
+        - generic [ref=e99]: ₹4210.00
+        - generic [ref=e100]: +38.50 (0.92%)
+        - generic [ref=e104]: "|"
+      - generic [ref=e105]:
+        - generic [ref=e106]: NATURALGAS
+        - generic [ref=e107]: MCX
+        - generic [ref=e108]: ₹215.40
+        - generic [ref=e109]: +4.80 (2.28%)
+        - generic [ref=e113]: "|"
+      - generic [ref=e114]:
+        - generic [ref=e115]: TATASTEEL
+        - generic [ref=e116]: NSE
+        - generic [ref=e117]: ₹158.90
+        - generic [ref=e118]: +1.85 (1.18%)
+        - generic [ref=e122]: "|"
+      - generic [ref=e123]:
+        - generic [ref=e124]: NIFTY 50
+        - generic [ref=e125]: NSE
+        - generic [ref=e126]: ₹24850.50
+        - generic [ref=e127]: +145.20 (0.59%)
+        - generic [ref=e131]: "|"
+      - generic [ref=e132]:
+        - generic [ref=e133]: BANKNIFTY
+        - generic [ref=e134]: NSE
+        - generic [ref=e135]: ₹51240.80
+        - generic [ref=e136]: "-112.40 (-0.22%)"
+        - generic [ref=e140]: "|"
+      - generic [ref=e141]:
+        - generic [ref=e142]: GOLDM
+        - generic [ref=e143]: MCX
+        - generic [ref=e144]: ₹76420.00
+        - generic [ref=e145]: +380.00 (0.50%)
+        - generic [ref=e149]: "|"
+      - generic [ref=e150]:
+        - generic [ref=e151]: SILVERM
+        - generic [ref=e152]: MCX
+        - generic [ref=e153]: ₹91540.00
+        - generic [ref=e154]: +620.00 (0.68%)
+        - generic [ref=e158]: "|"
+      - generic [ref=e159]:
+        - generic [ref=e160]: CRUDEOIL
+        - generic [ref=e161]: MCX
+        - generic [ref=e162]: ₹6185.00
+        - generic [ref=e163]: "-42.00 (-0.67%)"
+        - generic [ref=e167]: "|"
+      - generic [ref=e168]:
+        - generic [ref=e169]: RELIANCE
+        - generic [ref=e170]: NSE
+        - generic [ref=e171]: ₹2985.40
+        - generic [ref=e172]: +24.80 (0.84%)
+        - generic [ref=e176]: "|"
+      - generic [ref=e177]:
+        - generic [ref=e178]: HDFCBANK
+        - generic [ref=e179]: NSE
+        - generic [ref=e180]: ₹1682.15
+        - generic [ref=e181]: "-8.30 (-0.49%)"
+        - generic [ref=e185]: "|"
+      - generic [ref=e186]:
+        - generic [ref=e187]: TCS
+        - generic [ref=e188]: NSE
+        - generic [ref=e189]: ₹4210.00
+        - generic [ref=e190]: +38.50 (0.92%)
+        - generic [ref=e194]: "|"
+      - generic [ref=e195]:
+        - generic [ref=e196]: NATURALGAS
+        - generic [ref=e197]: MCX
+        - generic [ref=e198]: ₹215.40
+        - generic [ref=e199]: +4.80 (2.28%)
+        - generic [ref=e203]: "|"
+      - generic [ref=e204]:
+        - generic [ref=e205]: TATASTEEL
+        - generic [ref=e206]: NSE
+        - generic [ref=e207]: ₹158.90
+        - generic [ref=e208]: +1.85 (1.18%)
+        - generic [ref=e212]: "|"
+  - main [ref=e213]:
+    - generic [ref=e214]:
+      - generic:
+        - generic: "["
+        - text: "SYSTEM: QUANTUM_DMA // 01"
+        - generic: "]"
+      - generic:
+        - generic: "["
+        - text: "FREQ: 3.84 GHZ // COLO_MUMBAI"
+        - generic: "]"
+      - generic:
+        - generic: "["
+        - text: LAT 18.92N / LON 72.83E
+        - generic: "]"
+      - generic:
+        - generic: "["
+        - text: CNRX ENGINE v4.2 // 60FPS
+        - generic: "]"
+      - generic:
+        - generic: "[ SCULPTURE STATUS ]"
+        - generic: 01 // HERO ARCH
+      - generic [ref=e215]:
+        - generic [ref=e216]:
+          - generic [ref=e217]: INSTITUTIONAL QUANTITATIVE WORKSTATION / 2024
+          - generic [ref=e220]:
+            - heading "CENDRIX //" [level=1] [ref=e221]
+            - heading "CAPITAL" [level=1] [ref=e222]
+          - paragraph [ref=e223]: DIRECT EXCHANGE EXECUTION & QUANTITATIVE INFRASTRUCTURE
+          - paragraph [ref=e224]: Direct market access across NSE Equities, NIFTY Index Derivatives, and MCX Bullion. Sub-millisecond in-memory matching, tick-by-tick order depth, zero synthetic slip, and pre-trade statutory RMS governance.
+          - generic [ref=e225]:
+            - link "EXPLORE WORKSTATION •" [ref=e226] [cursor=pointer]:
+              - /url: /dashboard
+            - link "VIEW ORDER DEPTH" [ref=e231] [cursor=pointer]:
+              - /url: "#markets"
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - generic [ref=e238]: "CORE STATUS: ACTIVE"
+              - generic [ref=e240]: 12 / 12 MODULES
+            - generic [ref=e241]:
+              - generic [ref=e242]:
+                - generic [ref=e243]: MATCHING ENGINE
+                - generic [ref=e244]: 0.82 ms
+              - generic [ref=e245]:
+                - generic [ref=e246]: ORDER ROUTER
+                - generic [ref=e247]: ONLINE
+              - generic [ref=e248]:
+                - generic [ref=e249]: EXCHANGE GATE
+                - generic [ref=e250]: NSE / MCX
+              - generic [ref=e251]:
+                - generic [ref=e252]: RMS PRE-TRADE
+                - generic [ref=e253]: 100% PASS
+        - generic [ref=e256]:
+          - generic [ref=e257]:
+            - generic [ref=e258]: "[SYNCHRONIZED]"
+            - generic [ref=e259]: ORBITAL TRAJECTORY
+          - generic [ref=e260]:
+            - generic [ref=e261]:
+              - generic [ref=e262]: VX
+              - generic [ref=e263]: 12.684 KM/S
+            - generic [ref=e264]:
+              - generic [ref=e265]: VY
+              - generic [ref=e266]: 07.321 KM/S
+            - generic [ref=e267]:
+              - generic [ref=e268]: VZ
+              - generic [ref=e269]: 03.901 KM/S
+            - generic [ref=e270]:
+              - generic [ref=e271]: LATENCY
+              - generic [ref=e272]: 0.78 MS
+            - generic [ref=e273]:
+              - generic [ref=e274]: JITTER
+              - generic [ref=e275]: < 0.04 MS
+          - generic [ref=e282]:
+            - generic [ref=e283]: FLOW HARMONIC
+            - text: 33.7 HZ OSC
+      - generic [ref=e290]:
+        - generic [ref=e291]: DIRECT DMA
+        - generic [ref=e293]: NSE 500
+        - generic [ref=e294]: •
+        - generic [ref=e295]: NIFTY F&O
+        - generic [ref=e296]: •
+        - generic [ref=e297]: MCX BULLION
+        - generic [ref=e298]: •
+        - generic [ref=e299]: COLOCATION BKC
+        - generic [ref=e300]: •
+        - generic [ref=e301]: FIX 4.4 / 5.0
+    - generic [ref=e302]:
+      - generic [ref=e303]:
+        - generic [ref=e304]:
+          - generic [ref=e305]:
+            - generic [ref=e306]: "[ SECTION 01 // DEPTH TELEMETRY ]"
+            - heading "MARKETS // 01." [level=2] [ref=e307]
+            - paragraph [ref=e308]: MULTI-ASSET LIQUIDITY DEPTH & MICROSECOND EXECUTION TERMINAL
+          - generic [ref=e309]:
+            - text: NSE_EQ • NIFTY_OPT • MCX_COMM
+            - generic [ref=e310]: "LATENCY: 0.8ms DMA"
+        - generic [ref=e312]:
+          - generic [ref=e313]:
+            - generic [ref=e320]:
+              - generic [ref=e321]: NSE_INDEX | NIFTY 50 FUT
+              - generic [ref=e322]: LIVE · REGULAR
+            - generic [ref=e323]:
+              - generic [ref=e324]:
+                - generic [ref=e325]: "LTP:"
+                - generic [ref=e326]: ₹24,850.50
+                - generic [ref=e327]: (+0.59%)
+              - generic [ref=e328]: 0.8ms DMA
+          - generic [ref=e331]:
+            - generic [ref=e332]:
+              - generic [ref=e333]:
+                - generic [ref=e334]: Market Depth (L2)
+                - generic [ref=e335]: "Orders: 14,290"
+              - generic [ref=e336]:
+                - generic [ref=e337]:
+                  - generic [ref=e338]: Bids
+                  - generic [ref=e339]: Qty
+                  - generic [ref=e340]: Price
+                - generic [ref=e341]:
+                  - generic [ref=e342]: "8"
+                  - generic [ref=e343]: "350"
+                  - generic [ref=e344]: ₹24850.00
+                - generic [ref=e345]:
+                  - generic [ref=e346]: "14"
+                  - generic [ref=e347]: "525"
+                  - generic [ref=e348]: ₹24849.40
+                - generic [ref=e349]:
+                  - generic [ref=e350]: "6"
+                  - generic [ref=e351]: "225"
+                  - generic [ref=e352]: ₹24848.75
+                - generic [ref=e353]:
+                  - generic [ref=e354]: "19"
+                  - generic [ref=e355]: "850"
+                  - generic [ref=e356]: ₹24848.10
+                - generic [ref=e357]:
+                  - generic [ref=e358]: "5"
+                  - generic [ref=e359]: "175"
+                  - generic [ref=e360]: ₹24847.50
+              - generic [ref=e361]:
+                - generic [ref=e362]:
+                  - generic [ref=e363]: Asks
+                  - generic [ref=e364]: Qty
+                  - generic [ref=e365]: Price
+                - generic [ref=e366]:
+                  - generic [ref=e367]: "11"
+                  - generic [ref=e368]: "450"
+                  - generic [ref=e369]: ₹24851.05
+                - generic [ref=e370]:
+                  - generic [ref=e371]: "9"
+                  - generic [ref=e372]: "325"
+                  - generic [ref=e373]: ₹24851.70
+                - generic [ref=e374]:
+                  - generic [ref=e375]: "16"
+                  - generic [ref=e376]: "675"
+                  - generic [ref=e377]: ₹24852.35
+                - generic [ref=e378]:
+                  - generic [ref=e379]: "4"
+                  - generic [ref=e380]: "150"
+                  - generic [ref=e381]: ₹24853.00
+                - generic [ref=e382]:
+                  - generic [ref=e383]: "21"
+                  - generic [ref=e384]: "900"
+                  - generic [ref=e385]: ₹24853.60
+              - generic [ref=e386]:
+                - generic [ref=e387]: "Total Buy: 2,125"
+                - generic [ref=e388]: "Total Sell: 2,500"
+            - generic [ref=e389]:
+              - generic [ref=e390]:
+                - generic [ref=e391]:
+                  - generic [ref=e392]: 1m
+                  - generic [ref=e393]: 5m
+                  - generic [ref=e394]: 15m
+                  - generic [ref=e395]: 1H
+                  - generic [ref=e396]: 1D
+                  - generic [ref=e398]: EMA(20)
+                  - generic [ref=e399]: SMA(50)
+                - generic [ref=e400]: "Volume: 84.2K"
+              - img [ref=e402]:
+                - generic [ref=e405] [cursor=pointer]
+                - generic [ref=e407] [cursor=pointer]
+                - generic [ref=e409] [cursor=pointer]
+                - generic [ref=e411] [cursor=pointer]
+                - generic [ref=e413] [cursor=pointer]
+                - generic [ref=e415] [cursor=pointer]
+                - generic [ref=e417] [cursor=pointer]
+                - generic [ref=e419] [cursor=pointer]
+                - generic [ref=e421] [cursor=pointer]
+                - generic [ref=e423] [cursor=pointer]
+                - generic [ref=e425] [cursor=pointer]
+                - generic [ref=e428]: 24,850.50
+            - generic [ref=e441]:
+              - generic [ref=e442]:
+                - generic [ref=e443]: Positions & Orders
+                - generic [ref=e444]: 1 Active
+              - generic [ref=e445]:
+                - generic [ref=e446]:
+                  - generic [ref=e447]: NIFTY24OCTFUT
+                  - generic [ref=e448]: BUY +50
+                - generic [ref=e449]:
+                  - generic [ref=e450]: "Avg: ₹24,705.50"
+                  - generic [ref=e451]: "LTP: ₹24,850.50"
+                - generic [ref=e452]:
+                  - generic [ref=e453]: "Unrealized MTM:"
+                  - generic [ref=e454]: +₹7,250.00 (+1.18%)
+              - generic [ref=e455]:
+                - generic [ref=e456]:
+                  - generic [ref=e457]: "Available Margin:"
+                  - generic [ref=e458]: ₹8,82,450.00
+                - generic [ref=e461]:
+                  - generic [ref=e462]: "Used: ₹1,17,550"
+                  - generic [ref=e463]: "Buffer: 88.2%"
+              - generic [ref=e464]:
+                - link "Order Pad" [ref=e465] [cursor=pointer]:
+                  - /url: /dashboard/terminal
+                - link "Statement" [ref=e466] [cursor=pointer]:
+                  - /url: /dashboard
+      - generic [ref=e467]:
+        - generic [ref=e472]:
+          - generic [ref=e473]: Fill Velocity
+          - text: < 1.2ms Matching Engine
+        - generic [ref=e480]:
+          - generic [ref=e481]: Tax Modeling
+          - text: SEBI STT, CTT & GST Audit
+        - generic [ref=e487]:
+          - generic [ref=e488]: Availability
+          - text: 99.99% Feed Reliability
+        - generic [ref=e493]:
+          - generic [ref=e494]: Risk Protection
+          - text: ₹10,00,000 Virtual Safety
+    - generic [ref=e496]:
+      - paragraph [ref=e497]: Supported Market Infrastructure & Direct Gateway Protocols
+      - generic [ref=e498]:
+        - generic [ref=e499]: NSE INDIA
+        - generic [ref=e502]: BSE ASIA
+        - generic [ref=e505]: MCX COMMODITIES
+        - generic [ref=e508]: SEBI STATUTORY MATH
+        - generic [ref=e511]: AWS FINANCIAL CLOUD
+    - generic [ref=e514]:
+      - generic [ref=e515]:
+        - generic [ref=e516]: System Architecture
+        - heading "Engineered For Serious Capital." [level=2] [ref=e517]
+        - paragraph [ref=e518]: Every system component is calibrated to duplicate live exchange mechanics with mathematical precision and zero retail distortion.
+      - generic [ref=e519]:
+        - generic [ref=e520]:
+          - generic [ref=e524]:
+            - generic [ref=e525]: Sub-Millisecond Pipeline
+            - heading "Genuine Direct Exchange Market Data Feeds" [level=3] [ref=e526]
+          - paragraph [ref=e527]: Real-time binary quotes streamed directly from NSE and MCX exchange servers. Zero artificial random-walk smoothing or delayed mock curves, ensuring your fills match actual order book liquidity.
+          - generic [ref=e528]:
+            - generic [ref=e529]: NSE Bluechips
+            - generic [ref=e530]: Nifty 50 Futures
+            - generic [ref=e531]: MCX Gold & Crude
+        - generic [ref=e532]:
+          - generic [ref=e538]:
+            - generic [ref=e539]: Tax Transparency
+            - heading "Indian Regulatory Tax Engine" [level=3] [ref=e540]
+          - paragraph [ref=e541]: Exact deductions for STT/CTT, GST (18%), Stamp Duty, and exchange turnover charges computed per transaction down to the paise.
+          - generic [ref=e542]: ✓ Verified to SEBI Statutory Schedule
+        - generic [ref=e543]:
+          - generic [ref=e547]:
+            - generic [ref=e548]: Evening Trading Desk
+            - heading "MCX Commodities Desk" [level=3] [ref=e549]
+          - paragraph [ref=e550]: Full commodity specifications for Gold Mini (100g), Silver Mini (5kg), Crude Oil, and Natural Gas active through evening market sessions (09:00 – 23:30 IST).
+        - generic [ref=e551]:
+          - generic [ref=e557]:
+            - generic [ref=e558]: Audited Accounting
+            - heading "Double-Entry Portfolio Ledger" [level=3] [ref=e559]
+          - paragraph [ref=e560]: Immutable accounting with separate cash balances, margin locks, realized gains, and Mark-to-Market (MTM) calculations updated every tick.
+        - generic [ref=e561]:
+          - generic [ref=e565]:
+            - generic [ref=e566]: Execution Ergonomics
+            - heading "High-Precision Order Tickets" [level=3] [ref=e567]
+          - paragraph [ref=e568]: Execute MARKET, LIMIT, SL, and SL-M across Cash (CNC), Intraday (MIS 5x), and Normal (NRML) with real-time margin requirement pre-checks.
+    - generic [ref=e570]:
+      - generic [ref=e571]:
+        - generic [ref=e572]: Execution Pipeline
+        - heading "How Cendrix Simulates Direct DMA" [level=2] [ref=e573]
+        - paragraph [ref=e574]: Four automated steps take you from strategic formulation to mathematically audited validation.
+      - generic [ref=e575]:
+        - generic [ref=e576]:
+          - generic [ref=e577]: "01"
+          - heading "Instant Desk Allocation" [level=3] [ref=e580]
+          - paragraph [ref=e581]: 1-Click instant simulated workspace initialization with ₹10,00,000 in virtual capital. Zero KYC delays or verification hurdles.
+        - generic [ref=e582]:
+          - generic [ref=e583]: "02"
+          - heading "Live Market Discovery" [level=3] [ref=e586]
+          - paragraph [ref=e587]: Stream Level 2 5-bid / 5-ask market depth and interactive candlestick telemetry across NSE cash equities and MCX commodities.
+        - generic [ref=e588]:
+          - generic [ref=e589]: "03"
+          - heading "Order Execution Engine" [level=3] [ref=e592]
+          - paragraph [ref=e593]: Fast order pad routing with sub-millisecond in-memory matching, pre-trade SPAN margin validation, and trigger monitoring.
+        - generic [ref=e594]:
+          - generic [ref=e595]: "04"
+          - heading "Audited Verification" [level=3] [ref=e598]
+          - paragraph [ref=e599]: Review real-time MTM telemetry, statutory tax breakdowns, win-rate metrics, and download 1-click CSV audit statements.
+    - generic [ref=e601]:
+      - generic [ref=e602]:
+        - generic [ref=e603]:
+          - generic [ref=e604]: Unified Multi-Asset Desk
+          - heading "Three Premier Indian Asset Universes." [level=2] [ref=e605]
+        - paragraph [ref=e606]: Deploy strategies across cash equities, index and stock futures, and MCX commodities from a single unified capital balance.
+        - generic [ref=e607]:
+          - button "MCX Commodities Desk (Bullion & Energy) Active until 23:30 IST" [ref=e608] [cursor=pointer]:
+            - generic [ref=e609]: MCX Commodities Desk (Bullion & Energy)
+            - generic [ref=e610]: Active until 23:30 IST
+          - button "Index & Stock F&O Derivatives Nifty, Bank Nifty with SPAN margin" [ref=e611] [cursor=pointer]:
+            - generic [ref=e612]: Index & Stock F&O Derivatives
+            - generic [ref=e613]: Nifty, Bank Nifty with SPAN margin
+          - button "NSE & BSE Equities Universe Cash delivery & 5x intraday leverage" [ref=e614] [cursor=pointer]:
+            - generic [ref=e615]: NSE & BSE Equities Universe
+            - generic [ref=e616]: Cash delivery & 5x intraday leverage
+      - generic [ref=e618]:
+        - generic [ref=e619]:
+          - generic [ref=e620]:
+            - text: MCX Exchange Gateway
+            - heading "Commodities & Bullion Contracts" [level=3] [ref=e621]
+          - generic [ref=e622]: Evening Desk Active
+        - generic [ref=e623]:
+          - generic [ref=e624]:
+            - generic [ref=e625]: GOLD MINI (GOLDM)
+            - text: 100 Grams Contract
+            - generic [ref=e626]: ₹76,420.00 / 10g
+          - generic [ref=e627]:
+            - generic [ref=e628]: SILVER MINI (SILVERM)
+            - text: 5 Kilograms Contract
+            - generic [ref=e629]: ₹91,540.00 / 1kg
+          - generic [ref=e630]:
+            - generic [ref=e631]: CRUDE OIL (CRUDEOIL)
+            - text: 100 Barrels Contract
+            - generic [ref=e632]: ₹6,185.00 / BBL
+          - generic [ref=e633]:
+            - generic [ref=e634]: NATURAL GAS (NATGAS)
+            - text: 1250 mmBtu Contract
+            - generic [ref=e635]: ₹215.40 / mmBtu
+        - link "Enter MCX Desk" [ref=e636] [cursor=pointer]:
+          - /url: /dashboard/commodities
+    - generic [ref=e641]:
+      - generic [ref=e642]:
+        - generic [ref=e643]: Institutional Safety
+        - heading "Enterprise Risk & Custody Architecture" [level=2] [ref=e644]
+        - paragraph [ref=e645]: Institutional investors demand rigorous risk parameters. Cendrix enforces automated RMS guards on every virtual transaction.
+      - generic [ref=e646]:
+        - generic [ref=e647]:
+          - heading "Pre-Trade SPAN RMS" [level=3] [ref=e651]
+          - paragraph [ref=e652]: Real-time margin evaluation blocks oversized exposure before orders reach the matching engine, preventing account negative equity.
+        - generic [ref=e653]:
+          - heading "End-to-End Encryption" [level=3] [ref=e658]
+          - paragraph [ref=e659]: All terminal streams, API sessions, and order dispatches utilize TLS 1.3 encryption with zero client-side credential storage.
+        - generic [ref=e660]:
+          - heading "Zero Synthetic Drift" [level=3] [ref=e664]
+          - paragraph [ref=e665]: Fills and triggers strictly replicate actual exchange order books, eliminating unrealistic paper trading slippage advantages.
+        - generic [ref=e666]:
+          - heading "Immutable Audit Ledger" [level=3] [ref=e672]
+          - paragraph [ref=e673]: Every order fill, partial square-off, and fee deduction is cryptographically recorded for institutional compliance verification.
+    - generic [ref=e674]:
+      - generic [ref=e675]:
+        - generic [ref=e676]: Desk Allocations
+        - heading "Virtual Capital Tiers" [level=2] [ref=e677]
+        - paragraph [ref=e678]: Select the evaluation tier that mirrors your actual trading size and strategy capacity.
+      - generic [ref=e679]:
+        - generic [ref=e680]:
+          - generic [ref=e681]:
+            - text: Standard Desk
+            - generic [ref=e682]: ₹10,00,000
+            - paragraph [ref=e683]: Ideal for testing algorithmic cash equity strategies and standard position sizing.
+            - list [ref=e684]:
+              - listitem [ref=e685]:
+                - generic [ref=e688]: NSE & BSE Cash Equities
+              - listitem [ref=e689]:
+                - generic [ref=e692]: Intraday 5x MIS Leverage
+              - listitem [ref=e693]:
+                - generic [ref=e696]: Level 2 (5-Bid / 5-Ask) Depth
+              - listitem [ref=e697]:
+                - generic [ref=e700]: STT & Statutory Tax Ledger
+          - link "Start Starter Desk" [ref=e701] [cursor=pointer]:
+            - /url: /dashboard
+        - generic [ref=e702]:
+          - generic [ref=e703]: Most Popular Desk
+          - generic [ref=e704]:
+            - text: Quant Derivatives Desk
+            - generic [ref=e705]: ₹25,00,000
+            - paragraph [ref=e706]: Tailored for active F&O index derivatives traders and multi-lot commodity scalpers.
+            - list [ref=e707]:
+              - listitem [ref=e708]:
+                - generic [ref=e711]: All Starter Features Included
+              - listitem [ref=e712]:
+                - generic [ref=e715]: Nifty & Bank Nifty Futures
+              - listitem [ref=e716]:
+                - generic [ref=e719]: MCX Evening Commodities Desk
+              - listitem [ref=e720]:
+                - generic [ref=e723]: 1-Click CSV Statement Export
+          - link "Launch Quant Desk" [ref=e724] [cursor=pointer]:
+            - /url: /dashboard
+        - generic [ref=e725]:
+          - generic [ref=e726]:
+            - text: Institutional Prime
+            - generic [ref=e727]: ₹1,00,00,000
+            - paragraph [ref=e728]: Full capacity allocation for funds, prop desks, and heavy quantitative algorithmic backtesting.
+            - list [ref=e729]:
+              - listitem [ref=e730]:
+                - generic [ref=e733]: All Quant Desk Features
+              - listitem [ref=e734]:
+                - generic [ref=e737]: Pre-Trade SPAN Margin Engine
+              - listitem [ref=e738]:
+                - generic [ref=e741]: Full MCX Bullion Spec Access
+              - listitem [ref=e742]:
+                - generic [ref=e745]: Zero Rate-Limit Gateway
+          - link "Access Institutional Prime" [ref=e746] [cursor=pointer]:
+            - /url: /dashboard
+    - generic [ref=e748]:
+      - generic [ref=e749]:
+        - generic [ref=e750]: Live Interactive Sandbox
+        - heading "Test-Drive the Execution Pad" [level=2] [ref=e753]
+        - paragraph [ref=e754]: Experience instant in-memory matching and real-time P&L telemetry right now on this page.
+      - generic [ref=e755]:
+        - generic [ref=e756]:
+          - generic [ref=e757]:
+            - generic [ref=e758]: Fast Order Pad
+            - generic [ref=e762]: 0ms Latency
+          - generic [ref=e763]:
+            - generic [ref=e764]:
+              - generic [ref=e765]: Select Scrip
+              - generic [ref=e766]:
+                - button "GOLDM ₹76,420" [ref=e767] [cursor=pointer]:
+                  - generic [ref=e768]: GOLDM
+                  - generic [ref=e769]: ₹76,420
+                - button "SILVERM ₹91,540" [ref=e770] [cursor=pointer]:
+                  - generic [ref=e771]: SILVERM
+                  - generic [ref=e772]: ₹91,540
+                - button "NIFTY ₹24,850" [ref=e773] [cursor=pointer]:
+                  - generic [ref=e774]: NIFTY
+                  - generic [ref=e775]: ₹24,850
+                - button "RELIANCE ₹2,985" [ref=e776] [cursor=pointer]:
+                  - generic [ref=e777]: RELIANCE
+                  - generic [ref=e778]: ₹2,985
+            - generic [ref=e779]:
+              - button "BUY (Long)" [ref=e780] [cursor=pointer]
+              - button "SELL (Short)" [ref=e781] [cursor=pointer]
+            - generic [ref=e782]:
+              - generic [ref=e783]: Quantity / Lots
+              - generic [ref=e784]:
+                - spinbutton [ref=e785]: "1"
+                - generic [ref=e786]: Lot x 1
+            - button "Simulate Instant BUY Fill" [ref=e787] [cursor=pointer]
+        - generic [ref=e788]:
+          - generic [ref=e789]:
+            - heading "Live Simulated Position Telemetry" [level=3] [ref=e793]
+            - generic [ref=e794]: Real-time MTM updates
+          - table [ref=e796]:
+            - rowgroup [ref=e797]:
+              - row [ref=e798]:
+                - columnheader "Contract" [ref=e799]
+                - columnheader "Side" [ref=e800]
+                - columnheader "Entry" [ref=e801]
+                - columnheader "LTP" [ref=e802]
+                - columnheader "Live MTM" [ref=e803]
+            - rowgroup [ref=e804]:
+              - row [ref=e805]:
+                - cell "GOLDM 05NOV FUT" [ref=e806]
+                - cell "BUY" [ref=e807]
+                - cell "₹76180.00" [ref=e808]
+                - cell "₹76420.00" [ref=e809]
+                - cell "+₹2400.00 (+0.32%)" [ref=e810]
+    - generic [ref=e811]:
+      - generic [ref=e812]:
+        - generic [ref=e813]: Questions & Answers
+        - heading "Frequently Asked Questions" [level=2] [ref=e814]
+        - paragraph [ref=e815]: Key operational and regulatory details regarding the CNRX workstation.
+      - generic [ref=e816]:
+        - generic [ref=e817]:
+          - button "How does CNRX differ from generic retail paper trading apps?" [expanded] [ref=e818] [cursor=pointer]
+          - generic [ref=e822]: Most retail simulators use synthetic random-walk curves, zero-slippage fills, and completely ignore statutory costs. CNRX feeds genuine direct exchange ticks, enforces SEBI STT/GST regulatory deductions down to the paise, and operates an audited double-entry ledger so your simulated edge translates to live markets.
+        - button "Are market quotes and Level 2 market depth genuine?" [ref=e824] [cursor=pointer]
+        - button "Can I trade MCX Commodities during evening sessions?" [ref=e829] [cursor=pointer]
+        - button "Is real capital required or deposited?" [ref=e834] [cursor=pointer]
+        - button "Can I export my performance data for external quantitative analysis?" [ref=e839] [cursor=pointer]
+    - generic [ref=e844]:
+      - img "Cendrix Capital" [ref=e846]
+      - heading "Deploy Your Edge on Institutional Market Infrastructure." [level=2] [ref=e847]
+      - paragraph [ref=e848]: Test your algorithmic models against authentic Indian market liquidity with ₹10,00,000 in virtual allocation. No setup fees, zero KYC friction.
+      - generic [ref=e849]:
+        - link "Launch Cendrix Workstation" [ref=e850] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Level 2 Order Terminal" [ref=e854] [cursor=pointer]:
+          - /url: /dashboard/terminal
+  - contentinfo [ref=e855]:
+    - generic [ref=e856]:
+      - generic [ref=e857]:
+        - generic [ref=e858]:
+          - generic [ref=e859]:
+            - img "Cendrix Capital" [ref=e861]
+            - generic [ref=e862]: CENDRIX CAPITAL
+          - paragraph [ref=e863]: Quantitative trading simulation workstation for Indian financial markets with zero synthetic distortion.
+          - generic [ref=e864]: All Direct Gateways Operational
+        - generic [ref=e867]:
+          - generic [ref=e868]: Platform
+          - link "Executive Dashboard" [ref=e870] [cursor=pointer]:
+            - /url: /dashboard
+          - link "Level 2 Terminal" [ref=e872] [cursor=pointer]:
+            - /url: /dashboard/terminal
+          - link "Indian Equities" [ref=e874] [cursor=pointer]:
+            - /url: /dashboard/watchlist
+          - link "F&O Derivatives" [ref=e876] [cursor=pointer]:
+            - /url: /dashboard/derivatives
+          - link "MCX Commodities" [ref=e878] [cursor=pointer]:
+            - /url: /dashboard/commodities
+          - link "Audit Analytics" [ref=e880] [cursor=pointer]:
+            - /url: /dashboard/analytics
+        - generic [ref=e881]:
+          - generic [ref=e882]: Compliance
+          - link "Privacy Policy" [ref=e884] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms of Service" [ref=e886] [cursor=pointer]:
+            - /url: /terms
+          - generic [ref=e887]: SEBI STT Calculation Matrix
+          - generic [ref=e888]: SPAN Margin Standards
+          - generic [ref=e889]: Double-Entry Accounting
+        - generic [ref=e890]:
+          - generic [ref=e891]: Desk Support
+          - link "atharva.bhosale@yahoo.com" [ref=e893] [cursor=pointer]:
+            - /url: mailto:atharva.bhosale@yahoo.com
+          - link "LinkedIn Desk Profile" [ref=e895] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/atharva--bhosale
+          - generic [ref=e896]: "Operating Hours: 09:00 – 23:30 IST (Mon – Fri)"
+      - generic [ref=e897]:
+        - paragraph [ref=e898]: © 2026 Cendrix Capital (CNRX). All rights reserved.
+        - paragraph [ref=e899]: "Regulatory Notice: Cendrix Capital (CNRX) is a simulated financial research and strategy evaluation platform. All accounts and funds are 100% virtual and cannot be redeemed for legal currency. Cendrix Capital is not a registered brokerage firm or investment advisor under SEBI."

@@ -1,0 +1,20 @@
+- generic [ref=f1e4]:
+  - navigation [ref=f1e6]:
+    - button "home" [ref=f1e7] [cursor=pointer]
+    - button "tasks" [ref=f1e12] [cursor=pointer]
+    - button "calendar" [ref=f1e17] [cursor=pointer]
+    - button "goals" [ref=f1e29] [cursor=pointer]
+  - generic [ref=f1e36]:
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - generic [ref=f1e43]: Glacier
+        - generic [ref=f1e48]: Presents
+      - heading "Frozen In Time" [level=1] [ref=f1e49]:
+        - generic [ref=f1e50]: Frozen
+        - generic [ref=f1e51]: In Time
+      - paragraph [ref=f1e52]: A journey through the silence, light, and slow wonder of the world's vanishing ice.
+      - link "Enter Exhibit" [ref=f1e53] [cursor=pointer]:
+        - /url: /dashboard
+    - generic [ref=f1e63]:
+      - generic [ref=f1e64]: Scroll
+      - generic [ref=f1e65]: To Navigate

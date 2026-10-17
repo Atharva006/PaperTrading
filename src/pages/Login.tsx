@@ -246,10 +246,15 @@ export default function Login() {
     // Default: SIGN_IN
     setLoading(true);
     try {
+      const destination = (location.state as any)?.from?.pathname || '/dashboard';
+
       if (!isSupabaseConfigured) {
         // Offline demo account simulation when no Supabase backend is configured
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('tradeedge_auth_logged_in', 'true');
+        }
         await init(undefined, email, email.split('@')[0]);
-        navigate('/dashboard');
+        navigate(destination);
         return;
       }
 
@@ -260,12 +265,16 @@ export default function Login() {
 
       if (signInError) throw signInError;
 
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('tradeedge_auth_logged_in', 'true');
+      }
+
       if (data?.session?.user) {
         const userName = data.session.user.user_metadata?.full_name || email.split('@')[0];
         await init(data.session.user.id, data.session.user.email, userName);
-        navigate('/dashboard');
+        navigate(destination);
       } else {
-        navigate('/dashboard');
+        navigate(destination);
       }
     } catch (err: any) {
       const msg = err.message || '';
@@ -289,13 +298,18 @@ export default function Login() {
   const handleLaunchDemo = async () => {
     setDemoLoading(true);
     setError('');
+    const destination = (location.state as any)?.from?.pathname || '/dashboard';
     try {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('tradeedge_auth_logged_in', 'true');
+      }
+
       if (isSupabaseConfigured) {
         try {
           const { data, error: demoErr } = await supabase.auth.signInAnonymously();
           if (!demoErr && data?.session?.user) {
             await init(data.session.user.id, undefined, 'Cendrix Institutional Trader');
-            navigate('/dashboard');
+            navigate(destination);
             return;
           }
         } catch {
@@ -305,7 +319,7 @@ export default function Login() {
 
       // Initialize default sandbox account
       await init();
-      navigate('/dashboard');
+      navigate(destination);
     } catch (err: any) {
       setError(err.message || 'Failed to initialize demo sandbox.');
     } finally {

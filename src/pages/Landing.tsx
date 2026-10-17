@@ -26,7 +26,8 @@ import {
   Wallet,
   Clock,
   Award,
-  Play
+  Play,
+  Menu
 } from 'lucide-react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
@@ -66,6 +67,7 @@ const DEMO_MULTIPLIERS: Record<string, number> = {
 
 export default function Landing() {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeAssetTab, setActiveAssetTab] = useState<'equities' | 'derivatives' | 'commodities'>('commodities');
   const { quotes } = useTradingStore();
 
@@ -178,67 +180,112 @@ export default function Landing() {
       </div>
 
       {/* ── 1. Top Institutional Navigation Bar ─────────────────────────── */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'apple-glass-nav py-3' : 'bg-transparent py-5'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.3)] flex items-center justify-center p-1.5 overflow-hidden shadow-sm">
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'apple-glass-nav py-3' : 'bg-transparent py-4 sm:py-5'}`}>
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Brand Lockup */}
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1.5 overflow-hidden shadow-sm shrink-0">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
-            <div>
+            <div className="flex flex-col shrink-0">
               <div className="flex items-center gap-2">
-                <span className="text-base font-serif font-bold tracking-wider text-[#F5F5F2]">
+                <span className="text-sm sm:text-base font-serif font-bold tracking-wider text-[#F5F5F2] whitespace-nowrap">
                   CENDRIX CAPITAL
                 </span>
-                <span className="text-[10px] font-mono text-[#C6A15B] bg-[#C6A15B]/10 px-1.5 py-0.5 rounded border border-[#C6A15B]/30 uppercase font-semibold">
+                <span className="text-[9px] sm:text-[10px] font-mono text-[#C6A15B] bg-[#C6A15B]/10 px-1.5 py-0.5 rounded border border-[#C6A15B]/30 uppercase font-semibold shrink-0">
                   CNRX
                 </span>
               </div>
-              <p className="text-[9px] font-mono tracking-widest text-[#6E7683] uppercase">
+              <p className="text-[8px] sm:text-[9px] font-mono tracking-widest text-[#6E7683] uppercase whitespace-nowrap">
                 Simulated Fund Workstation
               </p>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-[#A1A8B3]">
-            <a href="#features" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all">What We Provide</a>
-            <a href="#analytics-preview" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all">Risk Analytics</a>
-            <a href="#advantage" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all">Our Advantage</a>
-            <a href="#demo" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all flex items-center gap-1.5">
+          {/* Desktop Nav Links (Full 6-Item Bar on Extra-Large Screens) */}
+          <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold text-[#A1A8B3] shrink-0 mx-2">
+            <a href="#features" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">What We Provide</a>
+            <a href="#analytics-preview" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Risk Analytics</a>
+            <a href="#advantage" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Our Advantage</a>
+            <a href="#demo" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all flex items-center gap-1.5 whitespace-nowrap">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Interactive Demo</span>
             </a>
-            <a href="#pipeline" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all">Data Gateway</a>
-            <a href="#commodities" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all">Commodities</a>
+            <a href="#pipeline" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Data Gateway</a>
+            <a href="#commodities" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Commodities</a>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Large Screen Nav Links (Curated 4-Item Bar on 1024px-1279px) */}
+          <div className="hidden lg:flex xl:hidden items-center gap-1 text-xs font-semibold text-[#A1A8B3] shrink-0">
+            <a href="#features" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Platform</a>
+            <a href="#analytics-preview" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Analytics</a>
+            <a href="#demo" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Demo</span>
+            </a>
+            <a href="#commodities" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Commodities</a>
+          </div>
+
+          {/* Right Action Buttons */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <Link 
               to="/login" 
-              className="hidden sm:inline-flex text-xs font-semibold text-[#A1A8B3] hover:text-[#C6A15B] transition-colors px-3 py-1.5 font-mono"
+              className="hidden sm:inline-flex text-xs font-semibold text-[#A1A8B3] hover:text-[#C6A15B] transition-colors px-3 py-1.5 font-mono whitespace-nowrap"
             >
               Sign In / Register
             </Link>
             <Link 
               to="/dashboard" 
-              className="btn-cendrix-gold text-xs py-2 px-4 shadow-[0_2px_12px_rgba(198,161,91,0.25)] flex items-center gap-1.5 active:scale-[0.97]"
+              className="btn-cendrix-gold text-xs py-2 px-3.5 sm:px-4 shadow-[0_2px_12px_rgba(198,161,91,0.25)] flex items-center gap-1.5 active:scale-[0.97] whitespace-nowrap shrink-0"
             >
               <span>Launch Workstation</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5 text-[#C6A15B]" /> : <Menu className="w-5 h-5 text-[#C6A15B]" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-[#0A0E17]/95 backdrop-blur-xl border-b border-[#14223A] px-4 py-4 space-y-2 text-sm font-medium animate-fadeIn">
+            <a href="#features" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">What We Provide</a>
+            <a href="#analytics-preview" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Risk Analytics</a>
+            <a href="#advantage" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Our Advantage</a>
+            <a href="#demo" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Interactive Demo</span>
+            </a>
+            <a href="#pipeline" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Data Gateway</a>
+            <a href="#commodities" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Commodities</a>
+            <div className="pt-2 border-t border-white/10">
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#C6A15B] font-mono">Sign In / Register</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* ── 2. Live Marquee Ticker Ribbon (Real-Time Motion) ─────────────── */}
-      <div className="relative z-20 pt-24 sm:pt-28 border-b border-[#14223A] bg-[#0E1728]/80 overflow-hidden backdrop-blur-md">
+      <div className="relative z-20 pt-24 sm:pt-28 border-b border-[#14223A] bg-[#0E1728]/90 overflow-hidden backdrop-blur-md">
         <div className="flex items-center">
-          <div className="px-4 py-2 bg-[#0B1424] border-r border-[#14223A] text-[10px] font-mono text-[#C6A15B] uppercase font-bold shrink-0 flex items-center gap-2 z-10 shadow-sm">
+          <div className="px-4 py-2.5 bg-[#0B1424] border-r border-[#14223A] text-[10px] font-mono text-[#C6A15B] uppercase font-bold shrink-0 flex items-center gap-2 z-20 shadow-md">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Exchange Stream</span>
+            <span className="tracking-wider whitespace-nowrap">Exchange Stream</span>
           </div>
 
-          <div className="overflow-hidden whitespace-nowrap flex-1 py-2">
-            <div className="animate-marquee gap-8 items-center text-xs font-mono">
+          <div 
+            className="overflow-hidden whitespace-nowrap flex-1 py-2 relative"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0px, black 32px, black calc(100% - 32px), transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0px, black 32px, black calc(100% - 32px), transparent 100%)'
+            }}
+          >
+            <div className="animate-marquee gap-8 items-center text-xs font-mono pl-4">
               {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, idx) => {
                 const tickerInstrument = INDIAN_INSTRUMENTS_MASTER.find(
                   (instrument) =>

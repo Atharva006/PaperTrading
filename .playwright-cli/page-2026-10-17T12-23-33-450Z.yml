@@ -1,0 +1,439 @@
+- generic [ref=e4]:
+  - navigation [ref=e5]:
+    - generic [ref=e6]:
+      - generic [ref=e7]:
+        - img "Cendrix Capital" [ref=e9]
+        - generic [ref=e10]:
+          - generic [ref=e11]:
+            - generic [ref=e12]: CENDRIX CAPITAL
+            - generic [ref=e13]: CNRX
+          - paragraph [ref=e14]: Simulated Fund Workstation
+      - generic [ref=e15]:
+        - link "What We Provide" [ref=e16] [cursor=pointer]:
+          - /url: "#features"
+        - link "Risk Analytics" [ref=e17] [cursor=pointer]:
+          - /url: "#analytics-preview"
+        - link "Our Advantage" [ref=e18] [cursor=pointer]:
+          - /url: "#advantage"
+        - link "Interactive Demo" [ref=e19] [cursor=pointer]:
+          - /url: "#demo"
+        - link "Data Gateway" [ref=e22] [cursor=pointer]:
+          - /url: "#pipeline"
+        - link "Commodities" [ref=e23] [cursor=pointer]:
+          - /url: "#commodities"
+      - generic [ref=e24]:
+        - link "Sign In / Register" [ref=e25] [cursor=pointer]:
+          - /url: /login
+        - link "Launch Workstation" [ref=e26] [cursor=pointer]:
+          - /url: /dashboard
+  - generic [ref=e31]:
+    - generic [ref=e32]: Exchange Stream
+    - generic [ref=e36]:
+      - generic [ref=e37]:
+        - generic [ref=e38]: NIFTY 50
+        - generic [ref=e39]: NSE
+        - generic [ref=e40]: ₹24850.50
+        - generic [ref=e41]: +145.20 (0.59%)
+        - generic [ref=e45]: "|"
+      - generic [ref=e46]:
+        - generic [ref=e47]: BANKNIFTY
+        - generic [ref=e48]: NSE
+        - generic [ref=e49]: ₹51240.80
+        - generic [ref=e50]: "-112.40 (-0.22%)"
+        - generic [ref=e54]: "|"
+      - generic [ref=e55]:
+        - generic [ref=e56]: GOLDM
+        - generic [ref=e57]: MCX
+        - generic [ref=e58]: ₹76420.00
+        - generic [ref=e59]: +380.00 (0.50%)
+        - generic [ref=e63]: "|"
+      - generic [ref=e64]:
+        - generic [ref=e65]: SILVERM
+        - generic [ref=e66]: MCX
+        - generic [ref=e67]: ₹91540.00
+        - generic [ref=e68]: +620.00 (0.68%)
+        - generic [ref=e72]: "|"
+      - generic [ref=e73]:
+        - generic [ref=e74]: CRUDEOIL
+        - generic [ref=e75]: MCX
+        - generic [ref=e76]: ₹6185.00
+        - generic [ref=e77]: "-42.00 (-0.67%)"
+        - generic [ref=e81]: "|"
+      - generic [ref=e82]:
+        - generic [ref=e83]: RELIANCE
+        - generic [ref=e84]: NSE
+        - generic [ref=e85]: ₹2985.40
+        - generic [ref=e86]: +24.80 (0.84%)
+        - generic [ref=e90]: "|"
+      - generic [ref=e91]:
+        - generic [ref=e92]: HDFCBANK
+        - generic [ref=e93]: NSE
+        - generic [ref=e94]: ₹1682.15
+        - generic [ref=e95]: "-8.30 (-0.49%)"
+        - generic [ref=e99]: "|"
+      - generic [ref=e100]:
+        - generic [ref=e101]: TCS
+        - generic [ref=e102]: NSE
+        - generic [ref=e103]: ₹4210.00
+        - generic [ref=e104]: +38.50 (0.92%)
+        - generic [ref=e108]: "|"
+      - generic [ref=e109]:
+        - generic [ref=e110]: NATURALGAS
+        - generic [ref=e111]: MCX
+        - generic [ref=e112]: ₹215.40
+        - generic [ref=e113]: +4.80 (2.28%)
+        - generic [ref=e117]: "|"
+      - generic [ref=e118]:
+        - generic [ref=e119]: TATASTEEL
+        - generic [ref=e120]: NSE
+        - generic [ref=e121]: ₹158.90
+        - generic [ref=e122]: +1.85 (1.18%)
+        - generic [ref=e126]: "|"
+      - generic [ref=e127]:
+        - generic [ref=e128]: NIFTY 50
+        - generic [ref=e129]: NSE
+        - generic [ref=e130]: ₹24850.50
+        - generic [ref=e131]: +145.20 (0.59%)
+        - generic [ref=e135]: "|"
+      - generic [ref=e136]:
+        - generic [ref=e137]: BANKNIFTY
+        - generic [ref=e138]: NSE
+        - generic [ref=e139]: ₹51240.80
+        - generic [ref=e140]: "-112.40 (-0.22%)"
+        - generic [ref=e144]: "|"
+      - generic [ref=e145]:
+        - generic [ref=e146]: GOLDM
+        - generic [ref=e147]: MCX
+        - generic [ref=e148]: ₹76420.00
+        - generic [ref=e149]: +380.00 (0.50%)
+        - generic [ref=e153]: "|"
+      - generic [ref=e154]:
+        - generic [ref=e155]: SILVERM
+        - generic [ref=e156]: MCX
+        - generic [ref=e157]: ₹91540.00
+        - generic [ref=e158]: +620.00 (0.68%)
+        - generic [ref=e162]: "|"
+      - generic [ref=e163]:
+        - generic [ref=e164]: CRUDEOIL
+        - generic [ref=e165]: MCX
+        - generic [ref=e166]: ₹6185.00
+        - generic [ref=e167]: "-42.00 (-0.67%)"
+        - generic [ref=e171]: "|"
+      - generic [ref=e172]:
+        - generic [ref=e173]: RELIANCE
+        - generic [ref=e174]: NSE
+        - generic [ref=e175]: ₹2985.40
+        - generic [ref=e176]: +24.80 (0.84%)
+        - generic [ref=e180]: "|"
+      - generic [ref=e181]:
+        - generic [ref=e182]: HDFCBANK
+        - generic [ref=e183]: NSE
+        - generic [ref=e184]: ₹1682.15
+        - generic [ref=e185]: "-8.30 (-0.49%)"
+        - generic [ref=e189]: "|"
+      - generic [ref=e190]:
+        - generic [ref=e191]: TCS
+        - generic [ref=e192]: NSE
+        - generic [ref=e193]: ₹4210.00
+        - generic [ref=e194]: +38.50 (0.92%)
+        - generic [ref=e198]: "|"
+      - generic [ref=e199]:
+        - generic [ref=e200]: NATURALGAS
+        - generic [ref=e201]: MCX
+        - generic [ref=e202]: ₹215.40
+        - generic [ref=e203]: +4.80 (2.28%)
+        - generic [ref=e207]: "|"
+      - generic [ref=e208]:
+        - generic [ref=e209]: TATASTEEL
+        - generic [ref=e210]: NSE
+        - generic [ref=e211]: ₹158.90
+        - generic [ref=e212]: +1.85 (1.18%)
+        - generic [ref=e216]: "|"
+  - generic [ref=e217]:
+    - generic [ref=e219]:
+      - generic [ref=e220]: Direct Exchange Market Stream · Zero Synthetic Drift
+      - heading "Precision. Discipline. Institutional Execution." [level=1] [ref=e223]: Precision. Discipline.Institutional Execution.
+      - paragraph [ref=e224]:
+        - text: CNRX is India’s bespoke institutional paper trading workstation for
+        - strong [ref=e225]: NSE/BSE Equities
+        - text: ","
+        - strong [ref=e226]: F&O Derivatives
+        - text: ", and"
+        - strong [ref=e227]: MCX Commodities
+        - text: . Execute against genuine direct exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
+      - generic [ref=e228]:
+        - link "Launch Workstation (₹10L Virtual)" [ref=e229] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Test Live Interactive Demo" [ref=e233] [cursor=pointer]:
+          - /url: "#demo"
+        - link "Level 2 Terminal →" [ref=e237] [cursor=pointer]:
+          - /url: /dashboard/terminal
+      - generic [ref=e238]:
+        - img "Cendrix Capital Institutional Trading Terminal" [ref=e239]
+        - generic [ref=e240]:
+          - generic [ref=e241]: Direct Gateway Active
+          - generic [ref=e244]: Direct Exchange Binary Feed
+          - generic [ref=e245]: "Latency: < 1ms matching"
+        - generic [ref=e246]:
+          - generic [ref=e247]: Virtual Equity Balance
+          - generic [ref=e248]: ₹10,00,000.00
+          - generic [ref=e249]: 100% Risk Free Paper Capital
+    - generic [ref=e252]:
+      - generic [ref=e253]:
+        - paragraph [ref=e254]: ₹10,00,000
+        - paragraph [ref=e255]: Virtual Starting Balance
+      - generic [ref=e256]:
+        - paragraph [ref=e257]: 100% LIVE
+        - paragraph [ref=e258]: Direct Exchange Market Feed
+      - generic [ref=e259]:
+        - paragraph [ref=e260]: < 1 ms
+        - paragraph [ref=e261]: In-Memory Fill Speed
+      - generic [ref=e262]:
+        - paragraph [ref=e263]: NSE · BSE · MCX
+        - paragraph [ref=e264]: Equities, F&O & Commodities
+    - generic [ref=e266]:
+      - generic [ref=e267]:
+        - generic [ref=e268]: Institutional Architecture
+        - heading "What We Provide" [level=2] [ref=e270]
+        - paragraph [ref=e271]: Everything required to simulate and validate professional trading strategies with mathematical precision and zero synthetic distortion.
+      - generic [ref=e272]:
+        - generic [ref=e273]:
+          - heading "Genuine Exchange Ticks" [level=3] [ref=e277]
+          - paragraph [ref=e278]: Real-time market quotes streamed directly from the exchange with microsecond binary feed. No synthetic curves or delayed mock prices.
+          - generic [ref=e279]: NSE · BSE · MCX Active
+        - generic [ref=e280]:
+          - heading "Indian Regulatory Tax Engine" [level=3] [ref=e286]
+          - paragraph [ref=e287]: Exact modeling of Securities Transaction Tax (STT/CTT), GST (18%), Stamp Duty, Exchange Fees, and Statutory Turnover charges computed per trade.
+          - generic [ref=e288]: Accurate to the Paise
+        - generic [ref=e289]:
+          - heading "MCX Commodities Trading" [level=3] [ref=e293]
+          - paragraph [ref=e294]: Full commodities desk covering Gold (100g/1kg/Mini), Silver (30kg/Mini/Micro), Crude Oil, and Natural Gas with authentic contract specs and lot sizing.
+          - generic [ref=e295]: Gold & Silver Bullion
+        - generic [ref=e296]:
+          - heading "Institutional Order Tickets" [level=3] [ref=e300]
+          - paragraph [ref=e301]: Execute MARKET, LIMIT, SL (Stop-Loss Limit), and SL-M (Stop-Loss Market) across Delivery (CNC), Intraday (MIS 5x), and Carryforward (NRML).
+          - generic [ref=e302]: Advanced Order Types
+        - generic [ref=e303]:
+          - heading "Double-Entry Portfolio Ledger" [level=3] [ref=e309]
+          - paragraph [ref=e310]: Live Mark-to-Market (MTM) calculation per tick, realized profit/loss, margin locks, and an immutable double-entry audited cash journal.
+          - generic [ref=e311]: Real-Time MTM Ticks
+        - generic [ref=e312]:
+          - heading "Quantitative Audit Suite" [level=3] [ref=e316]
+          - paragraph [ref=e317]: Institutional analytics featuring win rates, profit factor, max peak-to-trough drawdown, session breakdown, and 1-click CSV statement export.
+          - generic [ref=e318]: Downloadable Statements
+    - generic [ref=e321]:
+      - generic [ref=e322]:
+        - img "Cendrix Quantitative Risk & Analytics Suite" [ref=e323]
+        - generic [ref=e325]:
+          - generic [ref=e326]:
+            - generic [ref=e327]: Quantum Risk Suite
+            - text: Value-at-Risk · Max Drawdown · Sharpe Telemetry
+          - generic [ref=e328]: Live Audited
+      - generic [ref=e329]:
+        - generic [ref=e330]:
+          - generic [ref=e331]: Institutional Risk Protocol
+          - heading "Audited Quantitative Risk & Real-Time Equity Telemetry." [level=2] [ref=e333]: Audited Quantitative Risk &Real-Time Equity Telemetry.
+        - paragraph [ref=e334]: Professional trading demands more than a simple P&L number. Cendrix CNRX provides deep quantitative transparency into your trading edge, session volatility, win rate, and peak-to-trough drawdown — backed by double-entry accounting.
+        - generic [ref=e335]:
+          - generic [ref=e336]:
+            - generic [ref=e337]: Mathematical Win-Rate
+            - text: Audited per Exit
+            - paragraph [ref=e338]: Every completed position fill is checked against entry execution.
+          - generic [ref=e339]:
+            - generic [ref=e340]: Drawdown Engine
+            - text: Peak-to-Trough
+            - paragraph [ref=e341]: Continuous tracking of margin preservation and capital safety.
+          - generic [ref=e342]:
+            - generic [ref=e343]: Regulatory Ledger
+            - text: Paise Precision
+            - paragraph [ref=e344]: STT, CTT, GST and exchange charges audited per transaction.
+          - generic [ref=e345]:
+            - generic [ref=e346]: CSV Statement Export
+            - text: 1-Click Download
+            - paragraph [ref=e347]: Instant institutional statement export ready for strategy backchecks.
+        - link "View Performance Analytics" [ref=e349] [cursor=pointer]:
+          - /url: /dashboard/analytics
+    - generic [ref=e354]:
+      - generic [ref=e355]:
+        - generic [ref=e356]: Live Interactive Sandbox
+        - heading "Test-Drive the Execution Pad" [level=2] [ref=e359]
+        - paragraph [ref=e360]: Experience instant in-memory matching and real-time P&L telemetry right now on this page.
+      - generic [ref=e361]:
+        - generic [ref=e362]:
+          - generic [ref=e363]:
+            - generic [ref=e364]: Interactive Order Ticket
+            - generic [ref=e368]: 0ms Latency
+          - generic [ref=e369]:
+            - generic [ref=e370]:
+              - generic [ref=e371]: Select Scrip
+              - generic [ref=e372]:
+                - button "GOLDM ₹76,420" [ref=e373] [cursor=pointer]:
+                  - generic [ref=e374]: GOLDM
+                  - generic [ref=e375]: ₹76,420
+                - button "SILVERM ₹91,540" [ref=e376] [cursor=pointer]:
+                  - generic [ref=e377]: SILVERM
+                  - generic [ref=e378]: ₹91,540
+                - button "NIFTY ₹24,850" [ref=e379] [cursor=pointer]:
+                  - generic [ref=e380]: NIFTY
+                  - generic [ref=e381]: ₹24,850
+                - button "RELIANCE ₹2,985" [ref=e382] [cursor=pointer]:
+                  - generic [ref=e383]: RELIANCE
+                  - generic [ref=e384]: ₹2,985
+            - generic [ref=e385]:
+              - button "BUY (Long)" [ref=e386] [cursor=pointer]
+              - button "SELL (Short)" [ref=e387] [cursor=pointer]
+            - generic [ref=e388]:
+              - generic [ref=e389]: Quantity / Lots
+              - generic [ref=e390]:
+                - spinbutton [ref=e391]: "1"
+                - generic [ref=e392]: Lot x 1
+            - button "Simulate Instant BUY Fill" [ref=e393] [cursor=pointer]
+        - generic [ref=e394]:
+          - generic [ref=e395]:
+            - heading "Live Simulated Position Telemetry" [level=3] [ref=e399]
+            - generic [ref=e400]: Updates in real-time
+          - table [ref=e402]:
+            - rowgroup [ref=e403]:
+              - row [ref=e404]:
+                - columnheader "Contract" [ref=e405]
+                - columnheader "Side" [ref=e406]
+                - columnheader "Entry" [ref=e407]
+                - columnheader "LTP" [ref=e408]
+                - columnheader "Live MTM" [ref=e409]
+            - rowgroup [ref=e410]:
+              - row [ref=e411]:
+                - cell "GOLDM 05NOV FUT" [ref=e412]
+                - cell "BUY" [ref=e413]
+                - cell "₹76180.00" [ref=e414]
+                - cell "₹76420.00" [ref=e415]
+                - cell "+₹2400.00 (+0.32%)" [ref=e416]
+          - generic [ref=e417]:
+            - generic [ref=e418]: Every position in the full workstation is recorded to the immutable ledger with audited regulatory charge breakdowns.
+            - link "Full Desk" [ref=e422] [cursor=pointer]:
+              - /url: /dashboard
+    - generic [ref=e427]:
+      - generic [ref=e428]:
+        - generic [ref=e429]: The Institutional Standard
+        - heading "Why Cendrix CNRX Outperforms Generic Simulators" [level=2] [ref=e431]
+        - paragraph [ref=e432]: Most paper trading apps deceive traders with synthetic curves, zero slippage, and zero regulatory charges. Cendrix replicates actual market conditions so your live performance matches your simulated edge.
+      - table [ref=e434]:
+        - rowgroup [ref=e435]:
+          - row [ref=e436]:
+            - columnheader "Trading Dimension" [ref=e437]
+            - columnheader "Cendrix Capital (CNRX)" [ref=e438]
+            - columnheader "Generic Paper Simulators" [ref=e439]
+        - rowgroup [ref=e440]:
+          - row [ref=e441]:
+            - cell "Market Price Authenticity" [ref=e442]
+            - cell "100% Genuine Direct Exchange Market Data Feeds" [ref=e443]
+            - cell "Artificial synthetic random-walk curves or 15-min delayed quotes" [ref=e447]
+          - row [ref=e448]:
+            - cell "Commodities & Bullion" [ref=e449]
+            - cell "Dedicated MCX Desk (Gold, Silver, Crude Oil, Natural Gas)" [ref=e450]
+            - cell "Equities only; no MCX commodity lot size modeling" [ref=e454]
+          - row [ref=e455]:
+            - cell "Statutory Tax & Regulatory Deductions" [ref=e456]
+            - cell "Full STT, CTT, GST, Stamp Duty & Statutory Turnover Charges" [ref=e457]
+            - cell "₹0 flat friction; distorts profit & loss expectations" [ref=e461]
+          - row [ref=e462]:
+            - cell "Margin Leverage Sizing" [ref=e463]
+            - 'cell "Verified Exchange Leverage: MIS (5x Intraday) & NRML/CNC" [ref=e464]'
+            - cell "Arbitrary or unlimited leverage; unrealistic risk habits" [ref=e468]
+          - row [ref=e469]:
+            - cell "Order Execution Velocity" [ref=e470]
+            - cell "< 1ms In-Memory Matching with instant fill telemetry" [ref=e471]
+            - cell "Delayed simulated HTTP requests with lag" [ref=e475]
+          - row [ref=e476]:
+            - cell "Portfolio Accounting & Auditing" [ref=e477]
+            - cell "Double-entry audited cash ledger with downloadable CSV" [ref=e478]
+            - cell "Basic superficial P&L count without transaction ledger" [ref=e482]
+          - row [ref=e483]:
+            - cell "Client Access & Onboarding" [ref=e484]
+            - cell "1-Click Instant Institutional Auto-Connect (No KYC friction)" [ref=e485]
+            - cell "Forced phone verification, advertisements, or paywalls" [ref=e489]
+    - generic [ref=e492]:
+      - generic [ref=e493]:
+        - img "Cendrix Multi-Asset Suite (Equities, F&O, MCX Bullion)" [ref=e494]
+        - generic [ref=e496]:
+          - generic [ref=e497]:
+            - generic [ref=e498]: Multi-Asset Engine
+            - text: NSE Cash · NFO Futures · MCX Bullion
+          - generic [ref=e499]: All-in-One
+      - generic [ref=e500]:
+        - generic [ref=e501]:
+          - generic [ref=e502]: Unified Capital Desk
+          - heading "One Capital Allocation. Three Premier Asset Classes." [level=2] [ref=e504]: One Capital Allocation.Three Premier Asset Classes.
+        - generic [ref=e505]:
+          - button "MCX Commodities" [ref=e506] [cursor=pointer]
+          - button "Quantitative F&O" [ref=e507] [cursor=pointer]
+          - button "Indian Equities" [ref=e508] [cursor=pointer]
+        - generic [ref=e509]:
+          - paragraph [ref=e510]: Practice bullion, energy, and base metals trading on authentic MCX contract specifications with verified lot sizes, tick sizes, and margin leverage.
+          - generic [ref=e511]:
+            - generic [ref=e512]:
+              - generic [ref=e513]: GOLD MINI (GOLDM)
+              - text: 100 Grams Lot
+            - generic [ref=e514]:
+              - generic [ref=e515]: SILVER MINI (SILVERM)
+              - text: 5 Kilograms Lot
+            - generic [ref=e516]:
+              - generic [ref=e517]: CRUDE OIL
+              - text: 100 Barrels Lot
+            - generic [ref=e518]:
+              - generic [ref=e519]: NATURAL GAS
+              - text: 1250 mmBtu Lot
+        - link "Explore Commodities Desk" [ref=e521] [cursor=pointer]:
+          - /url: /dashboard/commodities
+    - generic [ref=e526]:
+      - generic [ref=e527]:
+        - generic [ref=e528]: Zero Delay Protocol
+        - heading "Real-Time Data Pipeline Architecture" [level=2] [ref=e530]
+        - paragraph [ref=e531]: How genuine direct exchange order flow connects to your simulated workstation in less than one millisecond.
+      - generic [ref=e532]:
+        - generic [ref=e533]:
+          - generic [ref=e534]: 01 / Exchange Feeds
+          - generic [ref=e535]: Direct Exchange Gateway
+          - paragraph [ref=e536]: Real-time binary WebSocket streaming from NSE, BSE, and MCX exchange servers.
+        - generic [ref=e537]:
+          - generic [ref=e538]: 02 / Telemetry Engine
+          - generic [ref=e539]: CNRX In-Memory Bus
+          - paragraph [ref=e540]: Sub-millisecond pub/sub streaming bus delivering ticks directly to trading state.
+        - generic [ref=e541]:
+          - generic [ref=e542]: 03 / Financial Engine
+          - generic [ref=e543]: SPAN & Tax Math
+          - paragraph [ref=e544]: Instant calculation of margin requirements, STT, CTT, GST, and statutory turnover fees.
+        - generic [ref=e545]:
+          - generic [ref=e546]: 04 / Terminal Output
+          - generic [ref=e547]: Client Workstation
+          - paragraph [ref=e548]: Level 2 market depth, order ticket fills, and audited double-entry portfolio ledger.
+    - generic [ref=e550]:
+      - img "Cendrix Capital" [ref=e552]
+      - heading "Begin Paper Trading With Live Precision." [level=2] [ref=e553]
+      - paragraph [ref=e554]: Test your edge against real market forces with zero capital at risk. ₹10,00,000 in virtual funds is ready immediately with instant 1-click auto-connect.
+      - generic [ref=e555]:
+        - link "Launch Cendrix Trading Desk" [ref=e556] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Commodities Suite" [ref=e560] [cursor=pointer]:
+          - /url: /dashboard/commodities
+    - contentinfo [ref=e561]:
+      - generic [ref=e562]:
+        - generic [ref=e563]:
+          - generic [ref=e564]:
+            - img "Cendrix Capital" [ref=e566]
+            - generic [ref=e567]:
+              - generic [ref=e568]: CENDRIX CAPITAL · CNRX
+              - paragraph [ref=e569]: Simulated Fund Quantitative Workstation
+          - generic [ref=e570]:
+            - link "Privacy Policy" [ref=e571] [cursor=pointer]:
+              - /url: /privacy
+            - link "Terms of Service" [ref=e572] [cursor=pointer]:
+              - /url: /terms
+            - link "Desk Support" [ref=e573] [cursor=pointer]:
+              - /url: mailto:atharva.bhosale@yahoo.com
+            - link "LinkedIn" [ref=e574] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/atharva--bhosale
+            - link "Terminal Access →" [ref=e575] [cursor=pointer]:
+              - /url: /dashboard
+        - generic [ref=e576]:
+          - paragraph [ref=e577]: © 2026 Cendrix Capital. Institutional Paper Trading Platform. All rights reserved.
+          - paragraph [ref=e578]: "Notice: CNRX is a simulated educational and research workstation. All funds are 100% virtual and cannot be redeemed for real currency. Not a registered brokerage firm or financial advisory."

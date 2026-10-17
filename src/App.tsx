@@ -7,6 +7,7 @@ import { marketDataService } from './services/market/MarketDataService';
 // Layouts
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
+import { ProtectedRoute } from './components/auth/ProtectedRoute';
 
 // Paper Trading Pages
 import Dashboard from './pages/Dashboard';
@@ -85,8 +86,15 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Route>
 
-        {/* Paper Trading Terminal Dashboard Layout */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        {/* Paper Trading Terminal Dashboard Layout (Protected) */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="watchlist" element={<MarketWatchPage />} />
           <Route path="terminal" element={<TerminalPage />} />

@@ -1,0 +1,267 @@
+- generic [ref=f2e3]:
+  - banner [ref=f2e4]:
+    - generic [ref=f2e5]:
+      - link "Cendrix CENDRIX CAPITAL Live Market Feeds Active SIMULATED FUND" [ref=f2e7] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Cendrix" [ref=f2e9]
+        - generic [ref=f2e10]:
+          - generic [ref=f2e11]:
+            - generic [ref=f2e12]: CENDRIX CAPITAL
+            - generic "Live Market Feeds Active" [ref=f2e13]
+          - generic [ref=f2e14]: SIMULATED FUND
+      - navigation [ref=f2e15]:
+        - link "Dashboard" [ref=f2e16] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Orders" [ref=f2e18] [cursor=pointer]:
+          - /url: /dashboard/orders
+        - link "Holdings" [ref=f2e20] [cursor=pointer]:
+          - /url: /dashboard/holdings
+        - link "Positions" [ref=f2e22] [cursor=pointer]:
+          - /url: /dashboard/positions
+        - link "Terminal" [ref=f2e24] [cursor=pointer]:
+          - /url: /dashboard/terminal
+        - link "Commodities" [ref=f2e26] [cursor=pointer]:
+          - /url: /dashboard/commodities
+        - link "Funds" [ref=f2e28] [cursor=pointer]:
+          - /url: /dashboard/portfolio
+        - link "Analytics" [ref=f2e30] [cursor=pointer]:
+          - /url: /dashboard/analytics
+      - generic [ref=f2e32]:
+        - button "Beginner Introduction & Trading Desk Guide" [ref=f2e33] [cursor=pointer]
+        - button "⌘K" [ref=f2e37] [cursor=pointer]
+        - button "Order" [ref=f2e42] [cursor=pointer]
+        - button "CE" [ref=f2e47] [cursor=pointer]
+  - generic [ref=f2e51]:
+    - complementary [ref=f2e52]:
+      - generic [ref=f2e53]:
+        - generic [ref=f2e55]:
+          - 'textbox "Search (eg: infy, bse, nifty, crudeoil)..." [ref=f2e59]'
+          - generic [ref=f2e60]: 0/50
+        - generic [ref=f2e62]:
+          - text: No instruments in this watchlist.
+          - generic [ref=f2e63]: Search above to add scrips.
+        - generic [ref=f2e64]: Watchlist
+    - main [ref=f2e67]:
+      - generic [ref=f2e68]:
+        - generic [ref=f2e69]:
+          - generic [ref=f2e70]:
+            - combobox [ref=f2e71] [cursor=pointer]:
+              - option "NIFTY 50 (NSE · INDEX)" [selected]
+              - option "BANK NIFTY (NSE · INDEX)"
+              - option "FINNIFTY (NSE · INDEX)"
+              - option "SENSEX (BSE · INDEX)"
+              - option "NIFTY IT (NSE · INDEX)"
+              - option "NIFTY AUTO (NSE · INDEX)"
+              - option "RELIANCE (NSE · EQUITY)"
+              - option "HDFCBANK (NSE · EQUITY)"
+              - option "TCS (NSE · EQUITY)"
+              - option "INFY (NSE · EQUITY)"
+              - option "ICICIBANK (NSE · EQUITY)"
+              - option "SBIN (NSE · EQUITY)"
+              - option "BHARTIARTL (NSE · EQUITY)"
+              - option "ITC (NSE · EQUITY)"
+              - option "LT (NSE · EQUITY)"
+              - option "TATAMOTORS (NSE · EQUITY)"
+              - option "BAJFINANCE (NSE · EQUITY)"
+              - option "MARUTI (NSE · EQUITY)"
+              - option "SUNPHARMA (NSE · EQUITY)"
+              - option "AXISBANK (NSE · EQUITY)"
+              - option "TITAN (NSE · EQUITY)"
+              - option "WIPRO (NSE · EQUITY)"
+              - option "TATASTEEL (NSE · EQUITY)"
+              - option "NIFTY26OCTFUT (NFO · FUTIDX)"
+              - option "NIFTY26NOVFUT (NFO · FUTIDX)"
+              - option "BANKNIFTY26OCTFUT (NFO · FUTIDX)"
+              - option "FINNIFTY26OCTFUT (NFO · FUTIDX)"
+              - option "RELIANCE26OCTFUT (NFO · FUTSTK)"
+              - option "HDFCBANK26OCTFUT (NFO · FUTSTK)"
+              - option "TCS26OCTFUT (NFO · FUTSTK)"
+              - option "GOLD26DECFUT (MCX · FUTCOM)"
+              - option "GOLDM26NOVFUT (MCX · FUTCOM)"
+              - option "GOLDPETAL26OCTFUT (MCX · FUTCOM)"
+              - option "SILVER26DECFUT (MCX · FUTCOM)"
+              - option "SILVERM26NOVFUT (MCX · FUTCOM)"
+              - option "SILVERMIC26NOVFUT (MCX · FUTCOM)"
+              - option "CRUDEOIL26OCTFUT (MCX · FUTCOM)"
+              - option "CRUDEOILM26OCTFUT (MCX · FUTCOM)"
+              - option "NATURALGAS26OCTFUT (MCX · FUTCOM)"
+              - option "NATGASMINI26OCTFUT (MCX · FUTCOM)"
+              - option "COPPER26OCTFUT (MCX · FUTCOM)"
+              - option "ZINC26OCTFUT (MCX · FUTCOM)"
+              - option "ZINCMINI26OCTFUT (MCX · FUTCOM)"
+              - option "ALUMINIUM26OCTFUT (MCX · FUTCOM)"
+              - option "LEAD26OCTFUT (MCX · FUTCOM)"
+            - generic [ref=f2e73]:
+              - button "NIFTY 50" [ref=f2e74] [cursor=pointer]
+              - button "BANK NIFTY" [ref=f2e75] [cursor=pointer]
+              - button "SENSEX" [ref=f2e76] [cursor=pointer]
+              - button "TATASTEEL" [ref=f2e77] [cursor=pointer]
+              - button "RELIANCE" [ref=f2e78] [cursor=pointer]
+              - button "MCX GOLDM" [ref=f2e79] [cursor=pointer]
+              - button "MCX CRUDE" [ref=f2e80] [cursor=pointer]
+          - generic [ref=f2e81]: 1 Lot = 25 Qty
+        - generic [ref=f2e83]:
+          - generic [ref=f2e84]:
+            - generic [ref=f2e85]:
+              - generic [ref=f2e86]:
+                - generic [ref=f2e87]: Direct Order Ticket
+                - generic [ref=f2e88]: NSE
+              - generic [ref=f2e89]:
+                - text: "LTP:"
+                - strong [ref=f2e90]: ₹0.00
+            - generic [ref=f2e91]:
+              - generic [ref=f2e92]:
+                - button "BUY" [ref=f2e93] [cursor=pointer]
+                - button "SELL" [ref=f2e94] [cursor=pointer]
+              - generic [ref=f2e95]:
+                - text: Product Type
+                - generic [ref=f2e96]:
+                  - generic [ref=f2e97] [cursor=pointer]:
+                    - radio "CNC Longterm Delivery" [checked] [ref=f2e98]
+                    - generic [ref=f2e99]:
+                      - generic [ref=f2e100]: CNC
+                      - text: Longterm Delivery
+                  - generic [ref=f2e101] [cursor=pointer]:
+                    - radio "MIS Intraday (5x)" [ref=f2e102]
+                    - generic [ref=f2e103]:
+                      - generic [ref=f2e104]: MIS
+                      - text: Intraday (5x)
+              - generic [ref=f2e105]:
+                - generic [ref=f2e106]:
+                  - generic [ref=f2e107]: Quantity
+                  - generic [ref=f2e108]: 1 Lot = 25 Qty
+                - generic [ref=f2e109]:
+                  - generic [ref=f2e110]:
+                    - generic [ref=f2e111]: Lots
+                    - generic [ref=f2e112]:
+                      - button [ref=f2e113] [cursor=pointer]
+                      - spinbutton [ref=f2e115]: "1"
+                      - button [ref=f2e116] [cursor=pointer]
+                  - generic [ref=f2e118]:
+                    - generic [ref=f2e119]: Total Qty
+                    - generic [ref=f2e120]:
+                      - spinbutton [ref=f2e121]: "25"
+                      - generic [ref=f2e122]: Qty
+              - generic [ref=f2e123]:
+                - text: Order Execution Type
+                - generic [ref=f2e124]:
+                  - button "MARKET" [ref=f2e125] [cursor=pointer]
+                  - button "LIMIT" [ref=f2e126] [cursor=pointer]
+                  - button "SL" [ref=f2e127] [cursor=pointer]
+                  - button "SL-M" [ref=f2e128] [cursor=pointer]
+              - generic [ref=f2e129]:
+                - generic [ref=f2e130]:
+                  - generic [ref=f2e131]: Margin Required
+                  - generic [ref=f2e132]: ₹0
+                - generic [ref=f2e133]:
+                  - generic [ref=f2e134]: Available Cash
+                  - generic [ref=f2e135]: ₹10,00,000
+              - button "Execute BUY Order" [ref=f2e136] [cursor=pointer]
+          - generic [ref=f2e137]:
+            - generic [ref=f2e138]:
+              - generic [ref=f2e139]:
+                - heading "Level 2 Market Depth" [level=3] [ref=f2e140]
+                - generic [ref=f2e144]: 5 BID / 5 ASK
+              - generic [ref=f2e145]:
+                - generic [ref=f2e146]:
+                  - generic [ref=f2e147]:
+                    - generic [ref=f2e148]: Bid ₹
+                    - generic [ref=f2e149]: Orders
+                  - generic [ref=f2e150]:
+                    - generic [ref=f2e151]:
+                      - generic [ref=f2e152]: "-0.05"
+                      - generic [ref=f2e153]: "1500"
+                    - generic [ref=f2e154]:
+                      - generic [ref=f2e155]: "-0.10"
+                      - generic [ref=f2e156]: "2400"
+                    - generic [ref=f2e157]:
+                      - generic [ref=f2e158]: "-0.15"
+                      - generic [ref=f2e159]: "3800"
+                    - generic [ref=f2e160]:
+                      - generic [ref=f2e161]: "-0.20"
+                      - generic [ref=f2e162]: "5100"
+                    - generic [ref=f2e163]:
+                      - generic [ref=f2e164]: "-0.25"
+                      - generic [ref=f2e165]: "8200"
+                - generic [ref=f2e166]:
+                  - generic [ref=f2e167]:
+                    - generic [ref=f2e168]: Ask ₹
+                    - generic [ref=f2e169]: Orders
+                  - generic [ref=f2e170]:
+                    - generic [ref=f2e171]:
+                      - generic [ref=f2e172]: "0.05"
+                      - generic [ref=f2e173]: "1200"
+                    - generic [ref=f2e174]:
+                      - generic [ref=f2e175]: "0.10"
+                      - generic [ref=f2e176]: "2100"
+                    - generic [ref=f2e177]:
+                      - generic [ref=f2e178]: "0.15"
+                      - generic [ref=f2e179]: "3500"
+                    - generic [ref=f2e180]:
+                      - generic [ref=f2e181]: "0.20"
+                      - generic [ref=f2e182]: "4900"
+                    - generic [ref=f2e183]:
+                      - generic [ref=f2e184]: "0.25"
+                      - generic [ref=f2e185]: "7600"
+            - generic [ref=f2e186]:
+              - heading "Contract Specifications NSE" [level=3] [ref=f2e187]:
+                - generic [ref=f2e188]: Contract Specifications
+                - generic [ref=f2e189]: NSE
+              - generic [ref=f2e190]:
+                - generic [ref=f2e191]: "Lot Specification:"
+                - generic [ref=f2e192]: 1 Lot = 25 Qty
+              - generic [ref=f2e193]:
+                - generic [ref=f2e194]: "Lot Size:"
+                - generic [ref=f2e195]: 25 Qty
+              - generic [ref=f2e196]:
+                - generic [ref=f2e197]: "Quoted In:"
+                - generic [ref=f2e198]: ₹ / pt
+              - generic [ref=f2e199]:
+                - generic [ref=f2e200]: "Tick Size:"
+                - generic [ref=f2e201]: ₹0.05
+              - generic [ref=f2e202]:
+                - generic [ref=f2e203]: "Day High / Low:"
+                - generic [ref=f2e204]: ₹— / ₹—
+              - generic [ref=f2e205]:
+                - generic [ref=f2e206]: "Prev Close:"
+                - generic [ref=f2e207]: ₹—
+              - generic [ref=f2e208]:
+                - generic [ref=f2e209]: "Total Volume:"
+                - generic [ref=f2e210]: —
+  - dialog [ref=f2e213]:
+    - generic [ref=f2e215]:
+      - generic [ref=f2e221]:
+        - generic [ref=f2e222]:
+          - generic [ref=f2e223]: WELCOME TO CNRX
+          - generic [ref=f2e224]: · Step 1 of 5
+        - heading "Your ₹10,00,000 Institutional Virtual Sandbox" [level=2] [ref=f2e225]
+      - button "Close guide (Esc)" [ref=f2e226] [cursor=pointer]
+    - generic [ref=f2e230]:
+      - button "Go to step 1" [ref=f2e231] [cursor=pointer]
+      - button "Go to step 2" [ref=f2e232] [cursor=pointer]
+      - button "Go to step 3" [ref=f2e233] [cursor=pointer]
+      - button "Go to step 4" [ref=f2e234] [cursor=pointer]
+      - button "Go to step 5" [ref=f2e235] [cursor=pointer]
+    - generic [ref=f2e236]:
+      - paragraph [ref=f2e237]: Every new trader starts with an initial virtual grant of ₹10,00,000 (₹10 Lakhs INR). Trade NSE Equities, Index & Stock Derivatives, and MCX Commodities in live market conditions. If your balance drops or you want a fresh start, use the "Reset Virtual Funds" feature anytime.
+      - generic [ref=f2e238]:
+        - generic [ref=f2e239]:
+          - generic [ref=f2e240]: Virtual Grant
+          - generic [ref=f2e241]: ₹10,00,000 INR
+          - generic [ref=f2e242]: Credited automatically on start
+        - generic [ref=f2e243]:
+          - generic [ref=f2e244]: Risk Factor
+          - generic [ref=f2e245]: Zero Real Risk
+          - generic [ref=f2e246]: Strictly simulated execution
+        - generic [ref=f2e247]:
+          - generic [ref=f2e248]: Fresh Start
+          - generic [ref=f2e249]: 1-Click Reset
+          - generic [ref=f2e250]: Restore balance anytime in menu
+      - paragraph [ref=f2e254]: "Pro-Tip: Treat virtual capital like your personal savings to build realistic emotional discipline."
+    - generic [ref=f2e255]:
+      - generic [ref=f2e256]:
+        - generic [ref=f2e257]: "Use keys:"
+        - generic [ref=f2e258]: ←
+        - generic [ref=f2e259]: →
+        - generic [ref=f2e260]: or click Next
+      - button "Next Step" [ref=f2e262] [cursor=pointer]

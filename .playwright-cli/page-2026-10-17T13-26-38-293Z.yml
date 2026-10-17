@@ -1,0 +1,200 @@
+- generic [ref=e80]:
+  - banner [ref=e81]:
+    - generic [ref=e82]:
+      - link "Cendrix CENDRIX CAPITAL Live Market Feeds Active SIMULATED FUND" [ref=e84] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Cendrix" [ref=e86]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e89]: CENDRIX CAPITAL
+            - generic "Live Market Feeds Active" [ref=e90]
+          - generic [ref=e91]: SIMULATED FUND
+      - navigation [ref=e92]:
+        - link "Dashboard" [ref=e93] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Orders" [ref=e95] [cursor=pointer]:
+          - /url: /dashboard/orders
+        - link "Holdings" [ref=e97] [cursor=pointer]:
+          - /url: /dashboard/holdings
+        - link "Positions" [ref=e99] [cursor=pointer]:
+          - /url: /dashboard/positions
+        - link "Terminal" [ref=e101] [cursor=pointer]:
+          - /url: /dashboard/terminal
+        - link "Commodities" [ref=e103] [cursor=pointer]:
+          - /url: /dashboard/commodities
+        - link "Funds" [ref=e105] [cursor=pointer]:
+          - /url: /dashboard/portfolio
+        - link "Analytics" [ref=e107] [cursor=pointer]:
+          - /url: /dashboard/analytics
+      - generic [ref=e109]:
+        - button "Beginner Introduction & Trading Desk Guide" [ref=e110] [cursor=pointer]
+        - button "⌘K" [ref=e114] [cursor=pointer]
+        - button "Order" [ref=e119] [cursor=pointer]
+        - button "CE" [ref=e124] [cursor=pointer]
+  - generic [ref=e128]:
+    - complementary [ref=e129]:
+      - generic [ref=e130]:
+        - generic [ref=e132]:
+          - 'textbox "Search (eg: infy, bse, nifty, crudeoil)..." [ref=e136]'
+          - generic [ref=e137]: 3/50
+        - generic [ref=e138]:
+          - generic [ref=e139] [cursor=pointer]:
+            - generic [ref=e141]:
+              - generic [ref=e142]: NIFTY 50
+              - generic [ref=e143]: NSE
+            - generic [ref=e144]:
+              - generic [ref=e145]: 23,146.15
+              - generic [ref=e146]: +148.80 (0.64%)
+          - generic [ref=e147] [cursor=pointer]:
+            - generic [ref=e149]:
+              - generic [ref=e150]: BANK NIFTY
+              - generic [ref=e151]: NSE
+            - generic [ref=e152]:
+              - generic [ref=e153]: 55,844.00
+              - generic [ref=e154]: +33.50 (0.06%)
+          - generic [ref=e155] [cursor=pointer]:
+            - generic [ref=e157]:
+              - generic [ref=e158]: SENSEX
+              - generic [ref=e159]: BSE
+            - generic [ref=e160]:
+              - generic [ref=e161]: 74,729.27
+              - generic [ref=e162]: +413.66 (0.55%)
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - button "1" [ref=e165] [cursor=pointer]
+            - button "2" [ref=e166] [cursor=pointer]
+            - button "3" [ref=e167] [cursor=pointer]
+            - button "4" [ref=e168] [cursor=pointer]
+          - generic [ref=e169]: Key Indian Indices
+    - main [ref=e170]:
+      - generic [ref=e171]:
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - generic [ref=e174]:
+              - heading "Welcome, Cendrix" [level=1] [ref=e175]
+              - generic "System Live · NSE & MCX Connected" [ref=e176]
+            - generic [ref=e177]:
+              - generic [ref=e178]: "Portfolio Account: IN-PT-LIVE001"
+              - generic [ref=e179]: "|"
+              - generic [ref=e180]: Cendrix Simulated Fund
+          - generic [ref=e181]:
+            - button "Place Order" [ref=e182] [cursor=pointer]
+            - button "Order Terminal" [ref=e185] [cursor=pointer]
+            - button "MCX Commodities" [ref=e186] [cursor=pointer]
+        - generic [ref=e188]:
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - generic [ref=e196]: Beginner Trading Desk Guide
+              - generic [ref=e197]: ₹10,00,000 Active Virtual Balance
+            - heading "New to CNRX? Discover how to analyze, place orders, and manage virtual risk" [level=3] [ref=e198]
+            - paragraph [ref=e199]: 1. Search scrips (⌘K) → 2. Inspect Candlestick Charts & Depth → 3. Place simulated orders (Market/Limit/SL) → 4. Track live MTM & Greeks.
+          - generic [ref=e200]:
+            - button "Start Walkthrough" [ref=e201] [cursor=pointer]
+            - button "Dismiss banner" [ref=e206] [cursor=pointer]
+        - generic [ref=e210]:
+          - generic [ref=e211]:
+            - generic [ref=e212]:
+              - generic [ref=e218]:
+                - heading "Equity Desk" [level=2] [ref=e219]
+                - generic [ref=e220]: Real-time margin telemetry
+              - link "View statement" [ref=e221] [cursor=pointer]:
+                - /url: /dashboard/portfolio
+            - generic [ref=e226]:
+              - generic [ref=e227]: Available Margin
+              - generic [ref=e228]: ₹10,00,000.00
+            - generic [ref=e229]:
+              - generic [ref=e230]:
+                - generic [ref=e231]: "Margin used:"
+                - generic [ref=e232]: ₹0.00
+              - generic [ref=e233]:
+                - generic [ref=e234]: "Available cash:"
+                - generic [ref=e235]: ₹10,00,000.00
+              - generic [ref=e236]:
+                - generic [ref=e237]: "Opening balance:"
+                - generic [ref=e238]: ₹10,00,000.00
+              - generic [ref=e239]:
+                - generic [ref=e240]: "Realized P&L:"
+                - generic [ref=e241]: +₹0.00
+              - generic [ref=e242]:
+                - generic [ref=e243]: "Unrealized MTM:"
+                - generic [ref=e244]: +₹0.00
+              - generic [ref=e245]:
+                - generic [ref=e246]: "Total Charges Paid:"
+                - generic [ref=e247]: ₹0.00
+          - generic [ref=e248]:
+            - generic [ref=e249]:
+              - generic [ref=e255]:
+                - heading "Holdings & Positions (0)" [level=2] [ref=e256]
+                - generic [ref=e257]: Consolidated exposure
+              - link "View analytics" [ref=e258] [cursor=pointer]:
+                - /url: /dashboard/holdings
+            - generic [ref=e263]:
+              - generic [ref=e264]: Total Consolidated P&L
+              - generic [ref=e265]:
+                - generic [ref=e266]: +₹0.00
+                - generic [ref=e267]: +0.00%
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - generic [ref=e270]: "Current value:"
+                - generic [ref=e271]: ₹10,00,000.00
+              - generic [ref=e272]:
+                - generic [ref=e273]: "Investment:"
+                - generic [ref=e274]: ₹10,00,000.00
+              - generic [ref=e275]:
+                - generic [ref=e276]: "Open Positions:"
+                - generic [ref=e277]: 0 active
+              - generic [ref=e278]:
+                - generic [ref=e279]: "Pending Orders:"
+                - generic [ref=e280]: 0 pending
+              - generic [ref=e281]:
+                - generic [ref=e282]: "Completed Fills:"
+                - generic [ref=e283]: 0 fills
+              - generic [ref=e284]:
+                - generic [ref=e285]: "Win Rate %:"
+                - generic [ref=e286]: 0%
+        - generic [ref=e287]:
+          - generic [ref=e289]:
+            - button "Positions (0)" [ref=e290] [cursor=pointer]
+            - button "Holdings (0)" [ref=e291] [cursor=pointer]
+            - button "Open Orders (0)" [ref=e292] [cursor=pointer]
+            - button "Executed Trades (0)" [ref=e293] [cursor=pointer]
+          - generic [ref=e295]:
+            - text: You have no open positions.
+            - generic [ref=e296]: Search instruments in the MarketWatch on the left to place buy/sell orders.
+  - dialog [ref=e299]:
+    - generic [ref=e301]:
+      - generic [ref=e307]:
+        - generic [ref=e308]:
+          - generic [ref=e309]: WELCOME TO CNRX
+          - generic [ref=e310]: · Step 1 of 5
+        - heading "Your ₹10,00,000 Institutional Virtual Sandbox" [level=2] [ref=e311]
+      - button "Close guide (Esc)" [active] [ref=e312] [cursor=pointer]
+    - generic [ref=e316]:
+      - button "Go to step 1" [ref=e317] [cursor=pointer]
+      - button "Go to step 2" [ref=e318] [cursor=pointer]
+      - button "Go to step 3" [ref=e319] [cursor=pointer]
+      - button "Go to step 4" [ref=e320] [cursor=pointer]
+      - button "Go to step 5" [ref=e321] [cursor=pointer]
+    - generic [ref=e322]:
+      - paragraph [ref=e323]: Every new trader starts with an initial virtual grant of ₹10,00,000 (₹10 Lakhs INR). Trade NSE Equities, Index & Stock Derivatives, and MCX Commodities in live market conditions. If your balance drops or you want a fresh start, use the "Reset Virtual Funds" feature anytime.
+      - generic [ref=e324]:
+        - generic [ref=e325]:
+          - generic [ref=e326]: Virtual Grant
+          - generic [ref=e327]: ₹10,00,000 INR
+          - generic [ref=e328]: Credited automatically on start
+        - generic [ref=e329]:
+          - generic [ref=e330]: Risk Factor
+          - generic [ref=e331]: Zero Real Risk
+          - generic [ref=e332]: Strictly simulated execution
+        - generic [ref=e333]:
+          - generic [ref=e334]: Fresh Start
+          - generic [ref=e335]: 1-Click Reset
+          - generic [ref=e336]: Restore balance anytime in menu
+      - paragraph [ref=e340]: "Pro-Tip: Treat virtual capital like your personal savings to build realistic emotional discipline."
+    - generic [ref=e341]:
+      - generic [ref=e342]:
+        - generic [ref=e343]: "Use keys:"
+        - generic [ref=e344]: ←
+        - generic [ref=e345]: →
+        - generic [ref=e346]: or click Next
+      - button "Next Step" [ref=e348] [cursor=pointer]
