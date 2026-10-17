@@ -196,24 +196,24 @@ export const OrderTicket: React.FC = () => {
   const isDerivative = contractSpec.lotSize > 1 || isCommodity || isFandO;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md select-none font-sans">
-      <div className="bg-[#0E1728] border border-[rgba(198,161,91,0.3)] rounded-2xl max-w-[460px] w-full shadow-[0_24px_64px_rgba(0,0,0,0.8)] overflow-hidden animate-in fade-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl select-none font-sans">
+      <div className="apple-glass-panel border-t border-white/20 border-l border-white/10 border-r border-white/10 border-b border-black/40 rounded-3xl max-w-[460px] w-full shadow-[0_32px_80px_-16px_rgba(0,0,0,0.85)] overflow-hidden animate-in fade-in zoom-in-95">
         
-        {/* ── Cendrix Capital Modal Header ───────────────────────────────── */}
+        {/* ── Cendrix Capital Modal Header (Apple Frosted Glass) ─────────── */}
         <div className={`px-5 py-4 flex items-center justify-between border-b ${
           transactionType === 'BUY'
-            ? 'bg-gradient-to-r from-[#0F192B] via-[#0E201B] to-[#0F192B] border-emerald-500/25'
-            : 'bg-gradient-to-r from-[#0F192B] via-[#241217] to-[#0F192B] border-rose-500/25'
+            ? 'bg-gradient-to-r from-[#0F192B]/90 via-[#0E201B]/80 to-[#0F192B]/90 border-emerald-500/25'
+            : 'bg-gradient-to-r from-[#0F192B]/90 via-[#241217]/80 to-[#0F192B]/90 border-rose-500/25'
         }`}>
           <div className="flex items-center gap-3.5">
-            {/* Buy / Sell Toggle Pill */}
-            <div className="flex items-center bg-[#070D18] rounded-lg p-0.5 border border-[#14223A]">
+            {/* Buy / Sell Toggle Pill (Apple Segmented Group) */}
+            <div className="apple-segmented-group p-0.5 rounded-xl">
               <button
                 type="button"
                 onClick={() => setTransactionType('BUY')}
-                className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
+                className={`px-3.5 py-1 text-xs font-bold rounded-lg transition-all active:scale-[0.96] ${
                   transactionType === 'BUY'
-                    ? 'bg-emerald-600 text-white shadow-[0_2px_8px_rgba(16,185,129,0.4)]'
+                    ? 'bg-emerald-600 text-white shadow-[0_2px_10px_rgba(16,185,129,0.45)]'
                     : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
                 }`}
               >
@@ -222,9 +222,9 @@ export const OrderTicket: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setTransactionType('SELL')}
-                className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${
+                className={`px-3.5 py-1 text-xs font-bold rounded-lg transition-all active:scale-[0.96] ${
                   transactionType === 'SELL'
-                    ? 'bg-rose-600 text-white shadow-[0_2px_8px_rgba(239,68,68,0.4)]'
+                    ? 'bg-rose-600 text-white shadow-[0_2px_10px_rgba(239,68,68,0.45)]'
                     : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
                 }`}
               >
@@ -463,16 +463,16 @@ export const OrderTicket: React.FC = () => {
           {/* Order Type Radio Pills (Market, Limit, SL, SL-M) */}
           <div className="space-y-1.5">
             <span className="text-[11px] text-[#A1A8B3] uppercase font-semibold font-mono tracking-wider">Execution Type</span>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="apple-segmented-group grid grid-cols-4 gap-1 w-full p-1 rounded-xl">
               {(['MARKET', 'LIMIT', 'SL', 'SL_M'] as OrderType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setOrderType(type)}
-                  className={`py-1.5 text-xs font-semibold rounded-lg border transition-all ${
+                  className={`apple-segmented-item py-1.5 text-xs font-semibold text-center rounded-lg transition-all active:scale-[0.96] ${
                     orderType === type
-                      ? 'btn-cendrix-gold font-bold text-[#070D18] shadow-[0_2px_8px_rgba(198,161,91,0.25)]'
-                      : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3] hover:text-[#F5F5F2] hover:border-[rgba(198,161,91,0.25)]'
+                      ? 'apple-segmented-item-active font-bold'
+                      : ''
                   }`}
                 >
                   {type === 'SL_M' ? 'SL-M' : type}
@@ -489,7 +489,7 @@ export const OrderTicket: React.FC = () => {
           )}
 
           {/* ── Action Footer ─────────────────────────────────── */}
-          <div className="pt-3.5 border-t border-[#14223A] flex items-center justify-between">
+          <div className="pt-3.5 border-t border-white/10 flex items-center justify-between">
             <div className="text-[11px] font-mono leading-tight">
               <div className="text-[#A1A8B3]">
                 Margin: <span className="text-[#E2C889] font-bold">₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
@@ -503,7 +503,7 @@ export const OrderTicket: React.FC = () => {
               <button
                 type="button"
                 onClick={closeOrderTicket}
-                className="btn-cendrix-outline px-4 py-2 text-xs rounded-lg font-semibold"
+                className="btn-cendrix-outline px-4 py-2 text-xs rounded-xl font-semibold active:scale-[0.96]"
               >
                 Cancel
               </button>
@@ -511,10 +511,10 @@ export const OrderTicket: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting || isInsufficientFunds || (orderType === 'MARKET' && marketPrice <= 0)}
-                className={`px-6 py-2 text-xs font-bold rounded-lg shadow-lg active:scale-[0.98] transition-all disabled:opacity-50 ${
+                className={`px-6 py-2.5 text-xs font-bold rounded-xl shadow-lg active:scale-[0.96] transition-all disabled:opacity-50 cursor-pointer ${
                   transactionType === 'BUY'
-                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_16px_rgba(16,185,129,0.3)]'
-                    : 'bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white shadow-[0_4px_16px_rgba(239,68,68,0.3)]'
+                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_16px_rgba(16,185,129,0.35)]'
+                    : 'bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white shadow-[0_4px_16px_rgba(239,68,68,0.35)]'
                 }`}
               >
                 {isSubmitting

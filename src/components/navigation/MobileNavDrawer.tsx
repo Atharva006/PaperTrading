@@ -87,17 +87,17 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     <div className="fixed inset-0 z-50 lg:hidden">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
       />
 
-      {/* Slide-out Menu Panel */}
-      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B1424] border-l border-[#14223A] shadow-2xl flex flex-col z-50 select-none animate-in slide-in-from-right duration-200">
+      {/* Slide-out Menu Panel (Apple-Grade Frosted Glass) */}
+      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B1424]/92 backdrop-blur-2xl border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.85)] flex flex-col z-50 select-none animate-in slide-in-from-right duration-300">
         
         {/* Drawer Header */}
-        <div className="p-4 border-b border-[#14223A] flex items-center justify-between bg-[#10141C]">
+        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#10141C]/80 backdrop-blur-md">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center p-1 overflow-hidden">
+            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center p-1 overflow-hidden shadow-sm">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
             <div>
@@ -112,7 +112,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-colors"
+            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-all active:scale-[0.92]"
           >
             <X className="w-5 h-5 text-[#C6A15B]" />
           </button>
@@ -120,7 +120,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
 
         {/* Account Telemetry Summary */}
         {account && (
-          <div className="m-3 p-3.5 bg-[#0E1728] rounded-xl border border-[rgba(198,161,91,0.2)]">
+          <div className="m-3 p-3.5 bg-[#0E1728]/80 backdrop-blur-md rounded-2xl border border-[rgba(198,161,91,0.2)] shadow-md">
             <div className="flex justify-between items-center text-[10px] text-[#A1A8B3] font-mono uppercase font-bold">
               <span>Virtual Portfolio Equity</span>
               <span className="text-[#10B981] flex items-center gap-1 font-mono">
@@ -139,7 +139,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         )}
 
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1 scrollbar-hide text-xs">
+        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1.5 scrollbar-hide text-xs">
           {navLinks.map((item) => {
             const Icon = item.icon;
             return (
@@ -149,7 +149,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 end={item.path === '/dashboard'}
                 onClick={onClose}
                 className={({ isActive }) => `
-                  flex items-center justify-between px-3 py-2.5 rounded-lg font-medium transition-all
+                  flex items-center justify-between px-3 py-2.5 rounded-xl font-medium transition-all active:scale-[0.98]
                   ${
                     isActive
                       ? 'bg-[#14223A] text-[#F5F5F2] font-bold border border-[rgba(198,161,91,0.3)] shadow-[0_2px_12px_rgba(198,161,91,0.15)]'

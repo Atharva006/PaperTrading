@@ -68,32 +68,32 @@ export default function HoldingsPage() {
   return (
     <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-12">
       {/* ── 1. Top Cendrix Capital Header Strip ─────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-white/10">
         {/* Title */}
-        <div className="flex items-center gap-6">
-          <h1 className="font-serif text-2xl font-bold tracking-wide text-[#F5F5F2] flex items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <h1 className="font-serif text-2xl font-bold tracking-[-0.025em] text-[#F5F5F2] flex items-center gap-2.5">
             <span>Portfolio Holdings</span>
             <span className="text-xs font-mono font-normal text-[#A1A8B3]">
               ({holdings.length} assets)
             </span>
           </h1>
 
-          {/* Search bar */}
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0B1424] border border-[#14223A] rounded-lg focus-within:border-[#C6A15B] w-48 sm:w-64 transition-all">
+          {/* Search bar (Apple Glass Search) */}
+          <div className="flex items-center gap-2.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded-xl focus-within:border-[#C6A15B] w-48 sm:w-64 transition-all">
             <Search className="w-3.5 h-3.5 text-[#A1A8B3]" />
             <input
               type="text"
               placeholder="Search holdings..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent text-xs text-[#F5F5F2] placeholder-[#6E7683] focus:outline-none w-full"
+              className="bg-transparent text-xs text-[#F5F5F2] placeholder-[#6E7683] focus:outline-none w-full font-sans"
             />
           </div>
         </div>
 
         {/* Right Financial Telemetry & Action Buttons */}
         <div className="flex flex-wrap items-center gap-6 text-xs">
-          <div className="hidden sm:flex items-center gap-6">
+          <div className="hidden sm:flex items-center gap-6 tabular-nums">
             <div className="flex items-baseline gap-1.5 font-mono">
               <span className="text-[#A1A8B3] text-[11px]">Invested:</span>
               <span className="text-[#F5F5F2] font-medium">
@@ -116,7 +116,7 @@ export default function HoldingsPage() {
 
           <button
             onClick={handleExportCSV}
-            className="btn-cendrix-outline px-3.5 py-1.5 text-xs rounded-lg transition-all flex items-center gap-1.5 font-semibold"
+            className="btn-cendrix-outline px-3.5 py-1.5 text-xs rounded-xl transition-all flex items-center gap-1.5 font-semibold active:scale-[0.96] cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span>Download CSV</span>
@@ -124,14 +124,14 @@ export default function HoldingsPage() {
         </div>
       </div>
 
-      {/* ── 2. Holdings Table ─────── */}
-      <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)] mt-5">
+      {/* ── 2. Holdings Table (Apple Glass Panel) ─────── */}
+      <div className="apple-glass-panel p-5 sm:p-6 rounded-2xl border border-white/10 shadow-xl mt-5">
         {filteredHoldings.length === 0 ? (
           <div className="py-24 text-center">
-            <div className="w-12 h-12 mx-auto rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center text-[#C6A15B] mb-3">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-white/5 border border-[rgba(198,161,91,0.25)] flex items-center justify-center text-[#C6A15B] mb-3 shadow-md">
               <Layers className="w-6 h-6" />
             </div>
-            <p className="font-serif text-base font-bold text-[#F5F5F2]">No equity holdings currently in portfolio</p>
+            <p className="font-serif text-base font-bold text-[#F5F5F2] tracking-[-0.015em]">No equity holdings currently in portfolio</p>
             <p className="text-xs text-[#A1A8B3] mt-1.5 max-w-md mx-auto">
               Execute CNC (Cash & Carry) buy orders on NSE equities to accumulate long-term assets.
             </p>
@@ -140,7 +140,7 @@ export default function HoldingsPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#14223A] text-[#6E7683] text-[10px] uppercase font-mono tracking-wider">
+                <tr className="border-b border-white/10 text-[#A1A8B3] text-[10px] uppercase font-mono tracking-wider">
                   <th className="py-2.5 px-3">Instrument</th>
                   <th className="py-2.5 px-3 text-right">Qty.</th>
                   <th className="py-2.5 px-3 text-right">Avg. cost</th>
@@ -151,11 +151,11 @@ export default function HoldingsPage() {
                   <th className="py-2.5 px-3 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#14223A]/50 font-mono">
+              <tbody className="divide-y divide-white/5 font-mono tabular-nums">
                 {filteredHoldings.map((h) => {
                   const isProfit = h.pnl >= 0;
                   return (
-                    <tr key={h.id} className="hover:bg-[#14223A]/40 transition-colors group">
+                    <tr key={h.id} className="hover:bg-white/[0.03] transition-colors group">
                       <td className="py-2.5 px-3 font-sans">
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
@@ -185,13 +185,13 @@ export default function HoldingsPage() {
                       <td className="py-2.5 px-3 text-right space-x-2 font-sans">
                         <button
                           onClick={() => handleBuyMore(h)}
-                          className="px-2.5 py-1 rounded-md text-[11px] font-bold text-[#10B981] bg-[#10B981]/15 hover:bg-[#10B981] hover:text-white border border-[#10B981]/30 transition-all"
+                          className="px-3 py-1 rounded-lg text-[11px] font-bold text-[#10B981] bg-[#10B981]/15 hover:bg-[#10B981] hover:text-white border border-[#10B981]/30 active:scale-[0.92] transition-all cursor-pointer shadow-sm"
                         >
                           Add
                         </button>
                         <button
                           onClick={() => handleSellHolding(h)}
-                          className="px-2.5 py-1 rounded-md text-[11px] font-bold text-[#EF4444] bg-[#EF4444]/15 hover:bg-[#EF4444] hover:text-white border border-[#EF4444]/30 transition-all"
+                          className="px-3 py-1 rounded-lg text-[11px] font-bold text-[#EF4444] bg-[#EF4444]/15 hover:bg-[#EF4444] hover:text-white border border-[#EF4444]/30 active:scale-[0.92] transition-all cursor-pointer shadow-sm"
                         >
                           Exit
                         </button>
@@ -203,8 +203,8 @@ export default function HoldingsPage() {
             </table>
 
             {/* ── 3. Sticky Bottom Total P&L Strip ─────────────────────── */}
-            <div className="flex items-center justify-between py-3.5 px-4 mt-5 rounded-lg border border-[#14223A] bg-[#0B1424]">
-              <div className="flex items-center gap-6 text-xs text-[#A1A8B3] font-medium font-mono">
+            <div className="flex items-center justify-between py-3.5 px-4 mt-5 rounded-xl border border-white/10 bg-white/5">
+              <div className="flex items-center gap-6 text-xs text-[#A1A8B3] font-medium font-mono tabular-nums">
                 <div>
                   Total invested: <span className="text-[#F5F5F2] font-bold">₹{totalInvested.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                 </div>
@@ -212,7 +212,7 @@ export default function HoldingsPage() {
                   Current value: <span className="text-[#F5F5F2] font-bold">₹{totalCurrent.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                 </div>
               </div>
-              <div className="flex items-baseline gap-2 font-mono">
+              <div className="flex items-baseline gap-2 font-mono tabular-nums">
                 <span className="text-xs text-[#A1A8B3]">Total P&L:</span>
                 <span className={`text-base font-bold ${totalPnL >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                   {totalPnL >= 0 ? '+' : ''}₹{totalPnL.toLocaleString('en-IN', { minimumFractionDigits: 2 })} ({totalPnLPct.toFixed(2)}%)

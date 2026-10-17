@@ -91,92 +91,106 @@ export default function AnalyticsPage() {
   return (
     <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-6">
       {/* ── 1. Top Cendrix Header Strip ─────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+            <span className="text-[10px] font-mono tracking-wider text-[#C6A15B] uppercase font-semibold">
               Audited Performance Suite · Quantitative Verification
             </span>
           </div>
-          <h1 className="text-2xl font-serif tracking-tight text-[#F5F5F2] flex items-center gap-2">
+          <h1 className="text-2xl font-serif font-bold tracking-tight text-[#F5F5F2] flex items-center gap-2">
             <span>Reports & Performance</span>
           </h1>
-          <p className="text-xs text-[#A1A8B3] mt-0.5">Audited mathematical edge, win-rate & session breakdown</p>
+          <p className="text-xs text-[#A1A8B3] mt-1 font-mono">Audited mathematical edge, win-rate & session breakdown</p>
         </div>
 
         <button
           onClick={handleExportCSV}
-          className="btn-cendrix-outline px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 self-start md:self-auto"
+          className="apple-segmented-item px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 self-start lg:self-auto text-[#F5F5F2] hover:text-[#C6A15B] border border-white/[0.08] transition-all active:scale-[0.96]"
         >
-          <Download className="w-3.5 h-3.5" />
+          <Download className="w-3.5 h-3.5 text-[#C6A15B]" />
           <span>Download Statement</span>
         </button>
       </div>
 
-      {/* ── 2. Cendrix KPI Cards ────────────────────────────────────── */}
+      {/* ── 2. Apple Bento KPI Cards ────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="cendrix-card p-4 rounded-xl border border-[#14223A]">
-          <span className="text-[#6E7683] text-[11px] block font-mono uppercase">Win Rate</span>
-          <span className="text-2xl font-bold font-mono text-emerald-400 mt-1 block">{metrics.win_rate}%</span>
-          <span className="text-[10px] text-[#A1A8B3] block mt-1">Profitable trade exits</span>
+        <div className="apple-glass-panel p-5 rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+          <span className="text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider font-semibold">Win Rate</span>
+          <div className="my-2">
+            <span className="text-3xl font-bold font-mono text-emerald-400 tracking-tight tabular-nums block">{metrics.win_rate}%</span>
+          </div>
+          <span className="text-[11px] text-[#A1A8B3] font-sans">Profitable trade exits</span>
         </div>
 
-        <div className="cendrix-card p-4 rounded-xl border border-[#14223A]">
-          <span className="text-[#6E7683] text-[11px] block font-mono uppercase">Profit Factor</span>
-          <span className="text-2xl font-bold font-mono text-[#F5F5F2] mt-1 block">{metrics.profit_factor}</span>
-          <span className="text-[10px] text-[#A1A8B3] block mt-1">Gross profit / loss</span>
+        <div className="apple-glass-panel p-5 rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+          <span className="text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider font-semibold">Profit Factor</span>
+          <div className="my-2">
+            <span className="text-3xl font-bold font-mono text-[#F5F5F2] tracking-tight tabular-nums block">{metrics.profit_factor}</span>
+          </div>
+          <span className="text-[11px] text-[#A1A8B3] font-sans">Gross profit / loss ratio</span>
         </div>
 
-        <div className="cendrix-card p-4 rounded-xl border border-[#14223A]">
-          <span className="text-[#6E7683] text-[11px] block font-mono uppercase">Max Drawdown</span>
-          <span className="text-2xl font-bold font-mono text-rose-400 mt-1 block">{metrics.max_drawdown_percent.toFixed(1)}%</span>
-          <span className="text-[10px] text-[#A1A8B3] block mt-1">Peak-to-trough drop</span>
+        <div className="apple-glass-panel p-5 rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+          <span className="text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider font-semibold">Max Drawdown</span>
+          <div className="my-2">
+            <span className="text-3xl font-bold font-mono text-rose-400 tracking-tight tabular-nums block">{metrics.max_drawdown_percent.toFixed(1)}%</span>
+          </div>
+          <span className="text-[11px] text-[#A1A8B3] font-sans">Peak-to-trough drop</span>
         </div>
 
-        <div className="cendrix-card p-4 rounded-xl border border-[#14223A]">
-          <span className="text-[#6E7683] text-[11px] block font-mono uppercase">Overall Return</span>
-          <span className={`text-2xl font-bold font-mono mt-1 block ${metrics.overall_return_percent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-            {metrics.overall_return_percent >= 0 ? '+' : ''}{metrics.overall_return_percent.toFixed(2)}%
-          </span>
-          <span className="text-[10px] text-[#A1A8B3] block mt-1">On ₹10L initial capital</span>
+        <div className="apple-glass-panel p-5 rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+          <span className="text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider font-semibold">Overall Return</span>
+          <div className="my-2">
+            <span className={`text-3xl font-bold font-mono tracking-tight tabular-nums block ${metrics.overall_return_percent >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              {metrics.overall_return_percent >= 0 ? '+' : ''}{metrics.overall_return_percent.toFixed(2)}%
+            </span>
+          </div>
+          <span className="text-[11px] text-[#A1A8B3] font-sans">On ₹10L initial capital</span>
         </div>
       </div>
 
       {/* ── 3. Daily P&L Ledger ────────────────────── */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-serif text-[#F5F5F2]">Daily Realized P&L</h2>
-          <span className="text-xs text-[#A1A8B3] font-mono">
+          <h2 className="text-base font-serif font-bold text-[#F5F5F2] tracking-tight">Daily Realized P&L</h2>
+          <span className="text-xs text-[#A1A8B3] font-mono px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] tabular-nums">
             {dailyData.length} Session{dailyData.length === 1 ? '' : 's'} Recorded
           </span>
         </div>
 
         {dailyData.length === 0 ? (
-          <div className="py-16 text-center text-xs text-[#6E7683] cendrix-card rounded-xl border border-[#14223A] font-mono">
-            No completed trade exits recorded yet to generate daily P&L statements.
+          <div className="py-20 text-center apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#C6A15B] mb-3 shadow-inner">
+              <Layers className="w-6 h-6" />
+            </div>
+            <p className="font-serif text-base font-bold text-[#F5F5F2] tracking-tight">No completed exits recorded</p>
+            <p className="text-xs text-[#A1A8B3] mt-1.5 font-mono max-w-md mx-auto">
+              Completed trades will generate daily P&L statements with audited fee deductions.
+            </p>
           </div>
         ) : (
-          <div className="overflow-x-auto cendrix-card rounded-xl border border-[#14223A]">
+          <div className="overflow-x-auto apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#14223A] text-[#6E7683] text-[11px] font-mono uppercase bg-[#0B1424]">
-                  <th className="py-3 px-4">Trading Date</th>
-                  <th className="py-3 px-4">Fills Executed</th>
-                  <th className="py-3 px-4">Brokerage & Taxes</th>
-                  <th className="py-3 px-4">Outcome</th>
-                  <th className="py-3 px-4 text-right">Net Daily P&L (₹)</th>
+                <tr className="bg-white/[0.02] border-b border-white/[0.06] text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider">
+                  <th className="py-3 px-4 font-semibold">Trading Date</th>
+                  <th className="py-3 px-4 font-semibold">Fills Executed</th>
+                  <th className="py-3 px-4 font-semibold">Brokerage & Taxes</th>
+                  <th className="py-3 px-4 font-semibold">Outcome</th>
+                  <th className="py-3 px-4 font-semibold text-right">Net Daily P&L (₹)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#14223A] font-mono">
+              <tbody className="divide-y divide-white/[0.04] font-mono">
                 {dailyData.map((d, idx) => {
                   const isPos = d.pnl >= 0;
                   return (
-                    <tr key={idx} className="hover:bg-[#14223A]/40 transition-colors">
+                    <tr key={idx} className="hover:bg-white/[0.03] transition-colors">
                       <td className="py-3 px-4 font-sans font-medium text-[#F5F5F2]">{d.day}</td>
-                      <td className="py-3 px-4 text-[#A1A8B3]">{d.count} fills</td>
-                      <td className="py-3 px-4 text-[#A1A8B3]">₹{fmt(d.charges)}</td>
+                      <td className="py-3 px-4 text-[#A1A8B3] tabular-nums">{d.count} fills</td>
+                      <td className="py-3 px-4 text-[#A1A8B3] tabular-nums">₹{fmt(d.charges)}</td>
                       <td className="py-3 px-4 font-sans">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider ${
                           isPos
                             ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                             : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
@@ -184,7 +198,7 @@ export default function AnalyticsPage() {
                           {isPos ? 'PROFIT' : 'LOSS'}
                         </span>
                       </td>
-                      <td className={`py-3 px-4 text-right font-bold ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <td className={`py-3 px-4 text-right font-bold tabular-nums ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
                         {isPos ? '+' : ''}₹{fmt(d.pnl)}
                       </td>
                     </tr>
@@ -199,33 +213,33 @@ export default function AnalyticsPage() {
       {/* ── 4. Monthly Statement Breakdown Table ─────────────────────────── */}
       <div className="space-y-3 pt-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-serif text-[#F5F5F2]">Monthly Breakdown</h2>
+          <h2 className="text-base font-serif font-bold text-[#F5F5F2] tracking-tight">Monthly Breakdown</h2>
         </div>
 
         {monthlyData.length === 0 ? (
-          <div className="py-12 text-center text-xs text-[#6E7683] cendrix-card rounded-xl border border-[#14223A] font-mono">
-            No monthly performance data yet.
+          <div className="py-16 text-center apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+            <p className="text-xs text-[#A1A8B3] font-mono">No monthly performance data yet.</p>
           </div>
         ) : (
-          <div className="overflow-x-auto cendrix-card rounded-xl border border-[#14223A]">
+          <div className="overflow-x-auto apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#14223A] text-[#6E7683] text-[11px] font-mono uppercase bg-[#0B1424]">
-                  <th className="py-3 px-4">Month</th>
-                  <th className="py-3 px-4">Total Fills</th>
-                  <th className="py-3 px-4">Net Return %</th>
-                  <th className="py-3 px-4 text-right">Net P&L (₹)</th>
+                <tr className="bg-white/[0.02] border-b border-white/[0.06] text-[#A1A8B3] text-[10px] font-mono uppercase tracking-wider">
+                  <th className="py-3 px-4 font-semibold">Month</th>
+                  <th className="py-3 px-4 font-semibold">Total Fills</th>
+                  <th className="py-3 px-4 font-semibold">Net Return %</th>
+                  <th className="py-3 px-4 font-semibold text-right">Net P&L (₹)</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#14223A] font-mono">
+              <tbody className="divide-y divide-white/[0.04] font-mono">
                 {monthlyData.map((m, idx) => (
-                  <tr key={idx} className="hover:bg-[#14223A]/40 transition-colors">
+                  <tr key={idx} className="hover:bg-white/[0.03] transition-colors">
                     <td className="py-3 px-4 font-sans font-medium text-[#F5F5F2]">{m.month}</td>
-                    <td className="py-3 px-4 text-[#A1A8B3]">{m.trades} trades</td>
-                    <td className={`py-3 px-4 font-semibold ${m.ret >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <td className="py-3 px-4 text-[#A1A8B3] tabular-nums">{m.trades} trades</td>
+                    <td className={`py-3 px-4 font-semibold tabular-nums ${m.ret >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       {m.ret >= 0 ? '+' : ''}{m.ret.toFixed(2)}%
                     </td>
-                    <td className={`py-3 px-4 text-right font-bold ${m.pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <td className={`py-3 px-4 text-right font-bold tabular-nums ${m.pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
                       {m.pnl >= 0 ? '+' : ''}₹{fmt(m.pnl)}
                     </td>
                   </tr>

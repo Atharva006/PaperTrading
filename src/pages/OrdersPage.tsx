@@ -55,64 +55,61 @@ export default function OrdersPage() {
 
   return (
     <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-12">
-      {/* ── 1. Top Cendrix Capital Header Strip with Tabs ────────────────── */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
+      {/* ── 1. Top Cendrix Capital Header Strip with Apple Segmented Control ────────────────── */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
         {/* Title + Sub-tabs */}
-        <div className="flex items-center gap-6">
-          <h1 className="font-serif text-2xl font-bold tracking-wide text-[#F5F5F2] flex items-center gap-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <h1 className="font-serif text-2xl font-bold tracking-tight text-[#F5F5F2] flex items-center gap-2.5">
             <span>Order Book</span>
-            <span className="text-xs font-mono font-normal text-[#A1A8B3]">
-              ({orders.length} total)
+            <span className="text-xs font-mono font-medium text-[#A1A8B3] px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] tabular-nums">
+              {orders.length} orders
             </span>
           </h1>
 
-          <div className="flex items-center gap-4 text-xs font-medium">
+          {/* Apple Segmented Control for Order Filters */}
+          <div className="apple-segmented-group p-1 rounded-xl inline-flex gap-1 overflow-x-auto">
             <button
               onClick={() => setActiveTab('OPEN')}
-              className={`pb-1.5 border-b-2 transition-all ${
-                activeTab === 'OPEN'
-                  ? 'border-[#C6A15B] text-[#C6A15B] font-bold shadow-[0_1px_8px_rgba(198,161,91,0.25)]'
-                  : 'border-transparent text-[#A1A8B3] hover:text-[#F5F5F2]'
+              className={`apple-segmented-item text-xs font-medium px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                activeTab === 'OPEN' ? 'apple-segmented-item-active text-[#C6A15B] font-semibold shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
               }`}
             >
-              Open ({openOrdersCount})
+              <span>Open</span>
+              <span className="text-[10px] font-mono tabular-nums opacity-80">({openOrdersCount})</span>
             </button>
             <button
               onClick={() => setActiveTab('EXECUTED')}
-              className={`pb-1.5 border-b-2 transition-all ${
-                activeTab === 'EXECUTED'
-                  ? 'border-[#C6A15B] text-[#C6A15B] font-bold shadow-[0_1px_8px_rgba(198,161,91,0.25)]'
-                  : 'border-transparent text-[#A1A8B3] hover:text-[#F5F5F2]'
+              className={`apple-segmented-item text-xs font-medium px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                activeTab === 'EXECUTED' ? 'apple-segmented-item-active text-[#C6A15B] font-semibold shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
               }`}
             >
-              Executed ({executedOrdersCount})
+              <span>Executed</span>
+              <span className="text-[10px] font-mono tabular-nums opacity-80">({executedOrdersCount})</span>
             </button>
             <button
               onClick={() => setActiveTab('CANCELLED')}
-              className={`pb-1.5 border-b-2 transition-all ${
-                activeTab === 'CANCELLED'
-                  ? 'border-[#C6A15B] text-[#C6A15B] font-bold shadow-[0_1px_8px_rgba(198,161,91,0.25)]'
-                  : 'border-transparent text-[#A1A8B3] hover:text-[#F5F5F2]'
+              className={`apple-segmented-item text-xs font-medium px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                activeTab === 'CANCELLED' ? 'apple-segmented-item-active text-[#C6A15B] font-semibold shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
               }`}
             >
-              Cancelled / Rejected ({cancelledOrdersCount})
+              <span>Cancelled</span>
+              <span className="text-[10px] font-mono tabular-nums opacity-80">({cancelledOrdersCount})</span>
             </button>
             <button
               onClick={() => setActiveTab('ALL')}
-              className={`pb-1.5 border-b-2 transition-all ${
-                activeTab === 'ALL'
-                  ? 'border-[#C6A15B] text-[#C6A15B] font-bold shadow-[0_1px_8px_rgba(198,161,91,0.25)]'
-                  : 'border-transparent text-[#A1A8B3] hover:text-[#F5F5F2]'
+              className={`apple-segmented-item text-xs font-medium px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+                activeTab === 'ALL' ? 'apple-segmented-item-active text-[#C6A15B] font-semibold shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
               }`}
             >
-              All ({orders.length})
+              <span>All</span>
+              <span className="text-[10px] font-mono tabular-nums opacity-80">({orders.length})</span>
             </button>
           </div>
         </div>
 
         {/* Right Search & Download Actions */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0B1424] border border-[#14223A] rounded-lg focus-within:border-[#C6A15B] w-48 sm:w-64 transition-all">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 bg-white/[0.03] border border-white/[0.08] rounded-xl focus-within:border-[#C6A15B]/60 focus-within:ring-2 focus-within:ring-[#C6A15B]/15 w-48 sm:w-64 transition-all">
             <Search className="w-3.5 h-3.5 text-[#A1A8B3]" />
             <input
               type="text"
@@ -125,7 +122,7 @@ export default function OrdersPage() {
 
           <button
             onClick={handleExportCSV}
-            className="btn-cendrix-outline px-3.5 py-1.5 text-xs rounded-lg transition-all flex items-center gap-1.5 font-semibold"
+            className="apple-segmented-item px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.96] flex items-center gap-1.5 font-semibold text-[#F5F5F2] hover:text-[#C6A15B] border border-white/[0.08]"
           >
             <Download className="w-3.5 h-3.5 text-[#C6A15B]" />
             <span>Download CSV</span>
@@ -133,14 +130,14 @@ export default function OrdersPage() {
         </div>
       </div>
 
-      {/* ── 2. Orders Table ───────────────────── */}
-      <div className="cendrix-card p-5 rounded-xl border border-[rgba(198,161,91,0.2)] mt-5">
+      {/* ── 2. Orders Table in Apple Glass Panel ───────────────────── */}
+      <div className="apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden mt-5">
         {filteredOrders.length === 0 ? (
           <div className="py-24 text-center">
-            <div className="w-12 h-12 mx-auto rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center text-[#C6A15B] mb-3">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#C6A15B] mb-3 shadow-inner">
               <Layers className="w-6 h-6" />
             </div>
-            <p className="font-serif text-base font-bold text-[#F5F5F2]">No orders match the current filter</p>
+            <p className="font-serif text-base font-bold text-[#F5F5F2] tracking-tight">No orders match the current filter</p>
             <p className="text-xs text-[#A1A8B3] mt-1.5 max-w-md mx-auto">
               {activeTab === 'OPEN'
                 ? 'You do not have any pending limit or trigger orders.'
@@ -151,56 +148,56 @@ export default function OrdersPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[#14223A] text-[#6E7683] text-[10px] uppercase font-mono tracking-wider">
-                  <th className="py-2.5 px-3">Time</th>
-                  <th className="py-2.5 px-3">Type</th>
-                  <th className="py-2.5 px-3">Instrument</th>
-                  <th className="py-2.5 px-3">Product</th>
-                  <th className="py-2.5 px-3 text-right">Qty.</th>
-                  <th className="py-2.5 px-3 text-right">Price</th>
-                  <th className="py-2.5 px-3 text-right">Avg. price</th>
-                  <th className="py-2.5 px-3">Status</th>
-                  <th className="py-2.5 px-3 text-right">Action</th>
+                <tr className="bg-white/[0.02] border-b border-white/[0.06] text-[#A1A8B3] text-[10px] uppercase font-mono tracking-wider">
+                  <th className="py-3 px-4 font-semibold">Time</th>
+                  <th className="py-3 px-4 font-semibold">Type</th>
+                  <th className="py-3 px-4 font-semibold">Instrument</th>
+                  <th className="py-3 px-4 font-semibold">Product</th>
+                  <th className="py-3 px-4 font-semibold text-right">Qty.</th>
+                  <th className="py-3 px-4 font-semibold text-right">Price</th>
+                  <th className="py-3 px-4 font-semibold text-right">Avg. price</th>
+                  <th className="py-3 px-4 font-semibold">Status</th>
+                  <th className="py-3 px-4 font-semibold text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#14223A]/50 font-mono">
+              <tbody className="divide-y divide-white/[0.04] font-mono">
                 {filteredOrders.map((order) => {
                   const isBuy = order.transaction_type === 'BUY';
                   return (
-                    <tr key={order.id} className="hover:bg-[#14223A]/40 transition-colors group">
-                      <td className="py-2.5 px-3 text-[#A1A8B3]">
+                    <tr key={order.id} className="hover:bg-white/[0.03] transition-colors group">
+                      <td className="py-3 px-4 text-[#A1A8B3] tabular-nums">
                         {new Date(order.created_at).toLocaleTimeString('en-IN', {
                           hour: '2-digit',
                           minute: '2-digit',
                           second: '2-digit',
                         })}
                       </td>
-                      <td className="py-2.5 px-3 font-sans">
-                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                      <td className="py-3 px-4 font-sans">
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold tracking-wider ${
                           isBuy
-                            ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
-                            : 'bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30'
+                            ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                            : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
                         }`}>
                           {order.transaction_type}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 font-sans">
+                      <td className="py-3 px-4 font-sans">
                         <div className="flex items-center gap-1.5">
-                          <span className="font-bold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
+                          <span className="font-semibold text-[#F5F5F2] group-hover:text-[#C6A15B] transition-colors">
                             {order.tradingsymbol}
                           </span>
-                          <span className="text-[10px] text-[#A1A8B3] font-mono">{order.exchange}</span>
+                          <span className="text-[10px] text-[#A1A8B3] font-mono px-1.5 py-0.5 rounded bg-white/[0.03] border border-white/[0.06]">{order.exchange}</span>
                         </div>
                       </td>
-                      <td className="py-2.5 px-3 font-sans">
-                        <span className="text-[10px] bg-[#0F192B] border border-[rgba(198,161,91,0.25)] text-[#C6A15B] px-1.5 py-0.5 rounded font-mono font-bold">
+                      <td className="py-3 px-4 font-sans">
+                        <span className="text-[10px] bg-white/[0.04] border border-white/[0.08] text-[#C6A15B] px-2 py-0.5 rounded-md font-mono font-semibold">
                           {order.product}
                         </span>
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#F5F5F2] font-semibold">
+                      <td className="py-3 px-4 text-right text-[#F5F5F2] font-semibold tabular-nums">
                         {order.filled_quantity}/{order.quantity}
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#A1A8B3]">
+                      <td className="py-3 px-4 text-right text-[#A1A8B3] tabular-nums">
                         {order.order_type === 'MARKET' ? (
                           <span className="text-[#C6A15B] font-bold">MKT</span>
                         ) : (
@@ -212,47 +209,47 @@ export default function OrdersPage() {
                           </span>
                         )}
                       </td>
-                      <td className="py-2.5 px-3 text-right text-[#F5F5F2] font-semibold">
+                      <td className="py-3 px-4 text-right text-[#F5F5F2] font-semibold tabular-nums">
                         {order.average_price > 0 ? `₹${order.average_price.toFixed(2)}` : '—'}
                       </td>
-                      <td className="py-2.5 px-3 font-sans">
+                      <td className="py-3 px-4 font-sans">
                         {order.status === 'COMPLETED' && (
-                          <span className="flex items-center gap-1 text-[11px] font-bold text-[#10B981]">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 px-2 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             <span>COMPLETE</span>
                           </span>
                         )}
                         {order.status === 'PENDING' && (
-                          <span className="flex items-center gap-1 text-[11px] font-bold text-[#C6A15B] animate-pulse">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#C6A15B] px-2 py-0.5 rounded-md bg-[#C6A15B]/10 border border-[#C6A15B]/20 animate-pulse">
                             <Clock className="w-3.5 h-3.5" />
                             <span>OPEN</span>
                           </span>
                         )}
                         {order.status === 'CANCELLED' && (
-                          <span className="flex items-center gap-1 text-[11px] font-medium text-[#A1A8B3]">
+                          <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#A1A8B3] px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06]">
                             <Ban className="w-3.5 h-3.5" />
                             <span>CANCELLED</span>
                           </span>
                         )}
                         {order.status === 'REJECTED' && (
                           <div>
-                            <span className="flex items-center gap-1 text-[11px] font-bold text-[#EF4444]">
+                            <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-rose-400 px-2 py-0.5 rounded-md bg-rose-500/10 border border-rose-500/20">
                               <AlertCircle className="w-3.5 h-3.5" />
                               <span>REJECTED</span>
                             </span>
                             {order.rejection_reason && (
-                              <p className="text-[10px] text-[#EF4444]/80 truncate max-w-[140px]">
+                              <p className="text-[10px] text-rose-400/80 truncate max-w-[140px] mt-0.5 font-mono">
                                 {order.rejection_reason}
                               </p>
                             )}
                           </div>
                         )}
                       </td>
-                      <td className="py-2.5 px-3 text-right font-sans">
+                      <td className="py-3 px-4 text-right font-sans">
                         {order.status === 'PENDING' ? (
                           <button
                             onClick={() => cancelOrder(order.id)}
-                            className="px-2.5 py-1 rounded-md text-[11px] font-bold text-[#EF4444] bg-[#EF4444]/15 hover:bg-[#EF4444] hover:text-white border border-[#EF4444]/30 transition-all"
+                            className="px-2.5 py-1 rounded-lg text-[11px] font-semibold text-rose-400 bg-rose-500/15 hover:bg-rose-500 hover:text-white border border-rose-500/30 transition-all active:scale-[0.95]"
                           >
                             Cancel
                           </button>

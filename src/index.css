@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Cendrix Capital Root Design Tokens */
+    /* Cendrix Capital Apple-Calibrated Root Tokens */
     --color-bg-midnight: #0B1424;
     --color-bg-charcoal: #10141C;
     --color-bg-surface: #0F192B;
@@ -24,11 +24,16 @@
     --color-text-tertiary: #6E7683;
     --color-text-gold: #C6A15B;
 
-    --color-border-subtle: rgba(255, 255, 255, 0.07);
-    --color-border-medium: rgba(255, 255, 255, 0.12);
+    --color-border-subtle: rgba(255, 255, 255, 0.08);
+    --color-border-medium: rgba(255, 255, 255, 0.14);
     --color-border-hairline: #14223A;
     --color-positive: #00c087;
     --color-negative: #df514c;
+
+    /* Apple Motion & Physics Curves */
+    --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+    --spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --spring-tactile: cubic-bezier(0.2, 0, 0, 1);
   }
 
   html, body {
@@ -40,9 +45,12 @@
   body {
     background-color: #0B1424;
     color: #F5F5F2;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    line-height: 1.55;
+    letter-spacing: -0.006em;
   }
 
   ::selection {
@@ -53,104 +61,185 @@
   .font-mono {
     font-feature-settings: "tnum" on, "zero" on;
     font-variant-numeric: tabular-nums;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Cinzel', serif;
     letter-spacing: 0.02em;
   }
+
+  /* Optical Typography Hierarchy (Apple Design §15) */
+  h1 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h2 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+  }
+
+  h3 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+
+  h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
 }
 
-/* Cendrix Custom Dark Scrollbar */
+/* ── Apple-Grade Instant Tactile Feedback (§1 Response — Kill Latency) ──── */
+button,
+a[role="button"],
+.btn-interactive {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 0.22s var(--spring-smooth), opacity 0.15s ease, filter 0.15s ease;
+}
+
+button:active:not(:disabled),
+a[role="button"]:active,
+.btn-interactive:active:not(:disabled) {
+  transform: scale(0.975);
+  transition: transform 0.08s var(--spring-tactile);
+}
+
+/* Custom Refined Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B1424;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #14223A;
-  border-radius: 3px;
+  background: rgba(20, 34, 58, 0.7);
+  border-radius: 9999px;
   border: 1px solid rgba(198, 161, 91, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C6A15B;
+  background: rgba(198, 161, 91, 0.6);
 }
 
-/* Cendrix Hairline Dividers */
+/* Hairline Dividers */
 .hairline-gold {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(198, 161, 91, 0.3) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(198, 161, 91, 0.35) 50%, transparent 100%);
+}
+
+/* ── Apple Translucent Materials & Depth Hierarchy (§12) ─────────────────── */
+.apple-glass-nav {
+  background-color: rgba(11, 20, 36, 0.82);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.apple-glass-panel {
+  background-color: rgba(14, 23, 40, 0.72);
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Cendrix Prestige Cards */
 .cendrix-card {
-  background-color: #0E1728;
-  border: 1px solid rgba(198, 161, 91, 0.2);
-  border-radius: 0.375rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
-  transition: all 0.2s ease;
+  background-color: rgba(14, 23, 40, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(198, 161, 91, 0.18);
+  border-right: 1px solid rgba(198, 161, 91, 0.18);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.28s var(--spring-smooth), border-color 0.2s ease, box-shadow 0.28s var(--spring-smooth);
 }
 
 .cendrix-card:hover {
   border-color: rgba(198, 161, 91, 0.45);
-  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.08);
+  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.6), 0 0 24px rgba(198, 161, 91, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Cendrix Signature Gold Button */
+/* ── Tactile Button Hierarchy ────────────────────────────────────────────── */
 .btn-cendrix-gold {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  background: linear-gradient(135deg, #D4B26F 0%, #C6A15B 60%, #A68037 100%);
+  padding: 0.5rem 1.15rem;
+  background: linear-gradient(135deg, #E2C889 0%, #C6A15B 55%, #A68037 100%);
   color: #070D18;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 700;
   font-size: 0.8125rem;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  border: 1px solid #E2C889;
-  border-radius: 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 3px 12px rgba(198, 161, 91, 0.22);
+  box-shadow: 0 4px 16px rgba(198, 161, 91, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.22s var(--spring-smooth), box-shadow 0.22s var(--spring-smooth), filter 0.15s ease;
 }
 
 .btn-cendrix-gold:hover {
-  background: linear-gradient(135deg, #E2C889 0%, #D4B26F 60%, #B89043 100%);
-  color: #05080E;
+  filter: brightness(1.08);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(198, 161, 91, 0.35);
+  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-/* Cendrix Signature Outline Button */
+.btn-cendrix-gold:active {
+  transform: scale(0.97) translateY(0);
+  transition: transform 0.08s var(--spring-tactile);
+  box-shadow: 0 2px 8px rgba(198, 161, 91, 0.2);
+}
+
 .btn-cendrix-outline {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  background-color: rgba(14, 23, 40, 0.7);
+  padding: 0.5rem 1.15rem;
+  background-color: rgba(14, 23, 40, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: #F5F5F2;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
   font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  border: 1px solid rgba(198, 161, 91, 0.25);
-  border-radius: 0.25rem;
+  letter-spacing: 0.03em;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 1px solid rgba(198, 161, 91, 0.22);
+  border-right: 1px solid rgba(198, 161, 91, 0.22);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: transform 0.22s var(--spring-smooth), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.22s var(--spring-smooth);
 }
 
 .btn-cendrix-outline:hover {
   border-color: #C6A15B;
   color: #C6A15B;
-  background-color: rgba(198, 161, 91, 0.1);
+  background-color: rgba(198, 161, 91, 0.12);
   transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+}
+
+.btn-cendrix-outline:active {
+  transform: scale(0.97) translateY(0);
+  transition: transform 0.08s var(--spring-tactile);
 }
 
 /* Institutional Execution Buttons (Buy / Sell) */
@@ -160,21 +249,32 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  background-color: #387ed1;
+  padding: 0.5rem 1.15rem;
+  background: linear-gradient(180deg, #387ed1 0%, #2968b5 100%);
   color: #ffffff;
   font-weight: 600;
   font-size: 0.8125rem;
-  border-radius: 0.25rem;
-  border: 1px solid #387ed1;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 4px 14px rgba(41, 104, 181, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.22s var(--spring-smooth), filter 0.15s ease, box-shadow 0.22s var(--spring-smooth);
 }
 
 .btn-execute-buy:hover,
 .btn-kite-blue:hover {
-  background-color: #2769b5;
-  border-color: #2769b5;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(41, 104, 181, 0.45);
+}
+
+.btn-execute-buy:active,
+.btn-kite-blue:active {
+  transform: scale(0.97) translateY(0);
+  transition: transform 0.08s var(--spring-tactile);
 }
 
 .btn-execute-sell,
@@ -183,21 +283,66 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.45rem 1rem;
-  background-color: #df514c;
+  padding: 0.5rem 1.15rem;
+  background: linear-gradient(180deg, #df514c 0%, #c43833 100%);
   color: #ffffff;
   font-weight: 600;
   font-size: 0.8125rem;
-  border-radius: 0.25rem;
-  border: 1px solid #df514c;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  box-shadow: 0 4px 14px rgba(223, 81, 76, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.22s var(--spring-smooth), filter 0.15s ease, box-shadow 0.22s var(--spring-smooth);
 }
 
 .btn-execute-sell:hover,
 .btn-kite-red:hover {
-  background-color: #cc3b36;
-  border-color: #cc3b36;
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(223, 81, 76, 0.45);
+}
+
+.btn-execute-sell:active,
+.btn-kite-red:active {
+  transform: scale(0.97) translateY(0);
+  transition: transform 0.08s var(--spring-tactile);
+}
+
+/* ── Apple Segmented Controls ────────────────────────────────────────────── */
+.apple-segmented-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(11, 20, 36, 0.7);
+  padding: 0.25rem;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.apple-segmented-item {
+  padding: 0.35rem 0.75rem;
+  border-radius: 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #A1A8B3;
+  transition: all 0.2s var(--spring-smooth);
+  user-select: none;
+  cursor: pointer;
+}
+
+.apple-segmented-item:hover {
+  color: #F5F5F2;
+}
+
+.apple-segmented-item-active {
+  background-color: #14223A;
+  color: #C6A15B;
+  border: 1px solid rgba(198, 161, 91, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Financial Movement Indicators */
@@ -221,23 +366,23 @@
   color: #df514c;
 }
 
-/* Live tick price flash animation */
+/* Live tick price flash animation with smooth decay */
 @keyframes flash-green {
-  0% { background-color: rgba(0, 192, 135, 0.3); }
+  0% { background-color: rgba(0, 192, 135, 0.32); }
   100% { background-color: transparent; }
 }
 
 @keyframes flash-red {
-  0% { background-color: rgba(223, 81, 76, 0.3); }
+  0% { background-color: rgba(223, 81, 76, 0.32); }
   100% { background-color: transparent; }
 }
 
 .animate-flash-green {
-  animation: flash-green 0.6s ease-out;
+  animation: flash-green 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .animate-flash-red {
-  animation: flash-red 0.6s ease-out;
+  animation: flash-red 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Ticker Marquee Animation */
@@ -281,3 +426,32 @@
 .animate-gold-pulse {
   animation: gold-pulse 3s infinite ease-in-out;
 }
+
+/* ── Apple Accessibility & Reduced Motion (§14) ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-marquee,
+  .animate-float,
+  .animate-gold-pulse,
+  .animate-flash-green,
+  .animate-flash-red {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .apple-glass-nav,
+  .apple-glass-panel,
+  .cendrix-card,
+  .btn-cendrix-outline {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: #0E1728 !important;
+  }
+}
+

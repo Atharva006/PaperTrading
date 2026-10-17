@@ -99,7 +99,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0B1424] border-b border-[rgba(198,161,91,0.22)] select-none shadow-xl shadow-black/40 font-sans">
+    <header className="sticky top-0 z-40 apple-glass-nav select-none font-sans">
       <div className="w-full mx-auto px-4 h-14 flex items-center justify-between gap-2">
         
         {/* ── Left Side: Cendrix Brand Wordmark & Session Pill ───────────── */}
@@ -107,9 +107,9 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Brand Logo & Name */}
           <NavLink
             to="/dashboard"
-            className="flex items-center gap-2.5 group transition-transform active:scale-95 shrink-0"
+            className="flex items-center gap-2.5 group transition-transform active:scale-[0.97] shrink-0"
           >
-            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1 overflow-hidden shadow-sm shadow-[#C6A15B]/10">
+            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1 overflow-hidden shadow-sm shadow-[#C6A15B]/10 group-hover:border-[#C6A15B] transition-colors">
               <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
@@ -126,7 +126,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           </NavLink>
 
           {/* Cendrix Live Status Pill (Shown only on extra-wide 3xl screens >= 1800px to preserve nav space) */}
-          <div className="hidden 3xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
+          <div className="hidden 3xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B]/80 backdrop-blur-md border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
             <span className="tracking-widest uppercase font-semibold">LIVE TICKS · NSE & MCX</span>
           </div>
@@ -161,18 +161,18 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           </div>
         </div>
 
-        {/* ── Center: Cendrix Nav Links (shrink-0 ensures no flex collision with actions) ── */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-medium shrink-0">
+        {/* ── Center: Cendrix Nav Links (Apple-Style Floating Segmented Pills) ── */}
+        <nav className="hidden lg:flex items-center gap-1 text-xs font-medium shrink-0">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
             return (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`relative py-4 px-1.5 xl:px-2.5 transition-colors flex items-center gap-1 ${
+                className={`relative px-2.5 xl:px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 active:scale-[0.96] ${
                   isActive
-                    ? 'text-[#C6A15B] font-semibold'
-                    : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                    ? 'bg-[#14223A] text-[#C6A15B] font-semibold border border-[rgba(198,161,91,0.28)] shadow-sm'
+                    : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-white/5'
                 }`}
               >
                 <span className="tracking-wide uppercase text-[10.5px] xl:text-[11px] font-semibold whitespace-nowrap">{item.name}</span>
@@ -180,9 +180,6 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                   <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#C6A15B] text-[#0B1424]">
                     {item.badge}
                   </span>
-                )}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#C6A15B] shadow-sm shadow-[#C6A15B]/40" />
                 )}
               </NavLink>
             );
@@ -194,7 +191,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Beginner Guide Walkthrough */}
           <button
             onClick={openGuide}
-            className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0F192B]/80 hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-all active:scale-[0.96]"
             title="Beginner Introduction & Trading Desk Guide"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
@@ -204,7 +201,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Search Shortcut */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0F192B]/80 hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-all active:scale-[0.96]"
             title="Search Indian scrips or MCX commodities (⌘K)"
           >
             <Search className="w-3.5 h-3.5 text-[#C6A15B]" />
@@ -217,7 +214,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Order Trigger */}
           <button
             onClick={() => openOrderTicket()}
-            className="btn-cendrix-gold py-1.5 px-2.5 sm:px-3.5 text-xs font-bold rounded shadow-sm flex items-center gap-1.5"
+            className="btn-cendrix-gold py-1.5 px-2.5 sm:px-3.5 text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 active:scale-[0.96]"
             title="Open Order Window"
           >
             <PlusCircle className="w-3.5 h-3.5" />
@@ -228,16 +225,16 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              className="flex items-center gap-2 p-1 rounded hover:bg-[#14223A] border border-transparent hover:border-[rgba(198,161,91,0.22)] transition-colors"
+              className="flex items-center gap-2 p-1 rounded-lg hover:bg-[#14223A] border border-transparent hover:border-[rgba(198,161,91,0.22)] transition-all active:scale-[0.96]"
             >
-              <div className="w-7 h-7 rounded-full bg-[#0F192B] border border-[#C6A15B]/50 flex items-center justify-center text-xs font-bold font-mono text-[#C6A15B]">
+              <div className="w-7 h-7 rounded-full bg-[#0F192B] border border-[#C6A15B]/50 flex items-center justify-center text-xs font-bold font-mono text-[#C6A15B] shadow-sm">
                 {userName ? userName.slice(0, 2).toUpperCase() : 'CN'}
               </div>
               <ChevronDown className="w-3.5 h-3.5 text-[#A1A8B3]" />
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 bg-[#0F192B] border border-[rgba(198,161,91,0.25)] rounded-md shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans">
+              <div className="absolute right-0 mt-2 w-56 apple-glass-panel rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans origin-top-right">
                 <div className="px-3 py-2 border-b border-[#14223A]">
                   <p className="text-xs font-bold text-[#F5F5F2] truncate font-serif tracking-wide">{userName || 'Cendrix Institutional Client'}</p>
                   <p className="text-[10px] text-[#C6A15B] font-mono tracking-wider font-semibold">CENDRIX CAPITAL</p>

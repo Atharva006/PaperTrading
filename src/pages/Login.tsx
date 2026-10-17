@@ -356,26 +356,26 @@ export default function Login() {
           </p>
         </div>
 
-        {/* ── Main Auth Card ──────────────────────────────────────────────── */}
-        <div className="bg-[#0E1728]/90 backdrop-blur-xl py-6 px-6 sm:px-8 rounded-2xl shadow-2xl border border-[rgba(198,161,91,0.22)]">
+        {/* ── Main Auth Card (Apple Glass Surface §12) ───────────────────── */}
+        <div className="apple-glass-panel py-7 px-6 sm:px-8 rounded-3xl shadow-[0_24px_70px_rgba(0,0,0,0.85)]">
           {/* Notification Alerts */}
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
+            <div className="mb-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
               <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
               <p className="text-xs text-rose-300 font-medium leading-relaxed">{error}</p>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-4 p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
+            <div className="mb-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <p className="text-xs text-emerald-300 font-medium leading-relaxed">{successMessage}</p>
             </div>
           )}
 
           {!isSupabaseConfigured && (
-            <div className="mb-4 p-2.5 rounded-lg bg-[#C6A15B]/10 border border-[#C6A15B]/25 flex items-start gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#C6A15B] shrink-0 mt-0.5" />
+            <div className="mb-4 p-3 rounded-xl bg-[#C6A15B]/10 border border-[#C6A15B]/25 flex items-start gap-2.5">
+              <Sparkles className="w-4 h-4 text-[#C6A15B] shrink-0 mt-0.5" />
               <p className="text-[11px] text-[#E2C889] leading-snug">
                 <span className="font-bold">Offline / Sandbox Mode:</span> Cloud Supabase keys are not set in <code className="text-[#F5F5F2] font-mono">.env.local</code>. You can test authentication or click below to launch the sandbox instantly.
               </p>
@@ -389,7 +389,7 @@ export default function Login() {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={googleLoading || loading}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#0F192B] hover:bg-[#14223A] border border-[#14223A] hover:border-[rgba(198,161,91,0.4)] text-[#F5F5F2] text-xs font-semibold tracking-wide transition-all shadow-sm flex items-center justify-center gap-3 active:scale-[0.99] disabled:opacity-50 cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl bg-[#0F192B]/90 hover:bg-[#14223A] border border-white/10 hover:border-[rgba(198,161,91,0.4)] text-[#F5F5F2] text-xs font-semibold tracking-wide transition-all shadow-sm flex items-center justify-center gap-3 active:scale-[0.97] disabled:opacity-50 cursor-pointer"
               >
                 {googleLoading ? (
                   <>
@@ -425,7 +425,7 @@ export default function Login() {
               {/* ── Elegant Divider ───────────────────────────────────────── */}
               <div className="relative my-5">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-[#14223A]" />
+                  <div className="w-full border-t border-white/10" />
                 </div>
                 <div className="relative flex justify-center text-[10px] uppercase font-mono tracking-widest">
                   <span className="bg-[#0E1728] px-3 text-[#6E7683]">
@@ -434,8 +434,8 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* ── Mode Switcher: Sign In vs Create Account ────────────────── */}
-              <div className="flex border-b border-[#14223A] mb-4">
+              {/* ── Apple Segmented Control: Sign In vs Create Account ───── */}
+              <div className="apple-segmented-group w-full mb-5 p-1">
                 <button
                   type="button"
                   onClick={() => {
@@ -443,10 +443,8 @@ export default function Login() {
                     setError('');
                     setSuccessMessage('');
                   }}
-                  className={`flex-1 pb-2.5 text-xs font-semibold text-center border-b-2 transition-all font-mono tracking-wider ${
-                    view === 'SIGN_IN'
-                      ? 'border-[#C6A15B] text-[#C6A15B]'
-                      : 'border-transparent text-[#6E7683] hover:text-[#A1A8B3]'
+                  className={`apple-segmented-item flex-1 py-2 text-xs font-semibold text-center font-mono tracking-wider transition-all duration-200 ${
+                    view === 'SIGN_IN' ? 'apple-segmented-item-active' : ''
                   }`}
                 >
                   SIGN IN
@@ -458,10 +456,8 @@ export default function Login() {
                     setError('');
                     setSuccessMessage('');
                   }}
-                  className={`flex-1 pb-2.5 text-xs font-semibold text-center border-b-2 transition-all font-mono tracking-wider ${
-                    view === 'SIGN_UP'
-                      ? 'border-[#C6A15B] text-[#C6A15B]'
-                      : 'border-transparent text-[#6E7683] hover:text-[#A1A8B3]'
+                  className={`apple-segmented-item flex-1 py-2 text-xs font-semibold text-center font-mono tracking-wider transition-all duration-200 ${
+                    view === 'SIGN_UP' ? 'apple-segmented-item-active' : ''
                   }`}
                 >
                   CREATE ACCOUNT

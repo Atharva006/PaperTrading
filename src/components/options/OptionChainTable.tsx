@@ -72,12 +72,12 @@ export const OptionChainTable: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col select-none text-[#f0f3f8] font-sans">
+    <div className="w-full flex flex-col select-none text-[#F5F5F2] font-sans">
       {/* ── 1. Top Institutional Control Strip ───────────────────────────── */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#1e2638]">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/10">
         <div className="flex flex-wrap items-center gap-3">
           {/* Title */}
-          <h1 className="text-lg sm:text-xl font-medium tracking-tight text-[#f0f3f8]">
+          <h1 className="text-lg sm:text-xl font-bold tracking-[-0.02em] font-serif text-[#F5F5F2]">
             Option Chain
           </h1>
 
@@ -88,10 +88,10 @@ export const OptionChainTable: React.FC = () => {
               setSelectedUnderlying(e.target.value);
               setSelectedExpiry('');
             }}
-            className="bg-[#121722] border border-[#1e2638] text-xs font-semibold text-[#f0f3f8] rounded px-2.5 py-1 focus:outline-none focus:border-[#387ed1]"
+            className="apple-glass-panel border border-white/10 text-xs font-semibold text-[#F5F5F2] rounded-xl px-3 py-1.5 focus:outline-none focus:border-[#C6A15B] cursor-pointer shadow-sm"
           >
             {underlyings.map((u) => (
-              <option key={u.key} value={u.key}>
+              <option key={u.key} value={u.key} className="bg-[#0B1424] text-[#F5F5F2]">
                 {u.name}
               </option>
             ))}
@@ -101,19 +101,19 @@ export const OptionChainTable: React.FC = () => {
           <select
             value={selectedExpiry}
             onChange={(e) => setSelectedExpiry(e.target.value)}
-            className="bg-[#121722] border border-[#1e2638] text-xs font-semibold text-[#f0f3f8] rounded px-2.5 py-1 focus:outline-none focus:border-[#387ed1]"
+            className="apple-glass-panel border border-white/10 text-xs font-semibold text-[#F5F5F2] rounded-xl px-3 py-1.5 focus:outline-none focus:border-[#C6A15B] cursor-pointer shadow-sm"
           >
             {chainData?.available_expiries.map((exp) => (
-              <option key={exp} value={exp}>
+              <option key={exp} value={exp} className="bg-[#0B1424] text-[#F5F5F2]">
                 {new Date(exp).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
               </option>
             ))}
           </select>
 
           {/* Spot Price Display */}
-          <div className="flex items-baseline gap-1.5 pl-3 border-l border-[#1e2638] font-mono">
-            <span className="text-[11px] text-[#788296]">Spot:</span>
-            <span className="text-xs sm:text-sm font-bold text-[#f0f3f8]">
+          <div className="flex items-baseline gap-1.5 pl-3 border-l border-white/10 font-mono tabular-nums">
+            <span className="text-[11px] text-[#A1A8B3]">Spot:</span>
+            <span className="text-xs sm:text-sm font-bold text-[#F5F5F2]">
               ₹{spot.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </span>
           </div>
@@ -123,15 +123,15 @@ export const OptionChainTable: React.FC = () => {
         <div className="flex items-center gap-2.5">
           {chainData && (
             <div className="flex items-center gap-2 text-xs">
-              <div className="px-2 py-0.5 rounded border border-[#1e2638] bg-[#121722]">
-                <span className="text-[#788296] text-[10px] mr-1">PCR:</span>
-                <span className={`font-mono font-semibold ${chainData.pcr >= 1 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+              <div className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5">
+                <span className="text-[#A1A8B3] text-[10px] mr-1">PCR:</span>
+                <span className={`font-mono font-semibold ${chainData.pcr >= 1 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                   {chainData.pcr.toFixed(2)}
                 </span>
               </div>
-              <div className="px-2 py-0.5 rounded border border-[#1e2638] bg-[#121722] hidden sm:block">
-                <span className="text-[#788296] text-[10px] mr-1">Max Pain:</span>
-                <span className="font-mono font-semibold text-[#387ed1]">
+              <div className="px-2.5 py-0.5 rounded-full border border-white/10 bg-white/5 hidden sm:block">
+                <span className="text-[#A1A8B3] text-[10px] mr-1">Max Pain:</span>
+                <span className="font-mono font-semibold text-[#C6A15B]">
                   {chainData.max_pain || 'ATM'}
                 </span>
               </div>
@@ -140,10 +140,10 @@ export const OptionChainTable: React.FC = () => {
 
           <button
             onClick={() => setShowGreeks(!showGreeks)}
-            className={`px-2.5 py-1 rounded text-xs font-medium border transition-colors flex items-center gap-1.5 ${
+            className={`px-3 py-1 rounded-xl text-xs font-semibold border transition-all active:scale-[0.96] cursor-pointer flex items-center gap-1.5 ${
               showGreeks
-                ? 'bg-[#387ed1]/15 border-[#387ed1] text-[#387ed1]'
-                : 'bg-[#121722] border-[#1e2638] text-[#788296] hover:text-[#f0f3f8]'
+                ? 'bg-[#C6A15B]/15 border-[#C6A15B] text-[#C6A15B] shadow-sm'
+                : 'bg-white/5 border-white/10 text-[#A1A8B3] hover:text-[#F5F5F2]'
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
@@ -152,73 +152,73 @@ export const OptionChainTable: React.FC = () => {
 
           <button
             onClick={fetchChain}
-            className="p-1 rounded text-[#788296] hover:text-[#387ed1] border border-[#1e2638] bg-[#121722] transition-colors"
+            className="p-1.5 rounded-xl text-[#A1A8B3] hover:text-[#F5F5F2] border border-white/10 bg-white/5 active:scale-[0.92] transition-all cursor-pointer"
             title="Refresh Option Chain"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#387ed1]' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin text-[#C6A15B]' : ''}`} />
           </button>
         </div>
       </div>
 
-      {/* ── 2. Full-Width Option Chain Table (Edge-to-Edge Single Screen Fit) ── */}
-      <div className="w-full overflow-hidden border border-[#1e2638] rounded-lg bg-[#0c1018] mt-2 shadow-xl">
+      {/* ── 2. Full-Width Option Chain Table (Apple Glass Panel) ── */}
+      <div className="w-full overflow-hidden border border-white/10 rounded-2xl apple-glass-panel mt-2 shadow-2xl">
         <div className="w-full overflow-y-auto max-h-[calc(100vh-210px)] overflow-x-hidden">
           <table className="w-full table-fixed text-left border-collapse text-xs">
-            <thead className="bg-[#0c1018] sticky top-0 z-20 border-b border-[#1e2638] text-[11px] font-medium text-[#788296]">
+            <thead className="bg-[#0c1018]/90 backdrop-blur-md sticky top-0 z-20 border-b border-white/10 text-[11px] font-medium text-[#A1A8B3]">
               <tr>
                 {/* CALLS HEADER */}
-                <th colSpan={showGreeks ? 5 : 3} className="text-center py-1.5 px-1 border-r border-[#1e2638] bg-[#387ed1]/10 text-[#387ed1] font-mono tracking-wider">
+                <th colSpan={showGreeks ? 5 : 3} className="text-center py-2 px-1 border-r border-white/10 bg-[#10B981]/10 text-[#10B981] font-mono tracking-wider font-bold">
                   CALLS (CE)
                 </th>
                 {/* STRIKE HEADER */}
-                <th className="text-center py-1.5 px-1 bg-[#121722] text-[#f0f3f8] font-bold tracking-wider">
+                <th className="text-center py-2 px-1 bg-white/5 text-[#F5F5F2] font-bold tracking-wider">
                   STRIKE
                 </th>
                 {/* PUTS HEADER */}
-                <th colSpan={showGreeks ? 5 : 3} className="text-center py-1.5 px-1 border-l border-[#1e2638] bg-[#df514c]/10 text-[#df514c] font-mono tracking-wider">
+                <th colSpan={showGreeks ? 5 : 3} className="text-center py-2 px-1 border-l border-white/10 bg-[#EF4444]/10 text-[#EF4444] font-mono tracking-wider font-bold">
                   PUTS (PE)
                 </th>
               </tr>
-              <tr className="border-b border-[#1e2638] text-[9.5px] uppercase font-mono text-[#788296] bg-[#0c1018]">
+              <tr className="border-b border-white/10 text-[9.5px] uppercase font-mono text-[#A1A8B3] bg-white/[0.02]">
                 {/* CALL SUBHEADERS */}
                 {showGreeks ? (
                   <>
-                    <th className="py-1 px-1 text-right w-[8%]">OI</th>
-                    <th className="py-1 px-1 text-right w-[8%]">Vol</th>
-                    <th className="py-1 px-1 text-right w-[7%]">IV</th>
-                    <th className="py-1 px-1 text-right w-[7%]">Delta</th>
-                    <th className="py-1 px-1.5 text-right w-[12%] border-r border-[#1e2638]">LTP (₹)</th>
+                    <th className="py-1.5 px-1 text-right w-[8%]">OI</th>
+                    <th className="py-1.5 px-1 text-right w-[8%]">Vol</th>
+                    <th className="py-1.5 px-1 text-right w-[7%]">IV</th>
+                    <th className="py-1.5 px-1 text-right w-[7%]">Delta</th>
+                    <th className="py-1.5 px-1.5 text-right w-[12%] border-r border-white/10">LTP (₹)</th>
                   </>
                 ) : (
                   <>
-                    <th className="py-1 px-1.5 text-right w-[14%]">OI</th>
-                    <th className="py-1 px-1.5 text-right w-[14%]">Volume</th>
-                    <th className="py-1 px-1.5 text-right w-[14%] border-r border-[#1e2638]">LTP (₹)</th>
+                    <th className="py-1.5 px-1.5 text-right w-[14%]">OI</th>
+                    <th className="py-1.5 px-1.5 text-right w-[14%]">Volume</th>
+                    <th className="py-1.5 px-1.5 text-right w-[14%] border-r border-white/10">LTP (₹)</th>
                   </>
                 )}
 
                 {/* STRIKE */}
-                <th className="py-1 px-1 text-center bg-[#121722] text-[#f0f3f8] w-[16%]">Strike</th>
+                <th className="py-1.5 px-1 text-center bg-white/5 text-[#F5F5F2] w-[16%]">Strike</th>
 
                 {/* PUT SUBHEADERS */}
                 {showGreeks ? (
                   <>
-                    <th className="py-1 px-1.5 text-left w-[12%] border-l border-[#1e2638]">LTP (₹)</th>
-                    <th className="py-1 px-1 text-left w-[7%]">Delta</th>
-                    <th className="py-1 px-1 text-left w-[7%]">IV</th>
-                    <th className="py-1 px-1 text-left w-[8%]">Vol</th>
-                    <th className="py-1 px-1 text-left w-[8%]">OI</th>
+                    <th className="py-1.5 px-1.5 text-left w-[12%] border-l border-white/10">LTP (₹)</th>
+                    <th className="py-1.5 px-1 text-left w-[7%]">Delta</th>
+                    <th className="py-1.5 px-1 text-left w-[7%]">IV</th>
+                    <th className="py-1.5 px-1 text-left w-[8%]">Vol</th>
+                    <th className="py-1.5 px-1 text-left w-[8%]">OI</th>
                   </>
                 ) : (
                   <>
-                    <th className="py-1 px-1.5 text-left w-[14%] border-l border-[#1e2638]">LTP (₹)</th>
-                    <th className="py-1 px-1.5 text-left w-[14%]">Volume</th>
-                    <th className="py-1 px-1.5 text-left w-[14%]">OI</th>
+                    <th className="py-1.5 px-1.5 text-left w-[14%] border-l border-white/10">LTP (₹)</th>
+                    <th className="py-1.5 px-1.5 text-left w-[14%]">Volume</th>
+                    <th className="py-1.5 px-1.5 text-left w-[14%]">OI</th>
                   </>
                 )}
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1e2638]/60 font-mono text-[10.5px]">
+            <tbody className="divide-y divide-white/5 font-mono text-[10.5px] tabular-nums">
               {strikes.map((row) => {
                 const strike = row.strike_price;
                 const call = row.call;
@@ -230,40 +230,40 @@ export const OptionChainTable: React.FC = () => {
                 return (
                   <tr
                     key={strike}
-                    className={`hover:bg-[#121724] transition-colors ${
-                      isAtm ? 'bg-[#387ed1]/10 font-bold' : ''
+                    className={`hover:bg-white/[0.04] transition-colors ${
+                      isAtm ? 'bg-[#C6A15B]/15 font-bold shadow-inner' : ''
                     }`}
                   >
                     {/* CALL: OI */}
-                    <td className={`py-1 px-1 text-right truncate text-[#788296] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                    <td className={`py-1.5 px-1 text-right truncate text-[#A1A8B3] ${isCallItm ? 'bg-[#10B981]/5' : ''}`}>
                       {call ? fmtCompact(call.oi) : '-'}
                     </td>
 
                     {/* CALL: Volume */}
-                    <td className={`py-1 px-1 text-right truncate text-[#58647a] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                    <td className={`py-1.5 px-1 text-right truncate text-[#6E7683] ${isCallItm ? 'bg-[#10B981]/5' : ''}`}>
                       {call ? fmtCompact(call.volume) : '-'}
                     </td>
 
                     {/* CALL: IV */}
                     {showGreeks && (
-                      <td className={`py-1 px-1 text-right truncate text-[#788296] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                      <td className={`py-1.5 px-1 text-right truncate text-[#A1A8B3] ${isCallItm ? 'bg-[#10B981]/5' : ''}`}>
                         {call?.greeks ? `${call.greeks.iv.toFixed(1)}%` : '-'}
                       </td>
                     )}
 
                     {/* CALL: Delta */}
                     {showGreeks && (
-                      <td className={`py-1 px-1 text-right truncate text-[#387ed1] ${isCallItm ? 'bg-[#387ed1]/5' : ''}`}>
+                      <td className={`py-1.5 px-1 text-right truncate text-[#10B981] ${isCallItm ? 'bg-[#10B981]/5' : ''}`}>
                         {call?.greeks ? call.greeks.delta.toFixed(2) : '-'}
                       </td>
                     )}
 
-                    {/* CALL: LTP (Interactive Trade Button) */}
-                    <td className={`py-1 px-1.5 text-right border-r border-[#1e2638] ${isCallItm ? 'bg-[#387ed1]/10 font-bold text-[#f0f3f8]' : 'text-[#387ed1]'}`}>
+                    {/* CALL: LTP (Interactive Tactile Trade Button) */}
+                    <td className={`py-1 px-1.5 text-right border-r border-white/10 ${isCallItm ? 'bg-[#10B981]/10 font-bold text-[#F5F5F2]' : 'text-[#10B981]'}`}>
                       {call ? (
                         <button
                           onClick={() => handleTradeOption(call, 'BUY')}
-                          className="w-full py-0.5 px-1 rounded bg-[#387ed1]/20 hover:bg-[#387ed1] text-[#387ed1] hover:text-white transition-colors font-bold text-[10.5px] truncate block text-center"
+                          className="w-full py-1 px-1.5 rounded-lg bg-[#10B981]/20 hover:bg-[#10B981] text-[#10B981] hover:text-white transition-all font-bold text-[10.5px] truncate block text-center active:scale-[0.92] cursor-pointer shadow-sm"
                           title={`Buy ${call.tradingsymbol}`}
                         >
                           ₹{call.ltp.toFixed(1)}
@@ -274,16 +274,16 @@ export const OptionChainTable: React.FC = () => {
                     </td>
 
                     {/* CENTER: STRIKE PRICE */}
-                    <td className={`py-1 px-1 text-center font-bold font-mono text-xs ${isAtm ? 'bg-[#387ed1] text-white shadow-sm' : 'bg-[#121722] text-[#f0f3f8]'}`}>
+                    <td className={`py-1.5 px-1 text-center font-bold font-mono text-xs ${isAtm ? 'bg-[#C6A15B] text-[#070D18] shadow-md rounded-sm' : 'bg-white/5 text-[#F5F5F2]'}`}>
                       {strike}
                     </td>
 
-                    {/* PUT: LTP (Interactive Trade Button) */}
-                    <td className={`py-1 px-1.5 text-left border-l border-[#1e2638] ${isPutItm ? 'bg-[#df514c]/10 font-bold text-[#f0f3f8]' : 'text-[#df514c]'}`}>
+                    {/* PUT: LTP (Interactive Tactile Trade Button) */}
+                    <td className={`py-1 px-1.5 text-left border-l border-white/10 ${isPutItm ? 'bg-[#EF4444]/10 font-bold text-[#F5F5F2]' : 'text-[#EF4444]'}`}>
                       {put ? (
                         <button
                           onClick={() => handleTradeOption(put, 'BUY')}
-                          className="w-full py-0.5 px-1 rounded bg-[#df514c]/20 hover:bg-[#df514c] text-[#df514c] hover:text-white transition-colors font-bold text-[10.5px] truncate block text-center"
+                          className="w-full py-1 px-1.5 rounded-lg bg-[#EF4444]/20 hover:bg-[#EF4444] text-[#EF4444] hover:text-white transition-all font-bold text-[10.5px] truncate block text-center active:scale-[0.92] cursor-pointer shadow-sm"
                           title={`Buy ${put.tradingsymbol}`}
                         >
                           ₹{put.ltp.toFixed(1)}
@@ -295,25 +295,25 @@ export const OptionChainTable: React.FC = () => {
 
                     {/* PUT: Delta */}
                     {showGreeks && (
-                      <td className={`py-1 px-1 text-left truncate text-[#df514c] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                      <td className={`py-1.5 px-1 text-left truncate text-[#EF4444] ${isPutItm ? 'bg-[#EF4444]/5' : ''}`}>
                         {put?.greeks ? put.greeks.delta.toFixed(2) : '-'}
                       </td>
                     )}
 
                     {/* PUT: IV */}
                     {showGreeks && (
-                      <td className={`py-1 px-1 text-left truncate text-[#788296] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                      <td className={`py-1.5 px-1 text-left truncate text-[#A1A8B3] ${isPutItm ? 'bg-[#EF4444]/5' : ''}`}>
                         {put?.greeks ? `${put.greeks.iv.toFixed(1)}%` : '-'}
                       </td>
                     )}
 
                     {/* PUT: Volume */}
-                    <td className={`py-1 px-1 text-left truncate text-[#58647a] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                    <td className={`py-1.5 px-1 text-left truncate text-[#6E7683] ${isPutItm ? 'bg-[#EF4444]/5' : ''}`}>
                       {put ? fmtCompact(put.volume) : '-'}
                     </td>
 
                     {/* PUT: OI */}
-                    <td className={`py-1 px-1 text-left truncate text-[#788296] ${isPutItm ? 'bg-[#df514c]/5' : ''}`}>
+                    <td className={`py-1.5 px-1 text-left truncate text-[#A1A8B3] ${isPutItm ? 'bg-[#EF4444]/5' : ''}`}>
                       {put ? fmtCompact(put.oi) : '-'}
                     </td>
                   </tr>
