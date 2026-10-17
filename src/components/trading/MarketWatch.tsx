@@ -47,6 +47,11 @@ export const MarketWatch: React.FC = () => {
 
   const handleSelectInstrument = (inst: Instrument) => {
     setSelectedInstrument(inst);
+    if (inst.exchange === 'MCX' || inst.exchange === 'NCDEX' || inst.instrument_type === 'FUTCOM') {
+      navigate('/dashboard/commodities');
+    } else {
+      navigate('/dashboard/terminal');
+    }
   };
 
   const handleBuy = (inst: Instrument, e: React.MouseEvent) => {

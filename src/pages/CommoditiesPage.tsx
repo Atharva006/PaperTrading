@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER, getExchangeContractSpec } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
@@ -74,6 +74,23 @@ export default function CommoditiesPage() {
   const [triggerPrice, setTriggerPrice] = useState(currentQuote?.last_price || 0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLots(1);
+    setQuantity(activeSpec.lotSize);
+    const q = quotes[activeCommodity.instrument_key] || quotes[activeCommodity.tradingsymbol];
+    if (q?.last_price) {
+      setLimitPrice(q.last_price);
+      setTriggerPrice(q.last_price);
+    }
+  }, [activeCommodity.instrument_key, activeSpec.lotSize]);
+
+  useEffect(() => {
+    if (currentQuote?.last_price && limitPrice === 0) {
+      setLimitPrice(currentQuote.last_price);
+      setTriggerPrice(currentQuote.last_price);
+    }
+  }, [currentQuote?.last_price]);
 
   const handleSelectCommodity = (inst: Instrument) => {
     setSelectedInstrument(inst);

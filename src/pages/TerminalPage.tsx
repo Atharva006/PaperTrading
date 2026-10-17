@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER, getExchangeContractSpec } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
@@ -57,6 +57,23 @@ export default function TerminalPage() {
   const [triggerPrice, setTriggerPrice] = useState(marketPrice);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderFeedback, setOrderFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    setLots(1);
+    setQuantity(contractSpec.lotSize);
+    setProduct(isFandO ? 'NRML' : 'CNC');
+    if (marketPrice > 0) {
+      setPrice(marketPrice);
+      setTriggerPrice(marketPrice);
+    }
+  }, [selectedInstrument.instrument_key, contractSpec.lotSize, isFandO]);
+
+  useEffect(() => {
+    if (marketPrice > 0 && price === 0) {
+      setPrice(marketPrice);
+      setTriggerPrice(marketPrice);
+    }
+  }, [marketPrice]);
 
   const handleLotsChange = (newLots: number) => {
     const validLots = Math.max(1, newLots);
