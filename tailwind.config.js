@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        '3xl': '1800px',
+      },
       colors: {
         // Cendrix Capital Bespoke Midnight Navy System
         midnight: '#0B1424',

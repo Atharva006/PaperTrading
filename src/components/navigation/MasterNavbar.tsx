@@ -110,23 +110,26 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
               <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.14em] text-[#F5F5F2] whitespace-nowrap">
-                CENDRIX CAPITAL
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.14em] text-[#F5F5F2] whitespace-nowrap">
+                  CENDRIX CAPITAL
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" title="Live Market Feeds Active" />
+              </div>
               <span className="text-[7.5px] sm:text-[8px] font-mono tracking-[0.2em] text-[#C6A15B] font-semibold uppercase whitespace-nowrap">
                 PROPRIETARY TRADING
               </span>
             </div>
           </NavLink>
 
-          {/* Cendrix Live Status Pill (Shown on wider 2xl screens to preserve nav space) */}
-          <div className="hidden 2xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
+          {/* Cendrix Live Status Pill (Shown only on extra-wide 3xl screens >= 1800px to preserve nav space) */}
+          <div className="hidden 3xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
             <span className="tracking-widest uppercase font-semibold">LIVE TICKS · NSE & MCX</span>
           </div>
 
-          {/* Top Market Indices Badges */}
-          <div className="hidden 2xl:flex items-center gap-4 text-xs font-mono border-l border-[rgba(198,161,91,0.18)] pl-5">
+          {/* Top Market Indices Badges (Shown only on extra-wide 3xl screens >= 1800px to avoid nav collision) */}
+          <div className="hidden 3xl:flex items-center gap-4 text-xs font-mono border-l border-[rgba(198,161,91,0.18)] pl-5">
             <div className="flex items-center gap-2">
               <span className="text-[#A1A8B3] font-medium font-sans text-[11px]">NIFTY 50</span>
               <span className="text-[#F5F5F2] font-bold">
@@ -155,8 +158,8 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           </div>
         </div>
 
-        {/* ── Center & Right: Cendrix Nav Links ────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-xs font-medium min-w-0 shrink">
+        {/* ── Center: Cendrix Nav Links (shrink-0 ensures no flex collision with actions) ── */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-medium shrink-0">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
             return (
@@ -192,7 +195,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
             title="Beginner Introduction & Trading Desk Guide"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden xl:inline text-[11px] font-medium">Guide</span>
+            <span className="hidden 2xl:inline text-[11px] font-medium">Guide</span>
           </button>
 
           {/* Quick Search Shortcut */}
@@ -202,7 +205,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
             title="Search Indian scrips or MCX commodities (⌘K)"
           >
             <Search className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden xl:inline text-[11px]">Search</span>
+            <span className="hidden 2xl:inline text-[11px]">Search</span>
             <kbd className="hidden sm:inline-block text-[9px] font-mono bg-[#14223A] px-1.5 py-0.2 rounded border border-[rgba(198,161,91,0.2)] text-[#C6A15B]">
               ⌘K
             </kbd>
