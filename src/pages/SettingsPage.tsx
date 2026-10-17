@@ -22,7 +22,6 @@ import {
   Check,
   Sparkles,
   Layers,
-  ArrowRight,
 } from 'lucide-react';
 
 interface SettingsPageProps {
@@ -38,7 +37,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
   const [accessToken, setAccessToken] = useState(userSettings?.upstox_access_token || import.meta.env.VITE_UPSTOX_ACCESS_TOKEN || '');
   const [redirectUri, setRedirectUri] = useState(userSettings?.upstox_redirect_uri || 'http://localhost:5173/dashboard/settings');
 
-  // Security Vault 4-Digit Passcode State (Passcode: 0000)
+  // Security Vault 4-Digit Passcode State
   const [isGatewayUnlocked, setIsGatewayUnlocked] = useState(false);
   const [pinDigits, setPinDigits] = useState(['', '', '', '']);
   const [pinError, setPinError] = useState(false);
@@ -119,17 +118,37 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
     exchangeCode();
   }, []);
 
-  // Passcode Verification Logic (Passcode: 0000)
-  const verifyPin = (currentPin: string[]) => {
+  // Cryptographic Passcode Verification Logic
+  const sha256 = async (str: string): Promise<string> => {
+    try {
+      const buffer = new TextEncoder().encode(str);
+      const digest = await crypto.subtle.digest('SHA-256', buffer);
+      return Array.from(new Uint8Array(digest))
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+    } catch {
+      return '';
+    }
+  };
+
+  const verifyPin = async (currentPin: string[]) => {
     const entered = currentPin.join('');
     if (entered.length === 4) {
-      if (entered === '0000') {
+      const enteredHash = await sha256(entered);
+      const expectedHash = import.meta.env.VITE_GATEWAY_SECURITY_HASH;
+      const expectedPin = import.meta.env.VITE_GATEWAY_SECURITY_PIN;
+
+      const isValid =
+        (expectedHash && enteredHash === expectedHash) ||
+        (expectedPin && entered === expectedPin);
+
+      if (isValid) {
         setIsGatewayUnlocked(true);
         setPinError(false);
         addToast('success', 'Clearance Granted', 'Direct Exchange Gateway credentials unlocked.');
       } else {
         setPinError(true);
-        addToast('error', 'Access Denied', 'Invalid 4-digit security PIN. Passcode is 0000.');
+        addToast('error', 'Access Denied', 'Invalid 4-digit security PIN. Authorization failed.');
         setTimeout(() => {
           setPinDigits(['', '', '', '']);
           pinInputRefs[0].current?.focus();
@@ -157,22 +176,41 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
   };
 
   const handlePinKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !pinDigits[index] && index > 0) {
+    if (e.key === 'Backspace') {
+      if (!pinDigits[index] && index > 0) {
+        const updated = [...pinDigits];
+        updated[index - 1] = '';
+        setPinDigits(updated);
+        pinInputRefs[index - 1].current?.focus();
+      } else {
+        const updated = [...pinDigits];
+        updated[index] = '';
+        setPinDigits(updated);
+      }
+    } else if (e.key === 'ArrowLeft' && index > 0) {
       pinInputRefs[index - 1].current?.focus();
+    } else if (e.key === 'ArrowRight' && index < 3) {
+      pinInputRefs[index + 1].current?.focus();
     }
   };
 
-  const handleKeypadPress = (val: string) => {
-    const firstEmptyIndex = pinDigits.findIndex((d) => d === '');
-    if (firstEmptyIndex !== -1) {
-      handlePinChange(firstEmptyIndex, val);
+  const handlePinPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text').trim();
+    const digits = pastedData.replace(/\D/g, '').slice(0, 4).split('');
+    if (digits.length > 0) {
+      const updated = ['', '', '', ''];
+      digits.forEach((d, i) => {
+        if (i < 4) updated[i] = d;
+      });
+      setPinDigits(updated);
+      setPinError(false);
+      const nextFocus = Math.min(digits.length, 3);
+      pinInputRefs[nextFocus].current?.focus();
+      if (updated.every((d) => d !== '')) {
+        verifyPin(updated);
+      }
     }
-  };
-
-  const handleKeypadClear = () => {
-    setPinDigits(['', '', '', '']);
-    setPinError(false);
-    pinInputRefs[0].current?.focus();
   };
 
   const copyToClipboard = (text: string, field: string) => {
@@ -335,7 +373,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               </p>
             </div>
 
-            {/* 4-Digit PIN Input Display */}
+            {/* 4-Digit PIN Input Display (Keyboard & Paste Only) */}
             <div className="space-y-4">
               <div className="flex items-center justify-center gap-3">
                 {pinDigits.map((digit, idx) => (
@@ -343,10 +381,13 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     key={idx}
                     ref={pinInputRefs[idx]}
                     type="password"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
                     maxLength={1}
                     value={digit}
                     onChange={(e) => handlePinChange(idx, e.target.value)}
                     onKeyDown={(e) => handlePinKeyDown(idx, e)}
+                    onPaste={handlePinPaste}
                     className={`w-12 h-14 text-center text-xl font-mono font-bold rounded-xl bg-[#0B1424] border transition-all focus:outline-none ${
                       pinError
                         ? 'border-rose-500 text-rose-400 bg-rose-500/10 animate-shake'
@@ -358,45 +399,17 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 ))}
               </div>
 
-              {/* On-Screen Touch / Click Pad */}
-              <div className="grid grid-cols-3 gap-2 max-w-[210px] mx-auto pt-2">
-                {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => handleKeypadPress(num)}
-                    className="h-10 rounded-lg bg-[#0F192B] hover:bg-[#14223A] border border-[#14223A] hover:border-[rgba(198,161,91,0.3)] text-[#F5F5F2] font-mono font-semibold text-sm transition-all active:scale-95"
-                  >
-                    {num}
-                  </button>
-                ))}
-                <button
-                  type="button"
-                  onClick={handleKeypadClear}
-                  className="h-10 rounded-lg bg-[#0F192B] hover:bg-[#14223A] border border-[#14223A] text-[#A1A8B3] hover:text-white font-mono text-[10.5px] uppercase font-semibold transition-all active:scale-95"
-                >
-                  Clear
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleKeypadPress('0')}
-                  className="h-10 rounded-lg bg-[#0F192B] hover:bg-[#14223A] border border-[#14223A] hover:border-[rgba(198,161,91,0.3)] text-[#F5F5F2] font-mono font-semibold text-sm transition-all active:scale-95"
-                >
-                  0
-                </button>
-                <button
-                  type="button"
-                  onClick={() => verifyPin(pinDigits)}
-                  className="h-10 rounded-lg btn-cendrix-gold font-mono font-bold text-xs transition-all active:scale-95 flex items-center justify-center"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-
-              <div className="pt-2">
-                <span className="px-3 py-1 rounded-full bg-[#C6A15B]/10 border border-[#C6A15B]/20 text-[10.5px] font-mono text-[#E2C889]">
-                  Default Administrator Passcode: <strong className="text-[#F5F5F2]">0000</strong>
-                </span>
+              {/* Status Note (No Hints) */}
+              <div className="pt-1">
+                {pinError ? (
+                  <span className="text-xs font-mono text-rose-400">
+                    Incorrect security PIN. Access denied.
+                  </span>
+                ) : (
+                  <span className="text-[11px] font-mono text-[#A1A8B3]">
+                    Enter 4-digit authorization PIN using keyboard
+                  </span>
+                )}
               </div>
             </div>
           </div>
