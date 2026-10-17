@@ -73,7 +73,7 @@ export const OptionChainTable: React.FC = () => {
 
   return (
     <div className="w-full flex flex-col select-none text-[#f0f3f8] font-sans">
-      {/* ── 1. Top Zerodha Control Strip ─────────────────────────────────── */}
+      {/* ── 1. Top Institutional Control Strip ───────────────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#1e2638]">
         <div className="flex flex-wrap items-center gap-3">
           {/* Title */}

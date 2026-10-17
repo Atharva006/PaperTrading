@@ -10,9 +10,9 @@ export interface RegulatoryCharges {
   brokerage: number;
   stt: number;                  // Securities / Commodities Transaction Tax
   exchange_charges: number;     // Exchange turnover charges
-  sebi_charges: number;         // SEBI turnover fee
+  sebi_charges: number;         // Statutory turnover fee
   stamp_duty: number;           // State Stamp Duty
-  gst: number;                  // 18% on (Brokerage + Exchange Charges + SEBI)
+  gst: number;                  // 18% on (Brokerage + Exchange Charges + Statutory Fee)
   total_charges: number;
 }
 

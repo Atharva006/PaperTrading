@@ -416,7 +416,7 @@ export default function Landing() {
                 </div>
                 <h3 className="text-base font-serif font-bold text-[#F5F5F2]">Indian Regulatory Tax Engine</h3>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">
-                  Exact modeling of Securities Transaction Tax (STT/CTT), GST (18%), Stamp Duty, Exchange Fees, and SEBI Turnover charges computed per trade.
+                  Exact modeling of Securities Transaction Tax (STT/CTT), GST (18%), Stamp Duty, Exchange Fees, and Statutory Turnover charges computed per trade.
                 </p>
                 <div className="text-[11px] font-mono text-emerald-400 pt-1">Accurate to the Paise</div>
               </div>
@@ -810,7 +810,7 @@ export default function Landing() {
                     <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Statutory Tax & Regulatory Deductions</td>
                     <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Full STT, CTT, GST, Stamp Duty & SEBI Turnover Charges</span>
+                      <span>Full STT, CTT, GST, Stamp Duty & Statutory Turnover Charges</span>
                     </td>
                     <td className="py-4 px-6 text-[#6E7683]">
                       ₹0 flat friction; distorts profit & loss expectations
@@ -1051,7 +1051,7 @@ export default function Landing() {
                 <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">03 / Financial Engine</div>
                 <div className="text-base font-serif font-bold text-[#F5F5F2]">SPAN & Tax Math</div>
                 <p className="text-xs text-[#A1A8B3] leading-relaxed">
-                  Instant calculation of margin requirements, STT, CTT, GST, and SEBI turnover fees.
+                  Instant calculation of margin requirements, STT, CTT, GST, and statutory turnover fees.
                 </p>
               </div>
 
@@ -1127,7 +1127,7 @@ export default function Landing() {
             <div className="pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-[#6E7683] font-mono">
               <p>© {new Date().getFullYear()} Cendrix Capital. Institutional Paper Trading Platform. All rights reserved.</p>
               <p className="text-center md:text-right max-w-xl">
-                Notice: CNRX is a simulated educational and research workstation. All funds are 100% virtual and cannot be redeemed for real currency. Not a SEBI-registered broker or financial advisor.
+                Notice: CNRX is a simulated educational and research workstation. All funds are 100% virtual and cannot be redeemed for real currency. Not a registered brokerage firm or financial advisory.
               </p>
             </div>
           </div>

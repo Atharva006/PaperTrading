@@ -159,7 +159,7 @@ export const BeginnerGuideModal: React.FC<{
     },
     {
       badge: 'STEP 2: TERMINAL & CHARTING',
-      title: 'Interactive TradingView Charts & 5-Level Depth',
+      title: 'Interactive High-Precision Charts & 5-Level Depth',
       subtitle: 'Deep technical analysis and real-time market depth at your fingertips.',
       icon: LineChart,
       iconColor: 'text-[#10B981]',
@@ -167,7 +167,7 @@ export const BeginnerGuideModal: React.FC<{
       description:
         'Head over to the Terminal tab to inspect live candlestick charts across multiple timeframes (1m, 5m, 15m, 1D). Analyze the Level 2 Market Depth (5 Bid & 5 Ask levels) to gauge institutional liquidity and support/resistance.',
       highlights: [
-        { label: 'Chart Engine', value: 'TradingView v5', desc: 'Smooth responsive candlesticks' },
+        { label: 'Chart Engine', value: 'Cendrix Canvas Engine', desc: 'Smooth responsive candlesticks' },
         { label: 'Order Depth', value: 'Level 2 (5x5)', desc: 'Inspect bid/ask size queues' },
         { label: 'Timeframes', value: '1m to 1D', desc: 'Intraday ticks to daily candles' },
       ],
@@ -206,12 +206,12 @@ export const BeginnerGuideModal: React.FC<{
     {
       badge: 'STEP 4: REGULATORY LEDGER & RISK ENGINE',
       title: 'Paise-Precision Indian Taxes & Quant Analytics',
-      subtitle: 'Accurate STT, GST, and SEBI fee deductions to reflect genuine net profitability.',
+      subtitle: 'Accurate STT, GST, and statutory fee deductions to reflect genuine net profitability.',
       icon: Receipt,
       iconColor: 'text-[#C6A15B]',
       iconBg: 'bg-[#C6A15B]/10 border-[#C6A15B]/30',
       description:
-        'Unlike unrealistic paper trading apps that hide costs, CNRX calculates Securities Transaction Tax (STT), GST (18%), Exchange turnover charges, Stamp Duty, and SEBI fees on every trade. Track your Sharpe ratio, win rate, and peak drawdown in P&L Analytics.',
+        'Unlike unrealistic paper trading apps that hide costs, CNRX calculates Securities Transaction Tax (STT), GST (18%), Exchange turnover charges, Stamp Duty, and statutory regulatory fees on every trade. Track your Sharpe ratio, win rate, and peak drawdown in P&L Analytics.',
       highlights: [
         { label: 'Taxes', value: 'STT + GST (18%)', desc: 'Calculated down to the paise' },
         { label: 'P&L Split', value: 'Gross vs Net', desc: 'Clear view of real net profit' },

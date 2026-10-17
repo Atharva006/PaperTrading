@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTradingStore } from '../../store/useTradingStore';
-import { INDIAN_INSTRUMENTS_MASTER, getZerodhaContractSpec } from '../../services/market/indianInstruments';
+import { INDIAN_INSTRUMENTS_MASTER, getExchangeContractSpec } from '../../services/market/indianInstruments';
 import type { Instrument } from '../../types/market';
 import {
   Search,
@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export const ZerodhaMarketWatch: React.FC = () => {
+export const MarketWatch: React.FC = () => {
   const {
     watchlists,
     activeWatchlistId,
@@ -52,7 +52,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
   const handleBuy = (inst: Instrument, e: React.MouseEvent) => {
     e.stopPropagation();
     setSelectedInstrument(inst);
-    const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+    const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
     const q = quotes[inst.instrument_key] || quotes[inst.tradingsymbol];
     openOrderTicket({
       instrument_key: inst.instrument_key,
@@ -70,7 +70,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
   const handleSell = (inst: Instrument, e: React.MouseEvent) => {
     e.stopPropagation();
     setSelectedInstrument(inst);
-    const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+    const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
     const q = quotes[inst.instrument_key] || quotes[inst.tradingsymbol];
     openOrderTicket({
       instrument_key: inst.instrument_key,
@@ -183,7 +183,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
         )}
       </div>
 
-      {/* ── 2. Scrips List (Authentic Flat Zerodha Row Aesthetic) ──────── */}
+      {/* ── 2. Scrips List (Flat Scrip Row Aesthetic) ────────────────────── */}
       <div className="flex-1 overflow-y-auto divide-y divide-[#171d2b]">
         {currentWl && currentWl.items.length > 0 ? (
           currentWl.items.map((item) => {
@@ -236,7 +236,7 @@ export const ZerodhaMarketWatch: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Center Hover Action Controls (Zerodha Style B / S Buttons) */}
+                {/* Center Hover Action Controls (Instant B / S Execution Buttons) */}
                 {isHovered ? (
                   <div className="flex items-center gap-1 animate-fadeIn shrink-0 pr-1">
                     <button
@@ -333,3 +333,4 @@ export const ZerodhaMarketWatch: React.FC = () => {
     </div>
   );
 };
+

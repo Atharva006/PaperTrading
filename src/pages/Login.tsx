@@ -239,8 +239,8 @@ export default function Login() {
       if (isSupabaseConfigured) {
         try {
           const { data, error: demoErr } = await supabase.auth.signInWithPassword({
-            email: 'trader@tradeedge.com',
-            password: 'TradeEdge@2026',
+            email: 'trader@cendrix.com',
+            password: 'Cendrix@2026',
           });
           if (!demoErr && data?.session?.user) {
             await init(data.session.user.id, data.session.user.email, 'Cendrix Institutional Trader');
@@ -647,7 +647,7 @@ export default function Login() {
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Platform Overview
             </Link>
-            <span className="text-[10px] font-mono">SEBI Simulation Mode</span>
+            <span className="text-[10px] font-mono">Institutional Simulation Mode</span>
           </div>
         </div>
 

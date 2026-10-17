@@ -68,7 +68,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
   const hasExchangedRef = useRef(false);
 
-  // Automatically detect and exchange Upstox OAuth authorization code from URL redirect (?code=...)
+  // Automatically detect and exchange gateway OAuth authorization code from URL redirect (?code=...)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
@@ -327,7 +327,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 )}
               </div>
               <p className="text-xs text-[#A1A8B3] mt-0.5">
-                Upstox v2 WebSocket & REST API keys for real-time NSE & MCX market depth and interactive tick stream
+                Direct WebSocket & REST telemetry gateway for real-time market depth and interactive tick stream
               </p>
             </div>
           </div>
@@ -621,7 +621,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               </div>
 
               <p className="text-[11px] text-[#A1A8B3] mt-2">
-                SEBI regulations require exchange access tokens to be re-authorized periodically. Click <strong>Authorize 1-Click</strong> to auto-generate a daily session token or paste an existing token.
+                Exchange security protocols require access tokens to be re-authorized periodically. Click <strong>Authorize 1-Click</strong> to auto-generate a daily session token or paste an existing token.
               </p>
 
               {/* Diagnostic Result Card */}

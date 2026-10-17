@@ -23,7 +23,7 @@ export interface MarginRequirementParams {
 export class FinancialCalculations {
   /**
    * Calculates regulatory and broker charges for Indian stock and derivative markets.
-   * Based on SEBI / NSE / Upstox fee schedule.
+   * Based on standard institutional exchange fee schedule.
    */
   public static calculateCharges(params: ChargeCalculationParams): RegulatoryCharges {
     const { instrumentType, product, transactionType, quantity, price, multiplier = 1 } = params;
@@ -99,10 +99,10 @@ export class FinancialCalculations {
         break;
     }
 
-    // SEBI Charges: ₹10 per crore (0.0001% of turnover)
+    // Statutory Regulatory Charges: ₹10 per crore (0.0001% of turnover)
     const sebi_charges = turnover * 0.000001;
 
-    // GST: 18% on (Brokerage + Exchange Charges + SEBI Charges)
+    // GST: 18% on (Brokerage + Exchange Charges + Statutory Charges)
     const taxable_services = brokerage + exchange_charges + sebi_charges;
     const gst = taxable_services * 0.18;
 

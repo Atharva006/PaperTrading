@@ -489,7 +489,7 @@ export const INDIAN_INSTRUMENTS_MASTER: Instrument[] = [
   },
 ];
 
-export interface ZerodhaContractSpec {
+export interface ExchangeContractSpec {
   lotSize: number;
   unit: string;
   pricePerUnit: string;
@@ -498,14 +498,14 @@ export interface ZerodhaContractSpec {
 }
 
 /**
- * Returns exact Zerodha contract specifications for Indian indices, commodities (MCX), and equities.
+ * Returns exact standard exchange contract specifications for Indian indices, commodities (MCX), and equities.
  */
-export function getZerodhaContractSpec(
+export function getExchangeContractSpec(
   tradingsymbol: string = '',
   instrumentType: string = 'EQUITY',
   exchange: string = 'NSE',
   fallbackLotSize: number = 1
-): ZerodhaContractSpec {
+): ExchangeContractSpec {
   const sym = tradingsymbol.toUpperCase().trim();
   const type = instrumentType.toUpperCase();
   const ex = exchange.toUpperCase();
@@ -740,3 +740,4 @@ export function getZerodhaContractSpec(
     lotDescription: `1 Lot = ${fallbackLotSize} Qty`,
   };
 }
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTradingStore } from '../../store/useTradingStore';
 import { FinancialCalculations } from '../../services/trading/FinancialCalculations';
 import { marketDataService } from '../../services/market/MarketDataService';
-import { getZerodhaContractSpec } from '../../services/market/indianInstruments';
+import { getExchangeContractSpec } from '../../services/market/indianInstruments';
 import { INSTRUMENT_KEY_ALIASES } from '../../services/market/UpstoxProvider';
 import type { TransactionType, ProductType, OrderType } from '../../types/trading';
 import { X, RefreshCw, Minus, Plus } from 'lucide-react';
@@ -37,7 +37,7 @@ export const OrderTicket: React.FC = () => {
     (activeInstrument.instrument_key.includes('|') ? quotes[activeInstrument.instrument_key.replace('|', ':')] : undefined);
   const marketPrice = quote && quote.last_price > 0 ? quote.last_price : (orderTicketInitialProps?.price || 0);
 
-  const contractSpec = getZerodhaContractSpec(
+  const contractSpec = getExchangeContractSpec(
     activeInstrument.tradingsymbol,
     activeInstrument.instrument_type,
     activeInstrument.exchange,
@@ -77,7 +77,7 @@ export const OrderTicket: React.FC = () => {
   const [triggerPrice, setTriggerPrice] = useState(marketPrice > 0 ? marketPrice : 0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Pre-fetch live quote from Upstox
+  // Pre-fetch live quote from exchange gateway
   useEffect(() => {
     if (!isOrderTicketOpen) return;
     marketDataService.getQuote(realKey).then((q) => {
@@ -145,7 +145,7 @@ export const OrderTicket: React.FC = () => {
 
   const effectivePrice = orderType === 'MARKET' ? marketPrice : price;
 
-  // Real margin requirement using exact Zerodha contract multiplier
+  // Real margin requirement using exact exchange contract multiplier
   const requiredMargin = FinancialCalculations.calculateRequiredMargin({
     instrumentType: activeInstrument.instrument_type,
     product,

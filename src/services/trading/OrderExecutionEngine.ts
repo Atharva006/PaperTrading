@@ -11,7 +11,7 @@ import type {
 } from '../../types/trading';
 import type { MarketQuote } from '../../types/market';
 import { FinancialCalculations } from './FinancialCalculations';
-import { getZerodhaContractSpec } from '../market/indianInstruments';
+import { getExchangeContractSpec } from '../market/indianInstruments';
 
 export interface OrderSubmissionParams {
   account: PaperAccount;
@@ -148,7 +148,7 @@ export class OrderExecutionEngine {
       };
     }
 
-    const contractSpec = getZerodhaContractSpec(tradingsymbol, instrument_type, exchange, lot_size);
+    const contractSpec = getExchangeContractSpec(tradingsymbol, instrument_type, exchange, lot_size);
     const contractMultiplier = contractSpec.multiplier;
 
     // Calculate required margin

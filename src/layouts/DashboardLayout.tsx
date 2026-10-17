@@ -6,7 +6,7 @@ import { CommandPalette } from '../components/common/CommandPalette';
 import { OrderTicket } from '../components/trading/OrderTicket';
 import { ToastContainer } from '../components/common/ToastContainer';
 import { ResetAccountModal } from '../components/common/ResetAccountModal';
-import { ZerodhaMarketWatch } from '../components/trading/ZerodhaMarketWatch';
+import { MarketWatch } from '../components/trading/MarketWatch';
 import { BeginnerGuideModal } from '../components/common/BeginnerGuideModal';
 
 export default function DashboardLayout() {
@@ -29,7 +29,7 @@ export default function DashboardLayout() {
       <div className="flex-1 flex overflow-hidden w-full max-w-full">
         {/* Persistent Left MarketWatch on Desktop (lg+ screens) */}
         <aside className="hidden lg:block w-[320px] xl:w-[350px] shrink-0 h-[calc(100vh-56px)] sticky top-14 overflow-hidden border-r border-[#14223A] bg-[#10141C] z-10">
-          <ZerodhaMarketWatch />
+          <MarketWatch />
         </aside>
 
         {/* Main Content Workspace (Scrolls independently without horizontal overflow) */}
@@ -45,7 +45,7 @@ export default function DashboardLayout() {
         onOpenReset={() => setIsResetOpen(true)}
       />
 
-      {/* ── 4. Global Modals, Zerodha Order Window & Command Palette ────── */}
+      {/* ── 4. Global Modals, Order Window & Command Palette ─────────────── */}
       <CommandPalette
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}

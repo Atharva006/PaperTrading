@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
-import { INDIAN_INSTRUMENTS_MASTER, getZerodhaContractSpec } from '../services/market/indianInstruments';
+import { INDIAN_INSTRUMENTS_MASTER, getExchangeContractSpec } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
 import type { Instrument } from '../types/market';
 import type { ProductType, OrderType, TransactionType } from '../types/trading';
@@ -57,7 +57,7 @@ export default function CommoditiesPage() {
 
   const currentQuote = quotes[activeCommodity.instrument_key] || quotes[activeCommodity.tradingsymbol];
   const depth = currentQuote?.depth;
-  const activeSpec = getZerodhaContractSpec(
+  const activeSpec = getExchangeContractSpec(
     activeCommodity.tradingsymbol,
     activeCommodity.instrument_type,
     activeCommodity.exchange,
@@ -77,7 +77,7 @@ export default function CommoditiesPage() {
 
   const handleSelectCommodity = (inst: Instrument) => {
     setSelectedInstrument(inst);
-    const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+    const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
     setLots(1);
     setQuantity(spec.lotSize);
     const q = quotes[inst.instrument_key] || quotes[inst.tradingsymbol];
@@ -142,7 +142,7 @@ export default function CommoditiesPage() {
 
   const handleOpenModal = (inst: Instrument, type: 'BUY' | 'SELL') => {
     setSelectedInstrument(inst);
-    const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+    const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
     openOrderTicket({
       instrument_key: inst.instrument_key,
       tradingsymbol: inst.tradingsymbol,
@@ -622,7 +622,7 @@ export default function CommoditiesPage() {
             </div>
           )}
 
-          {/* Exact Zerodha Contract Specifications */}
+          {/* Contract Specifications */}
           <div className="cendrix-card p-4 rounded-xl border border-[rgba(198,161,91,0.2)] text-xs space-y-2">
             <h4 className="text-[11px] font-semibold text-[#F5F5F2] uppercase mb-1 font-mono flex items-center justify-between border-b border-[#14223A] pb-2">
               <span className="flex items-center gap-1.5">
@@ -764,7 +764,7 @@ export default function CommoditiesPage() {
                 const changePct = q ? q.change_percent : 0;
                 const isPos = change >= 0;
                 const isSelected = activeCommodity.instrument_key === c.instrument_key;
-                const spec = getZerodhaContractSpec(c.tradingsymbol, c.instrument_type, c.exchange, c.lot_size);
+                const spec = getExchangeContractSpec(c.tradingsymbol, c.instrument_type, c.exchange, c.lot_size);
 
                 return (
                   <tr

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
-import { INDIAN_INSTRUMENTS_MASTER, getZerodhaContractSpec } from '../services/market/indianInstruments';
+import { INDIAN_INSTRUMENTS_MASTER, getExchangeContractSpec } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
 import type { OrderType, ProductType, TransactionType } from '../types/trading';
 import {
@@ -27,7 +27,7 @@ export default function TerminalPage() {
   const depth = quote?.depth;
   const marketPrice = quote && quote.last_price > 0 ? quote.last_price : 0;
 
-  const contractSpec = getZerodhaContractSpec(
+  const contractSpec = getExchangeContractSpec(
     selectedInstrument.tradingsymbol,
     selectedInstrument.instrument_type,
     selectedInstrument.exchange,
@@ -140,7 +140,7 @@ export default function TerminalPage() {
               const inst = INDIAN_INSTRUMENTS_MASTER.find((i) => i.instrument_key === e.target.value);
               if (inst) {
                 setSelectedInstrument(inst);
-                const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+                const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
                 setQuantity(spec.lotSize);
                 setLots(1);
               }
@@ -165,7 +165,7 @@ export default function TerminalPage() {
                     const inst = INDIAN_INSTRUMENTS_MASTER.find((i) => i.instrument_key === chip.key);
                     if (inst) {
                       setSelectedInstrument(inst);
-                      const spec = getZerodhaContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
+                      const spec = getExchangeContractSpec(inst.tradingsymbol, inst.instrument_type, inst.exchange, inst.lot_size);
                       setQuantity(spec.lotSize);
                       setLots(1);
                     }
