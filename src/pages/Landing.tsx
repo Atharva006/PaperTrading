@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ArrowRight, 
@@ -29,6 +29,7 @@ import {
   Play
 } from 'lucide-react';
 import { useTradingStore } from '../store/useTradingStore';
+import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
 
 // Spotlight ticker items for the continuous marquee
 const TICKER_ITEMS = [
@@ -51,9 +52,17 @@ interface DemoSimPosition {
   qty: number;
   entryPrice: number;
   currentPrice: number;
+  multiplier: number;
   pnl: number;
   pnlPct: number;
 }
+
+const DEMO_MULTIPLIERS: Record<string, number> = {
+  RELIANCE: 1,
+  NIFTY: 25,
+  GOLDM: 10,
+  SILVERM: 5,
+};
 
 export default function Landing() {
   const [scrolled, setScrolled] = useState(false);
@@ -72,16 +81,23 @@ export default function Landing() {
       qty: 1,
       entryPrice: 76180,
       currentPrice: 76420,
+      multiplier: 10,
       pnl: 2400,
       pnlPct: 0.32,
     }
   ]);
-  const [demoExecutedAlert, setDemoExecutedAlert] = useState(false);
+  const [demoExecutedAlert, setDemoExecutedAlert] = useState<{ side: 'BUY' | 'SELL'; price: number } | null>(null);
+  const demoAlertTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (demoAlertTimerRef.current !== null) {
+        clearTimeout(demoAlertTimerRef.current);
+      }
+    };
   }, []);
 
   // Ticking simulated price updates for demo positions
@@ -91,9 +107,10 @@ export default function Landing() {
         prev.map((pos) => {
           const delta = (Math.random() - 0.48) * (pos.symbol.includes('GOLD') ? 15 : 2.5);
           const newPrice = Math.max(1, pos.currentPrice + delta);
+          const mult = pos.multiplier || 1;
           const pnl = pos.side === 'BUY' 
-            ? (newPrice - pos.entryPrice) * pos.qty * 10
-            : (pos.entryPrice - newPrice) * pos.qty * 10;
+            ? (newPrice - pos.entryPrice) * pos.qty * mult
+            : (pos.entryPrice - newPrice) * pos.qty * mult;
           const pnlPct = ((newPrice - pos.entryPrice) / pos.entryPrice) * (pos.side === 'BUY' ? 100 : -100);
           return {
             ...pos,
@@ -110,13 +127,24 @@ export default function Landing() {
 
   const handleSimulateTrade = (e: React.FormEvent) => {
     e.preventDefault();
-    const prices: Record<string, number> = {
+    const keyMap: Record<string, string> = {
+      GOLDM: INDIAN_INSTRUMENTS_MASTER.find((i) => i.tradingsymbol.startsWith('GOLDM'))?.instrument_key ?? 'MCX_FO|495213',
+      NIFTY: INDIAN_INSTRUMENTS_MASTER.find((i) => i.tradingsymbol === 'NIFTY 50')?.instrument_key ?? 'NSE_INDEX|Nifty 50',
+      RELIANCE: INDIAN_INSTRUMENTS_MASTER.find((i) => i.tradingsymbol === 'RELIANCE')?.instrument_key ?? 'NSE_EQ|INE002A01018',
+      SILVERM: INDIAN_INSTRUMENTS_MASTER.find(
+        (i) => i.tradingsymbol.startsWith('SILVERM') && !i.tradingsymbol.startsWith('SILVERMIC')
+      )?.instrument_key ?? 'MCX_FO|495214',
+    };
+    const liveQ = quotes[keyMap[demoSymbol]];
+    const fallbackPrices: Record<string, number> = {
       GOLDM: 76420,
       NIFTY: 24850,
       RELIANCE: 2985,
       SILVERM: 91540,
     };
-    const fillPrice = prices[demoSymbol] || 1000;
+    const fillPrice = (liveQ && liveQ.last_price > 0) ? liveQ.last_price : (fallbackPrices[demoSymbol] || 1000);
+    const multiplier = DEMO_MULTIPLIERS[demoSymbol] || 1;
+
     const newPos: DemoSimPosition = {
       id: `demo-${Date.now()}`,
       symbol: demoSymbol === 'GOLDM' ? 'GOLDM 05NOV FUT' : demoSymbol === 'SILVERM' ? 'SILVERM 05DEC FUT' : demoSymbol,
@@ -124,12 +152,19 @@ export default function Landing() {
       qty: demoQty,
       entryPrice: fillPrice,
       currentPrice: fillPrice,
+      multiplier,
       pnl: 0,
       pnlPct: 0,
     };
     setDemoPositions((prev) => [newPos, ...prev.slice(0, 3)]);
-    setDemoExecutedAlert(true);
-    setTimeout(() => setDemoExecutedAlert(false), 3000);
+    if (demoAlertTimerRef.current !== null) {
+      clearTimeout(demoAlertTimerRef.current);
+    }
+    setDemoExecutedAlert({ side: demoSide, price: fillPrice });
+    demoAlertTimerRef.current = setTimeout(() => {
+      setDemoExecutedAlert(null);
+      demoAlertTimerRef.current = null;
+    }, 3000);
   };
 
   return (
@@ -205,9 +240,18 @@ export default function Landing() {
           <div className="overflow-hidden whitespace-nowrap flex-1 py-2">
             <div className="animate-marquee gap-8 items-center text-xs font-mono">
               {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, idx) => {
-                const liveQuote = quotes[item.symbol];
+                const tickerInstrument = INDIAN_INSTRUMENTS_MASTER.find(
+                  (instrument) =>
+                    instrument.tradingsymbol === item.symbol ||
+                    instrument.tradingsymbol.replace(/\s+/g, '') === item.symbol ||
+                    instrument.tradingsymbol.startsWith(item.symbol)
+                );
+                const liveQuote = tickerInstrument
+                  ? quotes[tickerInstrument.instrument_key] ?? quotes[item.symbol]
+                  : quotes[item.symbol];
                 const displayPrice = liveQuote?.last_price || item.price;
                 const displayChange = liveQuote?.change !== undefined ? liveQuote.change : item.change;
+                const displayPct = liveQuote?.change_percent !== undefined ? liveQuote.change_percent : item.pct;
                 const isPos = displayChange >= 0;
 
                 return (
@@ -219,7 +263,7 @@ export default function Landing() {
                     <span className="font-bold text-[#F5F5F2]">₹{displayPrice.toFixed(2)}</span>
                     <span className={`text-[11px] font-semibold flex items-center ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
                       {isPos ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-                      {isPos ? '+' : ''}{displayChange.toFixed(2)} ({item.pct.toFixed(2)}%)
+                      {isPos ? '+' : ''}{displayChange.toFixed(2)} ({displayPct.toFixed(2)}%)
                     </span>
                     <span className="text-[#14223A] mx-2">|</span>
                   </div>
@@ -631,7 +675,7 @@ export default function Landing() {
 
                   {demoExecutedAlert && (
                     <div className="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono text-center animate-bounce">
-                      ✓ Fill Confirmed @ Genuine Market Price
+                      ✓ Simulated {demoExecutedAlert.side} Fill Executed @ ₹{demoExecutedAlert.price.toLocaleString('en-IN')}
                     </div>
                   )}
                 </form>

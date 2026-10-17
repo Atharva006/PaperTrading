@@ -198,7 +198,7 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between py-1.5 border-b border-[#14223A]/70">
               <span className="text-[#A1A8B3]">Available cash:</span>
-              <span className="font-bold text-[#F5F5F2]">₹{fmt(availableMargin)}</span>
+              <span className="font-bold text-[#F5F5F2]">₹{fmt(account?.cash_balance)}</span>
             </div>
             <div className="flex justify-between py-1.5 border-b border-[#14223A]/70">
               <span className="text-[#A1A8B3]">Opening balance:</span>

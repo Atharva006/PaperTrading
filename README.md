@@ -206,9 +206,9 @@ VITE_DEMO_MODE=false
 
 ## 7. Direct Exchange Gateway Authentication Setup
 
-The Direct Exchange Gateway uses standard OAuth 2.0. Follow these steps to obtain API credentials:
+The Direct Exchange Gateway uses standard OAuth 2.0 (configured for the Upstox API v2 gateway protocol). Follow these steps to obtain API credentials:
 
-1. Log in to your Authorized Exchange Developer Console.
+1. Log in to your Authorized Exchange / Upstox Developer Console.
 2. Create a new App:
    - **App Name**: `CNRX Paper Trading`
    - **Redirect URL**: `http://localhost:5173/dashboard/settings` (or your production Vercel URL)

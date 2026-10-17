@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Sparkles,
@@ -25,6 +25,8 @@ export const BeginnerGuideModal: React.FC<{
   const [currentStep, setCurrentStep] = useState(0);
   const [dontShowAgain, setDontShowAgain] = useState(false);
   const navigate = useNavigate();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
 
   // Auto-launch guide on first arrival if never seen before
   useEffect(() => {
@@ -38,7 +40,29 @@ export const BeginnerGuideModal: React.FC<{
     }
   }, []);
 
-  // Keyboard navigation
+  // Manage focus capture and restoration
+  useEffect(() => {
+    if (isGuideOpen) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
+      const timer = setTimeout(() => {
+        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable && focusable.length > 0) {
+          focusable[0].focus();
+        } else {
+          modalRef.current?.focus();
+        }
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      if (previousActiveElement.current && typeof previousActiveElement.current.focus === 'function') {
+        previousActiveElement.current.focus();
+      }
+    }
+  }, [isGuideOpen]);
+
+  // Keyboard navigation & Focus Trap
   useEffect(() => {
     if (!isGuideOpen) return;
 
@@ -49,6 +73,29 @@ export const BeginnerGuideModal: React.FC<{
         if (currentStep < steps.length - 1) setCurrentStep((prev) => prev + 1);
       } else if (e.key === 'ArrowLeft') {
         if (currentStep > 0) setCurrentStep((prev) => prev - 1);
+      } else if (e.key === 'Tab' && modalRef.current) {
+        const focusables = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables || focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey) {
+          if (
+            document.activeElement === first ||
+            document.activeElement === modalRef.current ||
+            !modalRef.current.contains(document.activeElement)
+          ) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last || !modalRef.current.contains(document.activeElement)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
 
@@ -195,7 +242,14 @@ export const BeginnerGuideModal: React.FC<{
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-2xl bg-[#0F192B] border border-[rgba(198,161,91,0.3)] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden z-10 flex flex-col font-sans">
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="guide-modal-title"
+        tabIndex={-1}
+        className="relative w-full max-w-2xl bg-[#0F192B] border border-[rgba(198,161,91,0.3)] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.85)] overflow-hidden z-10 flex flex-col font-sans focus:outline-none"
+      >
         
         {/* Top Gold Accent Strip */}
         <div className="h-1 bg-gradient-to-r from-transparent via-[#C6A15B] to-transparent w-full" />
@@ -215,7 +269,7 @@ export const BeginnerGuideModal: React.FC<{
                   · Step {currentStep + 1} of {steps.length}
                 </span>
               </div>
-              <h2 className="text-lg sm:text-xl font-serif font-bold text-[#F5F5F2] mt-0.5 tracking-tight">
+              <h2 id="guide-modal-title" className="text-lg sm:text-xl font-serif font-bold text-[#F5F5F2] mt-0.5 tracking-tight">
                 {current.title}
               </h2>
             </div>
