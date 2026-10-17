@@ -57,7 +57,8 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     { name: 'Terminal / Chart', path: '/dashboard/terminal', icon: LineChart },
     { name: 'Market Watch', path: '/dashboard/watchlist', icon: Eye },
     { name: 'MCX Commodities', path: '/dashboard/commodities', icon: Flame },
-    { name: 'F&O Explorer', path: '/dashboard/derivatives', icon: Binary },
+    { name: 'Option Chain', path: '/dashboard/option-chain', icon: Binary },
+    { name: 'F&O Explorer', path: '/dashboard/derivatives', icon: Layers },
     {
       name: 'Positions',
       path: '/dashboard/positions',
@@ -80,7 +81,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 xl:hidden">
+    <div className="fixed inset-0 z-50 lg:hidden">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"

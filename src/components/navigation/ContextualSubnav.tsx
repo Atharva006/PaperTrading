@@ -86,6 +86,7 @@ export const ContextualSubnav: React.FC = () => {
     if (path.includes('terminal')) return 'Trading Workstation';
     if (path.includes('watchlist')) return 'Market Watch & Depth';
     if (path.includes('derivatives')) return 'Futures & Derivatives';
+    if (path.includes('option-chain')) return 'Real-Time Option Chain (CE/PE)';
     if (path.includes('positions')) return 'Active Positions & MTM';
     if (path.includes('orders')) return 'Order Book & Executions';
     if (path.includes('holdings')) return 'Equity Portfolio Holdings';

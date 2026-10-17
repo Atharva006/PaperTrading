@@ -89,7 +89,7 @@ export default function AnalyticsPage() {
     n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
-    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-6">
+    <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-6">
       {/* ── 1. Top Cendrix Header Strip ─────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
         <div>

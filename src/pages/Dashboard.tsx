@@ -62,7 +62,7 @@ export default function Dashboard() {
   const availableMargin = metrics.available_margin;
 
   return (
-    <div className="space-y-6 pb-12 w-full max-w-[1440px] mx-auto select-none font-sans text-xs text-[#F5F5F2]">
+    <div className="space-y-6 pb-12 w-full max-w-full mx-auto select-none font-sans text-xs text-[#F5F5F2]">
       
       {/* ── 1. Cendrix Capital Greeting Header ────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">

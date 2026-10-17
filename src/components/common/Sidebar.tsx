@@ -47,6 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
     { name: 'Market Watch', path: '/dashboard/watchlist', icon: TrendingUp },
     { name: 'Terminal', path: '/dashboard/terminal', icon: Activity },
     { name: 'Commodities (MCX)', path: '/dashboard/commodities', icon: Flame, badge: 'MCX', badgeColor: 'bg-[#D4AF65]/15 text-[#D4AF65]' },
+    { name: 'Option Chain', path: '/dashboard/option-chain', icon: Binary },
     { name: 'Derivatives Explorer', path: '/dashboard/derivatives', icon: Binary },
     { name: 'Positions', path: '/dashboard/positions', icon: Briefcase, badge: openPositionsCount || undefined, badgeColor: 'bg-[#00C087]/20 text-[#00C087]' },
     { name: 'Orders', path: '/dashboard/orders', icon: Clock, badge: pendingOrdersCount || undefined, badgeColor: 'bg-[#D4AF65]/20 text-[#D4AF65]' },

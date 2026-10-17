@@ -16,7 +16,7 @@ export default function DashboardLayout() {
   const [isMobileWatchlistOpen, setIsMobileWatchlistOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B1424] text-[#F5F5F2] font-sans selection:bg-[#C6A15B] selection:text-[#0B1424]">
+    <div className="min-h-screen flex flex-col bg-[#0B1424] text-[#F5F5F2] font-sans selection:bg-[#C6A15B] selection:text-[#0B1424] overflow-x-hidden">
       {/* ── 1. Cendrix Institutional Top Navigation Bar ────────────────────── */}
       <MasterNavbar
         onOpenSearch={() => setIsSearchOpen(true)}
@@ -26,14 +26,14 @@ export default function DashboardLayout() {
       />
 
       {/* ── 2. Cendrix Split Layout: MarketWatch + Workspace ───────────────── */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden w-full max-w-full">
         {/* Persistent Left MarketWatch on Desktop (lg+ screens) */}
-        <aside className="hidden lg:block w-[360px] xl:w-[400px] shrink-0 h-[calc(100vh-56px)] sticky top-14 overflow-hidden border-r border-[#14223A] bg-[#10141C] z-10">
+        <aside className="hidden lg:block w-[320px] xl:w-[350px] shrink-0 h-[calc(100vh-56px)] sticky top-14 overflow-hidden border-r border-[#14223A] bg-[#10141C] z-10">
           <ZerodhaMarketWatch />
         </aside>
 
-        {/* Main Content Workspace (Scrolls independently) */}
-        <main className="flex-1 min-w-0 h-[calc(100vh-56px)] overflow-y-auto px-4 sm:px-6 py-5 bg-[#0B1424]">
+        {/* Main Content Workspace (Scrolls independently without horizontal overflow) */}
+        <main className="flex-1 min-w-0 h-[calc(100vh-56px)] overflow-y-auto overflow-x-hidden px-3 sm:px-6 py-5 bg-[#0B1424]">
           <Outlet />
         </main>
       </div>

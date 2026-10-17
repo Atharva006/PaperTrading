@@ -88,6 +88,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
       path: '/dashboard/positions',
       badge: openPositionsCount > 0 ? openPositionsCount : undefined,
     },
+    { name: 'Options', path: '/dashboard/option-chain' },
     { name: 'Terminal', path: '/dashboard/terminal' },
     { name: 'Commodities', path: '/dashboard/commodities' },
     { name: 'Funds', path: '/dashboard/portfolio' },
@@ -96,30 +97,30 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-[#0B1424] border-b border-[rgba(198,161,91,0.22)] select-none shadow-xl shadow-black/40 font-sans">
-      <div className="max-w-[1920px] mx-auto px-4 h-14 flex items-center justify-between gap-4">
+      <div className="w-full mx-auto px-4 h-14 flex items-center justify-between gap-2">
         
         {/* ── Left Side: Cendrix Brand Wordmark & Session Pill ───────────── */}
-        <div className="flex items-center gap-5 shrink-0">
+        <div className="flex items-center gap-3 xl:gap-5 shrink-0">
           {/* Brand Logo & Name */}
           <NavLink
             to="/dashboard"
-            className="flex items-center gap-3 group transition-transform active:scale-95"
+            className="flex items-center gap-2.5 group transition-transform active:scale-95 shrink-0"
           >
             <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1 overflow-hidden shadow-sm shadow-[#C6A15B]/10">
               <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col">
-              <span className="font-serif font-bold text-sm tracking-[0.16em] text-[#F5F5F2]">
+              <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.14em] text-[#F5F5F2] whitespace-nowrap">
                 CENDRIX CAPITAL
               </span>
-              <span className="text-[8px] font-mono tracking-[0.22em] text-[#C6A15B] font-semibold uppercase">
+              <span className="text-[7.5px] sm:text-[8px] font-mono tracking-[0.2em] text-[#C6A15B] font-semibold uppercase whitespace-nowrap">
                 PROPRIETARY TRADING
               </span>
             </div>
           </NavLink>
 
-          {/* Cendrix Live Status Pill */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
+          {/* Cendrix Live Status Pill (Shown on wider 2xl screens to preserve nav space) */}
+          <div className="hidden 2xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B] border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
             <span className="tracking-widest uppercase font-semibold">LIVE TICKS · NSE & MCX</span>
           </div>
@@ -155,20 +156,20 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
         </div>
 
         {/* ── Center & Right: Cendrix Nav Links ────────────────────────── */}
-        <nav className="hidden xl:flex items-center gap-6 text-xs font-medium">
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 text-xs font-medium min-w-0 shrink">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
             return (
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`relative py-4 transition-colors flex items-center gap-1.5 ${
+                className={`relative py-4 px-1.5 xl:px-2.5 transition-colors flex items-center gap-1 ${
                   isActive
                     ? 'text-[#C6A15B] font-semibold'
                     : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
                 }`}
               >
-                <span className="tracking-wide uppercase text-[11px] font-semibold">{item.name}</span>
+                <span className="tracking-wide uppercase text-[10.5px] xl:text-[11px] font-semibold whitespace-nowrap">{item.name}</span>
                 {item.badge !== undefined && (
                   <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#C6A15B] text-[#0B1424]">
                     {item.badge}
@@ -183,26 +184,26 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
         </nav>
 
         {/* ── Far Right: Guide, Search, Quick Order & User Profile ───────────── */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
           {/* Beginner Guide Walkthrough */}
           <button
             onClick={openGuide}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-colors"
+            className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-colors"
             title="Beginner Introduction & Trading Desk Guide"
           >
             <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden md:inline text-[11px] font-medium">Guide</span>
+            <span className="hidden xl:inline text-[11px] font-medium">Guide</span>
           </button>
 
           {/* Quick Search Shortcut */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-colors"
+            className="flex items-center gap-1.5 px-2 py-1.5 rounded bg-[#0F192B] hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-colors"
             title="Search Indian scrips or MCX commodities (⌘K)"
           >
             <Search className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden sm:inline text-[11px]">Search</span>
-            <kbd className="hidden md:inline-block text-[9px] font-mono bg-[#14223A] px-1.5 py-0.2 rounded border border-[rgba(198,161,91,0.2)] text-[#C6A15B]">
+            <span className="hidden xl:inline text-[11px]">Search</span>
+            <kbd className="hidden sm:inline-block text-[9px] font-mono bg-[#14223A] px-1.5 py-0.2 rounded border border-[rgba(198,161,91,0.2)] text-[#C6A15B]">
               ⌘K
             </kbd>
           </button>
@@ -210,7 +211,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Order Trigger */}
           <button
             onClick={() => openOrderTicket()}
-            className="btn-cendrix-gold py-1.5 px-3.5 text-xs font-bold rounded shadow-sm flex items-center gap-1.5"
+            className="btn-cendrix-gold py-1.5 px-2.5 sm:px-3.5 text-xs font-bold rounded shadow-sm flex items-center gap-1.5"
             title="Open Order Window"
           >
             <PlusCircle className="w-3.5 h-3.5" />
@@ -297,10 +298,10 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
             )}
           </div>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Toggle Button (Visible only on mobile/tablet below lg) */}
           <button
             onClick={onToggleMobileNav}
-            className="xl:hidden p-1.5 rounded text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] border border-[rgba(198,161,91,0.2)]"
+            className="lg:hidden p-1.5 rounded text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] border border-[rgba(198,161,91,0.2)]"
           >
             {isMobileNavOpen ? <X className="w-5 h-5 text-[#C6A15B]" /> : <Menu className="w-5 h-5 text-[#C6A15B]" />}
           </button>

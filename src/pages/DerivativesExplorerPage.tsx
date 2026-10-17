@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
 import { FinancialCalculations } from '../services/trading/FinancialCalculations';
+import { OptionChainTable } from '../components/options/OptionChainTable';
 import type { Instrument } from '../types/market';
 
 export default function DerivativesExplorerPage() {
   const { openOrderTicket, quotes, setSelectedInstrument } = useTradingStore();
-  const [filterType, setFilterType] = useState<'ALL' | 'INDEX' | 'STOCK'>('ALL');
+  const [filterType, setFilterType] = useState<'ALL' | 'INDEX' | 'STOCK' | 'OPTIONS'>('ALL');
 
   const futures = INDIAN_INSTRUMENTS_MASTER.filter((i) =>
     i.instrument_type === 'FUTIDX' || i.instrument_type === 'FUTSTK'
@@ -31,7 +32,7 @@ export default function DerivativesExplorerPage() {
   };
 
   return (
-    <div className="w-full max-w-[1720px] mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-4">
+    <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-12 space-y-4">
       {/* ── 1. Top Cendrix Header Strip ─────────────────────────────────── */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#14223A]">
         <div>
@@ -40,52 +41,56 @@ export default function DerivativesExplorerPage() {
               Quantitative Derivatives Desk · Margin Engine
             </span>
           </div>
-          <h1 className="text-2xl font-serif tracking-tight text-[#F5F5F2] flex items-center gap-2.5">
+          <h1 className="text-xl sm:text-2xl font-serif tracking-tight text-[#F5F5F2] flex items-center gap-2.5">
             <span>Futures & Derivatives</span>
             <span className="text-xs font-mono font-normal text-[#A1A8B3]">
-              ({futures.length} contracts)
+              {filterType === 'OPTIONS' ? 'Option Chain' : `(${futures.length} contracts)`}
             </span>
           </h1>
           <p className="text-xs text-[#A1A8B3] mt-0.5">
-            NSE & BSE Index & Stock Futures with verified lot sizes and real-time margin requirements
+            NSE & BSE Index & Stock Futures and Options with real-time margin requirements
           </p>
         </div>
 
         {/* Filter Sub-Tabs */}
-        <div className="flex items-center gap-4 text-xs font-mono">
-          {(['ALL', 'INDEX', 'STOCK'] as const).map((t) => (
+        <div className="flex items-center gap-2 sm:gap-4 text-xs font-mono flex-wrap">
+          {(['ALL', 'INDEX', 'STOCK', 'OPTIONS'] as const).map((t) => (
             <button
               key={t}
               onClick={() => setFilterType(t)}
-              className={`pb-1.5 px-1 border-b-2 transition-all font-semibold ${
+              className={`pb-1.5 px-1 border-b-2 transition-all font-semibold whitespace-nowrap ${
                 filterType === t
                   ? 'border-[#C6A15B] text-[#C6A15B]'
                   : 'border-transparent text-[#6E7683] hover:text-[#F5F5F2]'
               }`}
             >
-              {t === 'ALL' ? 'All Futures' : t === 'INDEX' ? 'Index Futures' : 'Stock Futures'}
+              {t === 'ALL' ? 'All Futures' : t === 'INDEX' ? 'Index Futures' : t === 'STOCK' ? 'Stock Futures' : 'Option Chain (CE/PE)'}
             </button>
           ))}
         </div>
       </div>
 
-      {/* ── 2. Full-Width Futures Table ───────────────────── */}
-      <div className="overflow-x-auto mt-2 cendrix-card rounded-xl border border-[#14223A]">
-        <table className="w-full text-left border-collapse text-xs">
-          <thead>
-            <tr className="border-b border-[#14223A] text-[#6E7683] text-[11px] font-mono uppercase bg-[#0B1424]">
-              <th className="py-3 px-4">Contract</th>
-              <th className="py-3 px-4">Segment</th>
-              <th className="py-3 px-4">Expiry</th>
-              <th className="py-3 px-4 text-right">Lot Size</th>
-              <th className="py-3 px-4 text-right">Future LTP (₹)</th>
-              <th className="py-3 px-4 text-right">Underlying Spot</th>
-              <th className="py-3 px-4 text-right">Basis</th>
-              <th className="py-3 px-4 text-right">Margin / Lot</th>
-              <th className="py-3 px-4 text-right">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[#14223A] font-mono">
+      {/* ── 2. Option Chain View OR Futures Table ───────────────────── */}
+      {filterType === 'OPTIONS' ? (
+        <OptionChainTable />
+      ) : (
+        <div className="w-full overflow-hidden mt-2 cendrix-card rounded-xl border border-[#14223A]">
+          <div className="w-full overflow-x-auto">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="border-b border-[#14223A] text-[#6E7683] text-[10.5px] font-mono uppercase bg-[#0B1424]">
+                  <th className="py-2.5 px-3">Contract</th>
+                  <th className="py-2.5 px-2.5">Segment</th>
+                  <th className="py-2.5 px-2.5">Expiry</th>
+                  <th className="py-2.5 px-2.5 text-right">Lot Size</th>
+                  <th className="py-2.5 px-2.5 text-right">Future LTP (₹)</th>
+                  <th className="py-2.5 px-2.5 text-right">Underlying Spot</th>
+                  <th className="py-2.5 px-2.5 text-right">Basis</th>
+                  <th className="py-2.5 px-2.5 text-right">Margin / Lot</th>
+                  <th className="py-2.5 px-3 text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#14223A] font-mono">
             {futures.map((inst) => {
               const quote = quotes[inst.instrument_key];
               const underlyingQuote = inst.underlying_key ? quotes[inst.underlying_key] : null;
@@ -148,9 +153,11 @@ export default function DerivativesExplorerPage() {
                 </tr>
               );
             })}
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
