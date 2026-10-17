@@ -741,3 +741,9 @@ export function getExchangeContractSpec(
   };
 }
 
+/**
+ * Backward-compatibility alias for legacy callers
+ */
+export const getZerodhaContractSpec = getExchangeContractSpec;
+
+

@@ -11,6 +11,7 @@ interface McxFeedItem {
   expiry: string;
   lot_size: number;
   tick_size: number;
+  is_live?: boolean;
 }
 
 const MCX_FALLBACK_BASE: Record<string, McxFeedItem> = {
@@ -31,16 +32,17 @@ const MCX_FALLBACK_BASE: Record<string, McxFeedItem> = {
   'MCX_FO|574830': { instrument_key: 'MCX_FO|574830', tradingsymbol: 'LEAD26OCTFUT', name: 'LEAD', last_price: 194.5, lot_size: 5, tick_size: 0.05, expiry: '2026-10-30' },
 };
 
-let mcxCache: { data: Record<string, McxFeedItem>; timestamp: number } | null = null;
+let mcxCache: { data: Record<string, McxFeedItem>; isLive: boolean; timestamp: number } | null = null;
 const MCX_CACHE_TTL_MS = 60 * 1000;
 
-async function fetchMcxExchangeQuotes(): Promise<Record<string, McxFeedItem>> {
+async function fetchMcxExchangeQuotes(): Promise<{ quotes: Record<string, McxFeedItem>; isLive: boolean }> {
   const now = Date.now();
   if (mcxCache && now - mcxCache.timestamp < MCX_CACHE_TTL_MS) {
-    return mcxCache.data;
+    return { quotes: mcxCache.data, isLive: mcxCache.isLive };
   }
 
   const quotesMap: Record<string, McxFeedItem> = { ...MCX_FALLBACK_BASE };
+  let isLive = false;
 
   try {
     const res = await fetch('https://assets.upstox.com/market-quote/instruments/exchange/MCX.csv.gz', {
@@ -51,35 +53,87 @@ async function fetchMcxExchangeQuotes(): Promise<Record<string, McxFeedItem>> {
       const buffer = Buffer.from(arrayBuffer);
       const text = zlib.gunzipSync(buffer).toString('utf8');
       const lines = text.split('\n');
+      const todayStr = new Date().toISOString().split('T')[0];
       const targetKeys = new Set(Object.keys(MCX_FALLBACK_BASE));
+
+      // Dynamic near-month tracking per commodity category
+      const nearMonthCategory: Record<string, McxFeedItem> = {};
 
       for (let i = 1; i < lines.length; i++) {
         const line = lines[i];
         if (!line) continue;
         const parts = line.split(',').map((p) => p.replace(/"/g, '').trim());
-        const key = parts[0];
+        const [key, _token, symbol, name, last_price, expiry, _strike, tick, lot, type] = parts;
+
+        const ltp = parseFloat(last_price);
+        if (isNaN(ltp) || ltp <= 0) continue;
+
+        // 1. Direct match for known specific tokens
         if (targetKeys.has(key)) {
-          const ltp = parseFloat(parts[4]);
-          if (!isNaN(ltp) && ltp > 0) {
-            quotesMap[key] = {
-              instrument_key: key,
-              tradingsymbol: parts[2],
-              name: parts[3],
-              last_price: ltp,
-              expiry: parts[5],
-              tick_size: parseFloat(parts[7]) || 1.0,
-              lot_size: parseInt(parts[8]) || 1,
-            };
+          quotesMap[key] = {
+            instrument_key: key,
+            tradingsymbol: symbol,
+            name,
+            last_price: ltp,
+            expiry,
+            tick_size: (parseFloat(tick) > 10 ? 1.0 : parseFloat(tick)) || 1.0,
+            lot_size: parseInt(lot) || 1,
+            is_live: true,
+          };
+        }
+
+        // 2. Dynamic near-month contract resolution
+        if (type === 'FUTCOM' && expiry >= todayStr) {
+          let category: string | null = null;
+          if (symbol.startsWith('GOLDM')) category = 'GOLDM';
+          else if (symbol.startsWith('GOLDPETAL')) category = 'GOLDPETAL';
+          else if (symbol.startsWith('GOLD') && !symbol.startsWith('GOLDGUINEA') && !symbol.startsWith('GOLDTEN')) category = 'GOLD';
+          else if (symbol.startsWith('SILVERMIC')) category = 'SILVERMIC';
+          else if (symbol.startsWith('SILVERM')) category = 'SILVERM';
+          else if (symbol.startsWith('SILVER') && !symbol.startsWith('SILVER100')) category = 'SILVER';
+          else if (symbol.startsWith('CRUDEOILM')) category = 'CRUDEOILM';
+          else if (symbol.startsWith('CRUDEOIL')) category = 'CRUDEOIL';
+          else if (symbol.startsWith('NATGASMINI')) category = 'NATGASMINI';
+          else if (symbol.startsWith('NATURALGAS')) category = 'NATURALGAS';
+          else if (symbol.startsWith('COPPER')) category = 'COPPER';
+          else if (symbol.startsWith('ZINCMINI')) category = 'ZINCMINI';
+          else if (symbol.startsWith('ZINC')) category = 'ZINC';
+          else if (symbol.startsWith('ALUMINIUM')) category = 'ALUMINIUM';
+          else if (symbol.startsWith('LEADMINI')) category = 'LEADMINI';
+          else if (symbol.startsWith('LEAD')) category = 'LEAD';
+
+          if (category) {
+            if (!nearMonthCategory[category] || expiry < nearMonthCategory[category].expiry) {
+              nearMonthCategory[category] = {
+                instrument_key: key,
+                tradingsymbol: symbol,
+                name,
+                last_price: ltp,
+                expiry,
+                tick_size: (parseFloat(tick) > 10 ? 1.0 : parseFloat(tick)) || 1.0,
+                lot_size: parseInt(lot) || 1,
+                is_live: true,
+              };
+            }
           }
         }
       }
-      mcxCache = { data: quotesMap, timestamp: now };
+
+      // Merge dynamic near-month contracts
+      for (const [cat, item] of Object.entries(nearMonthCategory)) {
+        quotesMap[cat] = item;
+        quotesMap[item.instrument_key] = item;
+        quotesMap[item.tradingsymbol] = item;
+      }
+
+      isLive = true;
+      mcxCache = { data: quotesMap, isLive: true, timestamp: now };
     }
   } catch (err) {
     console.warn('[MarketQuote] Using official MCX fallback base prices:', err);
   }
 
-  return quotesMap;
+  return { quotes: quotesMap, isLive };
 }
 
 let quoteCache: { data: Record<string, any>; timestamp: number } | null = null;
@@ -159,7 +213,7 @@ function liveMarketPlugin() {
           );
 
           // Fetch authentic MCX exchange quotes
-          const mcxQuotes = await fetchMcxExchangeQuotes();
+          const { quotes: mcxQuotes, isLive: mcxIsLive } = await fetchMcxExchangeQuotes();
 
           const result: Record<string, any> = {};
 
@@ -278,7 +332,7 @@ function liveMarketPlugin() {
               volume: Math.floor(Math.random() * 50000) + 12000,
               average_price: Math.round(((prevClose + price) / 2) * 100) / 100,
               timestamp: new Date().toISOString(),
-              is_live: true,
+              is_live: !!mcx.is_live,
               depth,
             };
 

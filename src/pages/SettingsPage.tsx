@@ -138,9 +138,18 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
       const expectedHash = import.meta.env.VITE_GATEWAY_SECURITY_HASH;
       const expectedPin = import.meta.env.VITE_GATEWAY_SECURITY_PIN;
 
-      const isValid =
-        (expectedHash && enteredHash === expectedHash) ||
-        (expectedPin && entered === expectedPin);
+      // Default to passcode '0000' if no custom environment override is set
+      const defaultHash = '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
+      const defaultPin = '0000';
+
+      let isValid: boolean;
+      if (expectedHash || expectedPin) {
+        isValid =
+          (!!expectedHash && enteredHash === expectedHash) ||
+          (!!expectedPin && entered === expectedPin);
+      } else {
+        isValid = enteredHash === defaultHash || entered === defaultPin;
+      }
 
       if (isValid) {
         setIsGatewayUnlocked(true);
@@ -261,6 +270,19 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
     if (mode === 'LIVE' && accessToken) {
       handleTestConnection();
+    }
+  };
+
+  const handleSaveSimulationSettings = async () => {
+    if (userSettings) {
+      await tradingRepo.saveUserSettings({
+        ...userSettings,
+        simulated_slippage_bps: slippageBps,
+        allow_after_hours_fill: allowAfterHours,
+      });
+      addToast('success', 'Simulation Parameters Saved', 'Execution slippage and after-hours fill settings committed.');
+    } else {
+      addToast('info', 'Parameters Updated', 'Execution simulation parameters updated for active session.');
     }
   };
 
@@ -754,6 +776,16 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               className="w-4 h-4 rounded border-[#14223A] bg-[#0E1728] text-[#C6A15B] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#C6A15B]"
             />
           </div>
+        </div>
+
+        <div className="pt-2 flex justify-end">
+          <button
+            type="button"
+            onClick={handleSaveSimulationSettings}
+            className="btn-cendrix-gold py-2 px-5 text-xs font-bold tracking-wider shadow-sm"
+          >
+            Save Simulation Parameters
+          </button>
         </div>
       </div>
 

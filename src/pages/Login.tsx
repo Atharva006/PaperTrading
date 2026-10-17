@@ -19,7 +19,7 @@ import {
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useTradingStore } from '../store/useTradingStore';
 
-type AuthView = 'SIGN_IN' | 'SIGN_UP' | 'FORGOT_PASSWORD';
+type AuthView = 'SIGN_IN' | 'SIGN_UP' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
 export default function Login() {
   const [view, setView] = useState<AuthView>('SIGN_IN');
@@ -42,11 +42,28 @@ export default function Login() {
   const location = useLocation();
   const { init } = useTradingStore();
 
-  // Parse any OAuth error from the URL hash or query params
+  // Listen for Supabase auth state changes (e.g. verified PASSWORD_RECOVERY)
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setView('RESET_PASSWORD');
+        setSuccessMessage('Recovery session verified. Please enter your new secure password below.');
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  // Parse any OAuth error descriptions from the URL hash or query params
   useEffect(() => {
     try {
-      const hash = window.location.hash;
-      const search = window.location.search;
+      const hash = window.location.hash || '';
+      const search = window.location.search || '';
+
       if (hash && hash.includes('error=')) {
         const params = new URLSearchParams(hash.substring(1));
         const errorDesc = params.get('error_description');
@@ -103,6 +120,43 @@ export default function Login() {
     e.preventDefault();
     setError('');
     setSuccessMessage('');
+
+    if (view === 'RESET_PASSWORD') {
+      if (!password || password.length < 6) {
+        setError('New password must be at least 6 characters long.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        setError('Passwords do not match. Please re-enter your password.');
+        return;
+      }
+
+      setLoading(true);
+      try {
+        if (!isSupabaseConfigured) {
+          throw new Error('Supabase is not configured.');
+        }
+
+        const { data: updateData, error: updateErr } = await supabase.auth.updateUser({ password });
+        if (updateErr) throw updateErr;
+
+        if (updateData?.user) {
+          await init(updateData.user.id, updateData.user.email, updateData.user.user_metadata?.full_name);
+          navigate('/dashboard');
+        } else {
+          await supabase.auth.signOut();
+          setSuccessMessage('Password successfully updated! You can now sign in with your new password.');
+          setView('SIGN_IN');
+          setPassword('');
+          setConfirmPassword('');
+        }
+      } catch (err: any) {
+        setError(err.message || 'Failed to update password.');
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
 
     if (!email || !email.includes('@')) {
       setError('Please provide a valid email address.');
@@ -238,12 +292,9 @@ export default function Login() {
     try {
       if (isSupabaseConfigured) {
         try {
-          const { data, error: demoErr } = await supabase.auth.signInWithPassword({
-            email: 'trader@cendrix.com',
-            password: 'Cendrix@2026',
-          });
+          const { data, error: demoErr } = await supabase.auth.signInAnonymously();
           if (!demoErr && data?.session?.user) {
-            await init(data.session.user.id, data.session.user.email, 'Cendrix Institutional Trader');
+            await init(data.session.user.id, undefined, 'Cendrix Institutional Trader');
             navigate('/dashboard');
             return;
           }
@@ -295,11 +346,13 @@ export default function Login() {
             {view === 'SIGN_IN' && 'Institutional Desk Access'}
             {view === 'SIGN_UP' && 'Create Quantitative Account'}
             {view === 'FORGOT_PASSWORD' && 'Recover Terminal Credentials'}
+            {view === 'RESET_PASSWORD' && 'Set New Password'}
           </h1>
           <p className="mt-1 text-center text-xs text-[#A1A8B3] max-w-sm">
             {view === 'SIGN_IN' && 'Authenticate using Google OAuth or your institutional email credentials.'}
             {view === 'SIGN_UP' && 'Instant access to real-time NSE & MCX simulation with ₹10,00,000 virtual capital.'}
             {view === 'FORGOT_PASSWORD' && 'Enter your verified email to receive a password recovery link.'}
+            {view === 'RESET_PASSWORD' && 'Enter and confirm your new secure account password below.'}
           </p>
         </div>
 
@@ -329,7 +382,7 @@ export default function Login() {
             </div>
           )}
 
-          {view !== 'FORGOT_PASSWORD' && (
+          {view !== 'FORGOT_PASSWORD' && view !== 'RESET_PASSWORD' && (
             <>
               {/* ── Method 1: Google OAuth Button ──────────────────────────── */}
               <button
@@ -441,33 +494,35 @@ export default function Login() {
               </div>
             )}
 
-            {/* Email Address */}
-            <div>
-              <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
-                Email Address
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Mail className="h-4 w-4 text-[#6E7683]" />
+            {/* Email Address (Hide when resetting password) */}
+            {view !== 'RESET_PASSWORD' && (
+              <div>
+                <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Mail className="h-4 w-4 text-[#6E7683]" />
+                  </div>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="trader@cendrixcapital.com"
+                    autoComplete="email"
+                    className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
+                  />
                 </div>
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="trader@cendrixcapital.com"
-                  autoComplete="email"
-                  className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
-                />
               </div>
-            </div>
+            )}
 
-            {/* Password (Sign In & Sign Up) */}
+            {/* Password (Sign In, Sign Up, & Reset Password) */}
             {view !== 'FORGOT_PASSWORD' && (
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider font-mono">
-                    Password
+                    {view === 'RESET_PASSWORD' ? 'New Password' : 'Password'}
                   </label>
                   {view === 'SIGN_IN' && (
                     <button
@@ -504,7 +559,7 @@ export default function Login() {
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                {view === 'SIGN_UP' && (
+                {(view === 'SIGN_UP' || view === 'RESET_PASSWORD') && (
                   <p className="text-[10px] text-[#6E7683] mt-1 font-mono">
                     Must be at least 6 characters.
                   </p>
@@ -512,11 +567,11 @@ export default function Login() {
               </div>
             )}
 
-            {/* Confirm Password (Sign Up Only) */}
-            {view === 'SIGN_UP' && (
+            {/* Confirm Password (Sign Up & Reset Password) */}
+            {(view === 'SIGN_UP' || view === 'RESET_PASSWORD') && (
               <div>
                 <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
-                  Confirm Password
+                  Confirm {view === 'RESET_PASSWORD' ? 'New ' : ''}Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -576,6 +631,7 @@ export default function Login() {
                       {view === 'SIGN_IN' && 'Sign In to Terminal'}
                       {view === 'SIGN_UP' && 'Create Trading Account'}
                       {view === 'FORGOT_PASSWORD' && 'Send Password Reset Link'}
+                      {view === 'RESET_PASSWORD' && 'Update Password & Access Terminal'}
                     </span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </>
@@ -584,8 +640,8 @@ export default function Login() {
             </div>
           </form>
 
-          {/* Forgot Password Back Button */}
-          {view === 'FORGOT_PASSWORD' && (
+          {/* Back to Sign In Button */}
+          {(view === 'FORGOT_PASSWORD' || view === 'RESET_PASSWORD') && (
             <div className="mt-4 pt-3 border-t border-[#14223A] text-center">
               <button
                 type="button"
