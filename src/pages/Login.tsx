@@ -169,13 +169,13 @@ export default function Login() {
         if (signUpError) throw signUpError;
 
         if (data?.session?.user) {
-          // Auto-confirmed registration
+          // Auto-confirmed registration (Confirm email is OFF in Supabase)
           await init(data.session.user.id, data.session.user.email, fullName);
           navigate('/dashboard');
         } else {
-          // Confirmation email dispatched
+          // Confirm email is ON in Supabase
           setSuccessMessage(
-            'Registration successful! Please check your email to verify your trading account before logging in.'
+            `Account created for ${email}! If "Confirm email" is enabled in Supabase, please click the confirmation link sent to your inbox before signing in, or toggle off "Confirm email" in Supabase -> Authentication -> Providers -> Email for instant access.`
           );
           setView('SIGN_IN');
           setPassword('');
@@ -214,7 +214,18 @@ export default function Login() {
         navigate('/dashboard');
       }
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password. Please verify your credentials and try again.');
+      const msg = err.message || '';
+      if (msg.toLowerCase().includes('invalid login credentials') || msg.toLowerCase().includes('invalid_grant')) {
+        setError(
+          'Invalid login credentials or unconfirmed email. If you just registered this account, please confirm it via the email link sent to you, or turn OFF "Confirm email" in Supabase (Authentication -> Providers -> Email) to allow immediate sign-in.'
+        );
+      } else if (msg.toLowerCase().includes('email not confirmed')) {
+        setError(
+          'Email not confirmed yet. Please check your inbox for the confirmation email from Supabase, or turn OFF "Confirm email" in your Supabase dashboard.'
+        );
+      } else {
+        setError(msg || 'Authentication failed. Please verify your credentials and try again.');
+      }
     } finally {
       setLoading(false);
     }
