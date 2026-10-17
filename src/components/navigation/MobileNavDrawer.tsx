@@ -7,7 +7,6 @@ import {
   LineChart,
   Eye,
   Layers,
-  Binary,
   Briefcase,
   Clock,
   Layers3,
@@ -60,8 +59,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     { name: 'Terminal / Chart', path: '/dashboard/terminal', icon: LineChart },
     { name: 'Market Watch', path: '/dashboard/watchlist', icon: Eye },
     { name: 'MCX Commodities', path: '/dashboard/commodities', icon: Flame },
-    { name: 'Option Chain', path: '/dashboard/option-chain', icon: Binary },
-    { name: 'F&O Explorer', path: '/dashboard/derivatives', icon: Layers },
+    { name: 'Futures Explorer', path: '/dashboard/derivatives', icon: Layers },
     {
       name: 'Positions',
       path: '/dashboard/positions',

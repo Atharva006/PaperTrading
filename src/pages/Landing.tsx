@@ -969,7 +969,7 @@ export default function Landing() {
                       </li>
                       <li className="flex items-center gap-2">
                         <Check className="w-4 h-4 text-emerald-400" />
-                        <span>Carryforward (NRML) vs Intraday (MIS) margin leverage options</span>
+                        <span>Carryforward (NRML) vs Intraday (MIS) margin leverage modes</span>
                       </li>
                     </ul>
                   </div>

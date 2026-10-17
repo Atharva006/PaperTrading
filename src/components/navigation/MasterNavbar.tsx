@@ -91,7 +91,6 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
       path: '/dashboard/positions',
       badge: openPositionsCount > 0 ? openPositionsCount : undefined,
     },
-    { name: 'Options', path: '/dashboard/option-chain' },
     { name: 'Terminal', path: '/dashboard/terminal' },
     { name: 'Commodities', path: '/dashboard/commodities' },
     { name: 'Funds', path: '/dashboard/portfolio' },
