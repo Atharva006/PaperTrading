@@ -66,8 +66,11 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
     } catch {
       // Ignored
     }
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('tradeedge_user_session_id');
+    }
     useTradingStore.getState().init();
-    navigate('/dashboard');
+    navigate('/login');
   };
 
   const niftyQuote = quotes['NSE_INDEX|Nifty 50'] || quotes['NIFTY 50'];

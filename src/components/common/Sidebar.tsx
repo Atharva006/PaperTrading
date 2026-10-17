@@ -37,8 +37,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
     } catch {
       // ignore
     } finally {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('tradeedge_user_session_id');
+      }
       useTradingStore.getState().init();
-      navigate('/dashboard');
+      navigate('/login');
     }
   };
 

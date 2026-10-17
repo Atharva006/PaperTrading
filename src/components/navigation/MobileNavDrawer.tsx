@@ -47,9 +47,12 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     } catch {
       // Ignored
     }
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('tradeedge_user_session_id');
+    }
     useTradingStore.getState().init();
     onClose();
-    navigate('/dashboard');
+    navigate('/login');
   };
 
   const navLinks = [

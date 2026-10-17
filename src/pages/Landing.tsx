@@ -213,10 +213,10 @@ export default function Landing() {
 
           <div className="flex items-center gap-3">
             <Link 
-              to="/dashboard" 
-              className="hidden sm:inline-flex text-xs font-semibold text-[#A1A8B3] hover:text-[#F5F5F2] transition-colors px-3 py-1.5 font-mono"
+              to="/login" 
+              className="hidden sm:inline-flex text-xs font-semibold text-[#A1A8B3] hover:text-[#C6A15B] transition-colors px-3 py-1.5 font-mono"
             >
-              1-Click Instant Enter
+              Sign In / Register
             </Link>
             <Link 
               to="/dashboard" 
