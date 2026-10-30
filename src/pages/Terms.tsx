@@ -1,10 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../components/common/SEO';
 
 export default function Terms() {
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://cendrix-capital-stf.vercel.app/'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Terms of Service',
+        'item': 'https://cendrix-capital-stf.vercel.app/terms'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] font-sans py-20 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Terms of Service — Cendrix Capital"
+        description="Review the terms, simulated execution rules, and legal agreements for using Cendrix Capital's virtual paper trading simulator."
+        canonical="https://cendrix-capital-stf.vercel.app/terms"
+        ogType="article"
+        jsonLd={breadcrumbJsonLd}
+      />
       <div className="max-w-4xl mx-auto bg-white border border-[#D9E2F2] rounded-2xl p-8 sm:p-12 shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
         <Link to="/" className="inline-flex items-center gap-2 text-[#6B7A90] hover:text-[#00225A] transition-colors mb-8 text-xs font-semibold">
           <ArrowLeft className="w-4 h-4" /> Back to Home

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { useTradingStore } from '../store/useTradingStore';
+import { SEO } from '../components/common/SEO';
 
 type AuthView = 'SIGN_IN' | 'SIGN_UP' | 'FORGOT_PASSWORD' | 'RESET_PASSWORD';
 
@@ -313,6 +314,11 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Institutional Desk Access — Cendrix Capital"
+        description="Sign in to your Cendrix Capital simulated paper trading terminal. Access live execution, portfolio risk analytics, and quantitative metrics."
+        canonical="https://cendrix-capital-stf.vercel.app/login"
+      />
       {/* ── Background Subtle Aesthetics ──────────────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(#D9E2F2_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
