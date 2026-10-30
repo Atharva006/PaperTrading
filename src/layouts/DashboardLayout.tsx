@@ -8,6 +8,7 @@ import { ToastContainer } from '../components/common/ToastContainer';
 import { ResetAccountModal } from '../components/common/ResetAccountModal';
 import { MarketWatch } from '../components/trading/MarketWatch';
 import { BeginnerGuideModal } from '../components/common/BeginnerGuideModal';
+import { SEO } from '../components/common/SEO';
 
 export default function DashboardLayout() {
   const [isResetOpen, setIsResetOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function DashboardLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FCFCFC] text-[#111114] font-sans selection:bg-[#536CF0] selection:text-white overflow-x-hidden antialiased">
+      <SEO title="Terminal Desk — Cendrix Capital" noindex={true} />
       {/* ── 1. FundingPips Top Navigation Bar ──────────────────────────────── */}
       <MasterNavbar
         onOpenSearch={() => setIsSearchOpen(true)}

@@ -1,10 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { SEO } from '../components/common/SEO';
 
 export default function Privacy() {
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': 'https://cendrix-capital-stf.vercel.app/'
+      },
+      {
+        '@type': 'ListItem',
+        'position': 2,
+        'name': 'Privacy Policy',
+        'item': 'https://cendrix-capital-stf.vercel.app/privacy'
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] font-sans py-20 px-4 sm:px-6 lg:px-8">
+      <SEO
+        title="Privacy Policy — Cendrix Capital"
+        description="Learn how Cendrix Capital handles your simulated trading data, virtual account balances, and security under our zero-trust data model."
+        canonical="https://cendrix-capital-stf.vercel.app/privacy"
+        ogType="article"
+        jsonLd={breadcrumbJsonLd}
+      />
       <div className="max-w-4xl mx-auto bg-white border border-[#D9E2F2] rounded-2xl p-8 sm:p-12 shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
         <Link to="/" className="inline-flex items-center gap-2 text-[#6B7A90] hover:text-[#00225A] transition-colors mb-8 text-xs font-semibold">
           <ArrowLeft className="w-4 h-4" /> Back to Home

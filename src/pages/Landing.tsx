@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
+import { SEO } from '../components/common/SEO';
 
 // Spotlight ticker items for the continuous marquee
 const TICKER_ITEMS = [
@@ -171,6 +172,12 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white">
+      <SEO
+        title="Cendrix Capital — Institutional Paper Trading Platform"
+        description="Simulate real-time trades across Indian Equities, NIFTY/BANKNIFTY Options, and MCX Commodities with zero risk. Institutional execution, analytics, and journaling."
+        canonical="https://cendrix-capital-stf.vercel.app/"
+        keywords="Cendrix Capital, paper trading, simulated trading, institutional trading platform, NSE, MCX, Nifty 50, Bank Nifty, algorithmic trading, trading simulator India, options trading simulator"
+      />
       
       {/* Background Soft Mesh Tint */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">

@@ -1,0 +1,25 @@
+# robots.txt for Cendrix Capital (https://cendrix-capital-stf.vercel.app/)
+
+User-agent: *
+Allow: /$
+Allow: /landing
+Allow: /privacy
+Allow: /terms
+Allow: /login
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /upstox/
+
+User-agent: Googlebot
+Allow: /$
+Allow: /landing
+Allow: /privacy
+Allow: /terms
+Allow: /login
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /upstox/
+
+Sitemap: https://cendrix-capital-stf.vercel.app/sitemap.xml
