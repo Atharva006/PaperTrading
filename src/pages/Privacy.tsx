@@ -26,9 +26,10 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] font-sans py-20 px-4 sm:px-6 lg:px-8">
       <SEO
-        title="Privacy Policy — Cendrix Capital"
+        title="Privacy Policy — Cendrix Capital Trading Platform"
         description="Learn how Cendrix Capital handles your simulated trading data, virtual account balances, and security under our zero-trust data model."
         canonical="https://cendrix-capital-stf.vercel.app/privacy"
+        keywords="Cendrix Capital privacy policy, virtual trading platform security, paper trading data protection"
         ogType="article"
         jsonLd={breadcrumbJsonLd}
       />

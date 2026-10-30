@@ -1,0 +1,50 @@
+# Cendrix Capital — Complete Platform & Technical Reference
+
+> Institutional-grade paper trading platform and Indian stock market simulator built for retail and quantitative traders to practice execution with zero capital risk.
+
+## 1. Overview
+Cendrix Capital (CNRX) is a high-fidelity virtual paper trading platform designed to bridge the gap between simulation and real-world trading. While generic paper trading apps use arbitrary fills, synthetic random-walk curves, and zero-friction accounting, Cendrix Capital enforces authentic exchange leverage, statutory transaction taxes (STT, CTT, GST, Stamp Duty), and strict in-memory order execution matching.
+
+## 2. Core Market Segments & Specifications
+
+### 2.1 Indian Equities (NSE Cash)
+- Large-cap, mid-cap, and index equities including RELIANCE, HDFCBANK, TCS, INFY, ICICIBANK, and TATASTEEL.
+- Product Types:
+  - MIS (Margin Intraday Square-off): 5x verified leverage with mandatory daily square-off.
+  - CNC (Cash and Carry): 1x delivery margin requirement.
+
+### 2.2 Equity Index & Stock Derivatives (NSE F&O)
+- NIFTY 50 and BANKNIFTY contracts with authentic contract multiplier, tick size, and lot sizing.
+- Order Types: MARKET, LIMIT, SL (Stop-Loss), and SL-M (Stop-Loss Market).
+- Product Types: MIS (Intraday) and NRML (Normal carry-forward).
+
+### 2.3 Commodities & Bullion (MCX)
+- Dedicated commodities trading desk for precious metals, energy, and base metals.
+- Contract Specs:
+  - GOLDM: Gold Mini 100g contract.
+  - SILVERM: Silver Mini 5kg contract.
+  - CRUDEOIL: Crude Oil 100 BBL contract.
+  - NATURALGAS: Natural Gas 1250 mmBtu contract.
+
+## 3. Order Execution & Matching Engine
+- In-memory event bus matching orders against live market bid/ask spreads.
+- Strict price-time priority execution.
+- Real-time margin validation: orders are rejected if available margin is insufficient.
+
+## 4. Statutory Friction & Regulatory Tax Deductions
+To ensure paper trading performance accurately reflects live market reality, Cendrix Capital models all statutory Indian exchange charges:
+- STT (Securities Transaction Tax) / CTT (Commodities Transaction Tax)
+- GST (Goods and Services Tax on brokerage and transaction charges)
+- Exchange Transaction Turnover Charges
+- SEBI Turnover Fees
+- State Stamp Duty Charges
+
+## 5. Quantitative Analytics & Journaling
+- Double-entry audited cash ledger preserving every credit, debit, margin block, and settlement.
+- Comprehensive telemetry: Win Rate %, Profit Factor, Max Peak-to-Trough Drawdown, Average R:R Ratio, and Session Volatility.
+- One-click CSV statement export for strategy backtesting and external trade audits.
+
+## 6. Access & Security
+- Instant 1-Click Institutional Auto-Connect for frictionless trial.
+- Zero-trust architecture: user session tokens encrypted, trading data securely stored.
+- Web Application: Hosted at https://cendrix-capital-stf.vercel.app/

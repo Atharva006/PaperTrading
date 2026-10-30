@@ -1,0 +1,22 @@
+# Cendrix Capital
+
+> Cendrix Capital is an institutional-grade free paper trading platform and live Indian stock market simulator for equities, F&O derivatives, and MCX commodities.
+
+## Core Platform
+
+- [Cendrix Capital Simulator](https://cendrix-capital-stf.vercel.app/): Main simulated trading environment and market overview.
+- [Institutional Login Portal](https://cendrix-capital-stf.vercel.app/login): Access the virtual trading terminal, order tickets, and watchlist.
+- [Terms of Service](https://cendrix-capital-stf.vercel.app/terms): Platform terms, simulated execution disclosures, and legal notices.
+- [Privacy Policy](https://cendrix-capital-stf.vercel.app/privacy): Zero-trust security policies and data handling rules.
+
+## Key Capabilities
+
+- **Free Paper Trading Platform**: Start with ₹10,00,000 in virtual funds with zero financial risk.
+- **Live Stock Market Simulator**: Sub-millisecond order matching and real-time telemetry across Indian markets.
+- **Indian Stock Market Simulator**: Full coverage of NSE equities, NIFTY 50 and BANKNIFTY index derivatives, and MCX commodities (Gold, Silver, Crude Oil, Natural Gas).
+- **Virtual Trading Platform**: Authentic exchange leverage modeling (MIS 5x Intraday, CNC/NRML) and statutory charge deductions (STT, CTT, GST, Stamp Duty).
+- **Demo Trading Platform**: Audited double-entry cash journal, peak-to-trough drawdown telemetry, win-rate analysis, and one-click statement export.
+
+## Optional
+
+- [Full Documentation](https://cendrix-capital-stf.vercel.app/llms-full.txt): Complete technical reference of simulated execution engines, contract specifications, and risk models.
