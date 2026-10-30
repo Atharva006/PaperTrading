@@ -20,3 +20,4 @@
 ## Optional
 
 - [Full Documentation](https://cendrix-capital-stf.vercel.app/llms-full.txt): Complete technical reference of simulated execution engines, contract specifications, and risk models.
+

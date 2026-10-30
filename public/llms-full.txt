@@ -48,3 +48,4 @@ To ensure paper trading performance accurately reflects live market reality, Cen
 - Instant 1-Click Institutional Auto-Connect for frictionless trial.
 - Zero-trust architecture: user session tokens encrypted, trading data securely stored.
 - Web Application: Hosted at https://cendrix-capital-stf.vercel.app/
+
