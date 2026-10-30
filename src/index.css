@@ -4,33 +4,48 @@
 
 @layer base {
   :root {
-    /* Cendrix Capital Apple-Calibrated Root Tokens */
-    --color-bg-midnight: #0B1424;
-    --color-bg-charcoal: #10141C;
-    --color-bg-surface: #0F192B;
-    --color-bg-surface-elevated: #14223A;
-    --color-bg-card: #0E1728;
-    --color-bg-card-hover: #132038;
+    /* ── FundingPips Light Root Design Tokens ──────────────────────────────── */
+    --color-primary: #00225A;
+    --color-secondary: #536CF0;
+    --color-tertiary: #6B7A90;
+    --color-neutral: #FCFCFC;
+    --color-surface: #FFFFFF;
+    --color-on-surface: #111114;
+    --color-muted-surface: #F7F8FA;
+    --color-border: #D9E2F2;
+    --color-border-subtle: #EAEFF8;
+    --color-success: #12B76A;
+    --color-warning: #F5B800;
+    --color-error: #D92D20;
+    --color-info: #4DA3FF;
 
-    --color-gold: #C6A15B;
-    --color-gold-light: #E2C889;
-    --color-gold-dark: #8F6E2C;
-    --color-gold-glow: rgba(198, 161, 91, 0.15);
-    --color-gold-border: rgba(198, 161, 91, 0.22);
-    --color-gold-border-bright: rgba(198, 161, 91, 0.55);
+    /* Legacy CSS Variable Mappings for Cohesive Light Theming */
+    --color-bg-midnight: #FCFCFC;
+    --color-bg-charcoal: #F7F8FA;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-surface-elevated: #FFFFFF;
+    --color-bg-card: #FFFFFF;
+    --color-bg-card-hover: #F7F8FA;
 
-    --color-text-primary: #F5F5F2;
-    --color-text-secondary: #A1A8B3;
-    --color-text-tertiary: #6E7683;
-    --color-text-gold: #C6A15B;
+    --color-gold: #00225A;
+    --color-gold-light: #536CF0;
+    --color-gold-dark: #001944;
+    --color-gold-glow: rgba(83, 108, 240, 0.12);
+    --color-gold-border: #D9E2F2;
+    --color-gold-border-bright: #536CF0;
 
-    --color-border-subtle: rgba(255, 255, 255, 0.08);
-    --color-border-medium: rgba(255, 255, 255, 0.14);
-    --color-border-hairline: #14223A;
-    --color-positive: #00c087;
-    --color-negative: #df514c;
+    --color-text-primary: #111114;
+    --color-text-secondary: #6B7A90;
+    --color-text-tertiary: #94A3B8;
+    --color-text-gold: #00225A;
 
-    /* Apple Motion & Physics Curves */
+    --color-border-subtle: #EAEFF8;
+    --color-border-medium: #D9E2F2;
+    --color-border-hairline: #D9E2F2;
+    --color-positive: #12B76A;
+    --color-negative: #D92D20;
+
+    /* Fluid Modern Transition Curves */
     --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
     --spring-bouncy: cubic-bezier(0.34, 1.56, 0.64, 1);
     --spring-tactile: cubic-bezier(0.2, 0, 0, 1);
@@ -43,71 +58,85 @@
   }
 
   body {
-    background-color: #0B1424;
-    color: #F5F5F2;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    background-color: #FCFCFC;
+    color: #111114;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    line-height: 1.55;
-    letter-spacing: -0.006em;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
   }
 
   ::selection {
-    background-color: #C6A15B;
-    color: #0B1424;
+    background-color: #536CF0;
+    color: #FFFFFF;
   }
 
   .font-mono {
     font-feature-settings: "tnum" on, "zero" on;
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
   }
 
-  /* Optical Typography Hierarchy (Apple Design §15) */
-  h1 {
-    font-family: 'Cinzel', serif;
-    letter-spacing: -0.025em;
+  /* ── FundingPips Typography Hierarchy: DM Sans for Headings ────────────── */
+  h1, .font-headline-display {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.035em;
     line-height: 1.1;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    color: #00225A;
   }
 
-  h2 {
-    font-family: 'Cinzel', serif;
+  h2, .font-headline-lg {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: #00225A;
+  }
+
+  h3, .font-headline-md {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 1.18;
-  }
-
-  h3 {
-    font-family: 'Cinzel', serif;
-    letter-spacing: -0.015em;
     line-height: 1.25;
+    color: #00225A;
   }
 
-  h4, h5, h6 {
-    font-family: 'Cinzel', serif;
-    letter-spacing: -0.01em;
+  h4, .font-headline-sm {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.015em;
     line-height: 1.3;
+    color: #00225A;
+  }
+
+  h5, h6, .font-title-md {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    color: #00225A;
   }
 }
 
-/* ── Apple-Grade Instant Tactile Feedback (§1 Response — Kill Latency) ──── */
+/* ── Interactive Elements & Tactile Feedback ────────────────────────────── */
 button,
 a[role="button"],
 .btn-interactive {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  transition: transform 0.22s var(--spring-smooth), opacity 0.15s ease, filter 0.15s ease;
+  transition: transform 0.18s var(--spring-smooth), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 button:active:not(:disabled),
 a[role="button"]:active,
 .btn-interactive:active:not(:disabled) {
-  transform: scale(0.975);
-  transition: transform 0.08s var(--spring-tactile);
+  transform: scale(0.98);
 }
 
-/* Custom Refined Dark Scrollbar */
+/* ── FundingPips Light Clean Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -116,264 +145,187 @@ a[role="button"]:active,
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(20, 34, 58, 0.7);
+  background: #CBD5E1;
   border-radius: 9999px;
-  border: 1px solid rgba(198, 161, 91, 0.15);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(198, 161, 91, 0.6);
+  background: #94A3B8;
 }
 
-/* Hairline Dividers */
-.hairline-gold {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(198, 161, 91, 0.35) 50%, transparent 100%);
+/* ── Component Classes ─────────────────────────────────────────────────── */
+
+/* 1. Primary Button (FundingPips Navy) */
+.btn-primary,
+.btn-cendrix-gold {
+  background-color: #00225A;
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 18px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 34, 90, 0.14);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
 }
 
-/* ── Apple Translucent Materials & Depth Hierarchy (§12) ─────────────────── */
+.btn-primary:hover,
+.btn-cendrix-gold:hover {
+  background-color: #536CF0;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(83, 108, 240, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active,
+.btn-cendrix-gold:active {
+  transform: scale(0.98);
+}
+
+/* 2. Secondary Button (FundingPips Outline) */
+.btn-secondary,
+.btn-cendrix-outline {
+  background-color: #FFFFFF;
+  color: #00225A;
+  border: 1px solid #D9E2F2;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 18px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-secondary:hover,
+.btn-cendrix-outline:hover {
+  background-color: #F7F8FA;
+  border-color: #00225A;
+  color: #00225A;
+}
+
+.btn-secondary:active,
+.btn-cendrix-outline:active {
+  transform: scale(0.98);
+}
+
+/* 3. Surface & Card Classes */
+.card-funding,
+.cendrix-card {
+  background-color: #FFFFFF;
+  border: 1px solid #D9E2F2;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 34, 90, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-funding:hover,
+.cendrix-card:hover {
+  border-color: #BCCAE0;
+  box-shadow: 0 6px 20px rgba(0, 34, 90, 0.06);
+}
+
+.card-muted {
+  background-color: #F7F8FA;
+  border: 1px solid #D9E2F2;
+  border-radius: 16px;
+}
+
+/* 4. Top Navigation & Floating Panels */
 .apple-glass-nav {
-  background-color: rgba(11, 20, 36, 0.82);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid #D9E2F2;
+  box-shadow: 0 2px 10px rgba(0, 34, 90, 0.03);
 }
 
 .apple-glass-panel {
-  background-color: rgba(14, 23, 40, 0.72);
-  backdrop-filter: blur(20px) saturate(170%);
-  -webkit-backdrop-filter: blur(20px) saturate(170%);
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  box-shadow: 0 10px 32px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #D9E2F2;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 34, 90, 0.08);
 }
 
-/* Cendrix Prestige Cards */
-.cendrix-card {
-  background-color: rgba(14, 23, 40, 0.72);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 1px solid rgba(198, 161, 91, 0.18);
-  border-right: 1px solid rgba(198, 161, 91, 0.18);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.28s var(--spring-smooth), border-color 0.2s ease, box-shadow 0.28s var(--spring-smooth);
+/* 5. Inputs & Form Controls */
+.funding-input {
+  background-color: #FFFFFF;
+  color: #111114;
+  border: 1px solid #D9E2F2;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.cendrix-card:hover {
-  border-color: rgba(198, 161, 91, 0.45);
-  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.6), 0 0 24px rgba(198, 161, 91, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.funding-input:focus {
+  outline: none;
+  border-color: #536CF0;
+  box-shadow: 0 0 0 3px rgba(83, 108, 240, 0.15);
 }
 
-/* ── Tactile Button Hierarchy ────────────────────────────────────────────── */
-.btn-cendrix-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.15rem;
-  background: linear-gradient(135deg, #E2C889 0%, #C6A15B 55%, #A68037 100%);
-  color: #070D18;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  font-size: 0.8125rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-top: 1px solid rgba(255, 255, 255, 0.4);
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(198, 161, 91, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  transition: transform 0.22s var(--spring-smooth), box-shadow 0.22s var(--spring-smooth), filter 0.15s ease;
-}
-
-.btn-cendrix-gold:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(198, 161, 91, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-}
-
-.btn-cendrix-gold:active {
-  transform: scale(0.97) translateY(0);
-  transition: transform 0.08s var(--spring-tactile);
-  box-shadow: 0 2px 8px rgba(198, 161, 91, 0.2);
-}
-
-.btn-cendrix-outline {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.15rem;
-  background-color: rgba(14, 23, 40, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  color: #F5F5F2;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+/* 6. Chips and Badges */
+.funding-chip {
+  background-color: #FFFFFF;
+  color: #00225A;
+  border: 1px solid #D9E2F2;
+  border-radius: 9999px;
+  padding: 5px 12px;
+  font-size: 12px;
   font-weight: 600;
-  font-size: 0.8125rem;
-  letter-spacing: 0.03em;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-left: 1px solid rgba(198, 161, 91, 0.22);
-  border-right: 1px solid rgba(198, 161, 91, 0.22);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  transition: transform 0.22s var(--spring-smooth), border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.22s var(--spring-smooth);
-}
-
-.btn-cendrix-outline:hover {
-  border-color: #C6A15B;
-  color: #C6A15B;
-  background-color: rgba(198, 161, 91, 0.12);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
-}
-
-.btn-cendrix-outline:active {
-  transform: scale(0.97) translateY(0);
-  transition: transform 0.08s var(--spring-tactile);
-}
-
-/* Institutional Execution Buttons (Buy / Sell) */
-.btn-execute-buy,
-.btn-kite-blue {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.15rem;
-  background: linear-gradient(180deg, #387ed1 0%, #2968b5 100%);
-  color: #ffffff;
+  gap: 6px;
+}
+
+.funding-chip-active {
+  background-color: #EEF3FF;
+  color: #00225A;
+  border-color: #536CF0;
+}
+
+/* Status Pills */
+.pill-success,
+.green-pill {
+  background-color: #ECFDF3;
+  color: #12B76A;
+  border: 1px solid rgba(18, 183, 106, 0.25);
   font-weight: 600;
-  font-size: 0.8125rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(41, 104, 181, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: transform 0.22s var(--spring-smooth), filter 0.15s ease, box-shadow 0.22s var(--spring-smooth);
 }
 
-.btn-execute-buy:hover,
-.btn-kite-blue:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(41, 104, 181, 0.45);
-}
-
-.btn-execute-buy:active,
-.btn-kite-blue:active {
-  transform: scale(0.97) translateY(0);
-  transition: transform 0.08s var(--spring-tactile);
-}
-
-.btn-execute-sell,
-.btn-kite-red {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.15rem;
-  background: linear-gradient(180deg, #df514c 0%, #c43833 100%);
-  color: #ffffff;
+.pill-error,
+.red-pill {
+  background-color: #FEF3F2;
+  color: #D92D20;
+  border: 1px solid rgba(217, 45, 32, 0.25);
   font-weight: 600;
-  font-size: 0.8125rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(223, 81, 76, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  transition: transform 0.22s var(--spring-smooth), filter 0.15s ease, box-shadow 0.22s var(--spring-smooth);
 }
 
-.btn-execute-sell:hover,
-.btn-kite-red:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(223, 81, 76, 0.45);
-}
-
-.btn-execute-sell:active,
-.btn-kite-red:active {
-  transform: scale(0.97) translateY(0);
-  transition: transform 0.08s var(--spring-tactile);
-}
-
-/* ── Apple Segmented Controls ────────────────────────────────────────────── */
-.apple-segmented-group {
-  display: inline-flex;
-  align-items: center;
-  background-color: rgba(11, 20, 36, 0.7);
-  padding: 0.25rem;
-  border-radius: 0.625rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
-}
-
-.apple-segmented-item {
-  padding: 0.35rem 0.75rem;
-  border-radius: 0.45rem;
-  font-size: 0.75rem;
+.pill-navy,
+.gold-pill {
+  background-color: #EEF3FF;
+  color: #00225A;
+  border: 1px solid #D9E2F2;
   font-weight: 600;
-  color: #A1A8B3;
-  transition: all 0.2s var(--spring-smooth);
-  user-select: none;
-  cursor: pointer;
 }
 
-.apple-segmented-item:hover {
-  color: #F5F5F2;
-}
-
-.apple-segmented-item-active {
-  background-color: #14223A;
-  color: #C6A15B;
-  border: 1px solid rgba(198, 161, 91, 0.3);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* Financial Movement Indicators */
-.text-market-up {
-  color: #00c087;
-}
-
-.text-market-down {
-  color: #df514c;
-}
-
-.bg-market-up-subtle {
-  background-color: rgba(0, 192, 135, 0.12);
-  border: 1px solid rgba(0, 192, 135, 0.3);
-  color: #00c087;
-}
-
-.bg-market-down-subtle {
-  background-color: rgba(223, 81, 76, 0.12);
-  border: 1px solid rgba(223, 81, 76, 0.3);
-  color: #df514c;
-}
-
-/* Live tick price flash animation with smooth decay */
+/* ── Financial Ticker Tick Animations ───────────────────────────────────── */
 @keyframes flash-green {
-  0% { background-color: rgba(0, 192, 135, 0.32); }
+  0% { background-color: rgba(18, 183, 106, 0.35); }
   100% { background-color: transparent; }
 }
 
 @keyframes flash-red {
-  0% { background-color: rgba(223, 81, 76, 0.32); }
+  0% { background-color: rgba(217, 45, 32, 0.35); }
   100% { background-color: transparent; }
 }
 
@@ -401,33 +353,17 @@ a[role="button"]:active,
   animation-play-state: paused;
 }
 
-/* Float Animation */
+/* Subtle Floating Animation */
 @keyframes float-subtle {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-5px); }
 }
 
 .animate-float {
-  animation: float-subtle 4.5s ease-in-out infinite;
+  animation: float-subtle 4s ease-in-out infinite;
 }
 
-/* Gold Glow Pulse Animation */
-@keyframes gold-pulse {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(198, 161, 91, 0.15);
-    border-color: rgba(198, 161, 91, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 35px rgba(198, 161, 91, 0.35);
-    border-color: rgba(198, 161, 91, 0.6);
-  }
-}
-
-.animate-gold-pulse {
-  animation: gold-pulse 3s infinite ease-in-out;
-}
-
-/* ── Apple Accessibility & Reduced Motion (§14) ─────────────────────────── */
+/* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
@@ -437,21 +373,8 @@ a[role="button"]:active,
   }
   .animate-marquee,
   .animate-float,
-  .animate-gold-pulse,
   .animate-flash-green,
   .animate-flash-red {
     animation: none !important;
   }
 }
-
-@media (prefers-reduced-transparency: reduce) {
-  .apple-glass-nav,
-  .apple-glass-panel,
-  .cendrix-card,
-  .btn-cendrix-outline {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    background-color: #0E1728 !important;
-  }
-}
-

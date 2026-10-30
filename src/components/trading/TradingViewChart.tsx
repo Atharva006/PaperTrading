@@ -94,34 +94,34 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
   useEffect(() => {
     if (!chartContainerRef.current) return;
 
-    // Create Chart with modern Deep Blue Fintech styling
+    // Create Chart with modern FundingPips Light styling
     const chart = createChart(chartContainerRef.current, {
       layout: {
-        background: { type: ColorType.Solid, color: '#090e1a' },
-        textColor: '#94a3b8',
+        background: { type: ColorType.Solid, color: '#FFFFFF' },
+        textColor: '#6B7A90',
         fontSize: 11,
       },
       grid: {
-        vertLines: { color: 'rgba(255, 255, 255, 0.04)' },
-        horzLines: { color: 'rgba(255, 255, 255, 0.04)' },
+        vertLines: { color: 'rgba(0, 34, 90, 0.04)' },
+        horzLines: { color: 'rgba(0, 34, 90, 0.04)' },
       },
       crosshair: {
         mode: CrosshairMode.Normal,
         vertLine: {
-          color: '#3b82f6',
+          color: '#536CF0',
           width: 1,
           style: 2,
-          labelBackgroundColor: '#1d283f',
+          labelBackgroundColor: '#00225A',
         },
         horzLine: {
-          color: '#3b82f6',
+          color: '#536CF0',
           width: 1,
           style: 2,
-          labelBackgroundColor: '#1d283f',
+          labelBackgroundColor: '#00225A',
         },
       },
       rightPriceScale: {
-        borderColor: '#1e293b',
+        borderColor: '#D9E2F2',
         autoScale: true,
         scaleMargins: {
           top: 0.08,
@@ -129,7 +129,7 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
         },
       },
       timeScale: {
-        borderColor: '#1e293b',
+        borderColor: '#D9E2F2',
         timeVisible: true,
         secondsVisible: false,
         barSpacing: 12, // Distinct, visible candle thickness
@@ -138,16 +138,16 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
       },
     });
 
-    // 1. High-Contrast Vivid Candlesticks Series (Vibrant Green & Red with Borders & Wicks)
+    // 1. Candlesticks Series (FundingPips Light Green & Red)
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: '#10b981',
-      downColor: '#f43f5e',
+      upColor: '#12B76A',
+      downColor: '#D92D20',
       borderVisible: true,
-      borderUpColor: '#10b981',
-      borderDownColor: '#f43f5e',
+      borderUpColor: '#12B76A',
+      borderDownColor: '#D92D20',
       wickVisible: true,
-      wickUpColor: '#10b981',
-      wickDownColor: '#f43f5e',
+      wickUpColor: '#12B76A',
+      wickDownColor: '#D92D20',
       priceFormat: {
         type: 'price',
         precision: 2,
@@ -157,16 +157,16 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
 
     // 2. Area Series (For Area view mode)
     const areaSeries = chart.addSeries(AreaSeries, {
-      topColor: 'rgba(59, 130, 246, 0.4)',
-      bottomColor: 'rgba(59, 130, 246, 0.0)',
-      lineColor: '#3b82f6',
+      topColor: 'rgba(83, 108, 240, 0.25)',
+      bottomColor: 'rgba(83, 108, 240, 0.0)',
+      lineColor: '#536CF0',
       lineWidth: 2,
       visible: false,
     });
 
     // 3. Technical Indicator: 20 SMA
     const smaSeries = chart.addSeries(LineSeries, {
-      color: '#38bdf8', // Sky blue
+      color: '#536CF0',
       lineWidth: 2,
       priceLineVisible: false,
       title: 'SMA 20',
@@ -175,7 +175,7 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
 
     // 4. Technical Indicator: 50 EMA
     const emaSeries = chart.addSeries(LineSeries, {
-      color: '#a855f7', // Purple
+      color: '#7F56D9',
       lineWidth: 2,
       priceLineVisible: false,
       title: 'EMA 50',
@@ -184,7 +184,7 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
 
     // 5. Volume Series
     const volumeSeries = chart.addSeries(HistogramSeries, {
-      color: '#3b82f6',
+      color: '#536CF0',
       priceFormat: {
         type: 'volume',
       },
@@ -384,27 +384,27 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
   };
 
   return (
-    <div className="flex flex-col h-full w-full bg-[#090e1a] border border-[#1e293b] rounded-xl overflow-hidden select-none shadow-2xl text-[#f1f5f9]">
+    <div className="flex flex-col h-full w-full bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden select-none shadow-[0_2px_12px_rgba(0,34,90,0.04)] text-[#111114]">
       
       {/* ── Top Bar: Symbol, Live Ticks & Interactive OHLC Telemetry ─────── */}
-      <div className="px-4 py-2.5 border-b border-[#1e293b] flex flex-wrap items-center justify-between gap-3 bg-[#0d1424]">
+      <div className="px-4 py-2.5 border-b border-[#D9E2F2] flex flex-wrap items-center justify-between gap-3 bg-[#F7F8FA]">
         
         {/* Left: Symbol & Live Quote */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-bold text-[#f1f5f9] tracking-tight">{tradingsymbol}</span>
-            <span className="text-[10px] bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30 px-1.5 py-0.5 rounded font-mono font-bold flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+            <span className="text-sm font-display font-bold text-[#00225A] tracking-tight">{tradingsymbol}</span>
+            <span className="text-[10px] bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30 px-1.5 py-0.5 rounded font-mono font-bold flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
               <span>LIVE</span>
             </span>
           </div>
 
           {currentQuote && (
-            <div className="flex items-center gap-2 font-mono text-xs pl-3 border-l border-[#1e293b]">
-              <span className="font-bold text-[#f1f5f9] text-sm">
+            <div className="flex items-center gap-2 font-mono text-xs pl-3 border-l border-[#D9E2F2]">
+              <span className="font-bold text-[#111114] text-sm">
                 ₹{currentQuote.last_price.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
               </span>
-              <span className={`text-[11px] font-semibold ${currentQuote.change >= 0 ? 'text-[#10b981]' : 'text-[#f43f5e]'}`}>
+              <span className={`text-[11px] font-semibold ${currentQuote.change >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                 {currentQuote.change >= 0 ? '+' : ''}{currentQuote.change.toFixed(2)} ({currentQuote.change_percent.toFixed(2)}%)
               </span>
             </div>
@@ -413,13 +413,13 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
 
         {/* Center: Live Hover OHLC Tooltip */}
         {hoverData && (
-          <div className="hidden lg:flex items-center gap-3 text-[11px] font-mono text-[#94a3b8] bg-[#090e1a] px-3 py-1 rounded-md border border-[#1e293b]">
-            <span>O: <strong className="text-[#f1f5f9]">₹{hoverData.open?.toFixed(2)}</strong></span>
-            <span>H: <strong className="text-[#10b981]">₹{hoverData.high?.toFixed(2)}</strong></span>
-            <span>L: <strong className="text-[#f43f5e]">₹{hoverData.low?.toFixed(2)}</strong></span>
-            <span>C: <strong className="text-[#f1f5f9]">₹{hoverData.close?.toFixed(2)}</strong></span>
+          <div className="hidden lg:flex items-center gap-3 text-[11px] font-mono text-[#6B7A90] bg-white px-3 py-1 rounded-md border border-[#D9E2F2] shadow-sm">
+            <span>O: <strong className="text-[#00225A]">₹{hoverData.open?.toFixed(2)}</strong></span>
+            <span>H: <strong className="text-[#12B76A]">₹{hoverData.high?.toFixed(2)}</strong></span>
+            <span>L: <strong className="text-[#D92D20]">₹{hoverData.low?.toFixed(2)}</strong></span>
+            <span>C: <strong className="text-[#00225A]">₹{hoverData.close?.toFixed(2)}</strong></span>
             {hoverData.change !== undefined && (
-              <span className={hoverData.change >= 0 ? 'text-[#10b981]' : 'text-[#f43f5e]'}>
+              <span className={hoverData.change >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}>
                 {hoverData.change >= 0 ? '+' : ''}{hoverData.change.toFixed(2)} ({hoverData.changePercent?.toFixed(2)}%)
               </span>
             )}
@@ -429,15 +429,15 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
         {/* Right: Controls & Timeframe Selector */}
         <div className="flex items-center gap-2">
           {/* Timeframes */}
-          <div className="flex items-center bg-[#090e1a] p-0.5 rounded-md border border-[#1e293b]">
+          <div className="flex items-center bg-white p-0.5 rounded-lg border border-[#D9E2F2] shadow-sm">
             {intervals.map((it) => (
               <button
                 key={it.value}
                 onClick={() => setInterval(it.value)}
-                className={`px-2 py-1 rounded text-xs font-semibold transition-all ${
+                className={`px-2 py-1 rounded-md text-xs font-semibold transition-all ${
                   interval === it.value
-                    ? 'bg-[#3b82f6] text-white shadow-sm'
-                    : 'text-[#94a3b8] hover:text-[#f1f5f9]'
+                    ? 'bg-[#00225A] text-white shadow-sm font-bold'
+                    : 'text-[#6B7A90] hover:text-[#00225A]'
                 }`}
               >
                 {it.label}
@@ -446,11 +446,11 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
           </div>
 
           {/* Indicators dropdown/toggle buttons */}
-          <div className="flex items-center gap-1 pl-2 border-l border-[#1e293b]">
+          <div className="flex items-center gap-1 pl-2 border-l border-[#D9E2F2]">
             <button
               onClick={() => setShowSMA(!showSMA)}
-              className={`px-2 py-1 rounded text-[11px] font-semibold border transition-all ${
-                showSMA ? 'bg-[#38bdf8]/15 border-[#38bdf8]/40 text-[#38bdf8]' : 'bg-[#090e1a] border-[#1e293b] text-[#64748b] hover:text-[#94a3b8]'
+              className={`px-2 py-1 rounded-lg text-[11px] font-semibold border transition-all ${
+                showSMA ? 'bg-[#EEF3FF] border-[#536CF0] text-[#00225A]' : 'bg-white border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A]'
               }`}
               title="Toggle 20 SMA"
             >
@@ -458,8 +458,8 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
             </button>
             <button
               onClick={() => setShowEMA(!showEMA)}
-              className={`px-2 py-1 rounded text-[11px] font-semibold border transition-all ${
-                showEMA ? 'bg-[#a855f7]/15 border-[#a855f7]/40 text-[#a855f7]' : 'bg-[#090e1a] border-[#1e293b] text-[#64748b] hover:text-[#94a3b8]'
+              className={`px-2 py-1 rounded-lg text-[11px] font-semibold border transition-all ${
+                showEMA ? 'bg-[#F9F5FF] border-[#7F56D9] text-[#7F56D9]' : 'bg-white border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A]'
               }`}
               title="Toggle 50 EMA"
             >
@@ -467,14 +467,14 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
             </button>
             <button
               onClick={() => setChartType(chartType === 'candles' ? 'area' : 'candles')}
-              className="p-1.5 rounded bg-[#090e1a] border border-[#1e293b] text-[#94a3b8] hover:text-white transition-colors"
+              className="p-1.5 rounded-lg bg-white border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A] shadow-sm transition-colors"
               title={chartType === 'candles' ? 'Switch to Area View' : 'Switch to Candlesticks'}
             >
               <BarChart2 className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleFitContent}
-              className="p-1.5 rounded bg-[#090e1a] border border-[#1e293b] text-[#94a3b8] hover:text-white transition-colors"
+              className="p-1.5 rounded-lg bg-white border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A] shadow-sm transition-colors"
               title="Reset Zoom / Fit Content"
             >
               <Maximize2 className="w-3.5 h-3.5" />
@@ -484,11 +484,11 @@ export const TradingViewChart: React.FC<TradingViewChartProps> = ({
       </div>
 
       {/* ── Chart Canvas Studio ─────────────────────────────────────────── */}
-      <div className="relative flex-1 w-full min-h-[460px]">
+      <div className="relative flex-1 w-full min-h-[460px] bg-white">
         {isLoading && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#090e1a]/80 backdrop-blur-sm">
-            <div className="flex items-center gap-2.5 px-4 py-2.5 bg-[#0d1424] border border-[#1e293b] rounded-lg text-xs font-semibold text-[#3b82f6] shadow-xl">
-              <RefreshCw className="w-4 h-4 animate-spin text-[#3b82f6]" />
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+            <div className="flex items-center gap-2.5 px-4 py-2.5 bg-white border border-[#D9E2F2] rounded-xl text-xs font-semibold text-[#00225A] shadow-lg">
+              <RefreshCw className="w-4 h-4 animate-spin text-[#536CF0]" />
               <span>Streaming Market Candlesticks...</span>
             </div>
           </div>

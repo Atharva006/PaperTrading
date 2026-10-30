@@ -21,19 +21,19 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught component error in Cendrix Capital platform:', error, errorInfo);
+    console.error('Uncaught component error:', error, errorInfo);
   }
 
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] flex items-center justify-center p-6">
-          <div className="max-w-md w-full cendrix-card rounded-xl p-8 text-center shadow-2xl border border-[#14223A]">
-            <div className="w-12 h-12 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 flex items-center justify-center mx-auto mb-4">
+        <div className="min-h-screen bg-[#FCFCFC] text-[#111114] flex items-center justify-center p-6 font-sans">
+          <div className="max-w-md w-full bg-white rounded-2xl p-8 text-center shadow-xl border border-[#D9E2F2]">
+            <div className="w-12 h-12 rounded-2xl bg-[#D92D20]/10 border border-[#D92D20]/20 text-[#D92D20] flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-6 h-6" />
             </div>
-            <h2 className="text-xl font-serif font-bold text-[#F5F5F2] mb-2">Something went wrong</h2>
-            <p className="text-xs text-[#A1A8B3] mb-6">
+            <h2 className="text-xl font-display font-bold text-[#00225A] mb-2">Something went wrong</h2>
+            <p className="text-xs text-[#6B7A90] mb-6">
               {this.state.error?.message || 'An unexpected rendering error occurred in the workspace.'}
             </p>
             <button
@@ -41,7 +41,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 this.setState({ hasError: false, error: null });
                 window.location.reload();
               }}
-              className="inline-flex items-center gap-2 btn-cendrix-gold px-5 py-2.5 text-xs font-bold rounded-lg shadow-md"
+              className="inline-flex items-center gap-2 bg-[#00225A] hover:bg-[#536CF0] text-white px-5 py-2.5 text-xs font-bold rounded-xl shadow-xs cursor-pointer transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reload Workspace</span>

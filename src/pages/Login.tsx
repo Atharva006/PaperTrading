@@ -13,7 +13,6 @@ import {
   AlertCircle,
   Loader2,
   Sparkles,
-  KeyRound,
   ExternalLink,
 } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
@@ -91,7 +90,7 @@ export default function Login() {
     try {
       if (!isSupabaseConfigured) {
         throw new Error(
-          'Supabase credentials are not configured in .env.local (VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY). Please add your Supabase project keys to enable live Google OAuth, or use the 1-Click Institutional Demo below.'
+          'Supabase credentials are not configured. Please add your Supabase project keys to enable live Google OAuth, or use the 1-Click Institutional Demo below.'
         );
       }
 
@@ -108,14 +107,13 @@ export default function Login() {
       });
 
       if (authError) throw authError;
-      // Google redirects the browser, loading state remains until redirect
     } catch (err: any) {
       setError(err.message || 'Google authentication encountered an unexpected error.');
       setGoogleLoading(false);
     }
   };
 
-  // Method 2: Custom Email & Password (Sign In or Sign Up)
+  // Method 2: Custom Email & Password
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -137,19 +135,13 @@ export default function Login() {
           throw new Error('Supabase is not configured.');
         }
 
-        const { data: updateData, error: updateErr } = await supabase.auth.updateUser({ password });
+        const { error: updateErr } = await supabase.auth.updateUser({ password });
         if (updateErr) throw updateErr;
 
-        if (updateData?.user) {
-          await init(updateData.user.id, updateData.user.email, updateData.user.user_metadata?.full_name);
-          navigate('/dashboard');
-        } else {
-          await supabase.auth.signOut();
-          setSuccessMessage('Password successfully updated! You can now sign in with your new password.');
-          setView('SIGN_IN');
-          setPassword('');
-          setConfirmPassword('');
-        }
+        setSuccessMessage('Password successfully updated! You can now sign in with your new password.');
+        setView('SIGN_IN');
+        setPassword('');
+        setConfirmPassword('');
       } catch (err: any) {
         setError(err.message || 'Failed to update password.');
       } finally {
@@ -158,36 +150,29 @@ export default function Login() {
       return;
     }
 
-    if (!email || !email.includes('@')) {
-      setError('Please provide a valid email address.');
-      return;
-    }
-
     if (view === 'FORGOT_PASSWORD') {
+      if (!email) {
+        setError('Please enter your email address to recover your password.');
+        return;
+      }
+
       setLoading(true);
       try {
         if (!isSupabaseConfigured) {
-          throw new Error(
-            'Supabase credentials are not configured in .env.local. Password reset emails require an active Supabase project.'
-          );
+          throw new Error('Supabase is not configured.');
         }
 
-        const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
+        const { error: resetErr } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/login`,
         });
+        if (resetErr) throw resetErr;
 
-        if (resetError) throw resetError;
-        setSuccessMessage(`Password recovery instructions have been dispatched to ${email}. Please check your inbox.`);
+        setSuccessMessage(`Password recovery link has been sent to ${email}. Please check your inbox.`);
       } catch (err: any) {
-        setError(err.message || 'Failed to dispatch password reset email.');
+        setError(err.message || 'Failed to request password reset.');
       } finally {
         setLoading(false);
       }
-      return;
-    }
-
-    if (!password || password.length < 6) {
-      setError('Password must be at least 6 characters long.');
       return;
     }
 
@@ -196,16 +181,23 @@ export default function Login() {
         setError('Please enter your full name.');
         return;
       }
+      if (!password || password.length < 6) {
+        setError('Password must be at least 6 characters long.');
+        return;
+      }
       if (password !== confirmPassword) {
-        setError('Passwords do not match. Please re-type your password confirmation.');
+        setError('Passwords do not match. Please re-enter your password.');
         return;
       }
 
       setLoading(true);
       try {
         if (!isSupabaseConfigured) {
-          // Offline fallback registration simulation
-          await init('usr_' + Date.now(), email, fullName);
+          // Offline local mode simulation
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('tradeedge_auth_logged_in', 'true');
+          }
+          await init(undefined, email, fullName);
           navigate('/dashboard');
           return;
         }
@@ -214,22 +206,22 @@ export default function Login() {
           email,
           password,
           options: {
-            data: {
-              full_name: fullName,
-            },
+            data: { full_name: fullName },
+            emailRedirectTo: `${window.location.origin}/dashboard`,
           },
         });
 
         if (signUpError) throw signUpError;
 
-        if (data?.session?.user) {
-          // Auto-confirmed registration (Confirm email is OFF in Supabase)
+        if (data?.session) {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('tradeedge_auth_logged_in', 'true');
+          }
           await init(data.session.user.id, data.session.user.email, fullName);
           navigate('/dashboard');
         } else {
-          // Confirm email is ON in Supabase
           setSuccessMessage(
-            `Account created for ${email}! If "Confirm email" is enabled in Supabase, please click the confirmation link sent to your inbox before signing in, or toggle off "Confirm email" in Supabase -> Authentication -> Providers -> Email for instant access.`
+            `Account created for ${email}! Please check your email for the confirmation link to complete sign-in.`
           );
           setView('SIGN_IN');
           setPassword('');
@@ -249,7 +241,6 @@ export default function Login() {
       const destination = (location.state as any)?.from?.pathname || '/dashboard';
 
       if (!isSupabaseConfigured) {
-        // Offline demo account simulation when no Supabase backend is configured
         if (typeof window !== 'undefined') {
           localStorage.setItem('tradeedge_auth_logged_in', 'true');
         }
@@ -279,15 +270,9 @@ export default function Login() {
     } catch (err: any) {
       const msg = err.message || '';
       if (msg.toLowerCase().includes('invalid login credentials') || msg.toLowerCase().includes('invalid_grant')) {
-        setError(
-          'Invalid login credentials or unconfirmed email. If you just registered this account, please confirm it via the email link sent to you, or turn OFF "Confirm email" in Supabase (Authentication -> Providers -> Email) to allow immediate sign-in.'
-        );
-      } else if (msg.toLowerCase().includes('email not confirmed')) {
-        setError(
-          'Email not confirmed yet. Please check your inbox for the confirmation email from Supabase, or turn OFF "Confirm email" in your Supabase dashboard.'
-        );
+        setError('Invalid login credentials or unconfirmed email. Please verify your email and password.');
       } else {
-        setError(msg || 'Authentication failed. Please verify your credentials and try again.');
+        setError(msg || 'Authentication failed. Please check your credentials.');
       }
     } finally {
       setLoading(false);
@@ -317,7 +302,6 @@ export default function Login() {
         }
       }
 
-      // Initialize default sandbox account
       await init();
       navigate(destination);
     } catch (err: any) {
@@ -328,70 +312,70 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] relative overflow-x-hidden font-sans selection:bg-[#C6A15B] selection:text-[#0B1424] flex flex-col justify-center py-10 px-4 sm:px-6 lg:px-8">
-      {/* ── Background Aesthetics & Ambient Grid ──────────────────────────── */}
+    <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+      {/* ── Background Subtle Aesthetics ──────────────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_45%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-[15%] left-[25%] w-[50%] h-[35%] bg-[#C6A15B]/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-[10%] right-[20%] w-[40%] h-[30%] bg-[#0E1728] rounded-full blur-[130px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(#D9E2F2_1px,transparent_1px)] [background-size:24px_24px] opacity-40" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#536CF0]/5 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#00225A]/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-[450px]">
+      <div className="relative z-10 sm:mx-auto sm:w-full sm:max-w-[460px]">
         {/* ── Brand Wordmark Header ────────────────────────────────────────── */}
         <div className="flex flex-col items-center mb-6">
-          <Link to="/" className="mb-4 group flex items-center gap-3 active:scale-95 transition-transform">
-            <div className="w-12 h-12 rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-2 shadow-lg shadow-[#C6A15B]/10 transition-transform group-hover:scale-105 duration-200 overflow-hidden">
-              <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
+          <Link to="/" className="mb-4 group flex items-center gap-3 active:scale-98 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-[#00225A] flex items-center justify-center p-2.5 shadow-md shadow-[#00225A]/15 transition-transform group-hover:scale-105 duration-200">
+              <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain brightness-0 invert" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-serif font-bold tracking-[0.16em] text-[#F5F5F2]">
+              <span className="text-xl font-headline font-bold tracking-tight text-[#00225A]">
                 CENDRIX CAPITAL
               </span>
               <div className="flex items-center gap-1.5">
-                <span className="text-[8.5px] text-[#C6A15B] tracking-[0.24em] font-mono font-semibold uppercase">
-                  SIMULATED FUND
+                <span className="text-[10px] text-[#536CF0] tracking-wider font-mono font-semibold uppercase">
+                  FUNDED SIMULATOR
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
               </div>
             </div>
           </Link>
 
-          <h1 className="text-center text-lg sm:text-xl font-serif font-bold text-[#F5F5F2] tracking-tight">
+          <h1 className="text-center text-2xl font-headline font-bold text-[#00225A] tracking-tight">
             {view === 'SIGN_IN' && 'Institutional Desk Access'}
-            {view === 'SIGN_UP' && 'Create Quantitative Account'}
-            {view === 'FORGOT_PASSWORD' && 'Recover Terminal Credentials'}
+            {view === 'SIGN_UP' && 'Create Trader Account'}
+            {view === 'FORGOT_PASSWORD' && 'Recover Credentials'}
             {view === 'RESET_PASSWORD' && 'Set New Password'}
           </h1>
-          <p className="mt-1 text-center text-xs text-[#A1A8B3] max-w-sm">
-            {view === 'SIGN_IN' && 'Authenticate using Google OAuth or your institutional email credentials.'}
-            {view === 'SIGN_UP' && 'Instant access to real-time NSE & MCX simulation with ₹10,00,000 virtual capital.'}
+          <p className="mt-1 text-center text-xs text-[#6B7A90] max-w-sm">
+            {view === 'SIGN_IN' && 'Sign in using Google OAuth or your institutional email credentials.'}
+            {view === 'SIGN_UP' && 'Instant access to live NSE & MCX simulation with ₹10,00,000 virtual capital.'}
             {view === 'FORGOT_PASSWORD' && 'Enter your verified email to receive a password recovery link.'}
             {view === 'RESET_PASSWORD' && 'Enter and confirm your new secure account password below.'}
           </p>
         </div>
 
-        {/* ── Main Auth Card (Apple Glass Surface §12) ───────────────────── */}
-        <div className="apple-glass-panel py-7 px-6 sm:px-8 rounded-3xl shadow-[0_24px_70px_rgba(0,0,0,0.85)]">
+        {/* ── Main Auth Card (FundingPips White Card) ────────────────────── */}
+        <div className="bg-white border border-[#D9E2F2] py-8 px-6 sm:px-8 rounded-3xl shadow-[0_8px_30px_rgba(0,34,90,0.06)]">
           {/* Notification Alerts */}
           {error && (
-            <div className="mb-4 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-rose-300 font-medium leading-relaxed">{error}</p>
+            <div className="mb-4 p-3.5 rounded-xl bg-[#FEF3F2] border border-[#D92D20]/25 flex items-start gap-2.5 animate-in fade-in duration-200">
+              <AlertCircle className="w-4 h-4 text-[#D92D20] shrink-0 mt-0.5" />
+              <p className="text-xs text-[#D92D20] font-medium leading-relaxed">{error}</p>
             </div>
           )}
 
           {successMessage && (
-            <div className="mb-4 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-start gap-2.5 animate-in fade-in duration-200">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <p className="text-xs text-emerald-300 font-medium leading-relaxed">{successMessage}</p>
+            <div className="mb-4 p-3.5 rounded-xl bg-[#ECFDF3] border border-[#12B76A]/25 flex items-start gap-2.5 animate-in fade-in duration-200">
+              <CheckCircle2 className="w-4 h-4 text-[#12B76A] shrink-0 mt-0.5" />
+              <p className="text-xs text-[#12B76A] font-medium leading-relaxed">{successMessage}</p>
             </div>
           )}
 
           {!isSupabaseConfigured && (
-            <div className="mb-4 p-3 rounded-xl bg-[#C6A15B]/10 border border-[#C6A15B]/25 flex items-start gap-2.5">
-              <Sparkles className="w-4 h-4 text-[#C6A15B] shrink-0 mt-0.5" />
-              <p className="text-[11px] text-[#E2C889] leading-snug">
-                <span className="font-bold">Offline / Sandbox Mode:</span> Cloud Supabase keys are not set in <code className="text-[#F5F5F2] font-mono">.env.local</code>. You can test authentication or click below to launch the sandbox instantly.
+            <div className="mb-4 p-3 rounded-xl bg-[#EEF3FF] border border-[#536CF0]/25 flex items-start gap-2.5">
+              <Sparkles className="w-4 h-4 text-[#536CF0] shrink-0 mt-0.5" />
+              <p className="text-[11px] text-[#00225A] leading-snug">
+                <span className="font-bold">Offline / Sandbox Mode:</span> Cloud credentials not detected. You can test authentication or click below to launch the sandbox instantly.
               </p>
             </div>
           )}
@@ -403,16 +387,16 @@ export default function Login() {
                 type="button"
                 onClick={handleGoogleSignIn}
                 disabled={googleLoading || loading}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#0F192B]/90 hover:bg-[#14223A] border border-white/10 hover:border-[rgba(198,161,91,0.4)] text-[#F5F5F2] text-xs font-semibold tracking-wide transition-all shadow-sm flex items-center justify-center gap-3 active:scale-[0.97] disabled:opacity-50 cursor-pointer"
+                className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-[#F7F8FA] border border-[#D9E2F2] hover:border-[#536CF0] text-[#00225A] text-xs font-semibold tracking-wide transition-all shadow-2xs flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-50 cursor-pointer h-11"
               >
                 {googleLoading ? (
                   <>
-                    <Loader2 className="w-4 h-4 text-[#C6A15B] animate-spin" />
+                    <Loader2 className="w-4 h-4 text-[#536CF0] animate-spin" />
                     <span>Connecting Google Identity...</span>
                   </>
                 ) : (
                   <>
-                    {/* Official Google G SVG */}
+                    {/* Google G SVG */}
                     <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                       <path
                         fill="#4285F4"
@@ -436,20 +420,20 @@ export default function Login() {
                 )}
               </button>
 
-              {/* ── Elegant Divider ───────────────────────────────────────── */}
+              {/* ── Divider ───────────────────────────────────────────────── */}
               <div className="relative my-5">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10" />
+                  <div className="w-full border-t border-[#D9E2F2]" />
                 </div>
                 <div className="relative flex justify-center text-[10px] uppercase font-mono tracking-widest">
-                  <span className="bg-[#0E1728] px-3 text-[#6E7683]">
+                  <span className="bg-white px-3 text-[#6B7A90]">
                     Or continue with email
                   </span>
                 </div>
               </div>
 
-              {/* ── Apple Segmented Control: Sign In vs Create Account ───── */}
-              <div className="apple-segmented-group w-full mb-5 p-1">
+              {/* ── Segmented Control: Sign In vs Create Account ──────────── */}
+              <div className="flex items-center gap-1 bg-[#F0F2F6] w-full mb-5 p-1 rounded-xl border border-[#D9E2F2]">
                 <button
                   type="button"
                   onClick={() => {
@@ -457,8 +441,10 @@ export default function Login() {
                     setError('');
                     setSuccessMessage('');
                   }}
-                  className={`apple-segmented-item flex-1 py-2 text-xs font-semibold text-center font-mono tracking-wider transition-all duration-200 ${
-                    view === 'SIGN_IN' ? 'apple-segmented-item-active' : ''
+                  className={`flex-1 py-2 text-xs font-semibold text-center rounded-lg transition-all ${
+                    view === 'SIGN_IN'
+                      ? 'bg-[#00225A] text-white shadow-2xs font-bold'
+                      : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   SIGN IN
@@ -470,8 +456,10 @@ export default function Login() {
                     setError('');
                     setSuccessMessage('');
                   }}
-                  className={`apple-segmented-item flex-1 py-2 text-xs font-semibold text-center font-mono tracking-wider transition-all duration-200 ${
-                    view === 'SIGN_UP' ? 'apple-segmented-item-active' : ''
+                  className={`flex-1 py-2 text-xs font-semibold text-center rounded-lg transition-all ${
+                    view === 'SIGN_UP'
+                      ? 'bg-[#00225A] text-white shadow-2xs font-bold'
+                      : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   CREATE ACCOUNT
@@ -480,17 +468,17 @@ export default function Login() {
             </>
           )}
 
-          {/* ── Method 2: Custom Email & Password Form ─────────────────────── */}
+          {/* ── Email & Password Form ─────────────────────────────────────── */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Full Name (Sign Up Only) */}
             {view === 'SIGN_UP' && (
               <div>
-                <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
+                <label className="block text-[11px] font-semibold text-[#00225A] uppercase tracking-wider mb-1 font-mono">
                   Full Name
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-4 w-4 text-[#6E7683]" />
+                    <User className="h-4 w-4 text-[#94A3B8]" />
                   </div>
                   <input
                     type="text"
@@ -498,21 +486,21 @@ export default function Login() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Atharva Bhosale"
-                    className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
+                    className="block w-full pl-9 pr-3 py-2.5 border border-[#D9E2F2] rounded-xl bg-[#FFFFFF] text-[#111114] focus:outline-none focus:border-[#536CF0] focus:ring-2 focus:ring-[#536CF0]/10 transition-all text-xs placeholder:text-[#94A3B8]"
                   />
                 </div>
               </div>
             )}
 
-            {/* Email Address (Hide when resetting password) */}
+            {/* Email Address */}
             {view !== 'RESET_PASSWORD' && (
               <div>
-                <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
+                <label className="block text-[11px] font-semibold text-[#00225A] uppercase tracking-wider mb-1 font-mono">
                   Email Address
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Mail className="h-4 w-4 text-[#6E7683]" />
+                    <Mail className="h-4 w-4 text-[#94A3B8]" />
                   </div>
                   <input
                     type="email"
@@ -521,17 +509,17 @@ export default function Login() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="trader@cendrixcapital.com"
                     autoComplete="email"
-                    className="block w-full pl-9 pr-3 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
+                    className="block w-full pl-9 pr-3 py-2.5 border border-[#D9E2F2] rounded-xl bg-[#FFFFFF] text-[#111114] focus:outline-none focus:border-[#536CF0] focus:ring-2 focus:ring-[#536CF0]/10 transition-all text-xs placeholder:text-[#94A3B8]"
                   />
                 </div>
               </div>
             )}
 
-            {/* Password (Sign In, Sign Up, & Reset Password) */}
+            {/* Password */}
             {view !== 'FORGOT_PASSWORD' && (
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider font-mono">
+                  <label className="block text-[11px] font-semibold text-[#00225A] uppercase tracking-wider font-mono">
                     {view === 'RESET_PASSWORD' ? 'New Password' : 'Password'}
                   </label>
                   {view === 'SIGN_IN' && (
@@ -542,7 +530,7 @@ export default function Login() {
                         setError('');
                         setSuccessMessage('');
                       }}
-                      className="text-[11px] text-[#C6A15B] hover:text-[#E2C889] transition-colors font-mono"
+                      className="text-[11px] text-[#536CF0] hover:text-[#00225A] transition-colors font-medium"
                     >
                       Forgot password?
                     </button>
@@ -550,7 +538,7 @@ export default function Login() {
                 </div>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-4 w-4 text-[#6E7683]" />
+                    <Lock className="h-4 w-4 text-[#94A3B8]" />
                   </div>
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -559,33 +547,33 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••"
                     autoComplete={view === 'SIGN_IN' ? 'current-password' : 'new-password'}
-                    className="block w-full pl-9 pr-10 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
+                    className="block w-full pl-9 pr-10 py-2.5 border border-[#D9E2F2] rounded-xl bg-[#FFFFFF] text-[#111114] focus:outline-none focus:border-[#536CF0] focus:ring-2 focus:ring-[#536CF0]/10 transition-all text-xs placeholder:text-[#94A3B8]"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6E7683] hover:text-[#A1A8B3]"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#94A3B8] hover:text-[#00225A]"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {(view === 'SIGN_UP' || view === 'RESET_PASSWORD') && (
-                  <p className="text-[10px] text-[#6E7683] mt-1 font-mono">
+                  <p className="text-[10px] text-[#6B7A90] mt-1 font-mono">
                     Must be at least 6 characters.
                   </p>
                 )}
               </div>
             )}
 
-            {/* Confirm Password (Sign Up & Reset Password) */}
+            {/* Confirm Password */}
             {(view === 'SIGN_UP' || view === 'RESET_PASSWORD') && (
               <div>
-                <label className="block text-[11px] font-semibold text-[#A1A8B3] uppercase tracking-wider mb-1 font-mono">
+                <label className="block text-[11px] font-semibold text-[#00225A] uppercase tracking-wider mb-1 font-mono">
                   Confirm {view === 'RESET_PASSWORD' ? 'New ' : ''}Password
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <ShieldCheck className="h-4 w-4 text-[#6E7683]" />
+                    <ShieldCheck className="h-4 w-4 text-[#94A3B8]" />
                   </div>
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
@@ -594,12 +582,12 @@ export default function Login() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="••••••••••••"
                     autoComplete="new-password"
-                    className="block w-full pl-9 pr-10 py-2 border border-[#14223A] rounded-xl bg-[#0B1424] text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B] transition-all text-xs placeholder:text-[#6E7683]"
+                    className="block w-full pl-9 pr-10 py-2.5 border border-[#D9E2F2] rounded-xl bg-[#FFFFFF] text-[#111114] focus:outline-none focus:border-[#536CF0] focus:ring-2 focus:ring-[#536CF0]/10 transition-all text-xs placeholder:text-[#94A3B8]"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6E7683] hover:text-[#A1A8B3]"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#94A3B8] hover:text-[#00225A]"
                   >
                     {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -607,19 +595,19 @@ export default function Login() {
               </div>
             )}
 
-            {/* Remember Me Option (Sign In Only) */}
+            {/* Remember Me Option */}
             {view === 'SIGN_IN' && (
               <div className="flex items-center justify-between text-xs pt-0.5">
-                <label className="flex items-center gap-2 text-[#A1A8B3] cursor-pointer select-none">
+                <label className="flex items-center gap-2 text-[#6B7A90] cursor-pointer select-none font-medium">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="w-3.5 h-3.5 rounded border-[#14223A] bg-[#0B1424] text-[#C6A15B] focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                    className="w-3.5 h-3.5 rounded border-[#D9E2F2] text-[#00225A] focus:ring-[#536CF0] cursor-pointer"
                   />
                   <span>Keep session active</span>
                 </label>
-                <span className="text-[10px] text-[#6E7683] font-mono">TLS 256-Bit</span>
+                <span className="text-[10px] text-[#6B7A90] font-mono">TLS 256-Bit</span>
               </div>
             )}
 
@@ -628,11 +616,11 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={loading || googleLoading}
-                className="w-full btn-cendrix-gold py-2.5 text-xs tracking-wider font-bold shadow-md shadow-[#C6A15B]/15 flex items-center justify-center gap-2 active:scale-[0.99] disabled:opacity-50"
+                className="w-full btn-primary py-2.5 text-xs font-semibold shadow-md flex items-center justify-center gap-2 active:scale-[0.98] disabled:opacity-50 h-11"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-[#0B1424]" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                     <span>Processing Authentication...</span>
                   </>
                 ) : (
@@ -643,7 +631,7 @@ export default function Login() {
                       {view === 'FORGOT_PASSWORD' && 'Send Password Reset Link'}
                       {view === 'RESET_PASSWORD' && 'Update Password & Access Terminal'}
                     </span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-4 h-4" />
                   </>
                 )}
               </button>
@@ -652,7 +640,7 @@ export default function Login() {
 
           {/* Back to Sign In Button */}
           {(view === 'FORGOT_PASSWORD' || view === 'RESET_PASSWORD') && (
-            <div className="mt-4 pt-3 border-t border-[#14223A] text-center">
+            <div className="mt-4 pt-3 border-t border-[#D9E2F2] text-center">
               <button
                 type="button"
                 onClick={() => {
@@ -660,7 +648,7 @@ export default function Login() {
                   setError('');
                   setSuccessMessage('');
                 }}
-                className="text-xs text-[#C6A15B] hover:text-[#E2C889] font-mono flex items-center justify-center gap-1.5 mx-auto transition-colors"
+                className="text-xs text-[#536CF0] hover:text-[#00225A] font-medium flex items-center justify-center gap-1.5 mx-auto transition-colors"
               >
                 <ArrowLeft className="w-3.5 h-3.5" /> Return to Sign In
               </button>
@@ -668,27 +656,27 @@ export default function Login() {
           )}
 
           {/* ── Method 3: 1-Click Institutional Demo Sandbox ──────────────── */}
-          <div className="mt-6 pt-5 border-t border-[#14223A]">
-            <div className="p-3.5 rounded-xl bg-[#0B1424] border border-[#14223A] flex flex-col gap-2.5">
+          <div className="mt-6 pt-5 border-t border-[#D9E2F2]">
+            <div className="p-4 rounded-2xl bg-[#F7F8FA] border border-[#D9E2F2] flex flex-col gap-2.5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#00c087] animate-pulse" />
-                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#F5F5F2]">
-                    Institutional Sandbox
+                  <div className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse" />
+                  <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#00225A]">
+                    Simulated Sandbox
                   </span>
                 </div>
-                <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#C6A15B]/15 text-[#C6A15B] border border-[#C6A15B]/30 font-semibold">
+                <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-[#EEF3FF] text-[#00225A] border border-[#D9E2F2] font-semibold">
                   ₹10,00,000 VIRTUAL
                 </span>
               </div>
-              <p className="text-[11px] text-[#A1A8B3] leading-relaxed">
+              <p className="text-[11px] text-[#6B7A90] leading-relaxed">
                 Want immediate access without logging in? Enter the sandbox loaded with live tick streams and virtual margin.
               </p>
               <button
                 type="button"
                 onClick={handleLaunchDemo}
                 disabled={demoLoading}
-                className="w-full py-2 px-3 rounded-lg bg-[#14223A] hover:bg-[#182740] text-[#C6A15B] hover:text-[#E2C889] border border-[rgba(198,161,91,0.25)] text-xs font-semibold font-mono tracking-wide transition-all flex items-center justify-center gap-2 active:scale-[0.99]"
+                className="w-full btn-secondary py-2 px-3 rounded-xl text-xs font-semibold tracking-wide transition-all flex items-center justify-center gap-2 active:scale-[0.98] h-10"
               >
                 {demoLoading ? (
                   <>
@@ -698,7 +686,7 @@ export default function Login() {
                 ) : (
                   <>
                     <span>Launch 1-Click Sandbox</span>
-                    <ExternalLink className="w-3 h-3" />
+                    <ExternalLink className="w-3.5 h-3.5 text-[#536CF0]" />
                   </>
                 )}
               </button>
@@ -706,24 +694,24 @@ export default function Login() {
           </div>
 
           {/* Footer Back to Landing */}
-          <div className="mt-5 pt-3 border-t border-[#14223A] flex items-center justify-between text-xs text-[#6E7683]">
+          <div className="mt-5 pt-3 border-t border-[#D9E2F2] flex items-center justify-between text-xs text-[#6B7A90]">
             <Link
               to="/"
-              className="hover:text-[#F5F5F2] transition-colors flex items-center gap-1.5 font-medium"
+              className="hover:text-[#00225A] transition-colors flex items-center gap-1.5 font-medium"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Platform Overview
             </Link>
-            <span className="text-[10px] font-mono">Institutional Simulation Mode</span>
+            <span className="text-[10px] font-mono">Institutional Simulator</span>
           </div>
         </div>
 
         {/* Security Disclaimers */}
         <div className="mt-6 text-center space-y-1">
-          <p className="text-[10px] text-[#6E7683] font-mono">
-            Protected by Supabase Cloud Authentication · 256-Bit TLS · Strict Transport Security
+          <p className="text-[10px] text-[#6B7A90] font-mono">
+            Protected by Cloud Authentication · 256-Bit TLS · Strict Transport Security
           </p>
-          <p className="text-[10px] text-[#6E7683]/70">
-            For institutional paper simulation & quantitative strategy testing only.
+          <p className="text-[10px] text-[#94A3B8]">
+            For paper simulation & quantitative strategy testing only.
           </p>
         </div>
       </div>

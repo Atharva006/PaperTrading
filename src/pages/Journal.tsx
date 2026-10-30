@@ -240,17 +240,17 @@ export default function Journal() {
   };
 
   return (
-    <div className="space-y-5 pb-12 max-w-[1400px] mx-auto">
+    <div className="space-y-5 pb-12 max-w-[1400px] mx-auto text-[#111114]">
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/5 pb-5">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#D9E2F2] pb-5">
         <div>
-          <p className="text-[10px] text-[#8c8c8c] uppercase tracking-wider font-semibold mb-1">Trading Journal</p>
-          <h1 className="text-2xl font-medium tracking-tight text-[#e5e5e5]">Trade Log</h1>
+          <p className="text-[10px] text-[#536CF0] uppercase tracking-wider font-semibold font-mono mb-1">Trading Journal</p>
+          <h1 className="text-2xl font-bold font-display tracking-tight text-[#00225A]">Trade Log</h1>
         </div>
         <button
           onClick={() => setIsAdding(true)}
-          className="bg-[#d97757] hover:bg-[#c46547] text-[#131314] px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-colors shadow-[0_0_15px_rgba(217,119,87,0.3)]"
+          className="bg-[#00225A] hover:bg-[#536CF0] text-white px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 transition-colors shadow-xs cursor-pointer"
         >
           <Plus className="w-4 h-4" /> Log Trade
         </button>
@@ -269,15 +269,15 @@ export default function Journal() {
         return (
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             {[
-              { label: 'Total Trades', value: trades.length, color: '#e5e5e5' },
-              { label: 'Win Rate', value: `${winRate.toFixed(1)}%`, color: winRate >= 50 ? '#10b981' : '#ef4444' },
-              { label: 'Wins', value: wins, color: '#10b981' },
-              { label: 'Losses', value: losses, color: '#ef4444' },
-              { label: 'Net P&L', value: `${totalPnl >= 0 ? '+' : ''}$${Math.abs(totalPnl).toLocaleString(undefined, { maximumFractionDigits: 0 })}`, color: totalPnl >= 0 ? '#10b981' : '#ef4444' },
+              { label: 'Total Trades', value: trades.length, color: '#00225A' },
+              { label: 'Win Rate', value: `${winRate.toFixed(1)}%`, color: winRate >= 50 ? '#12B76A' : '#D92D20' },
+              { label: 'Wins', value: wins, color: '#12B76A' },
+              { label: 'Losses', value: losses, color: '#D92D20' },
+              { label: 'Net P&L', value: `${totalPnl >= 0 ? '+' : ''}$${Math.abs(totalPnl).toLocaleString(undefined, { maximumFractionDigits: 0 })}`, color: totalPnl >= 0 ? '#12B76A' : '#D92D20' },
             ].map((s, i) => (
-              <div key={i} className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-xl p-4">
-                <p className="text-[10px] text-[#8c8c8c] uppercase tracking-wider font-semibold mb-1">{s.label}</p>
-                <p className="text-xl font-medium tracking-tight" style={{ color: s.color }}>{s.value}</p>
+              <div key={i} className="bg-white border border-[#D9E2F2] rounded-2xl p-4 shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                <p className="text-[10px] text-[#6B7A90] uppercase tracking-wider font-semibold mb-1">{s.label}</p>
+                <p className="text-xl font-bold font-mono tracking-tight" style={{ color: s.color }}>{s.value}</p>
               </div>
             ))}
           </div>
@@ -285,29 +285,29 @@ export default function Journal() {
       })()}
 
       {/* ── Search Bar ───────────────────────────────────────────────────── */}
-      <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-xl flex items-center gap-3 px-4 py-3">
-        <Search className="w-4 h-4 text-[#8c8c8c] flex-shrink-0" />
+      <div className="bg-white border border-[#D9E2F2] rounded-xl flex items-center gap-3 px-4 py-3 shadow-xs">
+        <Search className="w-4 h-4 text-[#6B7A90] flex-shrink-0" />
         <input
           type="text"
           placeholder="Search by instrument, strategy, session..."
-          className="w-full bg-transparent text-sm text-[#e5e5e5] placeholder:text-[#8c8c8c] focus:outline-none"
+          className="w-full bg-transparent text-sm text-[#111114] placeholder:text-[#6B7A90]/60 focus:outline-none"
         />
       </div>
 
       {/* ── Trade List ───────────────────────────────────────────────────── */}
       <div className="space-y-3">
         {trades.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl gap-4">
-            <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center">
-              <Plus className="w-7 h-7 text-[#8c8c8c]" />
+          <div className="flex flex-col items-center justify-center py-24 bg-white border border-[#D9E2F2] rounded-2xl gap-4 shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="w-14 h-14 rounded-2xl bg-[#F7F8FA] border border-[#D9E2F2] flex items-center justify-center">
+              <Plus className="w-7 h-7 text-[#6B7A90]" />
             </div>
             <div className="text-center">
-              <p className="text-base font-medium text-[#e5e5e5] mb-1">No trades logged yet</p>
-              <p className="text-sm text-[#8c8c8c]">Start your journal by recording your first trade.</p>
+              <p className="text-base font-bold font-display text-[#00225A] mb-1">No trades logged yet</p>
+              <p className="text-sm text-[#6B7A90]">Start your journal by recording your first trade.</p>
             </div>
             <button
               onClick={() => setIsAdding(true)}
-              className="mt-2 px-5 py-2.5 bg-[#d97757] hover:bg-[#c46547] text-[#131314] rounded-xl text-sm font-semibold transition-colors"
+              className="mt-2 px-5 py-2.5 bg-[#00225A] hover:bg-[#536CF0] text-white rounded-xl text-sm font-semibold transition-colors shadow-xs cursor-pointer"
             >
               Log First Trade
             </button>
@@ -320,17 +320,16 @@ export default function Journal() {
               <div
                 key={trade.id}
                 onClick={() => navigate(`/dashboard/trade/${trade.id}`)}
-                className="group bg-[#18181b]/40 backdrop-blur-xl border border-white/5 hover:border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:bg-[#18181b]/60"
+                className="group bg-white border border-[#D9E2F2] hover:border-[#536CF0]/40 rounded-2xl overflow-hidden cursor-pointer transition-all duration-200 hover:shadow-[0_4px_16px_rgba(0,34,90,0.06)]"
               >
                 {/* Color bar at top */}
-                <div className={`h-0.5 w-full ${isWin ? 'bg-[#10b981]' : 'bg-[#ef4444]'}`} />
+                <div className={`h-0.5 w-full ${isWin ? 'bg-[#12B76A]' : 'bg-[#D92D20]'}`} />
 
                 <div className="flex gap-0 p-0">
                   {/* Screenshot thumbnail */}
                   {imgUrl && (
-                    <div className="w-36 flex-shrink-0 bg-black/30 overflow-hidden relative">
-                      <img src={imgUrl} alt="chart" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#18181b]/60" />
+                    <div className="w-36 flex-shrink-0 bg-[#F7F8FA] border-r border-[#D9E2F2] overflow-hidden relative">
+                      <img src={imgUrl} alt="chart" className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
                     </div>
                   )}
 
@@ -338,38 +337,38 @@ export default function Journal() {
                     {/* Top Row */}
                     <div className="flex justify-between items-start">
                       <div className="flex items-center gap-3 flex-wrap">
-                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold tracking-widest border ${trade.direction === 'Long' ? 'bg-[#10b981]/10 text-[#10b981] border-[#10b981]/25' : 'bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/25'}`}>
+                        <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold tracking-widest border ${trade.direction === 'Long' ? 'bg-[#12B76A]/10 text-[#12B76A] border-[#12B76A]/25' : 'bg-[#D92D20]/10 text-[#D92D20] border-[#D92D20]/25'}`}>
                           {trade.direction.toUpperCase()}
                         </span>
-                        <span className="text-base font-semibold text-[#e5e5e5] tracking-tight">{trade.instrument}</span>
-                        <span className="text-xs text-[#8c8c8c]">{format(new Date(trade.date), 'MMM d, yyyy · h:mm a')}</span>
+                        <span className="text-base font-bold font-display text-[#00225A] tracking-tight">{trade.instrument}</span>
+                        <span className="text-xs text-[#6B7A90] font-mono">{format(new Date(trade.date), 'MMM d, yyyy · h:mm a')}</span>
                         {trade.strategy && (
-                          <span className="px-2 py-0.5 text-[10px] font-medium text-[#d97757] bg-[#d97757]/10 border border-[#d97757]/20 rounded-md">
+                          <span className="px-2 py-0.5 text-[10px] font-semibold text-[#00225A] bg-[#EEF3FF] border border-[#D9E2F2] rounded-md font-mono">
                             {trade.strategy}
                           </span>
                         )}
                         {trade.session && (
-                          <span className="px-2 py-0.5 text-[10px] font-medium text-[#8c8c8c] bg-white/5 border border-white/10 rounded-md">
+                          <span className="px-2 py-0.5 text-[10px] font-semibold text-[#6B7A90] bg-[#F7F8FA] border border-[#D9E2F2] rounded-md font-mono">
                             {trade.session}
                           </span>
                         )}
                       </div>
                       {/* P&L + R */}
                       <div className="flex items-center gap-3 flex-shrink-0 ml-4">
-                        <div className="text-right">
-                          <p className={`text-xl font-semibold tracking-tight ${isWin ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                        <div className="text-right font-mono">
+                          <p className={`text-xl font-bold tracking-tight ${isWin ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {isWin ? '+' : ''}${Math.abs(trade.pnl).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                           </p>
                           {trade.rr !== 0 && (
-                            <p className={`text-xs font-medium ${trade.rr > 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                            <p className={`text-xs font-semibold ${trade.rr > 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                               {trade.rr > 0 ? '+' : ''}{trade.rr.toFixed(2)}R
                             </p>
                           )}
                         </div>
-                        <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg border ${
-                          trade.result === 'Win' ? 'bg-[#10b981]/10 text-[#10b981] border-[#10b981]/20' :
-                          trade.result === 'Loss' ? 'bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/20' :
-                          'bg-white/5 text-[#8c8c8c] border-white/10'
+                        <span className={`px-2.5 py-1 text-[10px] font-bold rounded-lg border font-mono ${
+                          trade.result === 'Win' ? 'bg-[#12B76A]/10 text-[#12B76A] border-[#12B76A]/20' :
+                          trade.result === 'Loss' ? 'bg-[#D92D20]/10 text-[#D92D20] border-[#D92D20]/20' :
+                          'bg-[#F7F8FA] text-[#6B7A90] border-[#D9E2F2]'
                         }`}>
                           {trade.result}
                         </span>
@@ -378,13 +377,13 @@ export default function Journal() {
 
                     {/* Bottom Row */}
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 text-xs text-[#8c8c8c]">
-                        <span>Entry <span className="text-[#e5e5e5] font-medium">{trade.entry}</span></span>
-                        {trade.exit > 0 && <span>Exit <span className="text-[#e5e5e5] font-medium">{trade.exit}</span></span>}
-                        {trade.stopLoss > 0 && <span>SL <span className="text-[#ef4444] font-medium">{trade.stopLoss}</span></span>}
-                        {trade.quantity && <span>Qty <span className="text-[#e5e5e5] font-medium">{trade.quantity}</span></span>}
+                      <div className="flex items-center gap-4 text-xs text-[#6B7A90] font-mono">
+                        <span>Entry <span className="text-[#00225A] font-semibold">{trade.entry}</span></span>
+                        {trade.exit > 0 && <span>Exit <span className="text-[#00225A] font-semibold">{trade.exit}</span></span>}
+                        {trade.stopLoss > 0 && <span>SL <span className="text-[#D92D20] font-semibold">{trade.stopLoss}</span></span>}
+                        {trade.quantity && <span>Qty <span className="text-[#00225A] font-semibold">{trade.quantity}</span></span>}
                         {trade.emotionBefore && (
-                          <span className="flex items-center gap-1">
+                          <span className="flex items-center gap-1 font-sans">
                             {getEmotionBadge(trade.emotionBefore)}
                           </span>
                         )}
@@ -393,13 +392,13 @@ export default function Journal() {
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button
                           onClick={e => { e.stopPropagation(); navigate(`/dashboard/trade/${trade.id}`); }}
-                          className="flex items-center gap-1.5 text-[11px] font-medium text-[#8c8c8c] hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all"
+                          className="flex items-center gap-1.5 text-[11px] font-semibold text-[#6B7A90] hover:text-[#00225A] px-3 py-1.5 rounded-lg hover:bg-[#F7F8FA] transition-all cursor-pointer"
                         >
                           <Eye className="w-3.5 h-3.5" /> View
                         </button>
                         <button
                           onClick={e => { e.stopPropagation(); setEditingTradeId(trade.id); }}
-                          className="flex items-center gap-1.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#d97757] px-3 py-1.5 rounded-lg hover:bg-[#d97757]/5 transition-all"
+                          className="flex items-center gap-1.5 text-[11px] font-semibold text-[#6B7A90] hover:text-[#536CF0] px-3 py-1.5 rounded-lg hover:bg-[#EEF3FF] transition-all cursor-pointer"
                         >
                           <Pencil className="w-3.5 h-3.5" /> Edit
                         </button>
@@ -408,7 +407,7 @@ export default function Journal() {
                             e.stopPropagation();
                             if (window.confirm('Are you sure you want to delete this trade?')) deleteTrade(trade.id);
                           }}
-                          className="flex items-center gap-1.5 text-[11px] font-medium text-[#8c8c8c] hover:text-[#ef4444] px-3 py-1.5 rounded-lg hover:bg-[#ef4444]/5 transition-all"
+                          className="flex items-center gap-1.5 text-[11px] font-semibold text-[#6B7A90] hover:text-[#D92D20] px-3 py-1.5 rounded-lg hover:bg-[#D92D20]/5 transition-all cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" /> Delete
                         </button>
@@ -422,16 +421,16 @@ export default function Journal() {
         )}
       </div>
       {isAdding && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#1a1d24] border border-[#2d323e] rounded-xl shadow-2xl w-full max-w-4xl flex flex-col max-h-[95vh]">
-            <div className="flex justify-between items-center p-4 border-b border-[#2d323e]">
-              <h2 className="text-lg font-bold text-white">{editingTradeId ? 'Edit Trade' : 'Log New Trade'}</h2>
-              <button onClick={() => handleCloseModal()} className="text-textMuted hover:text-white transition-colors">
+        <div className="fixed inset-0 bg-[#00225A]/30 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col max-h-[95vh] text-[#111114]">
+            <div className="flex justify-between items-center p-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h2 className="text-lg font-bold font-display text-[#00225A]">{editingTradeId ? 'Edit Trade' : 'Log New Trade'}</h2>
+              <button onClick={() => handleCloseModal()} className="text-[#6B7A90] hover:text-[#00225A] transition-colors cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
             
-            <div className="flex px-4 border-b border-[#2d323e]">
+            <div className="flex px-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
               {[
                 { name: 'Trade Details', label: 'Trade Details' },
                 { name: 'Psychology & Review', label: 'Psychology & Review' },
@@ -440,14 +439,14 @@ export default function Journal() {
                 <button 
                   key={tab.name}
                   onClick={() => setActiveTab(tab.name)}
-                  className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.name ? 'border-primary text-white' : 'border-transparent text-textMuted hover:text-white'}`}
+                  className={`px-4 py-3 text-sm font-semibold border-b-2 transition-colors cursor-pointer ${activeTab === tab.name ? 'border-[#00225A] text-[#00225A]' : 'border-transparent text-[#6B7A90] hover:text-[#00225A]'}`}
                 >
                   {tab.label}
                 </button>
               ))}
             </div>
 
-            <div className="overflow-y-auto flex-1 p-6">
+            <div className="overflow-y-auto flex-1 p-6 bg-white">
               <form id="tradeForm" onSubmit={handleAddTrade} className="space-y-6">
                 
                 {activeTab === 'Trade Details' && (
@@ -455,14 +454,14 @@ export default function Journal() {
 
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Account <span className="text-danger">*</span></label>
-                        <select value={accountId} onChange={e => setAccountId(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Account <span className="text-[#D92D20]">*</span></label>
+                        <select value={accountId} onChange={e => setAccountId(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           {accounts.map(acc => <option key={acc.id} value={acc.id}>{acc.name}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Instrument <span className="text-danger">*</span></label>
-                        <select value={instrument} onChange={e => setInstrument(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Instrument <span className="text-[#D92D20]">*</span></label>
+                        <select value={instrument} onChange={e => setInstrument(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="Gold (XAUUSD)">Gold (XAUUSD)</option>
                           <option value="NQ">NQ</option>
                           <option value="ES">ES</option>
@@ -473,20 +472,20 @@ export default function Journal() {
 
                     <div className="grid grid-cols-4 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Date <span className="text-danger">*</span></label>
-                        <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" required  />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Date <span className="text-[#D92D20]">*</span></label>
+                        <input type="date" value={date} onChange={e => setDate(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" required  />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Entry Time <span className="text-danger">*</span></label>
-                        <input type="time" value={entryTime} onChange={e => setEntryTime(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" required  />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Entry Time <span className="text-[#D92D20]">*</span></label>
+                        <input type="time" value={entryTime} onChange={e => setEntryTime(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" required  />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Exit Time</label>
-                        <input type="time" value={exitTime} onChange={e => setExitTime(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Exit Time</label>
+                        <input type="time" value={exitTime} onChange={e => setExitTime(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Direction <span className="text-danger">*</span></label>
-                        <select value={direction} onChange={e => setDirection(e.target.value as TradeDirection)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Direction <span className="text-[#D92D20]">*</span></label>
+                        <select value={direction} onChange={e => setDirection(e.target.value as TradeDirection)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="Long">Long</option>
                           <option value="Short">Short</option>
                         </select>
@@ -495,58 +494,58 @@ export default function Journal() {
 
                     <div className="grid grid-cols-4 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Entry Price <span className="text-danger">*</span></label>
-                        <input type="number" step="any" value={entryPrice} onChange={e => setEntryPrice(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" required  />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Entry Price <span className="text-[#D92D20]">*</span></label>
+                        <input type="number" step="any" value={entryPrice} onChange={e => setEntryPrice(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" required  />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Stop Loss</label>
-                        <input type="number" step="any" value={stopLoss} onChange={e => setStopLoss(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Stop Loss</label>
+                        <input type="number" step="any" value={stopLoss} onChange={e => setStopLoss(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Take Profit</label>
-                        <input type="number" step="any" value={takeProfit} onChange={e => setTakeProfit(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Take Profit</label>
+                        <input type="number" step="any" value={takeProfit} onChange={e => setTakeProfit(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Exit Price</label>
-                        <input type="number" step="any" value={exitPrice} onChange={e => setExitPrice(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-4 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Quantity / Contracts <span className="text-danger">*</span></label>
-                        <input type="number" step="any" value={quantity} onChange={e => setQuantity(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" required  />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Commission</label>
-                        <input type="number" step="any" value={commission} onChange={e => setCommission(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Fees</label>
-                        <input type="number" step="any" value={fees} onChange={e => setFees(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Point Value Override</label>
-                        <input type="number" step="any" value={pointValue} onChange={e => setPointValue(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Exit Price</label>
+                        <input type="number" step="any" value={exitPrice} onChange={e => setExitPrice(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-4 gap-4">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Strategy <span className="text-danger">*</span></label>
-                        <select value={strategy} onChange={e => setStrategy(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Quantity / Contracts <span className="text-[#D92D20]">*</span></label>
+                        <input type="number" step="any" value={quantity} onChange={e => setQuantity(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" required  />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Commission</label>
+                        <input type="number" step="any" value={commission} onChange={e => setCommission(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Fees</label>
+                        <input type="number" step="any" value={fees} onChange={e => setFees(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Point Value Override</label>
+                        <input type="number" step="any" value={pointValue} onChange={e => setPointValue(e.target.value === "" ? "" : Number(e.target.value))} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Strategy <span className="text-[#D92D20]">*</span></label>
+                        <select value={strategy} onChange={e => setStrategy(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="Breakout">Breakout</option>
                           <option value="Pullback">Pullback</option>
                           <option value="Reversal">Reversal</option>
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Setup</label>
-                        <input type="text" placeholder="e.g. Opening range breakout" value={setup} onChange={e => setSetup(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Setup</label>
+                        <input type="text" placeholder="e.g. Opening range breakout" value={setup} onChange={e => setSetup(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Timeframe</label>
-                        <select value={timeframe} onChange={e => setTimeframe(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Timeframe</label>
+                        <select value={timeframe} onChange={e => setTimeframe(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="—">—</option>
                           <option value="1m">1m</option>
                           <option value="5m">5m</option>
@@ -555,8 +554,8 @@ export default function Journal() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Session</label>
-                        <select value={session} onChange={e => setSession(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Session</label>
+                        <select value={session} onChange={e => setSession(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="New York">New York</option>
                           <option value="London">London</option>
                           <option value="Tokyo">Tokyo</option>
@@ -566,8 +565,8 @@ export default function Journal() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-textMuted mb-1.5">Notes / Tags</label>
-                      <input type="text" placeholder="Write some quick notes or tags..." value={notes} onChange={e => setNotes(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none" />
+                      <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Notes / Tags</label>
+                      <input type="text" placeholder="Write some quick notes or tags..." value={notes} onChange={e => setNotes(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none" />
                     </div>
                   </>
                 )}
@@ -576,8 +575,8 @@ export default function Journal() {
                   <div className="space-y-6">
                     <div className="grid grid-cols-3 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Emotion Before Trade</label>
-                        <select value={emotionBefore} onChange={e => setEmotionBefore(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Emotion Before Trade</label>
+                        <select value={emotionBefore} onChange={e => setEmotionBefore(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="">—</option>
                           <option value="Calm">Calm</option>
                           <option value="Anxious">Anxious</option>
@@ -586,8 +585,8 @@ export default function Journal() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Emotion During Trade</label>
-                        <select value={emotionDuring} onChange={e => setEmotionDuring(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Emotion During Trade</label>
+                        <select value={emotionDuring} onChange={e => setEmotionDuring(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="">—</option>
                           <option value="Patient">Patient</option>
                           <option value="Nervous">Nervous</option>
@@ -596,8 +595,8 @@ export default function Journal() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Emotion After Trade</label>
-                        <select value={emotionAfter} onChange={e => setEmotionAfter(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Emotion After Trade</label>
+                        <select value={emotionAfter} onChange={e => setEmotionAfter(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none">
                           <option value="">—</option>
                           <option value="Satisfied">Satisfied</option>
                           <option value="Relieved">Relieved</option>
@@ -609,21 +608,21 @@ export default function Journal() {
 
                     <div className="grid grid-cols-2 gap-8">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Confidence ({confidence}/10)</label>
-                        <input type="range" min="1" max="10" value={confidence} onChange={e => setConfidence(Number(e.target.value))} className="w-full accent-primary mt-2" />
-                        <div className="flex justify-between text-[10px] text-textMuted mt-1">
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Confidence ({confidence}/10)</label>
+                        <input type="range" min="1" max="10" value={confidence} onChange={e => setConfidence(Number(e.target.value))} className="w-full accent-[#00225A] mt-2 cursor-pointer" />
+                        <div className="flex justify-between text-[10px] text-[#6B7A90] mt-1 font-mono">
                           <span>Low (1)</span><span>High (10)</span>
                         </div>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Execution Quality</label>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Execution Quality</label>
                         <div className="flex gap-2 mt-1">
                           {['Poor', 'Average', 'Good', 'Excellent'].map(quality => (
                             <button
                               key={quality}
                               type="button"
                               onClick={() => setExecutionQuality(quality as ExecutionQuality)}
-                              className={`flex-1 py-2 rounded border text-xs font-medium transition-colors ${executionQuality === quality ? 'border-primary bg-primary/10 text-primary' : 'border-[#2d323e] bg-[#13151a] text-textMuted hover:text-white hover:border-gray-500'}`}
+                              className={`flex-1 py-2 rounded-xl border text-xs font-semibold transition-colors cursor-pointer ${executionQuality === quality ? 'border-[#00225A] bg-[#EEF3FF] text-[#00225A]' : 'border-[#D9E2F2] bg-[#F7F8FA] text-[#6B7A90] hover:text-[#00225A] hover:border-[#00225A]'}`}
                             >
                               {quality}
                             </button>
@@ -634,20 +633,20 @@ export default function Journal() {
 
                     <div className="grid grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Pre-Trade Thesis</label>
-                        <textarea rows={3} value={preTradeThesis} onChange={e => setPreTradeThesis(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none resize-none"></textarea>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Pre-Trade Thesis</label>
+                        <textarea rows={3} value={preTradeThesis} onChange={e => setPreTradeThesis(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none resize-none"></textarea>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Post-Trade Review</label>
-                        <textarea rows={3} value={postTradeReview} onChange={e => setPostTradeReview(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none resize-none"></textarea>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Post-Trade Review</label>
+                        <textarea rows={3} value={postTradeReview} onChange={e => setPostTradeReview(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none resize-none"></textarea>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Mistakes</label>
-                        <textarea rows={2} value={mistakes} onChange={e => setMistakes(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none resize-none"></textarea>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Mistakes</label>
+                        <textarea rows={2} value={mistakes} onChange={e => setMistakes(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none resize-none"></textarea>
                       </div>
                       <div>
-                        <label className="block text-xs font-semibold text-textMuted mb-1.5">Lesson</label>
-                        <textarea rows={2} value={lesson} onChange={e => setLesson(e.target.value)} className="w-full bg-[#13151a] border border-[#2d323e] rounded-md px-3 py-2.5 text-sm text-white focus:border-primary outline-none resize-none"></textarea>
+                        <label className="block text-xs font-semibold text-[#6B7A90] mb-1.5 uppercase font-mono">Lesson</label>
+                        <textarea rows={2} value={lesson} onChange={e => setLesson(e.target.value)} className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3 py-2.5 text-sm text-[#111114] focus:border-[#536CF0] focus:bg-white outline-none resize-none"></textarea>
                       </div>
                     </div>
                   </div>
@@ -656,18 +655,18 @@ export default function Journal() {
                 {activeTab === 'Screenshots' && (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Before Entry */}
-                    <div className="flex flex-col border border-[#2d323e] bg-[#13151a] rounded-lg overflow-hidden">
-                      <div className="p-3 border-b border-[#2d323e] flex justify-between items-center bg-[#1a1d24]">
-                        <span className="text-sm font-semibold text-white">Before Entry</span>
+                    <div className="flex flex-col border border-[#D9E2F2] bg-[#F7F8FA] rounded-xl overflow-hidden">
+                      <div className="p-3 border-b border-[#D9E2F2] flex justify-between items-center bg-white">
+                        <span className="text-sm font-semibold text-[#00225A]">Before Entry</span>
                         {screenshotBeforePreview && (
-                          <button type="button" onClick={() => { setScreenshotBeforeFile(null); setScreenshotBeforePreview(null); }} className="text-textMuted hover:text-danger"><X className="w-4 h-4" /></button>
+                          <button type="button" onClick={() => { setScreenshotBeforeFile(null); setScreenshotBeforePreview(null); }} className="text-[#6B7A90] hover:text-[#D92D20] cursor-pointer"><X className="w-4 h-4" /></button>
                         )}
                       </div>
                       <div className="flex-1 p-4 flex flex-col items-center justify-center min-h-[200px]">
                         {screenshotBeforePreview ? (
-                          <img src={screenshotBeforePreview} alt="Before Entry" className="max-h-48 object-contain rounded" />
+                          <img src={screenshotBeforePreview} alt="Before Entry" className="max-h-48 object-contain rounded-xl" />
                         ) : (
-                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-textMuted hover:text-white transition-colors border-2 border-dashed border-[#2d323e] rounded-lg p-6 hover:border-primary hover:bg-primary/5">
+                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-[#6B7A90] hover:text-[#00225A] transition-colors border-2 border-dashed border-[#D9E2F2] rounded-xl p-6 hover:border-[#536CF0] hover:bg-white">
                             <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
                             <span className="text-xs font-medium text-center">Click to upload or drag image here</span>
                             <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setScreenshotBeforeFile, setScreenshotBeforePreview)} />
@@ -677,18 +676,18 @@ export default function Journal() {
                     </div>
 
                     {/* During Entry */}
-                    <div className="flex flex-col border border-[#2d323e] bg-[#13151a] rounded-lg overflow-hidden">
-                      <div className="p-3 border-b border-[#2d323e] flex justify-between items-center bg-[#1a1d24]">
-                        <span className="text-sm font-semibold text-white">During Entry</span>
+                    <div className="flex flex-col border border-[#D9E2F2] bg-[#F7F8FA] rounded-xl overflow-hidden">
+                      <div className="p-3 border-b border-[#D9E2F2] flex justify-between items-center bg-white">
+                        <span className="text-sm font-semibold text-[#00225A]">During Entry</span>
                         {screenshotDuringPreview && (
-                          <button type="button" onClick={() => { setScreenshotDuringFile(null); setScreenshotDuringPreview(null); }} className="text-textMuted hover:text-danger"><X className="w-4 h-4" /></button>
+                          <button type="button" onClick={() => { setScreenshotDuringFile(null); setScreenshotDuringPreview(null); }} className="text-[#6B7A90] hover:text-[#D92D20] cursor-pointer"><X className="w-4 h-4" /></button>
                         )}
                       </div>
                       <div className="flex-1 p-4 flex flex-col items-center justify-center min-h-[200px]">
                         {screenshotDuringPreview ? (
-                          <img src={screenshotDuringPreview} alt="During Entry" className="max-h-48 object-contain rounded" />
+                          <img src={screenshotDuringPreview} alt="During Entry" className="max-h-48 object-contain rounded-xl" />
                         ) : (
-                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-textMuted hover:text-white transition-colors border-2 border-dashed border-[#2d323e] rounded-lg p-6 hover:border-primary hover:bg-primary/5">
+                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-[#6B7A90] hover:text-[#00225A] transition-colors border-2 border-dashed border-[#D9E2F2] rounded-xl p-6 hover:border-[#536CF0] hover:bg-white">
                             <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
                             <span className="text-xs font-medium text-center">Click to upload or drag image here</span>
                             <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setScreenshotDuringFile, setScreenshotDuringPreview)} />
@@ -698,18 +697,18 @@ export default function Journal() {
                     </div>
 
                     {/* After Entry */}
-                    <div className="flex flex-col border border-[#2d323e] bg-[#13151a] rounded-lg overflow-hidden">
-                      <div className="p-3 border-b border-[#2d323e] flex justify-between items-center bg-[#1a1d24]">
-                        <span className="text-sm font-semibold text-white">After Entry</span>
+                    <div className="flex flex-col border border-[#D9E2F2] bg-[#F7F8FA] rounded-xl overflow-hidden">
+                      <div className="p-3 border-b border-[#D9E2F2] flex justify-between items-center bg-white">
+                        <span className="text-sm font-semibold text-[#00225A]">After Entry</span>
                         {screenshotAfterPreview && (
-                          <button type="button" onClick={() => { setScreenshotAfterFile(null); setScreenshotAfterPreview(null); }} className="text-textMuted hover:text-danger"><X className="w-4 h-4" /></button>
+                          <button type="button" onClick={() => { setScreenshotAfterFile(null); setScreenshotAfterPreview(null); }} className="text-[#6B7A90] hover:text-[#D92D20] cursor-pointer"><X className="w-4 h-4" /></button>
                         )}
                       </div>
                       <div className="flex-1 p-4 flex flex-col items-center justify-center min-h-[200px]">
                         {screenshotAfterPreview ? (
-                          <img src={screenshotAfterPreview} alt="After Entry" className="max-h-48 object-contain rounded" />
+                          <img src={screenshotAfterPreview} alt="After Entry" className="max-h-48 object-contain rounded-xl" />
                         ) : (
-                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-textMuted hover:text-white transition-colors border-2 border-dashed border-[#2d323e] rounded-lg p-6 hover:border-primary hover:bg-primary/5">
+                          <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-[#6B7A90] hover:text-[#00225A] transition-colors border-2 border-dashed border-[#D9E2F2] rounded-xl p-6 hover:border-[#536CF0] hover:bg-white">
                             <ImageIcon className="w-8 h-8 mb-2 opacity-50" />
                             <span className="text-xs font-medium text-center">Click to upload or drag image here</span>
                             <input type="file" accept="image/*" className="hidden" onChange={(e) => handleImageUpload(e, setScreenshotAfterFile, setScreenshotAfterPreview)} />
@@ -723,45 +722,45 @@ export default function Journal() {
             </div>
 
             {/* Bottom Bar Stats & Save */}
-            <div className="p-4 border-t border-[#2d323e] bg-[#1a1d24] mt-auto">
-              <div className="flex justify-between items-center bg-[#13151a] rounded-lg border border-[#2d323e] px-6 py-4 mb-4">
+            <div className="p-4 border-t border-[#D9E2F2] bg-[#F7F8FA] mt-auto">
+              <div className="flex justify-between items-center bg-white rounded-xl border border-[#D9E2F2] px-6 py-4 mb-4 shadow-xs font-mono">
                 <div>
-                  <p className="text-[10px] text-textMuted uppercase font-bold tracking-wider mb-1">Gross P&L</p>
-                  <p className={`text-lg font-bold ${stats.grossPnl > 0 ? 'text-success' : stats.grossPnl < 0 ? 'text-danger' : 'text-textMuted'}`}>
+                  <p className="text-[10px] text-[#6B7A90] uppercase font-bold tracking-wider mb-1">Gross P&L</p>
+                  <p className={`text-lg font-bold ${stats.grossPnl > 0 ? 'text-[#12B76A]' : stats.grossPnl < 0 ? 'text-[#D92D20]' : 'text-[#6B7A90]'}`}>
                     {stats.grossPnl > 0 ? '+' : ''}${stats.grossPnl.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-textMuted uppercase font-bold tracking-wider mb-1">Net P&L</p>
-                  <p className={`text-lg font-bold ${stats.netPnl > 0 ? 'text-success' : stats.netPnl < 0 ? 'text-danger' : 'text-textMuted'}`}>
+                  <p className="text-[10px] text-[#6B7A90] uppercase font-bold tracking-wider mb-1">Net P&L</p>
+                  <p className={`text-lg font-bold ${stats.netPnl > 0 ? 'text-[#12B76A]' : stats.netPnl < 0 ? 'text-[#D92D20]' : 'text-[#6B7A90]'}`}>
                     {stats.netPnl > 0 ? '+' : ''}${stats.netPnl.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-textMuted uppercase font-bold tracking-wider mb-1">Risk</p>
-                  <p className="text-lg font-bold text-white">
+                  <p className="text-[10px] text-[#6B7A90] uppercase font-bold tracking-wider mb-1">Risk</p>
+                  <p className="text-lg font-bold text-[#00225A]">
                     {stats.risk > 0 ? `$${stats.risk.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}` : '—'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-textMuted uppercase font-bold tracking-wider mb-1">R:R</p>
-                  <p className="text-lg font-bold text-white">
+                  <p className="text-[10px] text-[#6B7A90] uppercase font-bold tracking-wider mb-1">R:R</p>
+                  <p className="text-lg font-bold text-[#00225A]">
                     {stats.rr > 0 ? `1:${stats.rr.toFixed(2)}` : '—'}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-textMuted uppercase font-bold tracking-wider mb-1">R-Multiple</p>
-                  <p className={`text-lg font-bold ${stats.rMultiple > 0 ? 'text-success' : stats.rMultiple < 0 ? 'text-danger' : 'text-textMuted'}`}>
+                  <p className="text-[10px] text-[#6B7A90] uppercase font-bold tracking-wider mb-1">R-Multiple</p>
+                  <p className={`text-lg font-bold ${stats.rMultiple > 0 ? 'text-[#12B76A]' : stats.rMultiple < 0 ? 'text-[#D92D20]' : 'text-[#6B7A90]'}`}>
                     {stats.rMultiple !== 0 ? `${stats.rMultiple > 0 ? '+' : ''}${stats.rMultiple.toFixed(2)}R` : '—'}
                   </p>
                 </div>
               </div>
               
               <div className="flex justify-end gap-3">
-                <button type="button" onClick={() => handleCloseModal()} disabled={isSubmitting} className="px-4 py-2 text-sm font-medium text-textMain hover:text-white transition-colors disabled:opacity-50">
+                <button type="button" onClick={() => handleCloseModal()} disabled={isSubmitting} className="px-4 py-2 text-sm font-semibold text-[#6B7A90] hover:text-[#00225A] transition-colors disabled:opacity-50 cursor-pointer">
                   Cancel
                 </button>
-                <button type="submit" form="tradeForm" disabled={isSubmitting} className="btn-cendrix-gold px-6 py-2 rounded-lg text-xs font-bold transition-all shadow-md disabled:opacity-50">
+                <button type="submit" form="tradeForm" disabled={isSubmitting} className="bg-[#00225A] hover:bg-[#536CF0] text-white px-6 py-2 rounded-xl text-xs font-bold transition-all shadow-xs disabled:opacity-50 cursor-pointer">
                   {isSubmitting ? 'Saving...' : 'Save Trade'}
                 </button>
               </div>

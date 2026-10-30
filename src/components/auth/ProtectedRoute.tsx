@@ -75,13 +75,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   // Display institutional loading state while checking session
   if (isAuthenticated === null) {
     return (
-      <div className="min-h-screen bg-[#0B1424] flex flex-col items-center justify-center text-[#F5F5F2] font-sans">
+      <div className="min-h-screen bg-[#FCFCFC] flex flex-col items-center justify-center text-[#111114] font-sans">
         <div className="flex flex-col items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-2 shadow-lg shadow-[#C6A15B]/10">
+          <div className="w-12 h-12 rounded-2xl bg-white border border-[#D9E2F2] flex items-center justify-center p-2.5 shadow-sm">
             <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[#C6A15B]">
-            <Loader2 className="w-4 h-4 animate-spin text-[#C6A15B]" />
+          <div className="flex items-center gap-2 text-xs font-mono text-[#00225A] font-semibold">
+            <Loader2 className="w-4 h-4 animate-spin text-[#536CF0]" />
             <span>AUTHENTICATING DESK SESSION...</span>
           </div>
         </div>

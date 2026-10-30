@@ -170,111 +170,111 @@ export default function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B1424] text-[#F5F5F2] relative overflow-x-hidden font-sans selection:bg-[#C6A15B] selection:text-[#0B1424]">
+    <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white">
       
-      {/* Background Prestige Radial Glow */}
+      {/* Background Soft Mesh Tint */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-[-10%] left-[25%] w-[50%] h-[40%] bg-[#C6A15B]/10 rounded-full blur-[160px]" />
-        <div className="absolute top-[45%] right-[-10%] w-[40%] h-[40%] bg-[#0E1728] rounded-full blur-[140px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00225A05_1px,transparent_1px),linear-gradient(to_bottom,#00225A05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+        <div className="absolute top-[-10%] left-[25%] w-[50%] h-[40%] bg-[#536CF0]/5 rounded-full blur-[140px]" />
+        <div className="absolute top-[45%] right-[-10%] w-[40%] h-[40%] bg-[#00225A]/5 rounded-full blur-[140px]" />
       </div>
 
       {/* ── 1. Top Institutional Navigation Bar ─────────────────────────── */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'apple-glass-nav py-3' : 'bg-transparent py-4 sm:py-5'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#D9E2F2] py-3' : 'bg-transparent py-4 sm:py-5'}`}>
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Brand Lockup */}
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1.5 overflow-hidden shadow-sm shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center p-1.5 overflow-hidden shadow-sm shrink-0">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
             <div className="flex flex-col shrink-0">
               <div className="flex items-center gap-2">
-                <span className="text-sm sm:text-base font-serif font-bold tracking-wider text-[#F5F5F2] whitespace-nowrap">
+                <span className="text-sm sm:text-base font-display font-bold tracking-tight text-[#00225A] whitespace-nowrap">
                   CENDRIX CAPITAL
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono text-[#C6A15B] bg-[#C6A15B]/10 px-1.5 py-0.5 rounded border border-[#C6A15B]/30 uppercase font-semibold shrink-0">
+                <span className="text-[9px] sm:text-[10px] font-mono text-[#00225A] bg-[#EEF3FF] px-1.5 py-0.5 rounded border border-[#D9E2F2] uppercase font-bold shrink-0">
                   CNRX
                 </span>
               </div>
-              <p className="text-[8px] sm:text-[9px] font-mono tracking-widest text-[#6E7683] uppercase whitespace-nowrap">
+              <p className="text-[8px] sm:text-[9px] font-mono tracking-wider text-[#6B7A90] uppercase whitespace-nowrap">
                 Simulated Fund Workstation
               </p>
             </div>
           </div>
 
           {/* Desktop Nav Links (Full 6-Item Bar on Extra-Large Screens) */}
-          <div className="hidden xl:flex items-center gap-1.5 text-xs font-semibold text-[#A1A8B3] shrink-0 mx-2">
-            <a href="#features" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">What We Provide</a>
-            <a href="#analytics-preview" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Risk Analytics</a>
-            <a href="#advantage" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Our Advantage</a>
-            <a href="#demo" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all flex items-center gap-1.5 whitespace-nowrap">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="hidden xl:flex items-center gap-1 text-xs font-semibold text-[#6B7A90] shrink-0 mx-2">
+            <a href="#features" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">What We Provide</a>
+            <a href="#analytics-preview" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Risk Analytics</a>
+            <a href="#advantage" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Our Advantage</a>
+            <a href="#demo" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all flex items-center gap-1.5 whitespace-nowrap">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
               <span>Interactive Demo</span>
             </a>
-            <a href="#pipeline" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Data Gateway</a>
-            <a href="#commodities" className="px-3 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Commodities</a>
+            <a href="#pipeline" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Data Gateway</a>
+            <a href="#commodities" className="px-3 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Commodities</a>
           </div>
 
           {/* Large Screen Nav Links (Curated 4-Item Bar on 1024px-1279px) */}
-          <div className="hidden lg:flex xl:hidden items-center gap-1 text-xs font-semibold text-[#A1A8B3] shrink-0">
-            <a href="#features" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Platform</a>
-            <a href="#analytics-preview" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Analytics</a>
-            <a href="#demo" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="hidden lg:flex xl:hidden items-center gap-1 text-xs font-semibold text-[#6B7A90] shrink-0">
+            <a href="#features" className="px-2.5 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Platform</a>
+            <a href="#analytics-preview" className="px-2.5 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Analytics</a>
+            <a href="#demo" className="px-2.5 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
               <span>Demo</span>
             </a>
-            <a href="#commodities" className="px-2.5 py-1.5 rounded-full hover:text-[#F5F5F2] hover:bg-white/5 transition-all whitespace-nowrap">Commodities</a>
+            <a href="#commodities" className="px-2.5 py-1.5 rounded-full hover:text-[#00225A] hover:bg-[#F7F8FA] transition-all whitespace-nowrap">Commodities</a>
           </div>
 
           {/* Right Action Buttons */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <Link 
               to="/login" 
-              className="hidden sm:inline-flex text-xs font-semibold text-[#A1A8B3] hover:text-[#C6A15B] transition-colors px-3 py-1.5 font-mono whitespace-nowrap"
+              className="hidden sm:inline-flex text-xs font-semibold text-[#6B7A90] hover:text-[#00225A] transition-colors px-3 py-1.5 font-mono whitespace-nowrap"
             >
               Sign In / Register
             </Link>
             <Link 
               to="/dashboard" 
-              className="btn-cendrix-gold text-xs py-2 px-3.5 sm:px-4 shadow-[0_2px_12px_rgba(198,161,91,0.25)] flex items-center gap-1.5 active:scale-[0.97] whitespace-nowrap shrink-0"
+              className="btn-primary text-xs py-2 px-3.5 sm:px-4 shadow-sm flex items-center gap-1.5 active:scale-[0.97] whitespace-nowrap shrink-0"
             >
               <span>Launch Workstation</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-white/5"
+              className="lg:hidden p-1.5 text-[#6B7A90] hover:text-[#00225A] rounded-lg hover:bg-[#F7F8FA]"
               aria-label="Toggle navigation menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5 text-[#C6A15B]" /> : <Menu className="w-5 h-5 text-[#C6A15B]" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5 text-[#00225A]" /> : <Menu className="w-5 h-5 text-[#00225A]" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Dropdown */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-[#0A0E17]/95 backdrop-blur-xl border-b border-[#14223A] px-4 py-4 space-y-2 text-sm font-medium animate-fadeIn">
-            <a href="#features" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">What We Provide</a>
-            <a href="#analytics-preview" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Risk Analytics</a>
-            <a href="#advantage" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Our Advantage</a>
-            <a href="#demo" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-[#D9E2F2] px-4 py-4 space-y-2 text-sm font-medium shadow-lg animate-fadeIn">
+            <a href="#features" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA]">What We Provide</a>
+            <a href="#analytics-preview" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA]">Risk Analytics</a>
+            <a href="#advantage" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA]">Our Advantage</a>
+            <a href="#demo" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
               <span>Interactive Demo</span>
             </a>
-            <a href="#pipeline" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Data Gateway</a>
-            <a href="#commodities" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/5">Commodities</a>
-            <div className="pt-2 border-t border-white/10">
-              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#C6A15B] font-mono">Sign In / Register</Link>
+            <a href="#pipeline" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA]">Data Gateway</a>
+            <a href="#commodities" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#111114] hover:text-[#00225A] hover:bg-[#F7F8FA]">Commodities</a>
+            <div className="pt-2 border-t border-[#D9E2F2]">
+              <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 rounded-lg text-[#00225A] font-bold font-mono">Sign In / Register</Link>
             </div>
           </div>
         )}
       </nav>
 
       {/* ── 2. Live Marquee Ticker Ribbon (Real-Time Motion) ─────────────── */}
-      <div className="relative z-20 pt-24 sm:pt-28 border-b border-[#14223A] bg-[#0E1728]/90 overflow-hidden backdrop-blur-md">
+      <div className="relative z-20 pt-24 sm:pt-28 border-b border-[#D9E2F2] bg-[#F7F8FA] overflow-hidden">
         <div className="flex items-center">
-          <div className="px-4 py-2.5 bg-[#0B1424] border-r border-[#14223A] text-[10px] font-mono text-[#C6A15B] uppercase font-bold shrink-0 flex items-center gap-2 z-20 shadow-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <div className="px-4 py-2 bg-white border-r border-[#D9E2F2] text-[10px] font-mono text-[#00225A] uppercase font-bold shrink-0 flex items-center gap-2 z-20 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-ping" />
             <span className="tracking-wider whitespace-nowrap">Exchange Stream</span>
           </div>
 
@@ -302,17 +302,17 @@ export default function Landing() {
                 const isPos = displayChange >= 0;
 
                 return (
-                  <div key={idx} className="inline-flex items-center gap-2.5 px-3 py-1 rounded-lg hover:bg-white/5 transition-colors">
-                    <span className="font-semibold text-[#F5F5F2]">{item.symbol}</span>
-                    <span className="text-[9px] text-[#6E7683] px-1.5 py-0.2 rounded bg-[#0B1424] border border-[#14223A] font-sans">
+                  <div key={idx} className="inline-flex items-center gap-2.5 px-3 py-1 rounded-lg hover:bg-white transition-colors">
+                    <span className="font-semibold text-[#00225A]">{item.symbol}</span>
+                    <span className="text-[9px] text-[#6B7A90] px-1.5 py-0.5 rounded bg-[#EEF3FF] border border-[#D9E2F2] font-sans">
                       {item.exchange}
                     </span>
-                    <span className="font-bold text-[#F5F5F2]">₹{displayPrice.toFixed(2)}</span>
-                    <span className={`text-[11px] font-semibold flex items-center ${isPos ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    <span className="font-bold text-[#111114]">₹{displayPrice.toFixed(2)}</span>
+                    <span className={`text-[11px] font-semibold flex items-center ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                       {isPos ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                       {isPos ? '+' : ''}{displayChange.toFixed(2)} ({displayPct.toFixed(2)}%)
                     </span>
-                    <span className="text-[#14223A] mx-2">|</span>
+                    <span className="text-[#D9E2F2] mx-2">|</span>
                   </div>
                 );
               })}
@@ -329,216 +329,215 @@ export default function Landing() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             
             {/* Live Indicator Pill */}
-            <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#0E1728]/80 backdrop-blur-md border border-[rgba(198,161,91,0.25)] rounded-full text-[11px] font-semibold text-[#C6A15B] uppercase tracking-widest font-mono shadow-[0_4px_20px_rgba(0,0,0,0.4)] animate-float">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#EEF3FF] border border-[#D9E2F2] rounded-full text-[11px] font-semibold text-[#00225A] uppercase tracking-widest font-mono shadow-sm animate-float">
+              <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse" />
               <span>Direct Exchange Market Stream · Zero Synthetic Drift</span>
             </div>
 
-            {/* Main Headline (Optical Typography §15) */}
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-8 leading-[1.04] max-w-5xl mx-auto">
+            {/* Main Headline (FundingPips Light Headline-Display) */}
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-semibold text-[#00225A] tracking-[-0.04em] mb-8 leading-[1.05] max-w-5xl mx-auto">
               Precision. Discipline.<br />
-              <span className="text-[#C6A15B] bg-gradient-to-r from-[#D4B26F] via-[#C6A15B] to-[#A68037] bg-clip-text text-transparent">
+              <span className="text-[#536CF0]">
                 Institutional Execution.
               </span>
             </h1>
 
             {/* Subtitle Value Proposition */}
-            <p className="text-base sm:text-lg md:text-xl text-[#A1A8B3] mb-10 leading-relaxed max-w-3xl mx-auto font-normal">
-              CNRX is India’s bespoke institutional paper trading workstation for <strong className="text-[#F5F5F2]">NSE/BSE Equities</strong>, <strong className="text-[#F5F5F2]">F&O Derivatives</strong>, and <strong className="text-[#C6A15B]">MCX Commodities</strong>. Execute against genuine direct exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
+            <p className="text-base sm:text-lg md:text-xl text-[#6B7A90] mb-10 leading-relaxed max-w-3xl mx-auto font-normal">
+              CNRX is India’s bespoke institutional paper trading workstation for <strong className="text-[#00225A] font-semibold">NSE/BSE Equities</strong>, <strong className="text-[#00225A] font-semibold">F&O Derivatives</strong>, and <strong className="text-[#00225A] font-semibold">MCX Commodities</strong>. Execute against genuine direct exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
             </p>
 
             {/* Primary Action Buttons */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16">
               <Link 
                 to="/dashboard" 
-                className="w-full sm:w-auto btn-cendrix-gold py-4 px-8 text-xs tracking-wider font-bold shadow-[0_4px_20px_rgba(198,161,91,0.3)] flex items-center justify-center gap-2 rounded-xl active:scale-[0.97]"
+                className="w-full sm:w-auto btn-primary py-3.5 px-8 text-xs tracking-wider font-bold shadow-md flex items-center justify-center gap-2 rounded-xl active:scale-[0.97]"
               >
                 <span>Launch Workstation (₹10L Virtual)</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a 
                 href="#demo" 
-                className="w-full sm:w-auto btn-cendrix-outline py-4 px-8 text-xs tracking-wider font-semibold flex items-center justify-center gap-2 rounded-xl active:scale-[0.97]"
+                className="w-full sm:w-auto btn-secondary py-3.5 px-8 text-xs tracking-wider font-semibold flex items-center justify-center gap-2 rounded-xl active:scale-[0.97]"
               >
-                <Play className="w-4 h-4 text-[#C6A15B]" />
+                <Play className="w-4 h-4 text-[#00225A]" />
                 <span>Test Live Interactive Demo</span>
               </a>
               <Link 
                 to="/dashboard/terminal" 
-                className="w-full sm:w-auto px-6 py-4 text-xs font-mono text-[#A1A8B3] hover:text-[#F5F5F2] transition-colors rounded-xl"
+                className="w-full sm:w-auto px-6 py-3.5 text-xs font-mono font-semibold text-[#6B7A90] hover:text-[#00225A] transition-colors rounded-xl"
               >
                 Level 2 Terminal →
               </Link>
             </div>
 
-            {/* Workstation Showcase Graphic with Glass HUD */}
-            <div className="relative mx-auto max-w-5xl rounded-3xl overflow-hidden border border-[rgba(198,161,91,0.3)] shadow-[0_30px_70px_rgba(0,0,0,0.85)] animate-gold-pulse group">
+            {/* Workstation Showcase Graphic with Floating Light HUD */}
+            <div className="relative mx-auto max-w-5xl rounded-3xl overflow-hidden border border-[#D9E2F2] shadow-[0_20px_60px_rgba(0,34,90,0.08)] bg-white p-2 sm:p-3 group">
               <img 
                 src="/cendrix-terminal-hero.jpg" 
                 alt="Cendrix Capital Institutional Trading Terminal" 
-                className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-[1.01]"
+                className="w-full h-auto rounded-2xl object-cover transform transition-transform duration-700 group-hover:scale-[1.01]"
               />
 
-              {/* Floating Live Telemetry HUD Overlays (Apple Glass Panel) */}
-              <div className="absolute top-4 left-4 sm:top-6 sm:left-6 apple-glass-panel rounded-2xl p-3.5 sm:p-4 text-left shadow-2xl font-mono text-xs">
-                <div className="flex items-center gap-2 text-[#C6A15B] text-[10px] font-bold uppercase tracking-wider mb-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              {/* Floating Live Telemetry HUD Overlays */}
+              <div className="absolute top-6 left-6 sm:top-8 sm:left-8 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 text-left shadow-xl border border-[#D9E2F2] font-mono text-xs">
+                <div className="flex items-center gap-2 text-[#00225A] text-[10px] font-bold uppercase tracking-wider mb-1">
+                  <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-ping" />
                   <span>Direct Gateway Active</span>
                 </div>
-                <div className="text-sm sm:text-base font-bold text-[#F5F5F2]">Direct Exchange Binary Feed</div>
-                <div className="text-[11px] text-[#A1A8B3]">Latency: &lt; 1ms matching</div>
+                <div className="text-sm sm:text-base font-bold text-[#00225A] font-display">Direct Exchange Binary Feed</div>
+                <div className="text-[11px] text-[#6B7A90]">Latency: &lt; 1ms matching</div>
               </div>
 
-              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 apple-glass-panel rounded-2xl p-3.5 sm:p-4 text-right shadow-2xl font-mono text-xs">
-                <div className="text-[10px] text-[#A1A8B3] uppercase tracking-wider mb-0.5">Virtual Equity Balance</div>
-                <div className="text-base sm:text-lg font-bold text-emerald-400">₹10,00,000.00</div>
-                <div className="text-[10px] text-[#C6A15B] font-semibold">100% Risk Free Paper Capital</div>
+              <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 bg-white/95 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 text-right shadow-xl border border-[#D9E2F2] font-mono text-xs">
+                <div className="text-[10px] text-[#6B7A90] uppercase tracking-wider mb-0.5">Virtual Equity Balance</div>
+                <div className="text-base sm:text-lg font-bold text-[#12B76A]">₹10,00,000.00</div>
+                <div className="text-[10px] text-[#00225A] font-semibold">100% Risk Free Paper Capital</div>
               </div>
             </div>
 
           </div>
         </section>
 
-        {/* ── 4. Key Performance Metrics Bar (Apple Bento Metrics) ─────── */}
-        <section className="py-12 border-y border-[#14223A] bg-[#0E1728]/60 backdrop-blur-md">
+        {/* ── 4. Key Performance Metrics Bar ─────────────────────────────── */}
+        <section className="py-12 border-y border-[#D9E2F2] bg-[#F7F8FA]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
-              <div className="cendrix-card p-6 rounded-2xl border border-[rgba(198,161,91,0.2)]">
-                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#F5F5F2] mb-1">₹10,00,000</p>
-                <p className="text-[10px] uppercase tracking-wider text-[#A1A8B3] font-semibold font-mono">Virtual Starting Balance</p>
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#00225A] mb-1">₹10,00,000</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#6B7A90] font-semibold font-mono">Virtual Starting Balance</p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-2xl border border-[rgba(198,161,91,0.2)]">
-                <p className="text-2xl sm:text-3xl font-mono font-bold text-emerald-400 mb-1">100% LIVE</p>
-                <p className="text-[10px] uppercase tracking-wider text-[#A1A8B3] font-semibold font-mono">Direct Exchange Market Feed</p>
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#12B76A] mb-1">100% LIVE</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#6B7A90] font-semibold font-mono">Direct Exchange Market Feed</p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-2xl border border-[rgba(198,161,91,0.2)]">
-                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#F5F5F2] mb-1">&lt; 1 ms</p>
-                <p className="text-[10px] uppercase tracking-wider text-[#A1A8B3] font-semibold font-mono">In-Memory Fill Speed</p>
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#00225A] mb-1">&lt; 1 ms</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#6B7A90] font-semibold font-mono">In-Memory Fill Speed</p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-2xl border border-[rgba(198,161,91,0.2)]">
-                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#C6A15B] mb-1">NSE · BSE · MCX</p>
-                <p className="text-[10px] uppercase tracking-wider text-[#C6A15B] font-semibold font-mono">Equities, F&O & Commodities</p>
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                <p className="text-2xl sm:text-3xl font-mono font-bold text-[#536CF0] mb-1">NSE · BSE · MCX</p>
+                <p className="text-[10px] uppercase tracking-wider text-[#6B7A90] font-semibold font-mono">Equities, F&O & Commodities</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* ── 5. What Do We Provide (Core Pillars) ───────────────────────── */}
-        <section id="features" className="py-24">
+        <section id="features" className="py-24 bg-[#FCFCFC]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                <span className="text-[10px] font-mono tracking-widest text-[#536CF0] uppercase font-bold">
                   Institutional Architecture
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-5xl font-display font-semibold text-[#00225A] tracking-[-0.03em] mb-4">
                 What We Provide
               </h2>
-              <p className="text-sm text-[#A1A8B3] leading-relaxed">
+              <p className="text-sm sm:text-base text-[#6B7A90] leading-relaxed">
                 Everything required to simulate and validate professional trading strategies with mathematical precision and zero synthetic distortion.
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Feature 1 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <Activity className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <Activity className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">Genuine Exchange Ticks</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">Genuine Exchange Ticks</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Real-time market quotes streamed directly from the exchange with microsecond binary feed. No synthetic curves or delayed mock prices.
                 </p>
-                <div className="text-[11px] font-mono text-[#C6A15B] pt-1 font-semibold">NSE · BSE · MCX Active</div>
+                <div className="text-[11px] font-mono text-[#536CF0] pt-1 font-semibold">NSE · BSE · MCX Active</div>
               </div>
 
               {/* Feature 2 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <Scale className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <Scale className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">Indian Regulatory Tax Engine</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">Indian Regulatory Tax Engine</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Exact modeling of Securities Transaction Tax (STT/CTT), GST (18%), Stamp Duty, Exchange Fees, and Statutory Turnover charges computed per trade.
                 </p>
-                <div className="text-[11px] font-mono text-emerald-400 pt-1 font-semibold">Accurate to the Paise</div>
+                <div className="text-[11px] font-mono text-[#12B76A] pt-1 font-semibold">Accurate to the Paise</div>
               </div>
 
               {/* Feature 3 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <Flame className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <Flame className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">MCX Commodities Trading</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">MCX Commodities Trading</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Full commodities desk covering Gold (100g/1kg/Mini), Silver (30kg/Mini/Micro), Crude Oil, and Natural Gas with authentic contract specs and lot sizing.
                 </p>
-                <div className="text-[11px] font-mono text-[#E2C889] pt-1 font-semibold">Gold & Silver Bullion</div>
+                <div className="text-[11px] font-mono text-[#00225A] pt-1 font-semibold">Gold & Silver Bullion</div>
               </div>
 
               {/* Feature 4 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <Crosshair className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <Crosshair className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">Institutional Order Tickets</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">Institutional Order Tickets</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Execute MARKET, LIMIT, SL (Stop-Loss Limit), and SL-M (Stop-Loss Market) across Delivery (CNC), Intraday (MIS 5x), and Carryforward (NRML).
                 </p>
-                <div className="text-[11px] font-mono text-[#C6A15B] pt-1 font-semibold">Advanced Order Types</div>
+                <div className="text-[11px] font-mono text-[#536CF0] pt-1 font-semibold">Advanced Order Types</div>
               </div>
 
               {/* Feature 5 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <Database className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <Database className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">Double-Entry Portfolio Ledger</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">Double-Entry Portfolio Ledger</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Live Mark-to-Market (MTM) calculation per tick, realized profit/loss, margin locks, and an immutable double-entry audited cash journal.
                 </p>
-                <div className="text-[11px] font-mono text-emerald-400 pt-1 font-semibold">Real-Time MTM Ticks</div>
+                <div className="text-[11px] font-mono text-[#12B76A] pt-1 font-semibold">Real-Time MTM Ticks</div>
               </div>
 
               {/* Feature 6 */}
-              <div className="cendrix-card p-7 rounded-2xl border border-[rgba(198,161,91,0.18)] space-y-3.5">
-                <div className="w-12 h-12 bg-[#0B1424] rounded-xl flex items-center justify-center border border-[rgba(198,161,91,0.25)] text-[#C6A15B] shadow-inner">
-                  <BarChart3 className="w-5 h-5" />
+              <div className="bg-white p-7 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] hover:shadow-[0_8px_24px_rgba(0,34,90,0.08)] hover:border-[#536CF0]/40 transition-all space-y-3.5">
+                <div className="w-12 h-12 bg-[#EEF3FF] rounded-xl flex items-center justify-center border border-[#D9E2F2] text-[#00225A] shadow-sm">
+                  <BarChart3 className="w-5 h-5 text-[#536CF0]" />
                 </div>
-                <h3 className="text-base font-serif font-bold text-[#F5F5F2] tracking-wide">Quantitative Audit Suite</h3>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+                <h3 className="text-base font-display font-bold text-[#00225A]">Quantitative Audit Suite</h3>
+                <p className="text-xs sm:text-sm text-[#6B7A90] leading-relaxed">
                   Institutional analytics featuring win rates, profit factor, max peak-to-trough drawdown, session breakdown, and 1-click CSV statement export.
                 </p>
-                <div className="text-[11px] font-mono text-[#C6A15B] pt-1 font-semibold">Downloadable Statements</div>
+                <div className="text-[11px] font-mono text-[#00225A] pt-1 font-semibold">Downloadable Statements</div>
               </div>
             </div>
           </div>
         </section>
 
         {/* ── 6. Dedicated Image Showcase: Audited Quantitative Analytics ──── */}
-        <section id="analytics-preview" className="py-24 border-y border-[#14223A] bg-[#0E1728]/70">
+        <section id="analytics-preview" className="py-24 border-y border-[#D9E2F2] bg-[#F7F8FA]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
               {/* Left Column: Visual AI Graphic */}
-              <div className="relative rounded-2xl overflow-hidden border border-[rgba(198,161,91,0.3)] shadow-[0_20px_50px_rgba(0,0,0,0.8)] group order-2 lg:order-1">
+              <div className="relative rounded-2xl overflow-hidden border border-[#D9E2F2] shadow-[0_16px_40px_rgba(0,34,90,0.08)] bg-white p-2.5 group order-2 lg:order-1">
                 <img 
                   src="/cendrix-quant-analytics.jpg" 
                   alt="Cendrix Quantitative Risk & Analytics Suite" 
-                  className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto rounded-xl object-cover transform transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1424] via-transparent to-transparent opacity-60" />
                 
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-[#0B1424]/90 backdrop-blur-md border border-[rgba(198,161,91,0.25)] font-mono text-xs flex justify-between items-center">
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-[#D9E2F2] font-mono text-xs flex justify-between items-center shadow-lg">
                   <div>
-                    <span className="text-[10px] text-[#C6A15B] font-bold uppercase tracking-wider block">Quantum Risk Suite</span>
-                    <span className="text-[#F5F5F2] font-semibold">Value-at-Risk · Max Drawdown · Sharpe Telemetry</span>
+                    <span className="text-[10px] text-[#536CF0] font-bold uppercase tracking-wider block">Quantum Risk Suite</span>
+                    <span className="text-[#00225A] font-semibold">Value-at-Risk · Max Drawdown · Sharpe Telemetry</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-bold text-[11px]">
+                  <span className="px-2.5 py-1 rounded bg-[#12B76A]/10 border border-[#12B76A]/30 text-[#12B76A] font-bold text-[11px]">
                     Live Audited
                   </span>
                 </div>
@@ -548,50 +547,50 @@ export default function Landing() {
               <div className="space-y-6 order-1 lg:order-2">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                    <span className="text-[10px] font-mono tracking-widest text-[#536CF0] uppercase font-bold">
                       Institutional Risk Protocol
                     </span>
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F5F5F2] tracking-tight">
+                  <h2 className="text-3xl sm:text-4xl font-display font-semibold text-[#00225A] tracking-[-0.03em]">
                     Audited Quantitative Risk &<br />
-                    <span className="text-[#C6A15B]">Real-Time Equity Telemetry.</span>
+                    <span className="text-[#536CF0]">Real-Time Equity Telemetry.</span>
                   </h2>
                 </div>
 
-                <p className="text-sm text-[#A1A8B3] leading-relaxed">
+                <p className="text-sm sm:text-base text-[#6B7A90] leading-relaxed">
                   Professional trading demands more than a simple P&L number. Cendrix CNRX provides deep quantitative transparency into your trading edge, session volatility, win rate, and peak-to-trough drawdown — backed by double-entry accounting.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 text-xs font-mono">
-                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
-                    <span className="text-[10px] text-[#6E7683] uppercase block">Mathematical Win-Rate</span>
-                    <span className="text-xl font-bold text-emerald-400">Audited per Exit</span>
-                    <p className="text-[10px] text-[#A1A8B3] font-sans">Every completed position fill is checked against entry execution.</p>
+                  <div className="p-4 bg-white rounded-xl border border-[#D9E2F2] shadow-sm space-y-1">
+                    <span className="text-[10px] text-[#6B7A90] uppercase block">Mathematical Win-Rate</span>
+                    <span className="text-xl font-bold text-[#12B76A]">Audited per Exit</span>
+                    <p className="text-[10px] text-[#6B7A90] font-sans">Every completed position fill is checked against entry execution.</p>
                   </div>
 
-                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
-                    <span className="text-[10px] text-[#6E7683] uppercase block">Drawdown Engine</span>
-                    <span className="text-xl font-bold text-rose-400">Peak-to-Trough</span>
-                    <p className="text-[10px] text-[#A1A8B3] font-sans">Continuous tracking of margin preservation and capital safety.</p>
+                  <div className="p-4 bg-white rounded-xl border border-[#D9E2F2] shadow-sm space-y-1">
+                    <span className="text-[10px] text-[#6B7A90] uppercase block">Drawdown Engine</span>
+                    <span className="text-xl font-bold text-[#D92D20]">Peak-to-Trough</span>
+                    <p className="text-[10px] text-[#6B7A90] font-sans">Continuous tracking of margin preservation and capital safety.</p>
                   </div>
 
-                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
-                    <span className="text-[10px] text-[#6E7683] uppercase block">Regulatory Ledger</span>
-                    <span className="text-xl font-bold text-[#C6A15B]">Paise Precision</span>
-                    <p className="text-[10px] text-[#A1A8B3] font-sans">STT, CTT, GST and exchange charges audited per transaction.</p>
+                  <div className="p-4 bg-white rounded-xl border border-[#D9E2F2] shadow-sm space-y-1">
+                    <span className="text-[10px] text-[#6B7A90] uppercase block">Regulatory Ledger</span>
+                    <span className="text-xl font-bold text-[#00225A]">Paise Precision</span>
+                    <p className="text-[10px] text-[#6B7A90] font-sans">STT, CTT, GST and exchange charges audited per transaction.</p>
                   </div>
 
-                  <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] space-y-1">
-                    <span className="text-[10px] text-[#6E7683] uppercase block">CSV Statement Export</span>
-                    <span className="text-xl font-bold text-[#F5F5F2]">1-Click Download</span>
-                    <p className="text-[10px] text-[#A1A8B3] font-sans">Instant institutional statement export ready for strategy backchecks.</p>
+                  <div className="p-4 bg-white rounded-xl border border-[#D9E2F2] shadow-sm space-y-1">
+                    <span className="text-[10px] text-[#6B7A90] uppercase block">CSV Statement Export</span>
+                    <span className="text-xl font-bold text-[#00225A]">1-Click Download</span>
+                    <p className="text-[10px] text-[#6B7A90] font-sans">Instant institutional statement export ready for strategy backchecks.</p>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <Link 
                     to="/dashboard/analytics" 
-                    className="btn-cendrix-gold py-3 px-6 text-xs font-bold tracking-wider inline-flex items-center gap-2"
+                    className="btn-primary py-3 px-6 text-xs font-bold tracking-wider inline-flex items-center gap-2 rounded-xl"
                   >
                     <span>View Performance Analytics</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -604,32 +603,32 @@ export default function Landing() {
         </section>
 
         {/* ── 7. Live Interactive Mini-Terminal Demo (Working On-Page) ────── */}
-        <section id="demo" className="py-20 border-b border-[#14223A] bg-[#0B1424] relative">
+        <section id="demo" className="py-20 bg-[#FCFCFC] relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-[10px] font-mono text-emerald-400 uppercase font-bold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#EEF3FF] border border-[#D9E2F2] rounded-full text-[10px] font-mono text-[#00225A] uppercase font-bold mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-ping" />
                 <span>Live Interactive Sandbox</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-2">
+              <h2 className="text-3xl sm:text-4xl font-display font-semibold text-[#00225A] tracking-[-0.03em] mb-2">
                 Test-Drive the Execution Pad
               </h2>
-              <p className="text-xs text-[#A1A8B3]">
+              <p className="text-xs sm:text-sm text-[#6B7A90]">
                 Experience instant in-memory matching and real-time P&L telemetry right now on this page.
               </p>
             </div>
 
             <div className="grid lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: Interactive Order Pad */}
-              <div className="lg:col-span-5 cendrix-card p-6 rounded-2xl border border-[rgba(198,161,91,0.25)] shadow-2xl">
-                <div className="flex items-center justify-between pb-4 border-b border-[#14223A] mb-4">
+              <div className="lg:col-span-5 bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_4px_20px_rgba(0,34,90,0.06)]">
+                <div className="flex items-center justify-between pb-4 border-b border-[#D9E2F2] mb-4">
                   <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-[#C6A15B]" />
-                    <span className="text-xs font-serif font-bold text-[#F5F5F2] uppercase tracking-wider">
+                    <Zap className="w-4 h-4 text-[#536CF0]" />
+                    <span className="text-xs font-display font-bold text-[#00225A] uppercase tracking-wider">
                       Interactive Order Ticket
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+                  <span className="text-[10px] font-mono text-[#12B76A] bg-[#12B76A]/10 border border-[#12B76A]/30 px-2 py-0.5 rounded font-bold">
                     0ms Latency
                   </span>
                 </div>
@@ -637,7 +636,7 @@ export default function Landing() {
                 <form onSubmit={handleSimulateTrade} className="space-y-4">
                   {/* Select Instrument */}
                   <div>
-                    <label className="block text-[10px] text-[#A1A8B3] uppercase font-mono mb-1.5">Select Scrip</label>
+                    <label className="block text-[10px] text-[#6B7A90] uppercase font-mono mb-1.5">Select Scrip</label>
                     <div className="grid grid-cols-2 gap-2">
                       {[
                         { id: 'GOLDM', label: 'GOLDM (MCX)', price: '₹76,420' },
@@ -649,14 +648,14 @@ export default function Landing() {
                           key={item.id}
                           type="button"
                           onClick={() => setDemoSymbol(item.id as any)}
-                          className={`p-2.5 rounded-lg border text-left transition-all font-mono text-xs ${
+                          className={`p-2.5 rounded-xl border text-left transition-all font-mono text-xs ${
                             demoSymbol === item.id
-                              ? 'bg-[#10141C] border-[#C6A15B] text-[#F5F5F2] shadow-[0_2px_10px_rgba(198,161,91,0.2)]'
-                              : 'bg-[#0B1424] border-[#14223A] text-[#6E7683] hover:text-[#A1A8B3]'
+                              ? 'bg-[#EEF3FF] border-[#00225A] text-[#00225A] font-bold shadow-sm'
+                              : 'bg-[#F7F8FA] border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A] hover:bg-white'
                           }`}
                         >
-                          <div className="font-bold text-[#F5F5F2]">{item.id}</div>
-                          <div className="text-[10px] text-[#C6A15B]">{item.price}</div>
+                          <div className="font-bold text-[#00225A]">{item.id}</div>
+                          <div className="text-[10px] text-[#536CF0] font-semibold">{item.price}</div>
                         </button>
                       ))}
                     </div>
@@ -667,10 +666,10 @@ export default function Landing() {
                     <button
                       type="button"
                       onClick={() => setDemoSide('BUY')}
-                      className={`py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition-all ${
+                      className={`py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
                         demoSide === 'BUY'
-                          ? 'bg-emerald-600 text-white shadow-[0_2px_10px_rgba(16,185,129,0.3)]'
-                          : 'bg-[#0B1424] border border-[#14223A] text-[#6E7683] hover:text-[#F5F5F2]'
+                          ? 'bg-[#12B76A] text-white shadow-sm'
+                          : 'bg-[#F7F8FA] border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A]'
                       }`}
                     >
                       BUY (Long)
@@ -678,10 +677,10 @@ export default function Landing() {
                     <button
                       type="button"
                       onClick={() => setDemoSide('SELL')}
-                      className={`py-2 rounded-lg font-bold text-xs uppercase tracking-wider transition-all ${
+                      className={`py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all ${
                         demoSide === 'SELL'
-                          ? 'bg-rose-600 text-white shadow-[0_2px_10px_rgba(239,68,68,0.3)]'
-                          : 'bg-[#0B1424] border border-[#14223A] text-[#6E7683] hover:text-[#F5F5F2]'
+                          ? 'bg-[#D92D20] text-white shadow-sm'
+                          : 'bg-[#F7F8FA] border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A]'
                       }`}
                     >
                       SELL (Short)
@@ -690,7 +689,7 @@ export default function Landing() {
 
                   {/* Quantity Sizing */}
                   <div>
-                    <label className="block text-[10px] text-[#A1A8B3] uppercase font-mono mb-1">
+                    <label className="block text-[10px] text-[#6B7A90] uppercase font-mono mb-1">
                       Quantity / Lots
                     </label>
                     <div className="flex items-center gap-3">
@@ -700,9 +699,9 @@ export default function Landing() {
                         max="20"
                         value={demoQty}
                         onChange={(e) => setDemoQty(parseInt(e.target.value) || 1)}
-                        className="w-full bg-[#0B1424] border border-[#14223A] rounded-lg px-3 py-2 font-mono text-sm text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]"
+                        className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-lg px-3 py-2 font-mono text-sm text-[#111114] focus:outline-none focus:border-[#00225A]"
                       />
-                      <span className="text-xs text-[#C6A15B] font-mono shrink-0">
+                      <span className="text-xs text-[#00225A] font-mono font-bold shrink-0">
                         Lot x {demoQty}
                       </span>
                     </div>
@@ -711,17 +710,17 @@ export default function Landing() {
                   {/* Execution Button */}
                   <button
                     type="submit"
-                    className={`w-full py-3 rounded-lg font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 ${
+                    className={`w-full py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-95 ${
                       demoSide === 'BUY'
-                        ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_16px_rgba(16,185,129,0.3)]'
-                        : 'bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white shadow-[0_4px_16px_rgba(239,68,68,0.3)]'
+                        ? 'bg-[#12B76A] hover:brightness-105 text-white shadow-sm'
+                        : 'bg-[#D92D20] hover:brightness-105 text-white shadow-sm'
                     }`}
                   >
                     Simulate Instant {demoSide} Fill
                   </button>
 
                   {demoExecutedAlert && (
-                    <div className="p-2.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono text-center animate-bounce">
+                    <div className="p-2.5 rounded-lg bg-[#12B76A]/10 border border-[#12B76A]/30 text-[#12B76A] text-xs font-mono text-center animate-bounce font-bold">
                       ✓ Simulated {demoExecutedAlert.side} Fill Executed @ ₹{demoExecutedAlert.price.toLocaleString('en-IN')}
                     </div>
                   )}
@@ -732,20 +731,20 @@ export default function Landing() {
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-[#C6A15B]" />
-                    <h3 className="text-xs font-serif font-bold text-[#F5F5F2] uppercase tracking-wider">
+                    <Activity className="w-4 h-4 text-[#536CF0]" />
+                    <h3 className="text-xs font-display font-bold text-[#00225A] uppercase tracking-wider">
                       Live Simulated Position Telemetry
                     </h3>
                   </div>
-                  <span className="text-[10px] font-mono text-[#A1A8B3]">
+                  <span className="text-[10px] font-mono text-[#6B7A90]">
                     Updates in real-time
                   </span>
                 </div>
 
-                <div className="cendrix-card rounded-xl border border-[#14223A] overflow-hidden">
+                <div className="bg-white rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] overflow-hidden">
                   <table className="w-full text-left text-xs font-mono border-collapse">
                     <thead>
-                      <tr className="border-b border-[#14223A] text-[10px] text-[#6E7683] uppercase bg-[#0B1424]">
+                      <tr className="border-b border-[#D9E2F2] text-[10px] text-[#6B7A90] uppercase bg-[#F7F8FA]">
                         <th className="py-2.5 px-3">Contract</th>
                         <th className="py-2.5 px-3">Side</th>
                         <th className="py-2.5 px-3 text-right">Entry</th>
@@ -753,24 +752,24 @@ export default function Landing() {
                         <th className="py-2.5 px-3 text-right">Live MTM</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#14223A]">
+                    <tbody className="divide-y divide-[#D9E2F2]">
                       {demoPositions.map((pos) => {
                         const isProfitable = pos.pnl >= 0;
                         return (
-                          <tr key={pos.id} className="hover:bg-[#14223A]/40 transition-colors">
-                            <td className="py-3 px-3 font-semibold text-[#F5F5F2]">{pos.symbol}</td>
+                          <tr key={pos.id} className="hover:bg-[#F7F8FA] transition-colors">
+                            <td className="py-3 px-3 font-semibold text-[#00225A]">{pos.symbol}</td>
                             <td className="py-3 px-3 font-sans">
-                              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                                 pos.side === 'BUY'
-                                  ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                                  : 'bg-rose-500/15 text-rose-400 border border-rose-500/30'
+                                  ? 'bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30'
+                                  : 'bg-[#D92D20]/10 text-[#D92D20] border border-[#D92D20]/30'
                               }`}>
                                 {pos.side}
                               </span>
                             </td>
-                            <td className="py-3 px-3 text-right text-[#A1A8B3]">₹{pos.entryPrice.toFixed(2)}</td>
-                            <td className="py-3 px-3 text-right font-bold text-[#F5F5F2]">₹{pos.currentPrice.toFixed(2)}</td>
-                            <td className={`py-3 px-3 text-right font-bold ${isProfitable ? 'text-emerald-400' : 'text-rose-400'}`}>
+                            <td className="py-3 px-3 text-right text-[#6B7A90]">₹{pos.entryPrice.toFixed(2)}</td>
+                            <td className="py-3 px-3 text-right font-bold text-[#111114]">₹{pos.currentPrice.toFixed(2)}</td>
+                            <td className={`py-3 px-3 text-right font-bold ${isProfitable ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                               {isProfitable ? '+' : ''}₹{pos.pnl.toFixed(2)} ({isProfitable ? '+' : ''}{pos.pnlPct.toFixed(2)}%)
                             </td>
                           </tr>
@@ -781,16 +780,16 @@ export default function Landing() {
                 </div>
 
                 {/* Explanation Card */}
-                <div className="p-4 bg-[#0B1424] rounded-xl border border-[#14223A] flex items-center justify-between text-xs">
+                <div className="p-4 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2] flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
-                    <Shield className="w-5 h-5 text-[#C6A15B] shrink-0" />
-                    <span className="text-[#A1A8B3]">
+                    <Shield className="w-5 h-5 text-[#536CF0] shrink-0" />
+                    <span className="text-[#6B7A90]">
                       Every position in the full workstation is recorded to the immutable ledger with audited regulatory charge breakdowns.
                     </span>
                   </div>
                   <Link 
                     to="/dashboard" 
-                    className="text-xs font-semibold text-[#C6A15B] hover:text-[#E2C889] shrink-0 ml-4 font-mono flex items-center gap-1"
+                    className="text-xs font-semibold text-[#00225A] hover:text-[#536CF0] shrink-0 ml-4 font-mono flex items-center gap-1"
                   >
                     <span>Full Desk</span>
                     <ArrowRight className="w-3 h-3" />
@@ -802,108 +801,108 @@ export default function Landing() {
         </section>
 
         {/* ── 8. Detailed Advantage Matrix (Cendrix vs Generic Simulators) ── */}
-        <section id="advantage" className="py-24">
+        <section id="advantage" className="py-24 border-y border-[#D9E2F2] bg-[#F7F8FA]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                <span className="text-[10px] font-mono tracking-widest text-[#536CF0] uppercase font-bold">
                   The Institutional Standard
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-5xl font-display font-semibold text-[#00225A] tracking-[-0.03em] mb-4">
                 Why Cendrix CNRX Outperforms Generic Simulators
               </h2>
-              <p className="text-sm text-[#A1A8B3] leading-relaxed">
+              <p className="text-sm sm:text-base text-[#6B7A90] leading-relaxed">
                 Most paper trading apps deceive traders with synthetic curves, zero slippage, and zero regulatory charges. Cendrix replicates actual market conditions so your live performance matches your simulated edge.
               </p>
             </div>
 
             {/* Comparison Table */}
-            <div className="overflow-x-auto cendrix-card rounded-2xl border border-[rgba(198,161,91,0.25)] shadow-2xl">
+            <div className="overflow-x-auto bg-white rounded-2xl border border-[#D9E2F2] shadow-[0_4px_24px_rgba(0,34,90,0.06)]">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-[#14223A] bg-[#0B1424] text-xs font-mono uppercase">
-                    <th className="py-4 px-6 text-[#F5F5F2] font-serif font-bold">Trading Dimension</th>
-                    <th className="py-4 px-6 text-[#C6A15B] font-serif font-bold bg-[#C6A15B]/10 border-x border-[#14223A]">
+                  <tr className="border-b border-[#D9E2F2] bg-[#F7F8FA] text-xs font-mono uppercase">
+                    <th className="py-4 px-6 text-[#00225A] font-display font-bold">Trading Dimension</th>
+                    <th className="py-4 px-6 text-[#00225A] font-display font-bold bg-[#EEF3FF] border-x border-[#D9E2F2]">
                       Cendrix Capital (CNRX)
                     </th>
-                    <th className="py-4 px-6 text-[#6E7683]">Generic Paper Simulators</th>
+                    <th className="py-4 px-6 text-[#6B7A90]">Generic Paper Simulators</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#14223A]">
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Market Price Authenticity</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <tbody className="divide-y divide-[#D9E2F2]">
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Market Price Authenticity</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>100% Genuine Direct Exchange Market Data Feeds</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Artificial synthetic random-walk curves or 15-min delayed quotes
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Commodities & Bullion</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Commodities & Bullion</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>Dedicated MCX Desk (Gold, Silver, Crude Oil, Natural Gas)</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Equities only; no MCX commodity lot size modeling
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Statutory Tax & Regulatory Deductions</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Statutory Tax & Regulatory Deductions</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>Full STT, CTT, GST, Stamp Duty & Statutory Turnover Charges</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       ₹0 flat friction; distorts profit & loss expectations
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Margin Leverage Sizing</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Margin Leverage Sizing</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>Verified Exchange Leverage: MIS (5x Intraday) & NRML/CNC</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Arbitrary or unlimited leverage; unrealistic risk habits
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Order Execution Velocity</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Order Execution Velocity</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>&lt; 1ms In-Memory Matching with instant fill telemetry</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Delayed simulated HTTP requests with lag
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Portfolio Accounting & Auditing</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Portfolio Accounting & Auditing</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>Double-entry audited cash ledger with downloadable CSV</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Basic superficial P&L count without transaction ledger
                     </td>
                   </tr>
 
-                  <tr className="hover:bg-[#14223A]/30 transition-colors">
-                    <td className="py-4 px-6 font-semibold text-[#F5F5F2]">Client Access & Onboarding</td>
-                    <td className="py-4 px-6 font-semibold text-emerald-400 bg-[#C6A15B]/5 border-x border-[#14223A] flex items-center gap-2">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <tr className="hover:bg-[#F7F8FA] transition-colors">
+                    <td className="py-4 px-6 font-semibold text-[#00225A]">Client Access & Onboarding</td>
+                    <td className="py-4 px-6 font-semibold text-[#12B76A] bg-[#EEF3FF]/40 border-x border-[#D9E2F2] flex items-center gap-2">
+                      <Check className="w-4 h-4 text-[#12B76A] shrink-0" />
                       <span>1-Click Instant Institutional Auto-Connect (No KYC friction)</span>
                     </td>
-                    <td className="py-4 px-6 text-[#6E7683]">
+                    <td className="py-4 px-6 text-[#6B7A90]">
                       Forced phone verification, advertisements, or paywalls
                     </td>
                   </tr>
@@ -913,26 +912,25 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 9. Multi-Asset Ecosystem with 3D Holographic AI Visual ─────── */}
-        <section id="commodities" className="py-24 border-t border-[#14223A] bg-[#0E1728]/50">
+        {/* ── 9. Multi-Asset Ecosystem with 3D Visual ─────────────────────── */}
+        <section id="commodities" className="py-24 bg-[#FCFCFC]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
               {/* Left Column: Visual AI Asset Showcase */}
-              <div className="relative rounded-2xl overflow-hidden border border-[rgba(198,161,91,0.3)] shadow-[0_20px_50px_rgba(0,0,0,0.8)] group">
+              <div className="relative rounded-2xl overflow-hidden border border-[#D9E2F2] shadow-[0_16px_40px_rgba(0,34,90,0.08)] bg-white p-2.5 group">
                 <img 
                   src="/cendrix-multi-asset.jpg" 
                   alt="Cendrix Multi-Asset Suite (Equities, F&O, MCX Bullion)" 
-                  className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-auto rounded-xl object-cover transform transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1424] via-transparent to-transparent opacity-60" />
                 
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-[#0B1424]/90 backdrop-blur-md border border-[rgba(198,161,91,0.25)] font-mono text-xs flex justify-between items-center">
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-[#D9E2F2] font-mono text-xs flex justify-between items-center shadow-lg">
                   <div>
-                    <span className="text-[10px] text-[#C6A15B] font-bold uppercase tracking-wider block">Multi-Asset Engine</span>
-                    <span className="text-[#F5F5F2] font-semibold">NSE Cash · NFO Futures · MCX Bullion</span>
+                    <span className="text-[10px] text-[#536CF0] font-bold uppercase tracking-wider block">Multi-Asset Engine</span>
+                    <span className="text-[#00225A] font-semibold">NSE Cash · NFO Futures · MCX Bullion</span>
                   </div>
-                  <span className="px-2.5 py-1 rounded bg-[#C6A15B]/15 border border-[#C6A15B]/30 text-[#E2C889] font-bold text-[11px]">
+                  <span className="px-2.5 py-1 rounded bg-[#EEF3FF] border border-[#D9E2F2] text-[#00225A] font-bold text-[11px]">
                     All-in-One
                   </span>
                 </div>
@@ -942,18 +940,18 @@ export default function Landing() {
               <div className="space-y-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                    <span className="text-[10px] font-mono tracking-widest text-[#536CF0] uppercase font-bold">
                       Unified Capital Desk
                     </span>
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#F5F5F2] tracking-tight">
+                  <h2 className="text-3xl sm:text-4xl font-display font-semibold text-[#00225A] tracking-[-0.03em]">
                     One Capital Allocation.<br />
-                    <span className="text-[#C6A15B]">Three Premier Asset Classes.</span>
+                    <span className="text-[#536CF0]">Three Premier Asset Classes.</span>
                   </h2>
                 </div>
 
                 {/* Sub-tabs for Asset Classes */}
-                <div className="flex gap-2 p-1 bg-[#0B1424] rounded-xl border border-[#14223A] font-mono text-xs">
+                <div className="flex gap-2 p-1 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2] font-mono text-xs">
                   {[
                     { id: 'commodities', label: 'MCX Commodities' },
                     { id: 'derivatives', label: 'Quantitative F&O' },
@@ -964,8 +962,8 @@ export default function Landing() {
                       onClick={() => setActiveAssetTab(tab.id as any)}
                       className={`flex-1 py-2 px-3 rounded-lg font-semibold transition-all ${
                         activeAssetTab === tab.id
-                          ? 'bg-[#10141C] text-[#C6A15B] border border-[#C6A15B]/40 shadow-sm'
-                          : 'text-[#6E7683] hover:text-[#A1A8B3]'
+                          ? 'bg-white text-[#00225A] border border-[#D9E2F2] shadow-sm font-bold'
+                          : 'text-[#6B7A90] hover:text-[#00225A]'
                       }`}
                     >
                       {tab.label}
@@ -976,25 +974,25 @@ export default function Landing() {
                 {/* Tab Content */}
                 {activeAssetTab === 'commodities' && (
                   <div className="space-y-4 animate-in fade-in duration-200">
-                    <p className="text-sm text-[#A1A8B3] leading-relaxed">
+                    <p className="text-sm text-[#6B7A90] leading-relaxed">
                       Practice bullion, energy, and base metals trading on authentic MCX contract specifications with verified lot sizes, tick sizes, and margin leverage.
                     </p>
                     <div className="grid grid-cols-2 gap-3 text-xs font-mono">
-                      <div className="p-3 bg-[#0B1424] rounded-lg border border-[#14223A]">
-                        <span className="text-[10px] text-[#6E7683] block">GOLD MINI (GOLDM)</span>
-                        <span className="font-bold text-[#F5F5F2]">100 Grams Lot</span>
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2]">
+                        <span className="text-[10px] text-[#6B7A90] block">GOLD MINI (GOLDM)</span>
+                        <span className="font-bold text-[#00225A]">100 Grams Lot</span>
                       </div>
-                      <div className="p-3 bg-[#0B1424] rounded-lg border border-[#14223A]">
-                        <span className="text-[10px] text-[#6E7683] block">SILVER MINI (SILVERM)</span>
-                        <span className="font-bold text-[#F5F5F2]">5 Kilograms Lot</span>
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2]">
+                        <span className="text-[10px] text-[#6B7A90] block">SILVER MINI (SILVERM)</span>
+                        <span className="font-bold text-[#00225A]">5 Kilograms Lot</span>
                       </div>
-                      <div className="p-3 bg-[#0B1424] rounded-lg border border-[#14223A]">
-                        <span className="text-[10px] text-[#6E7683] block">CRUDE OIL</span>
-                        <span className="font-bold text-[#F5F5F2]">100 Barrels Lot</span>
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2]">
+                        <span className="text-[10px] text-[#6B7A90] block">CRUDE OIL</span>
+                        <span className="font-bold text-[#00225A]">100 Barrels Lot</span>
                       </div>
-                      <div className="p-3 bg-[#0B1424] rounded-lg border border-[#14223A]">
-                        <span className="text-[10px] text-[#6E7683] block">NATURAL GAS</span>
-                        <span className="font-bold text-[#F5F5F2]">1250 mmBtu Lot</span>
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2]">
+                        <span className="text-[10px] text-[#6B7A90] block">NATURAL GAS</span>
+                        <span className="font-bold text-[#00225A]">1250 mmBtu Lot</span>
                       </div>
                     </div>
                   </div>
@@ -1002,20 +1000,20 @@ export default function Landing() {
 
                 {activeAssetTab === 'derivatives' && (
                   <div className="space-y-4 animate-in fade-in duration-200">
-                    <p className="text-sm text-[#A1A8B3] leading-relaxed">
+                    <p className="text-sm text-[#6B7A90] leading-relaxed">
                       Validate quantitative index and stock futures strategies with real-time underlying basis calculation, contract expiries, and SPAN margin locks.
                     </p>
-                    <ul className="space-y-2 text-xs text-[#A1A8B3]">
+                    <ul className="space-y-2 text-xs text-[#6B7A90]">
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Nifty 50, Bank Nifty, and FinNifty Futures with exact lot sizing</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Single stock futures with realistic basis tracking</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Carryforward (NRML) vs Intraday (MIS) margin leverage modes</span>
                       </li>
                     </ul>
@@ -1024,20 +1022,20 @@ export default function Landing() {
 
                 {activeAssetTab === 'equities' && (
                   <div className="space-y-4 animate-in fade-in duration-200">
-                    <p className="text-sm text-[#A1A8B3] leading-relaxed">
+                    <p className="text-sm text-[#6B7A90] leading-relaxed">
                       Trade liquid blue-chip equities from the NSE and BSE with full Delivery (CNC) and Intraday (MIS 5x leverage) order routing.
                     </p>
-                    <ul className="space-y-2 text-xs text-[#A1A8B3]">
+                    <ul className="space-y-2 text-xs text-[#6B7A90]">
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Reliance, TCS, HDFC Bank, Infosys, ICICI Bank, and Tata Steel</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Live Level 2 market depth (5 Bid / 5 Ask)</span>
                       </li>
                       <li className="flex items-center gap-2">
-                        <Check className="w-4 h-4 text-emerald-400" />
+                        <Check className="w-4 h-4 text-[#12B76A]" />
                         <span>Instant MTM mark-to-market updates per tick</span>
                       </li>
                     </ul>
@@ -1047,7 +1045,7 @@ export default function Landing() {
                 <div className="pt-2">
                   <Link 
                     to="/dashboard/commodities" 
-                    className="btn-cendrix-gold py-3 px-6 text-xs font-bold tracking-wider inline-flex items-center gap-2"
+                    className="btn-primary py-3 px-6 text-xs font-bold tracking-wider inline-flex items-center gap-2 rounded-xl"
                   >
                     <span>Explore Commodities Desk</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -1060,52 +1058,52 @@ export default function Landing() {
         </section>
 
         {/* ── 10. Real-Time Data Architecture Flowchart ──────────────────── */}
-        <section id="pipeline" className="py-24 border-t border-[#14223A] bg-[#0B1424]">
+        <section id="pipeline" className="py-24 border-t border-[#D9E2F2] bg-[#F7F8FA]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-[10px] font-mono tracking-widest text-[#C6A15B] uppercase font-bold">
+                <span className="text-[10px] font-mono tracking-widest text-[#536CF0] uppercase font-bold">
                   Zero Delay Protocol
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] tracking-tight mb-4">
+              <h2 className="text-3xl sm:text-5xl font-display font-semibold text-[#00225A] tracking-[-0.03em] mb-4">
                 Real-Time Data Pipeline Architecture
               </h2>
-              <p className="text-sm text-[#A1A8B3] leading-relaxed">
+              <p className="text-sm sm:text-base text-[#6B7A90] leading-relaxed">
                 How genuine direct exchange order flow connects to your simulated workstation in less than one millisecond.
               </p>
             </div>
 
             {/* Architecture Steps Grid */}
             <div className="grid md:grid-cols-4 gap-4 relative">
-              <div className="cendrix-card p-6 rounded-xl border border-[#14223A] space-y-3">
-                <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">01 / Exchange Feeds</div>
-                <div className="text-base font-serif font-bold text-[#F5F5F2]">Direct Exchange Gateway</div>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] space-y-3">
+                <div className="text-[10px] font-mono text-[#536CF0] font-bold uppercase">01 / Exchange Feeds</div>
+                <div className="text-base font-display font-bold text-[#00225A]">Direct Exchange Gateway</div>
+                <p className="text-xs text-[#6B7A90] leading-relaxed">
                   Real-time binary WebSocket streaming from NSE, BSE, and MCX exchange servers.
                 </p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-xl border border-[#14223A] space-y-3">
-                <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">02 / Telemetry Engine</div>
-                <div className="text-base font-serif font-bold text-[#F5F5F2]">CNRX In-Memory Bus</div>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] space-y-3">
+                <div className="text-[10px] font-mono text-[#536CF0] font-bold uppercase">02 / Telemetry Engine</div>
+                <div className="text-base font-display font-bold text-[#00225A]">CNRX In-Memory Bus</div>
+                <p className="text-xs text-[#6B7A90] leading-relaxed">
                   Sub-millisecond pub/sub streaming bus delivering ticks directly to trading state.
                 </p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-xl border border-[#14223A] space-y-3">
-                <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">03 / Financial Engine</div>
-                <div className="text-base font-serif font-bold text-[#F5F5F2]">SPAN & Tax Math</div>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] space-y-3">
+                <div className="text-[10px] font-mono text-[#536CF0] font-bold uppercase">03 / Financial Engine</div>
+                <div className="text-base font-display font-bold text-[#00225A]">SPAN & Tax Math</div>
+                <p className="text-xs text-[#6B7A90] leading-relaxed">
                   Instant calculation of margin requirements, STT, CTT, GST, and statutory turnover fees.
                 </p>
               </div>
 
-              <div className="cendrix-card p-6 rounded-xl border border-[#14223A] space-y-3">
-                <div className="text-[10px] font-mono text-[#C6A15B] font-bold uppercase">04 / Terminal Output</div>
-                <div className="text-base font-serif font-bold text-[#F5F5F2]">Client Workstation</div>
-                <p className="text-xs text-[#A1A8B3] leading-relaxed">
+              <div className="bg-white p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] space-y-3">
+                <div className="text-[10px] font-mono text-[#536CF0] font-bold uppercase">04 / Terminal Output</div>
+                <div className="text-base font-display font-bold text-[#00225A]">Client Workstation</div>
+                <p className="text-xs text-[#6B7A90] leading-relaxed">
                   Level 2 market depth, order ticket fills, and audited double-entry portfolio ledger.
                 </p>
               </div>
@@ -1114,29 +1112,29 @@ export default function Landing() {
         </section>
 
         {/* ── 11. The Final Call to Action ───────────────────────────────── */}
-        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#0B1424] to-[#070D18] border-t border-[#14223A]">
+        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#FCFCFC] via-[#EEF3FF]/40 to-[#FCFCFC] border-t border-[#D9E2F2]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div className="w-16 h-16 mx-auto rounded-2xl bg-[#0E1728] border border-[rgba(198,161,91,0.3)] flex items-center justify-center p-2.5 mb-8 shadow-2xl">
+            <div className="w-16 h-16 mx-auto rounded-2xl bg-white border border-[#D9E2F2] flex items-center justify-center p-2.5 mb-8 shadow-md">
               <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-serif font-bold text-[#F5F5F2] mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-display font-semibold text-[#00225A] mb-6 tracking-[-0.03em]">
               Begin Paper Trading With Live Precision.
             </h2>
-            <p className="text-sm sm:text-base text-[#A1A8B3] mb-10 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-[#6B7A90] mb-10 max-w-2xl mx-auto leading-relaxed">
               Test your edge against real market forces with zero capital at risk. ₹10,00,000 in virtual funds is ready immediately with instant 1-click auto-connect.
             </p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
               <Link 
                 to="/dashboard" 
-                className="w-full sm:w-auto btn-cendrix-gold py-4 px-10 text-xs tracking-wider font-bold shadow-[0_6px_25px_rgba(198,161,91,0.35)] flex items-center justify-center gap-2"
+                className="w-full sm:w-auto btn-primary py-3.5 px-10 text-xs tracking-wider font-bold shadow-md flex items-center justify-center gap-2 rounded-xl"
               >
                 <span>Launch Cendrix Trading Desk</span>
                 <ChevronRight className="w-4 h-4" />
               </Link>
               <Link 
                 to="/dashboard/commodities" 
-                className="w-full sm:w-auto btn-cendrix-outline py-4 px-8 text-xs tracking-wider font-semibold"
+                className="w-full sm:w-auto btn-secondary py-3.5 px-8 text-xs tracking-wider font-semibold rounded-xl"
               >
                 Commodities Suite
               </Link>
@@ -1145,33 +1143,33 @@ export default function Landing() {
         </section>
 
         {/* ── 12. Institutional Footer & Legal Disclosures ───────────────── */}
-        <footer className="border-t border-[#14223A] py-12 bg-[#070D18]">
+        <footer className="border-t border-[#D9E2F2] py-12 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-8 border-b border-[#14223A]">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-8 border-b border-[#D9E2F2]">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#0E1728] border border-[rgba(198,161,91,0.25)] flex items-center justify-center p-1 overflow-hidden">
+                <div className="w-8 h-8 rounded-lg bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center p-1 overflow-hidden">
                   <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <span className="text-sm font-serif font-bold tracking-wider text-[#F5F5F2]">
-                    CENDRIX CAPITAL · <span className="text-[#C6A15B] font-mono">CNRX</span>
+                  <span className="text-sm font-display font-bold tracking-tight text-[#00225A]">
+                    CENDRIX CAPITAL · <span className="text-[#536CF0] font-mono">CNRX</span>
                   </span>
-                  <p className="text-[10px] text-[#6E7683] font-mono">
+                  <p className="text-[10px] text-[#6B7A90] font-mono">
                     Simulated Fund Quantitative Workstation
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-6 text-xs text-[#A1A8B3] font-medium">
-                <Link to="/privacy" className="hover:text-[#F5F5F2] transition-colors">Privacy Policy</Link>
-                <Link to="/terms" className="hover:text-[#F5F5F2] transition-colors">Terms of Service</Link>
-                <a href="mailto:atharva.bhosale@yahoo.com" className="hover:text-[#C6A15B] transition-colors">Desk Support</a>
-                <a href="https://www.linkedin.com/in/atharva--bhosale" target="_blank" rel="noopener noreferrer" className="hover:text-[#C6A15B] transition-colors">LinkedIn</a>
-                <Link to="/dashboard" className="text-[#C6A15B] hover:text-[#E2C889] font-mono font-semibold">Terminal Access →</Link>
+              <div className="flex flex-wrap justify-center gap-6 text-xs text-[#6B7A90] font-medium">
+                <Link to="/privacy" className="hover:text-[#00225A] transition-colors">Privacy Policy</Link>
+                <Link to="/terms" className="hover:text-[#00225A] transition-colors">Terms of Service</Link>
+                <a href="mailto:atharva.bhosale@yahoo.com" className="hover:text-[#00225A] transition-colors">Desk Support</a>
+                <a href="https://www.linkedin.com/in/atharva--bhosale" target="_blank" rel="noopener noreferrer" className="hover:text-[#00225A] transition-colors">LinkedIn</a>
+                <Link to="/dashboard" className="text-[#00225A] hover:text-[#536CF0] font-mono font-semibold">Terminal Access →</Link>
               </div>
             </div>
 
-            <div className="pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-[#6E7683] font-mono">
+            <div className="pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-[#6B7A90] font-mono">
               <p>© {new Date().getFullYear()} Cendrix Capital. Institutional Paper Trading Platform. All rights reserved.</p>
               <p className="text-center md:text-right max-w-xl">
                 Notice: CNRX is a simulated educational and research workstation. All funds are 100% virtual and cannot be redeemed for real currency. Not a registered brokerage firm or financial advisory.

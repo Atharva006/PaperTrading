@@ -2,11 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTradingStore } from '../../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../../services/market/indianInstruments';
-import {
-  Compass,
-  ArrowUpRight,
-  ArrowDownRight,
-} from 'lucide-react';
+import { Compass } from 'lucide-react';
 
 export const ContextualSubnav: React.FC = () => {
   const { quotes, setSelectedInstrument } = useTradingStore();
@@ -39,7 +35,7 @@ export const ContextualSubnav: React.FC = () => {
       } else if (isMCXOpen) {
         setSessionInfo({ label: 'MCX COMMODITIES LIVE SESSION', isOpen: true });
       } else {
-        setSessionInfo({ label: 'MARKET POST-SESSION (DIRECT EXCHANGE FEEDS)', isOpen: false });
+        setSessionInfo({ label: 'EXCHANGE SIMULATOR ACTIVE', isOpen: false });
       }
     };
 
@@ -97,7 +93,7 @@ export const ContextualSubnav: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#080808] border-b border-[#191919] select-none text-xs z-30">
+    <div className="bg-[#F7F8FA] border-b border-[#D9E2F2] select-none text-xs z-30 font-sans">
       <div className="max-w-[1920px] mx-auto px-3 sm:px-6 py-1.5 flex flex-wrap items-center justify-between gap-3">
         
         {/* ── Context Breadcrumb / Session Telemetry ────────────────────── */}
@@ -105,24 +101,24 @@ export const ContextualSubnav: React.FC = () => {
           <div className="flex items-center gap-2">
             <span
               className={`w-2 h-2 rounded-full ${
-                sessionInfo.isOpen ? 'bg-[#00C087] animate-pulse' : 'bg-[#D4AF65]'
+                sessionInfo.isOpen ? 'bg-[#12B76A] animate-pulse' : 'bg-[#536CF0]'
               }`}
             />
-            <span className="text-[10px] font-mono font-bold tracking-wider text-[#A1A1AA] uppercase">
+            <span className="text-[10px] font-mono font-bold tracking-wider text-[#6B7A90] uppercase">
               {sessionInfo.label}
             </span>
           </div>
 
-          <span className="text-[#242424] hidden md:inline">|</span>
+          <span className="text-[#D9E2F2] hidden md:inline">|</span>
 
-          <div className="hidden md:flex items-center gap-1.5 text-[10px] font-medium text-[#71717A]">
-            <Compass className="w-3.5 h-3.5 text-[#D4AF65]" />
-            <span className="font-semibold text-[#F5F5F5]">{getContextLabel()}</span>
+          <div className="hidden md:flex items-center gap-1.5 text-[11px] font-medium text-[#6B7A90]">
+            <Compass className="w-3.5 h-3.5 text-[#536CF0]" />
+            <span className="font-semibold text-[#00225A]">{getContextLabel()}</span>
           </div>
         </div>
 
         {/* ── Live Streaming Benchmark Ticker Ribbon ───────────────────── */}
-        <div className="flex items-center gap-4 sm:gap-6 overflow-x-auto scrollbar-hide py-0.5">
+        <div className="flex items-center gap-3 sm:gap-4 overflow-x-auto scrollbar-hide py-0.5">
           {tickers.map((t) => {
             const q = quotes[t.key] || (t.altKey ? quotes[t.altKey] : undefined);
             const price = q ? q.last_price : 0;
@@ -134,19 +130,19 @@ export const ContextualSubnav: React.FC = () => {
               <div
                 key={t.key}
                 onClick={() => handleTickerClick(t.key, t.altKey)}
-                className="flex items-center gap-2 cursor-pointer hover:bg-[#131313] px-2 py-0.5 rounded transition-colors group whitespace-nowrap border border-transparent hover:border-[#242424]"
+                className="flex items-center gap-2 cursor-pointer bg-white hover:bg-[#EEF3FF] px-2.5 py-1 rounded-lg transition-colors group whitespace-nowrap border border-[#D9E2F2] shadow-2xs"
                 title={`Click to open ${t.label} on Trading Terminal`}
               >
-                <span className="font-semibold text-[11px] text-[#A1A1AA] group-hover:text-[#F5F5F5] tracking-tight">
+                <span className="font-semibold text-[11px] text-[#6B7A90] group-hover:text-[#00225A] tracking-tight">
                   {t.label}
                 </span>
-                <span className="font-mono text-xs font-bold text-[#F5F5F5]">
+                <span className="font-mono text-xs font-bold text-[#00225A]">
                   {price > 0 ? `₹${fmt(price)}` : '...'}
                 </span>
                 {price > 0 && (
                   <span
                     className={`flex items-center text-[10px] font-mono font-bold ${
-                      isPos ? 'text-[#00C087]' : 'text-[#FF4D67]'
+                      isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'
                     }`}
                   >
                     {isPos ? '+' : ''}

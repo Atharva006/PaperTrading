@@ -62,70 +62,71 @@ export default function Dashboard() {
   const availableMargin = metrics.available_margin;
 
   return (
-    <div className="space-y-6 pb-12 w-full max-w-full mx-auto select-none font-sans text-xs text-[#F5F5F2]">
+    <div className="space-y-6 pb-12 w-full max-w-full mx-auto select-none font-sans text-xs text-[#111114]">
       
-      {/* ── 1. Cendrix Capital Greeting Header ────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+      {/* ── 1. Greeting Header ────────────────────────────────────────────── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D9E2F2]">
         <div>
           <div className="flex items-center gap-2.5">
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-[-0.025em] text-[#F5F5F2]">
-              Welcome, <span className="text-[#C6A15B]">{userName?.split(' ')[0] || 'Trader'}</span>
+            <h1 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#00225A]">
+              Welcome, <span className="text-[#536CF0]">{userName?.split(' ')[0] || 'Trader'}</span>
             </h1>
-            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]" title="System Live · NSE & MCX Connected" />
+            <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse shadow-sm" title="System Live · NSE & MCX Connected" />
           </div>
-          <div className="text-[11px] text-[#A1A8B3] mt-1 font-mono flex items-center gap-2 tracking-[-0.006em]">
-            <span>Portfolio Account: <span className="text-[#F5F5F2] font-semibold">{account?.account_number || 'CNRX-LIVE-001'}</span></span>
-            <span className="text-white/20">|</span>
-            <span className="text-[#C6A15B] font-semibold tracking-wider uppercase text-[10px]">Cendrix Simulated Fund</span>
+          <div className="text-[11px] text-[#6B7A90] mt-1 font-mono flex items-center gap-2">
+            <span>Portfolio Account: <span className="text-[#00225A] font-semibold">{account?.account_number || 'CNRX-LIVE-001'}</span></span>
+            <span className="text-[#D9E2F2]">|</span>
+            <span className="text-[#00225A] font-bold tracking-wider uppercase text-[10px] bg-[#EEF3FF] px-1.5 py-0.5 rounded border border-[#D9E2F2]">
+              Simulated Fund
+            </span>
           </div>
         </div>
 
-        {/* Quick Action Tactile Pill Buttons */}
+        {/* Quick Action Buttons */}
         <div className="flex items-center gap-2.5">
           <button
             onClick={() => openOrderTicket()}
-            className="btn-cendrix-gold px-4 py-2 rounded-xl text-[#070D18] font-bold text-xs flex items-center gap-1.5 shadow-[0_4px_16px_rgba(198,161,91,0.25)] hover:brightness-110 active:scale-[0.96] transition-all cursor-pointer"
+            className="btn-primary px-4 py-2 rounded-xl text-white font-bold text-xs flex items-center gap-1.5 shadow-sm active:scale-[0.96] transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4 stroke-[2.5]" />
             <span>Place Order</span>
           </button>
           <button
             onClick={() => navigate('/dashboard/terminal')}
-            className="btn-cendrix-outline px-3.5 py-2 rounded-xl font-semibold text-xs flex items-center gap-1.5 active:scale-[0.96] transition-all cursor-pointer"
+            className="btn-secondary px-3.5 py-2 rounded-xl font-semibold text-xs flex items-center gap-1.5 active:scale-[0.96] transition-all cursor-pointer"
           >
             Order Terminal
           </button>
           <button
             onClick={() => navigate('/dashboard/commodities')}
-            className="btn-cendrix-outline px-3.5 py-2 rounded-xl font-semibold text-xs flex items-center gap-1.5 active:scale-[0.96] transition-all cursor-pointer"
+            className="btn-secondary px-3.5 py-2 rounded-xl font-semibold text-xs flex items-center gap-1.5 active:scale-[0.96] transition-all cursor-pointer"
           >
             MCX Commodities
           </button>
         </div>
       </div>
 
-      {/* ── Beginner Desk Quick Start Banner (Dismissible Apple Card) ─────── */}
+      {/* ── Beginner Desk Quick Start Banner ─────────────────────────────── */}
       {!isQuickStartDismissed && (
-        <div className="apple-glass-panel p-5 sm:p-6 rounded-2xl relative overflow-hidden shadow-xl animate-in fade-in duration-300 border border-white/10">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C6A15B]/40 to-transparent pointer-events-none" />
+        <div className="bg-white p-5 sm:p-6 rounded-2xl relative overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)] border border-[#D9E2F2] animate-in fade-in duration-300">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div className="flex items-start gap-4">
-              <div className="w-11 h-11 rounded-2xl bg-[#C6A15B]/15 border border-[#C6A15B]/30 flex items-center justify-center shrink-0 shadow-[0_2px_10px_rgba(198,161,91,0.2)]">
-                <Sparkles className="w-5 h-5 text-[#C6A15B]" />
+              <div className="w-11 h-11 rounded-2xl bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center shrink-0 shadow-sm">
+                <Sparkles className="w-5 h-5 text-[#536CF0]" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold tracking-wider text-[#C6A15B] uppercase">
+                  <span className="text-[10px] font-mono font-bold tracking-wider text-[#536CF0] uppercase">
                     Beginner Trading Desk Guide
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono bg-[#10B981]/15 text-[#10B981] font-semibold border border-[#10B981]/30">
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono bg-[#12B76A]/10 text-[#12B76A] font-semibold border border-[#12B76A]/30">
                     ₹10,00,000 Active Virtual Balance
                   </span>
                 </div>
-                <h3 className="font-serif text-sm sm:text-base font-bold text-[#F5F5F2] mt-1 tracking-[-0.015em]">
+                <h3 className="font-display text-sm sm:text-base font-bold text-[#00225A] mt-1">
                   New to CNRX? Discover how to analyze, place orders, and manage virtual risk
                 </h3>
-                <p className="text-xs text-[#A1A8B3] mt-1 leading-relaxed">
+                <p className="text-xs text-[#6B7A90] mt-1 leading-relaxed">
                   1. Search scrips (⌘K) → 2. Inspect Candlestick Charts & Depth → 3. Place simulated orders (Market/Limit/SL) → 4. Track live MTM & Greeks.
                 </p>
               </div>
@@ -134,9 +135,9 @@ export default function Dashboard() {
             <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
               <button
                 onClick={openGuide}
-                className="btn-cendrix-gold px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md hover:brightness-110 active:scale-[0.96] transition-all cursor-pointer"
+                className="btn-primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm active:scale-[0.96] transition-all cursor-pointer"
               >
-                <HelpCircle className="w-3.5 h-3.5 text-[#070D18]" />
+                <HelpCircle className="w-3.5 h-3.5 text-white" />
                 <span>Start Walkthrough</span>
               </button>
               <button
@@ -146,7 +147,7 @@ export default function Dashboard() {
                     localStorage.setItem('cnrx_quickstart_dismissed', 'true');
                   } catch {}
                 }}
-                className="p-2 rounded-xl text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-white/10 active:scale-[0.92] transition-all cursor-pointer"
+                className="p-2 rounded-xl text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA] active:scale-[0.92] transition-all cursor-pointer"
                 title="Dismiss banner"
               >
                 <X className="w-4 h-4" />
@@ -156,26 +157,24 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* ── 2. Cendrix Capital Two-Column Financial Overview ─────── */}
+      {/* ── 2. Two-Column Financial Overview ──────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 py-1">
         
-        {/* Left Column: Equity Overview Card (Apple Frosted Glass) */}
-        <div className="apple-glass-panel p-6 rounded-2xl relative overflow-hidden space-y-4 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C6A15B]/50 to-transparent pointer-events-none" />
-          
-          <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
+        {/* Left Column: Equity Overview Card */}
+        <div className="bg-white p-6 rounded-2xl relative overflow-hidden space-y-4 border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#D9E2F2]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[rgba(198,161,91,0.12)] border border-[rgba(198,161,91,0.25)] flex items-center justify-center">
-                <Briefcase className="w-4 h-4 text-[#C6A15B]" />
+              <div className="w-8 h-8 rounded-xl bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center">
+                <Briefcase className="w-4 h-4 text-[#00225A]" />
               </div>
               <div>
-                <h2 className="font-serif text-sm font-bold tracking-[-0.015em] text-[#F5F5F2]">Equity Desk</h2>
-                <span className="text-[10px] text-[#A1A8B3] block font-mono">Real-time margin telemetry</span>
+                <h2 className="font-display text-sm font-bold text-[#00225A]">Equity Desk</h2>
+                <span className="text-[10px] text-[#6B7A90] block font-mono">Real-time margin telemetry</span>
               </div>
             </div>
             <Link
               to="/dashboard/portfolio"
-              className="text-[11px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-semibold transition-colors active:scale-[0.96]"
+              className="text-[11px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-semibold transition-colors active:scale-[0.96]"
             >
               <span>View statement</span>
               <ArrowRight className="w-3 h-3" />
@@ -184,65 +183,63 @@ export default function Dashboard() {
 
           <div className="flex items-baseline gap-3">
             <div>
-              <span className="text-[10px] text-[#A1A8B3] uppercase font-mono font-semibold tracking-wider block">Available Margin</span>
-              <div className="text-2xl sm:text-3xl font-extrabold font-mono text-[#F5F5F2] mt-0.5 tracking-tight tabular-nums">
+              <span className="text-[10px] text-[#6B7A90] uppercase font-mono font-semibold tracking-wider block">Available Margin</span>
+              <div className="text-2xl sm:text-3xl font-extrabold font-mono text-[#00225A] mt-0.5 tracking-tight tabular-nums">
                 ₹{fmt(availableMargin)}
               </div>
             </div>
           </div>
 
-          {/* Luxury 2-Column Metrics Grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-3 border-t border-white/10 tabular-nums">
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Margin used:</span>
-              <span className="font-bold text-[#C6A15B]">₹{fmt(usedMargin)}</span>
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-3 border-t border-[#D9E2F2] tabular-nums">
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Margin used:</span>
+              <span className="font-bold text-[#00225A]">₹{fmt(usedMargin)}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Available cash:</span>
-              <span className="font-bold text-[#F5F5F2]">₹{fmt(account?.cash_balance)}</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Available cash:</span>
+              <span className="font-bold text-[#111114]">₹{fmt(account?.cash_balance)}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Opening balance:</span>
-              <span className="text-[#F5F5F2]">₹{fmt(account?.initial_balance || 1000000)}</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Opening balance:</span>
+              <span className="text-[#111114]">₹{fmt(account?.initial_balance || 1000000)}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Realized P&L:</span>
-              <span className={`font-bold ${metrics.realized_pnl >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Realized P&L:</span>
+              <span className={`font-bold ${metrics.realized_pnl >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                 {metrics.realized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.realized_pnl)}
               </span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Unrealized MTM:</span>
-              <span className={`font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Unrealized MTM:</span>
+              <span className={`font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                 {metrics.unrealized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.unrealized_pnl)}
               </span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Total Charges Paid:</span>
-              <span className="text-[#A1A8B3]">₹{fmt(metrics.total_brokerage_paid)}</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Total Charges Paid:</span>
+              <span className="text-[#6B7A90]">₹{fmt(metrics.total_brokerage_paid)}</span>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Holdings & Portfolio Overview Card (Apple Frosted Glass) */}
-        <div className="apple-glass-panel p-6 rounded-2xl relative overflow-hidden space-y-4 border border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#C6A15B]/50 to-transparent pointer-events-none" />
-
-          <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
+        {/* Right Column: Holdings & Portfolio Overview Card */}
+        <div className="bg-white p-6 rounded-2xl relative overflow-hidden space-y-4 border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#D9E2F2]">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[rgba(198,161,91,0.12)] border border-[rgba(198,161,91,0.25)] flex items-center justify-center">
-                <PieChart className="w-4 h-4 text-[#C6A15B]" />
+              <div className="w-8 h-8 rounded-xl bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center">
+                <PieChart className="w-4 h-4 text-[#00225A]" />
               </div>
               <div>
-                <h2 className="font-serif text-sm font-bold tracking-[-0.015em] text-[#F5F5F2]">
+                <h2 className="font-display text-sm font-bold text-[#00225A]">
                   Holdings & Positions ({holdings.length + openPositions.length})
                 </h2>
-                <span className="text-[10px] text-[#A1A8B3] block font-mono">Consolidated exposure</span>
+                <span className="text-[10px] text-[#6B7A90] block font-mono">Consolidated exposure</span>
               </div>
             </div>
             <Link
               to="/dashboard/holdings"
-              className="text-[11px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-semibold transition-colors active:scale-[0.96]"
+              className="text-[11px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-semibold transition-colors active:scale-[0.96]"
             >
               <span>View analytics</span>
               <ArrowRight className="w-3 h-3" />
@@ -251,58 +248,60 @@ export default function Dashboard() {
 
           <div className="flex items-baseline gap-3">
             <div>
-              <span className="text-[10px] text-[#A1A8B3] uppercase font-mono font-semibold tracking-wider block">Total Consolidated P&L</span>
+              <span className="text-[10px] text-[#6B7A90] uppercase font-mono font-semibold tracking-wider block">Total Consolidated P&L</span>
               <div
                 className={`text-2xl sm:text-3xl font-extrabold font-mono mt-0.5 flex items-center gap-2.5 tabular-nums ${
-                  metrics.overall_net_pnl >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'
+                  metrics.overall_net_pnl >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'
                 }`}
               >
                 <span>
                   {metrics.overall_net_pnl >= 0 ? '+' : ''}₹{fmt(metrics.overall_net_pnl)}
                 </span>
-                <span className="text-xs px-2.5 py-0.5 rounded-full font-bold font-mono bg-white/5 border border-[rgba(198,161,91,0.25)] text-[#E2C889]">
+                <span className={`text-xs px-2.5 py-0.5 rounded-full font-bold font-mono ${
+                  metrics.overall_return_percent >= 0 ? 'bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30' : 'bg-[#D92D20]/10 text-[#D92D20] border border-[#D92D20]/30'
+                }`}>
                   {metrics.overall_return_percent >= 0 ? '+' : ''}{metrics.overall_return_percent.toFixed(2)}%
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Luxury 2-Column Metrics Grid */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-3 border-t border-white/10 tabular-nums">
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Current value:</span>
-              <span className="font-bold text-[#F5F5F2]">₹{fmt(metrics.account_equity)}</span>
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2.5 font-mono text-xs pt-3 border-t border-[#D9E2F2] tabular-nums">
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Current value:</span>
+              <span className="font-bold text-[#00225A]">₹{fmt(metrics.account_equity)}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Investment:</span>
-              <span className="text-[#A1A8B3]">₹{fmt(metrics.initial_capital)}</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Investment:</span>
+              <span className="text-[#6B7A90]">₹{fmt(metrics.initial_capital)}</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Open Positions:</span>
-              <span className="font-bold text-[#F5F5F2]">{openPositions.length} active</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Open Positions:</span>
+              <span className="font-bold text-[#111114]">{openPositions.length} active</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Pending Orders:</span>
-              <span className="font-bold text-[#C6A15B]">{pendingOrders.length} pending</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Pending Orders:</span>
+              <span className="font-bold text-[#00225A]">{pendingOrders.length} pending</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Completed Fills:</span>
-              <span className="text-[#A1A8B3]">{trades.length} fills</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Completed Fills:</span>
+              <span className="text-[#6B7A90]">{trades.length} fills</span>
             </div>
-            <div className="flex justify-between py-1.5 border-b border-white/5">
-              <span className="text-[#A1A8B3]">Win Rate %:</span>
-              <span className="font-bold text-[#10B981]">{metrics.win_rate}%</span>
+            <div className="flex justify-between py-1.5 border-b border-[#D9E2F2]/60">
+              <span className="text-[#6B7A90]">Win Rate %:</span>
+              <span className="font-bold text-[#12B76A]">{metrics.win_rate}%</span>
             </div>
           </div>
         </div>
 
       </div>
 
-      {/* ── 3. Tabbed Trading Desk (Apple Glass Panel & Segmented Control) ───────── */}
-      <div className="apple-glass-panel p-5 sm:p-6 rounded-2xl border border-white/10 shadow-xl space-y-4">
-        {/* Apple Segmented Control */}
+      {/* ── 3. Tabbed Trading Desk ────────────────────────────────────────── */}
+      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] space-y-4">
+        {/* Segmented Control */}
         <div className="overflow-x-auto pb-1">
-          <div className="apple-segmented-group p-1 rounded-xl inline-flex gap-1">
+          <div className="bg-[#F7F8FA] border border-[#D9E2F2] p-1 rounded-xl inline-flex gap-1">
             {[
               { id: 'POSITIONS', label: `Positions (${openPositions.length})` },
               { id: 'HOLDINGS', label: `Holdings (${holdings.length})` },
@@ -312,8 +311,10 @@ export default function Dashboard() {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`apple-segmented-item px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap cursor-pointer ${
-                  activeTab === tab.id ? 'apple-segmented-item-active text-[#F5F5F2]' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap cursor-pointer transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-white text-[#00225A] shadow-sm border border-[#D9E2F2] font-bold'
+                    : 'text-[#6B7A90] hover:text-[#00225A]'
                 }`}
               >
                 {tab.label}
@@ -326,9 +327,9 @@ export default function Dashboard() {
         {activeTab === 'POSITIONS' && (
           <div className="mt-2">
             {openPositions.length === 0 ? (
-              <div className="py-16 text-center text-[#A1A8B3] text-xs">
+              <div className="py-16 text-center text-[#6B7A90] text-xs">
                 You have no open positions.
-                <div className="mt-1.5 text-[11px] text-[#C6A15B]">
+                <div className="mt-1.5 text-[11px] text-[#536CF0]">
                   Search instruments in the MarketWatch on the left to place buy/sell orders.
                 </div>
               </div>
@@ -336,7 +337,7 @@ export default function Dashboard() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 text-[10px] text-[#A1A8B3] uppercase tracking-wider font-mono">
+                    <tr className="border-b border-[#D9E2F2] text-[10px] text-[#6B7A90] uppercase tracking-wider font-mono bg-[#F7F8FA]">
                       <th className="py-2.5 px-3">Product</th>
                       <th className="py-2.5 px-3">Instrument</th>
                       <th className="py-2.5 px-3 text-right">Qty.</th>
@@ -347,7 +348,7 @@ export default function Dashboard() {
                       <th className="py-2.5 px-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 font-mono tabular-nums">
+                  <tbody className="divide-y divide-[#D9E2F2] font-mono tabular-nums">
                     {openPositions.map((pos) => {
                       const pnl = pos.unrealized_pnl || 0;
                       const isPos = pnl >= 0;
@@ -356,31 +357,31 @@ export default function Dashboard() {
                       const chgPct = avgPrice > 0 ? ((ltp - avgPrice) / avgPrice) * 100 : 0;
 
                       return (
-                        <tr key={pos.id} className="hover:bg-white/[0.03] transition-colors">
+                        <tr key={pos.id} className="hover:bg-[#F7F8FA] transition-colors">
                           <td className="py-2.5 px-3">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/5 text-[#C6A15B] border border-[rgba(198,161,91,0.25)]">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EEF3FF] text-[#00225A] border border-[#D9E2F2]">
                               {pos.product}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 font-bold text-[#F5F5F2] font-sans">
+                          <td className="py-2.5 px-3 font-bold text-[#00225A] font-sans">
                             {pos.tradingsymbol}
-                            <span className="text-[10px] text-[#A1A8B3] ml-1.5 font-mono">{pos.exchange}</span>
+                            <span className="text-[10px] text-[#6B7A90] ml-1.5 font-mono">{pos.exchange}</span>
                           </td>
-                          <td className={`py-2.5 px-3 text-right font-bold ${pos.quantity > 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className={`py-2.5 px-3 text-right font-bold ${pos.quantity > 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {pos.quantity > 0 ? `+${pos.quantity}` : pos.quantity}
                           </td>
-                          <td className="py-2.5 px-3 text-right text-[#A1A8B3]">₹{fmt(avgPrice)}</td>
-                          <td className="py-2.5 px-3 text-right text-[#F5F5F2]">₹{fmt(ltp)}</td>
-                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className="py-2.5 px-3 text-right text-[#6B7A90]">₹{fmt(avgPrice)}</td>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#111114]">₹{fmt(ltp)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {isPos ? '+' : ''}₹{fmt(pnl)}
                           </td>
-                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {isPos ? '+' : ''}{chgPct.toFixed(2)}%
                           </td>
                           <td className="py-2.5 px-3 text-right">
                             <button
                               onClick={() => closePosition(pos.id)}
-                              className="px-2.5 py-1 rounded-lg bg-[#EF4444]/15 hover:bg-[#EF4444] text-[#EF4444] hover:text-white font-bold text-[11px] border border-[#EF4444]/30 active:scale-[0.92] transition-all cursor-pointer"
+                              className="px-2.5 py-1 rounded-lg bg-[#FEE4E2] hover:bg-[#D92D20] text-[#D92D20] hover:text-white font-bold text-[11px] border border-[#FECDCA] active:scale-[0.92] transition-all cursor-pointer"
                             >
                               Square Off
                             </button>
@@ -392,9 +393,9 @@ export default function Dashboard() {
                 </table>
 
                 {/* Total P&L Footer Summary */}
-                <div className="flex items-center justify-between py-3 px-3 border-t border-white/10 font-mono text-xs tabular-nums">
-                  <span className="text-[#A1A8B3] font-semibold uppercase">Total Open Positions P&L</span>
-                  <span className={`text-base font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                <div className="flex items-center justify-between py-3 px-3 border-t border-[#D9E2F2] font-mono text-xs tabular-nums bg-[#F7F8FA]">
+                  <span className="text-[#6B7A90] font-semibold uppercase">Total Open Positions P&L</span>
+                  <span className={`text-base font-bold ${metrics.unrealized_pnl >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                     {metrics.unrealized_pnl >= 0 ? '+' : ''}₹{fmt(metrics.unrealized_pnl)}
                   </span>
                 </div>
@@ -407,9 +408,9 @@ export default function Dashboard() {
         {activeTab === 'HOLDINGS' && (
           <div className="mt-2">
             {holdings.length === 0 ? (
-              <div className="py-16 text-center text-[#A1A8B3] text-xs">
+              <div className="py-16 text-center text-[#6B7A90] text-xs">
                 You have no equity holdings.
-                <div className="mt-1.5 text-[11px] text-[#C6A15B]">
+                <div className="mt-1.5 text-[11px] text-[#536CF0]">
                   Buy equity scrips with product CNC (Cash & Carry) to build long-term holdings.
                 </div>
               </div>
@@ -417,7 +418,7 @@ export default function Dashboard() {
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 text-[10px] text-[#A1A8B3] uppercase tracking-wider font-mono">
+                    <tr className="border-b border-[#D9E2F2] text-[10px] text-[#6B7A90] uppercase tracking-wider font-mono bg-[#F7F8FA]">
                       <th className="py-2.5 px-3">Instrument</th>
                       <th className="py-2.5 px-3 text-right">Qty.</th>
                       <th className="py-2.5 px-3 text-right">Avg. Price</th>
@@ -427,23 +428,23 @@ export default function Dashboard() {
                       <th className="py-2.5 px-3 text-right">Net Chg. %</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 font-mono tabular-nums">
+                  <tbody className="divide-y divide-[#D9E2F2] font-mono tabular-nums">
                     {holdings.map((h) => {
                       const isPos = h.pnl >= 0;
                       return (
-                        <tr key={h.id} className="hover:bg-white/[0.03] transition-colors">
-                          <td className="py-2.5 px-3 font-bold text-[#F5F5F2] font-sans">
+                        <tr key={h.id} className="hover:bg-[#F7F8FA] transition-colors">
+                          <td className="py-2.5 px-3 font-bold text-[#00225A] font-sans">
                             {h.tradingsymbol}
-                            <span className="text-[10px] text-[#A1A8B3] ml-1.5 font-mono">{h.exchange}</span>
+                            <span className="text-[10px] text-[#6B7A90] ml-1.5 font-mono">{h.exchange}</span>
                           </td>
-                          <td className="py-2.5 px-3 text-right text-[#F5F5F2]">{h.quantity}</td>
-                          <td className="py-2.5 px-3 text-right text-[#A1A8B3]">₹{fmt(h.average_price)}</td>
-                          <td className="py-2.5 px-3 text-right text-[#F5F5F2]">₹{fmt(h.last_price)}</td>
-                          <td className="py-2.5 px-3 text-right text-[#F5F5F2]">₹{fmt(h.current_value)}</td>
-                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className="py-2.5 px-3 text-right text-[#111114]">{h.quantity}</td>
+                          <td className="py-2.5 px-3 text-right text-[#6B7A90]">₹{fmt(h.average_price)}</td>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#111114]">₹{fmt(h.last_price)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#111114]">₹{fmt(h.current_value)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {isPos ? '+' : ''}₹{fmt(h.pnl)}
                           </td>
-                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className={`py-2.5 px-3 text-right ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {isPos ? '+' : ''}{h.pnl_percentage.toFixed(2)}%
                           </td>
                         </tr>
@@ -460,14 +461,14 @@ export default function Dashboard() {
         {activeTab === 'ORDERS' && (
           <div className="mt-2">
             {pendingOrders.length === 0 ? (
-              <div className="py-16 text-center text-[#A1A8B3] text-xs">
+              <div className="py-16 text-center text-[#6B7A90] text-xs">
                 No pending or limit orders in the book.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 text-[10px] text-[#A1A8B3] uppercase tracking-wider font-mono">
+                    <tr className="border-b border-[#D9E2F2] text-[10px] text-[#6B7A90] uppercase tracking-wider font-mono bg-[#F7F8FA]">
                       <th className="py-2.5 px-3">Time</th>
                       <th className="py-2.5 px-3">Side</th>
                       <th className="py-2.5 px-3">Instrument</th>
@@ -478,36 +479,36 @@ export default function Dashboard() {
                       <th className="py-2.5 px-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 font-mono tabular-nums">
+                  <tbody className="divide-y divide-[#D9E2F2] font-mono tabular-nums">
                     {pendingOrders.map((o) => (
-                      <tr key={o.id} className="hover:bg-white/[0.03] transition-colors">
-                        <td className="py-2.5 px-3 text-[#A1A8B3]">
+                      <tr key={o.id} className="hover:bg-[#F7F8FA] transition-colors">
+                        <td className="py-2.5 px-3 text-[#6B7A90]">
                           {new Date(o.created_at).toLocaleTimeString()}
                         </td>
                         <td className="py-2.5 px-3 font-bold">
                           <span
                             className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                               o.transaction_type === 'BUY'
-                                ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
-                                : 'bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30'
+                                ? 'bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30'
+                                : 'bg-[#D92D20]/10 text-[#D92D20] border border-[#D92D20]/30'
                             }`}
                           >
                             {o.transaction_type}
                           </span>
                         </td>
-                        <td className="py-2.5 px-3 font-bold text-[#F5F5F2] font-sans">
+                        <td className="py-2.5 px-3 font-bold text-[#00225A] font-sans">
                           {o.tradingsymbol}
                         </td>
-                        <td className="py-2.5 px-3 text-[#A1A8B3]">{o.product}</td>
-                        <td className="py-2.5 px-3 text-[#A1A8B3]">{o.order_type}</td>
-                        <td className="py-2.5 px-3 text-right font-bold text-[#F5F5F2]">{o.quantity}</td>
-                        <td className="py-2.5 px-3 text-right font-bold text-[#F5F5F2]">
+                        <td className="py-2.5 px-3 text-[#6B7A90]">{o.product}</td>
+                        <td className="py-2.5 px-3 text-[#6B7A90]">{o.order_type}</td>
+                        <td className="py-2.5 px-3 text-right font-bold text-[#111114]">{o.quantity}</td>
+                        <td className="py-2.5 px-3 text-right font-bold text-[#00225A]">
                           {o.price > 0 ? `₹${fmt(o.price)}` : 'MARKET'}
                         </td>
                         <td className="py-2.5 px-3 text-right">
                           <button
                             onClick={() => cancelOrder(o.id)}
-                            className="px-2.5 py-1 rounded-lg bg-[#EF4444]/15 hover:bg-[#EF4444] text-[#EF4444] hover:text-white font-bold text-[11px] border border-[#EF4444]/30 active:scale-[0.92] transition-all cursor-pointer"
+                            className="px-2.5 py-1 rounded-lg bg-[#FEE4E2] hover:bg-[#D92D20] text-[#D92D20] hover:text-white font-bold text-[11px] border border-[#FECDCA] active:scale-[0.92] transition-all cursor-pointer"
                           >
                             Cancel
                           </button>
@@ -525,14 +526,14 @@ export default function Dashboard() {
         {activeTab === 'TRADES' && (
           <div className="mt-2">
             {trades.length === 0 ? (
-              <div className="py-16 text-center text-[#A1A8B3] text-xs">
+              <div className="py-16 text-center text-[#6B7A90] text-xs">
                 No executed trades today yet.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
-                    <tr className="border-b border-white/10 text-[10px] text-[#A1A8B3] uppercase tracking-wider font-mono">
+                    <tr className="border-b border-[#D9E2F2] text-[10px] text-[#6B7A90] uppercase tracking-wider font-mono bg-[#F7F8FA]">
                       <th className="py-2.5 px-3">Time</th>
                       <th className="py-2.5 px-3">Trade ID</th>
                       <th className="py-2.5 px-3">Side</th>
@@ -543,34 +544,36 @@ export default function Dashboard() {
                       <th className="py-2.5 px-3 text-right">Realized P&L</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-white/5 font-mono tabular-nums">
-                    {trades.map((t) => {
+                  <tbody className="divide-y divide-[#D9E2F2] font-mono tabular-nums">
+                    {trades.map((t: any) => {
                       const pnl = t.realized_pnl || 0;
                       const isPos = pnl >= 0;
+                      const tradeTime = t.trade_time || t.created_at;
+                      const tradePrice = t.price ?? t.average_price ?? 0;
                       return (
-                        <tr key={t.id} className="hover:bg-white/[0.03] transition-colors">
-                          <td className="py-2.5 px-3 text-[#A1A8B3]">
-                            {new Date(t.trade_time).toLocaleTimeString()}
+                        <tr key={t.id} className="hover:bg-[#F7F8FA] transition-colors">
+                          <td className="py-2.5 px-3 text-[#6B7A90]">
+                            {tradeTime ? new Date(tradeTime).toLocaleTimeString() : '—'}
                           </td>
-                          <td className="py-2.5 px-3 text-[#A1A8B3]">{t.trade_id.slice(-8)}</td>
+                          <td className="py-2.5 px-3 text-[#6B7A90]">{(t.trade_id || t.id).slice(-8)}</td>
                           <td className="py-2.5 px-3 font-bold">
                             <span
                               className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
                                 t.transaction_type === 'BUY'
-                                  ? 'bg-[#10B981]/15 text-[#10B981] border border-[#10B981]/30'
-                                  : 'bg-[#EF4444]/15 text-[#EF4444] border border-[#EF4444]/30'
+                                  ? 'bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30'
+                                  : 'bg-[#D92D20]/10 text-[#D92D20] border border-[#D92D20]/30'
                               }`}
                             >
                               {t.transaction_type}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 font-bold text-[#F5F5F2] font-sans">
+                          <td className="py-2.5 px-3 font-bold text-[#00225A] font-sans">
                             {t.tradingsymbol}
                           </td>
-                          <td className="py-2.5 px-3 text-right font-bold text-[#F5F5F2]">{t.quantity}</td>
-                          <td className="py-2.5 px-3 text-right font-bold text-[#F5F5F2]">₹{fmt(t.price)}</td>
-                          <td className="py-2.5 px-3 text-right text-[#A1A8B3]">₹{fmt(t.charges?.total_charges || 0)}</td>
-                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#111114]">{t.quantity}</td>
+                          <td className="py-2.5 px-3 text-right font-bold text-[#00225A]">₹{fmt(tradePrice)}</td>
+                          <td className="py-2.5 px-3 text-right text-[#6B7A90]">₹{fmt(t.charges?.total_charges || 0)}</td>
+                          <td className={`py-2.5 px-3 text-right font-bold ${isPos ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                             {pnl !== 0 ? `${isPos ? '+' : ''}₹${fmt(pnl)}` : '—'}
                           </td>
                         </tr>

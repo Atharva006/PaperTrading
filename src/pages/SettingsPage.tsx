@@ -296,59 +296,59 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
   };
 
   return (
-    <div className="w-full max-w-full mx-auto select-none font-sans text-[#F5F5F2] pb-14 space-y-6">
+    <div className="w-full max-w-full mx-auto select-none font-sans text-[#111114] pb-14 space-y-6">
       {/* ── 1. Top Cendrix Capital Header Strip ─────────────────────────── */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#D9E2F2]">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-mono tracking-wider text-[#C6A15B] uppercase font-semibold">
+            <span className="text-[10px] font-mono tracking-wider text-[#536CF0] uppercase font-semibold">
               Infrastructure Control · Security Vault
             </span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#F5F5F2] flex items-center gap-2.5">
-            <Settings className="w-6 h-6 text-[#C6A15B]" />
+          <h1 className="text-xl sm:text-2xl font-display font-bold tracking-tight text-[#00225A] flex items-center gap-2.5">
+            <Settings className="w-6 h-6 text-[#00225A]" />
             <span>Platform Settings & Gateway Vault</span>
           </h1>
-          <p className="text-xs text-[#A1A8B3] mt-1 font-mono">
+          <p className="text-xs text-[#6B7A90] mt-1 font-mono">
             Configure direct exchange telemetry, calibrate execution slippage, and manage virtual risk parameters
           </p>
         </div>
 
         {/* Status Chip */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs font-mono">
-            <Server className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="text-[#A1A8B3]">Provider:</span>
-            <span className="font-semibold text-[#F5F5F2]">Cendrix Direct Exchange</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#D9E2F2] text-xs font-mono shadow-xs">
+            <Server className="w-3.5 h-3.5 text-[#536CF0]" />
+            <span className="text-[#6B7A90]">Provider:</span>
+            <span className="font-semibold text-[#00225A]">Cendrix Direct Exchange</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
           </div>
         </div>
       </div>
 
       {/* ── 2. Direct Exchange Gateway Card (PIN-Protected Vault) ────────── */}
-      <div className="apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] overflow-hidden transition-all duration-300">
+      <div className="bg-white rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] overflow-hidden transition-all duration-300">
         {/* Card Header */}
-        <div className="p-5 sm:p-6 border-b border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/[0.02]">
+        <div className="p-5 sm:p-6 border-b border-[#D9E2F2] flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#F7F8FA]">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 shadow-inner">
-              <Key className="w-5 h-5 text-[#C6A15B]" />
+            <div className="w-10 h-10 rounded-2xl bg-white border border-[#D9E2F2] flex items-center justify-center shrink-0 shadow-xs">
+              <Key className="w-5 h-5 text-[#00225A]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-serif font-bold text-[#F5F5F2] tracking-tight">
+                <h2 className="text-base font-display font-bold text-[#00225A] tracking-tight">
                   Direct Exchange Gateway Credentials
                 </h2>
                 {isGatewayUnlocked ? (
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#12B76A]/10 text-[#12B76A] border border-[#12B76A]/30 flex items-center gap-1">
                     <Unlock className="w-3 h-3" /> UNLOCKED
                   </span>
                 ) : (
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#C6A15B]/15 text-[#C6A15B] border border-[#C6A15B]/30 flex items-center gap-1">
-                    <Lock className="w-3 h-3" /> VAULT LOCKED
+                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#536CF0]/10 text-[#00225A] border border-[#536CF0]/25 flex items-center gap-1">
+                    <Lock className="w-3 h-3 text-[#536CF0]" /> VAULT LOCKED
                   </span>
                 )}
               </div>
-              <p className="text-xs text-[#A1A8B3] mt-0.5">
+              <p className="text-xs text-[#6B7A90] mt-0.5">
                 Direct WebSocket & REST telemetry gateway for real-time market depth and interactive tick stream
               </p>
             </div>
@@ -363,7 +363,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 setPinDigits(['', '', '', '']);
                 addToast('info', 'Vault Locked', 'Gateway credentials locked.');
               }}
-              className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.06] text-[#A1A8B3] hover:text-[#C6A15B] border border-white/[0.08] text-xs font-mono font-semibold flex items-center gap-1.5 transition-all active:scale-[0.96]"
+              className="self-start sm:self-auto px-3.5 py-1.5 rounded-xl bg-white hover:bg-[#F7F8FA] text-[#6B7A90] hover:text-[#00225A] border border-[#D9E2F2] text-xs font-mono font-semibold flex items-center gap-1.5 transition-all active:scale-[0.96] shadow-xs cursor-pointer"
             >
               <Lock className="w-3.5 h-3.5" />
               <span>Lock Credentials</span>
@@ -375,22 +375,22 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
         {!isGatewayUnlocked ? (
           <div className="p-8 sm:p-12 flex flex-col items-center justify-center text-center space-y-6">
             <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-white/[0.04] border border-white/[0.1] flex items-center justify-center shadow-inner">
-                <Lock className="w-8 h-8 text-[#C6A15B]" />
+              <div className="w-16 h-16 rounded-2xl bg-[#F7F8FA] border border-[#D9E2F2] flex items-center justify-center shadow-xs">
+                <Lock className="w-8 h-8 text-[#00225A]" />
               </div>
-              <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#10141C] border border-[#C6A15B]/60 flex items-center justify-center">
-                <ShieldCheck className="w-3 h-3 text-[#C6A15B]" />
+              <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#00225A] border border-white flex items-center justify-center">
+                <ShieldCheck className="w-3 h-3 text-white" />
               </div>
             </div>
 
             <div className="max-w-md space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#C6A15B] font-semibold">
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#536CF0] font-semibold">
                 Security Clearance Required
               </span>
-              <h3 className="text-lg font-serif font-bold text-[#F5F5F2] tracking-tight">
+              <h3 className="text-lg font-display font-bold text-[#00225A] tracking-tight">
                 Restricted Gateway Vault
               </h3>
-              <p className="text-xs text-[#A1A8B3] leading-relaxed">
+              <p className="text-xs text-[#6B7A90] leading-relaxed">
                 Direct exchange gateway credentials, secret keys, and bearer tokens are restricted. Enter the 4-digit security PIN to unlock this console.
               </p>
             </div>
@@ -412,10 +412,10 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     onPaste={handlePinPaste}
                     className={`w-12 h-14 text-center text-xl font-mono font-bold rounded-2xl transition-all focus:outline-none ${
                       pinError
-                        ? 'border-rose-500 text-rose-400 bg-rose-500/10 animate-shake'
+                        ? 'border-[#D92D20] text-[#D92D20] bg-[#D92D20]/5 animate-shake'
                         : digit
-                        ? 'border-[#C6A15B] text-[#C6A15B] bg-white/[0.06] shadow-sm shadow-[#C6A15B]/20'
-                        : 'border-white/[0.08] bg-white/[0.03] text-[#F5F5F2] focus:border-[#C6A15B]/60 focus:ring-2 focus:ring-[#C6A15B]/15'
+                        ? 'border-[#00225A] text-[#00225A] bg-[#EEF3FF] shadow-xs'
+                        : 'border-[#D9E2F2] bg-[#F7F8FA] text-[#00225A] focus:border-[#536CF0] focus:bg-white focus:ring-2 focus:ring-[#536CF0]/15'
                     }`}
                   />
                 ))}
@@ -424,11 +424,11 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               {/* Status Note */}
               <div className="pt-1">
                 {pinError ? (
-                  <span className="text-xs font-mono text-rose-400">
+                  <span className="text-xs font-mono text-[#D92D20]">
                     Incorrect security PIN. Access denied.
                   </span>
                 ) : (
-                  <span className="text-[11px] font-mono text-[#A1A8B3]">
+                  <span className="text-[11px] font-mono text-[#6B7A90]">
                     Enter 4-digit authorization PIN using keyboard
                   </span>
                 )}
@@ -439,29 +439,29 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
           /* ── Unlocked Gateway Form ─────────────────────────────────────── */
           <form onSubmit={handleSaveCredentials} className="p-6 sm:p-8 space-y-6">
             {/* Top Unlocked Security Alert */}
-            <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs font-mono">
-              <div className="flex items-center gap-2 text-emerald-400">
+            <div className="p-3.5 rounded-xl bg-[#12B76A]/10 border border-[#12B76A]/20 flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center gap-2 text-[#12B76A]">
                 <ShieldCheck className="w-4 h-4" />
                 <span className="font-semibold">Clearance Verified: Direct Gateway Console Unlocked</span>
               </div>
-              <span className="text-[10px] text-[#A1A8B3]">Active Session</span>
+              <span className="text-[10px] text-[#6B7A90]">Active Session</span>
             </div>
 
-            {/* Gateway Environment (Production vs Sandbox) in Apple Segmented Control */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white/[0.02] rounded-xl border border-white/[0.06]">
+            {/* Gateway Environment (Production vs Sandbox) in Segmented Control */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2]">
               <div>
-                <span className="text-xs font-bold text-[#F5F5F2] uppercase font-mono tracking-wider">Gateway Environment</span>
-                <p className="text-[11px] text-[#A1A8B3] mt-0.5">Match your developer account app type (Live Production vs Sandbox)</p>
+                <span className="text-xs font-bold text-[#00225A] uppercase font-mono tracking-wider">Gateway Environment</span>
+                <p className="text-[11px] text-[#6B7A90] mt-0.5">Match your developer account app type (Live Production vs Sandbox)</p>
               </div>
-              <div className="apple-segmented-group p-1 rounded-xl inline-flex gap-1 self-start sm:self-auto">
+              <div className="p-1 rounded-xl inline-flex gap-1 self-start sm:self-auto bg-white border border-[#D9E2F2] shadow-xs">
                 <button
                   type="button"
                   onClick={() => {
                     setEnvironment('PRODUCTION');
                     marketDataService.setEnvironment('PRODUCTION');
                   }}
-                  className={`apple-segmented-item px-3.5 py-1.5 text-xs font-semibold rounded-lg font-mono transition-all ${
-                    environment === 'PRODUCTION' ? 'apple-segmented-item-active text-[#C6A15B] shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg font-mono transition-all cursor-pointer ${
+                    environment === 'PRODUCTION' ? 'bg-[#00225A] text-white shadow-xs' : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   Live Production
@@ -472,8 +472,8 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     setEnvironment('SANDBOX');
                     marketDataService.setEnvironment('SANDBOX');
                   }}
-                  className={`apple-segmented-item px-3.5 py-1.5 text-xs font-semibold rounded-lg font-mono transition-all ${
-                    environment === 'SANDBOX' ? 'apple-segmented-item-active text-sky-400 shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                  className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg font-mono transition-all cursor-pointer ${
+                    environment === 'SANDBOX' ? 'bg-[#00225A] text-white shadow-xs' : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   Sandbox Mode
@@ -485,16 +485,16 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-[#A1A8B3] uppercase font-mono tracking-wider">
+                  <label className="text-xs font-semibold text-[#6B7A90] uppercase font-mono tracking-wider">
                     API Key (Client ID)
                   </label>
                   {apiKey && (
                     <button
                       type="button"
                       onClick={() => copyToClipboard(apiKey, 'API Key')}
-                      className="text-[10px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-mono active:scale-95 transition-transform"
+                      className="text-[10px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-mono active:scale-95 transition-transform cursor-pointer"
                     >
-                      {copiedField === 'API Key' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copiedField === 'API Key' ? <Check className="w-3 h-3 text-[#12B76A]" /> : <Copy className="w-3 h-3" />}
                       <span>Copy</span>
                     </button>
                   )}
@@ -504,22 +504,22 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
                   placeholder="e.g. ad9cd1b6-0526-4024-..."
-                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]/60 focus:ring-2 focus:ring-[#C6A15B]/15 transition-all"
+                  className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#111114] focus:outline-none focus:border-[#536CF0] focus:bg-white focus:ring-2 focus:ring-[#536CF0]/10 transition-all"
                 />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-semibold text-[#A1A8B3] uppercase font-mono tracking-wider">
+                  <label className="text-xs font-semibold text-[#6B7A90] uppercase font-mono tracking-wider">
                     API Secret
                   </label>
                   {apiSecret && (
                     <button
                       type="button"
                       onClick={() => copyToClipboard(apiSecret, 'API Secret')}
-                      className="text-[10px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-mono active:scale-95 transition-transform"
+                      className="text-[10px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-mono active:scale-95 transition-transform cursor-pointer"
                     >
-                      {copiedField === 'API Secret' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      {copiedField === 'API Secret' ? <Check className="w-3 h-3 text-[#12B76A]" /> : <Copy className="w-3 h-3" />}
                       <span>Copy</span>
                     </button>
                   )}
@@ -530,12 +530,12 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     value={apiSecret}
                     onChange={(e) => setApiSecret(e.target.value)}
                     placeholder="••••••••••••••••••••••••"
-                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-3.5 pr-10 py-2.5 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]/60 focus:ring-2 focus:ring-[#C6A15B]/15 transition-all"
+                    className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3.5 pr-10 py-2.5 text-xs font-mono text-[#111114] focus:outline-none focus:border-[#536CF0] focus:bg-white focus:ring-2 focus:ring-[#536CF0]/10 transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => setShowSecret(!showSecret)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6E7683] hover:text-[#A1A8B3]"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6B7A90] hover:text-[#00225A] cursor-pointer"
                   >
                     {showSecret ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -546,15 +546,15 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             {/* Redirect URI */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-[#A1A8B3] uppercase font-mono tracking-wider">
+                <label className="text-xs font-semibold text-[#6B7A90] uppercase font-mono tracking-wider">
                   Redirect URI (Configured in Developer Portal)
                 </label>
                 <button
                   type="button"
                   onClick={() => copyToClipboard(redirectUri, 'Redirect URI')}
-                  className="text-[10px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-mono active:scale-95 transition-transform"
+                  className="text-[10px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-mono active:scale-95 transition-transform cursor-pointer"
                 >
-                  {copiedField === 'Redirect URI' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                  {copiedField === 'Redirect URI' ? <Check className="w-3 h-3 text-[#12B76A]" /> : <Copy className="w-3 h-3" />}
                   <span>Copy</span>
                 </button>
               </div>
@@ -562,7 +562,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 type="text"
                 value={redirectUri}
                 onChange={(e) => setRedirectUri(e.target.value)}
-                className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]/60 focus:ring-2 focus:ring-[#C6A15B]/15 transition-all"
+                className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#111114] focus:outline-none focus:border-[#536CF0] focus:bg-white focus:ring-2 focus:ring-[#536CF0]/10 transition-all"
               />
             </div>
 
@@ -570,12 +570,12 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-2">
-                  <label className="text-xs font-semibold text-[#A1A8B3] uppercase font-mono tracking-wider">
+                  <label className="text-xs font-semibold text-[#6B7A90] uppercase font-mono tracking-wider">
                     Access Token (Bearer Token)
                   </label>
                   {accessToken && (
-                    <span className="text-[10px] text-emerald-400 flex items-center gap-1.5 font-mono font-semibold bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[10px] text-[#12B76A] flex items-center gap-1.5 font-mono font-semibold bg-[#12B76A]/10 px-2 py-0.5 rounded-md border border-[#12B76A]/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
                       Active Token Loaded
                     </span>
                   )}
@@ -585,17 +585,17 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                   <button
                     type="button"
                     onClick={() => copyToClipboard(accessToken, 'Access Token')}
-                    className="text-[10px] text-[#C6A15B] hover:text-[#E2C889] flex items-center gap-1 font-mono active:scale-95 transition-transform"
+                    className="text-[10px] text-[#536CF0] hover:text-[#00225A] flex items-center gap-1 font-mono active:scale-95 transition-transform cursor-pointer"
                   >
-                    {copiedField === 'Access Token' ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                    {copiedField === 'Access Token' ? <Check className="w-3 h-3 text-[#12B76A]" /> : <Copy className="w-3 h-3" />}
                     <span>Copy Token</span>
                   </button>
                 )}
               </div>
 
               {isExchangingCode && (
-                <div className="mb-3 p-3 bg-[#C6A15B]/10 border border-[#C6A15B]/30 rounded-xl flex items-center gap-2.5 text-xs text-[#E2C889]">
-                  <RefreshCw className="w-4 h-4 animate-spin text-[#C6A15B]" />
+                <div className="mb-3 p-3 bg-[#EEF3FF] border border-[#D9E2F2] rounded-xl flex items-center gap-2.5 text-xs text-[#00225A]">
+                  <RefreshCw className="w-4 h-4 animate-spin text-[#536CF0]" />
                   <span>Exchanging gateway authorization code for live token...</span>
                 </div>
               )}
@@ -607,12 +607,12 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     value={accessToken}
                     onChange={(e) => setAccessToken(e.target.value)}
                     placeholder="eyJhbGciOiJSUzI1NiIsInR5cCI6..."
-                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-3.5 pr-10 py-2.5 text-xs font-mono text-[#F5F5F2] focus:outline-none focus:border-[#C6A15B]/60 focus:ring-2 focus:ring-[#C6A15B]/15 transition-all"
+                    className="w-full bg-[#F7F8FA] border border-[#D9E2F2] rounded-xl px-3.5 pr-10 py-2.5 text-xs font-mono text-[#111114] focus:outline-none focus:border-[#536CF0] focus:bg-white focus:ring-2 focus:ring-[#536CF0]/10 transition-all"
                   />
                   <button
                     type="button"
                     onClick={() => setShowToken(!showToken)}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6E7683] hover:text-[#A1A8B3]"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#6B7A90] hover:text-[#00225A] cursor-pointer"
                   >
                     {showToken ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -623,17 +623,17 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     type="button"
                     onClick={() => handleTestConnection()}
                     disabled={isTesting}
-                    className="apple-segmented-item py-2.5 px-3.5 text-xs font-semibold font-mono rounded-xl border border-white/[0.08] active:scale-[0.96] transition-all flex items-center gap-1.5"
+                    className="py-2.5 px-3.5 text-xs font-semibold font-mono rounded-xl border border-[#D9E2F2] bg-white hover:bg-[#F7F8FA] text-[#00225A] active:scale-[0.96] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
                     title="Test gateway connection"
                   >
-                    <Activity className={`w-3.5 h-3.5 ${isTesting ? 'animate-spin text-[#C6A15B]' : 'text-emerald-400'}`} />
+                    <Activity className={`w-3.5 h-3.5 ${isTesting ? 'animate-spin text-[#536CF0]' : 'text-[#12B76A]'}`} />
                     <span>{isTesting ? 'Testing...' : 'Test Connection'}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleOAuthConnect}
-                    className="btn-cendrix-gold py-2.5 px-4 text-xs font-semibold font-mono rounded-xl shadow-sm active:scale-[0.96] transition-transform flex items-center"
+                    className="py-2.5 px-4 text-xs font-semibold font-mono rounded-xl bg-[#00225A] hover:bg-[#536CF0] text-white shadow-xs active:scale-[0.96] transition-transform flex items-center cursor-pointer"
                     title="Authorize and auto-generate Token"
                   >
                     <span>Authorize 1-Click</span>
@@ -642,7 +642,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 </div>
               </div>
 
-              <p className="text-[11px] text-[#A1A8B3] mt-2">
+              <p className="text-[11px] text-[#6B7A90] mt-2">
                 Exchange security protocols require access tokens to be re-authorized periodically. Click <strong>Authorize 1-Click</strong> to auto-generate a daily session token or paste an existing token.
               </p>
 
@@ -651,8 +651,8 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 <div
                   className={`mt-3.5 p-4 rounded-xl border text-xs flex items-start gap-3 transition-all animate-in fade-in duration-200 ${
                     testResult.success
-                      ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                      : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+                      ? 'bg-[#12B76A]/10 border-[#12B76A]/20 text-[#12B76A]'
+                      : 'bg-[#D92D20]/10 border-[#D92D20]/20 text-[#D92D20]'
                   }`}
                 >
                   {testResult.success ? (
@@ -669,8 +669,8 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                     </div>
                     <p className="text-[11px] opacity-90">{testResult.message}</p>
                     {testResult.ltp && testResult.ltp > 0 && (
-                      <p className="text-[11px] font-mono text-[#F5F5F2] pt-1 border-t border-white/[0.06]">
-                        Live Sample Tick (NIFTY 50): <strong className="text-emerald-400 tabular-nums">₹{testResult.ltp.toFixed(2)}</strong>
+                      <p className="text-[11px] font-mono text-[#111114] pt-1 border-t border-[#D9E2F2]">
+                        Live Sample Tick (NIFTY 50): <strong className="text-[#12B76A] tabular-nums">₹{testResult.ltp.toFixed(2)}</strong>
                       </p>
                     )}
                   </div>
@@ -678,23 +678,23 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               )}
             </div>
 
-            {/* Market Data Mode Switcher in Apple Segmented Control */}
-            <div className="p-4 bg-white/[0.02] rounded-xl border border-white/[0.06] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            {/* Market Data Mode Switcher in Segmented Control */}
+            <div className="p-4 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <p className="text-xs font-bold text-[#F5F5F2] uppercase font-mono tracking-wider">
+                <p className="text-xs font-bold text-[#00225A] uppercase font-mono tracking-wider">
                   Market Data Provider Mode
                 </p>
-                <p className="text-[11px] text-[#A1A8B3] mt-0.5">
+                <p className="text-[11px] text-[#6B7A90] mt-0.5">
                   Toggle between high-fidelity deterministic simulation or live direct exchange stream.
                 </p>
               </div>
 
-              <div className="apple-segmented-group p-1 rounded-xl inline-flex gap-1 self-start sm:self-auto">
+              <div className="p-1 rounded-xl inline-flex gap-1 self-start sm:self-auto bg-white border border-[#D9E2F2] shadow-xs">
                 <button
                   type="button"
                   onClick={() => setMode('DEMO')}
-                  className={`apple-segmented-item px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
-                    mode === 'DEMO' ? 'apple-segmented-item-active text-[#C6A15B] shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all cursor-pointer ${
+                    mode === 'DEMO' ? 'bg-[#00225A] text-white shadow-xs' : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   DEMO MODE
@@ -702,8 +702,8 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
                 <button
                   type="button"
                   onClick={() => setMode('LIVE')}
-                  className={`apple-segmented-item px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all ${
-                    mode === 'LIVE' ? 'apple-segmented-item-active text-emerald-400 shadow-sm' : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold font-mono transition-all cursor-pointer ${
+                    mode === 'LIVE' ? 'bg-[#00225A] text-white shadow-xs' : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   DIRECT LIVE
@@ -714,7 +714,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
             <div className="pt-2 flex justify-end">
               <button
                 type="submit"
-                className="btn-cendrix-gold py-2.5 px-6 text-xs font-bold tracking-wider shadow-md shadow-[#C6A15B]/15 rounded-xl active:scale-[0.96] transition-transform"
+                className="py-2.5 px-6 text-xs font-bold tracking-wider rounded-xl bg-[#00225A] hover:bg-[#536CF0] text-white shadow-xs active:scale-[0.96] transition-transform cursor-pointer"
               >
                 Save Configuration & Reconnect
               </button>
@@ -724,16 +724,16 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
       </div>
 
       {/* ── 3. Simulation Engine Tuning Card ─────────────────────────────── */}
-      <div className="apple-glass-panel rounded-2xl border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] p-6 space-y-5">
-        <div className="flex items-center gap-3 pb-4 border-b border-white/[0.06]">
-          <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 shadow-inner">
-            <Sliders className="w-5 h-5 text-[#C6A15B]" />
+      <div className="bg-white rounded-2xl border border-[#D9E2F2] shadow-[0_2px_12px_rgba(0,34,90,0.04)] p-6 space-y-5">
+        <div className="flex items-center gap-3 pb-4 border-b border-[#D9E2F2]">
+          <div className="w-10 h-10 rounded-2xl bg-[#F7F8FA] border border-[#D9E2F2] flex items-center justify-center shrink-0 shadow-xs">
+            <Sliders className="w-5 h-5 text-[#00225A]" />
           </div>
           <div>
-            <h2 className="text-base font-serif font-bold text-[#F5F5F2] tracking-tight">
+            <h2 className="text-base font-display font-bold text-[#00225A] tracking-tight">
               Simulation Engine Tuning
             </h2>
-            <p className="text-xs text-[#A1A8B3]">
+            <p className="text-xs text-[#6B7A90]">
               Calibrate simulated execution slippage and market fill parameters across Indian scrips
             </p>
           </div>
@@ -741,10 +741,10 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Simulated Slippage Slider */}
-          <div className="p-4 bg-white/[0.02] rounded-xl border border-white/[0.06] space-y-2.5">
+          <div className="p-4 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2] space-y-2.5">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-semibold text-[#F5F5F2]">Simulated Slippage (BPS)</span>
-              <span className="font-mono text-[#C6A15B] font-semibold px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] tabular-nums">
+              <span className="font-semibold text-[#00225A]">Simulated Slippage (BPS)</span>
+              <span className="font-mono text-[#00225A] font-semibold px-2 py-0.5 rounded-md bg-white border border-[#D9E2F2] tabular-nums shadow-xs">
                 {slippageBps} bps ({(slippageBps * 0.01).toFixed(2)}%)
               </span>
             </div>
@@ -754,18 +754,18 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               max="20"
               value={slippageBps}
               onChange={(e) => setSlippageBps(parseInt(e.target.value) || 0)}
-              className="w-full accent-[#C6A15B] cursor-pointer"
+              className="w-full accent-[#00225A] cursor-pointer"
             />
-            <p className="text-[10.5px] text-[#A1A8B3]">
+            <p className="text-[10.5px] text-[#6B7A90]">
               Simulates realistic order book bid-ask spread impact on market order fills.
             </p>
           </div>
 
           {/* After-Hours Fills Toggle */}
-          <div className="p-4 bg-white/[0.02] rounded-xl border border-white/[0.06] flex items-center justify-between">
+          <div className="p-4 bg-[#F7F8FA] rounded-xl border border-[#D9E2F2] flex items-center justify-between">
             <div className="pr-4">
-              <p className="text-xs font-bold text-[#F5F5F2]">Allow After-Hours Market Fills</p>
-              <p className="text-[10.5px] text-[#A1A8B3] mt-0.5">
+              <p className="text-xs font-bold text-[#00225A]">Allow After-Hours Market Fills</p>
+              <p className="text-[10.5px] text-[#6B7A90] mt-0.5">
                 Enables simulated paper fills outside standard 09:15 - 15:30 IST market hours for weekend strategy testing.
               </p>
             </div>
@@ -773,7 +773,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
               type="checkbox"
               checked={allowAfterHours}
               onChange={(e) => setAllowAfterHours(e.target.checked)}
-              className="w-4 h-4 rounded border-white/20 bg-white/[0.04] text-[#C6A15B] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#C6A15B]"
+              className="w-4 h-4 rounded border-[#D9E2F2] text-[#00225A] focus:ring-0 focus:ring-offset-0 cursor-pointer accent-[#00225A]"
             />
           </div>
         </div>
@@ -782,7 +782,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
           <button
             type="button"
             onClick={handleSaveSimulationSettings}
-            className="btn-cendrix-gold py-2 px-5 text-xs font-semibold tracking-wider shadow-sm rounded-xl active:scale-[0.96] transition-transform"
+            className="py-2 px-5 text-xs font-semibold tracking-wider rounded-xl bg-[#00225A] hover:bg-[#536CF0] text-white shadow-xs active:scale-[0.96] transition-transform cursor-pointer"
           >
             Save Simulation Parameters
           </button>
@@ -790,22 +790,22 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
       </div>
 
       {/* ── 4. Virtual Capital & Portfolio Reset Card ───────────────────── */}
-      <div className="apple-glass-panel rounded-2xl border border-rose-500/20 bg-rose-500/[0.02] shadow-[inset_0_1px_0_0_rgba(244,63,94,0.1)] p-6 space-y-4">
+      <div className="bg-white rounded-2xl border border-[#D92D20]/25 shadow-[0_2px_12px_rgba(217,45,32,0.04)] p-6 space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0 shadow-inner">
-            <RotateCcw className="w-5 h-5 text-rose-400" />
+          <div className="w-10 h-10 rounded-2xl bg-[#D92D20]/10 border border-[#D92D20]/20 flex items-center justify-center shrink-0 shadow-xs">
+            <RotateCcw className="w-5 h-5 text-[#D92D20]" />
           </div>
           <div>
-            <h2 className="text-base font-serif font-bold text-rose-300 tracking-tight">
+            <h2 className="text-base font-display font-bold text-[#D92D20] tracking-tight">
               Reset Virtual Portfolio Balance
             </h2>
-            <p className="text-xs text-[#A1A8B3]">
+            <p className="text-xs text-[#6B7A90]">
               Restore starting virtual margin back to ₹10,00,000 and clear simulated trading history
             </p>
           </div>
         </div>
 
-        <p className="text-xs text-[#A1A8B3] leading-relaxed">
+        <p className="text-xs text-[#6B7A90] leading-relaxed">
           Resetting your account will square off all active positions, cancel pending orders, reset virtual cash to ₹10,00,000, and append an auditable reset event to your ledger statement.
         </p>
 
@@ -813,7 +813,7 @@ export default function SettingsPage({ onOpenReset }: SettingsPageProps) {
           <button
             type="button"
             onClick={onOpenReset}
-            className="px-4 py-2.5 rounded-xl bg-rose-500/15 hover:bg-rose-500 text-rose-300 hover:text-white text-xs font-bold font-mono border border-rose-500/30 transition-all active:scale-[0.96] shadow-sm"
+            className="px-4 py-2.5 rounded-xl bg-[#D92D20] hover:bg-[#B42318] text-white text-xs font-bold font-mono transition-all active:scale-[0.96] shadow-xs cursor-pointer"
           >
             Reset to ₹10,00,000 Virtual Funds
           </button>

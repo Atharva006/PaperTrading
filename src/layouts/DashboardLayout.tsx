@@ -13,11 +13,10 @@ export default function DashboardLayout() {
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isMobileWatchlistOpen, setIsMobileWatchlistOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0B1424] text-[#F5F5F2] font-sans selection:bg-[#C6A15B] selection:text-[#0B1424] overflow-x-hidden">
-      {/* ── 1. Cendrix Institutional Top Navigation Bar ────────────────────── */}
+    <div className="min-h-screen flex flex-col bg-[#FCFCFC] text-[#111114] font-sans selection:bg-[#536CF0] selection:text-white overflow-x-hidden antialiased">
+      {/* ── 1. FundingPips Top Navigation Bar ──────────────────────────────── */}
       <MasterNavbar
         onOpenSearch={() => setIsSearchOpen(true)}
         onOpenReset={() => setIsResetOpen(true)}
@@ -25,15 +24,15 @@ export default function DashboardLayout() {
         isMobileNavOpen={isMobileNavOpen}
       />
 
-      {/* ── 2. Cendrix Split Layout: MarketWatch + Workspace ───────────────── */}
+      {/* ── 2. Split Layout: Persistent MarketWatch + Fluid Workspace ──────── */}
       <div className="flex-1 flex overflow-hidden w-full max-w-full">
-        {/* Persistent Left MarketWatch on Desktop (lg+ screens) */}
-        <aside className="hidden lg:block w-[320px] xl:w-[350px] shrink-0 h-[calc(100vh-56px)] sticky top-14 overflow-hidden border-r border-[#14223A] bg-[#10141C] z-10">
+        {/* Persistent Left MarketWatch on Desktop */}
+        <aside className="hidden lg:block w-[320px] xl:w-[350px] shrink-0 h-[calc(100vh-56px)] sticky top-14 overflow-hidden border-r border-[#D9E2F2] bg-[#FFFFFF] z-10 shadow-[1px_0_4px_rgba(0,34,90,0.02)]">
           <MarketWatch />
         </aside>
 
-        {/* Main Content Workspace (Scrolls independently without horizontal overflow) */}
-        <main className="flex-1 min-w-0 h-[calc(100vh-56px)] overflow-y-auto overflow-x-hidden px-3 sm:px-6 py-5 bg-[#0B1424]">
+        {/* Main Content Workspace */}
+        <main className="flex-1 min-w-0 h-[calc(100vh-56px)] overflow-y-auto overflow-x-hidden px-4 sm:px-8 py-6 bg-[#FCFCFC]">
           <Outlet />
         </main>
       </div>

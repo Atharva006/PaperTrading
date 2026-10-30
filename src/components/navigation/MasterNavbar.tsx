@@ -1,30 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useTradingStore } from '../../store/useTradingStore';
-import { marketDataService } from '../../services/market/MarketDataService';
 import { supabase } from '../../lib/supabase';
 import {
-  LayoutDashboard,
-  LineChart,
-  Eye,
-  Layers,
-  Briefcase,
-  Clock,
-  Layers3,
-  BookOpenCheck,
-  Receipt,
-  PieChart,
-  Settings,
   Search,
-  Flame,
   PlusCircle,
   RotateCcw,
   LogOut,
   ChevronDown,
   Menu,
   X,
-  User,
   HelpCircle,
+  BookOpenCheck,
+  Settings,
 } from 'lucide-react';
 
 interface MasterNavbarProps {
@@ -99,61 +87,58 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 apple-glass-nav select-none font-sans">
-      <div className="w-full mx-auto px-4 h-14 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-40 apple-glass-nav select-none font-sans bg-white/95 backdrop-blur-md border-b border-[#D9E2F2]">
+      <div className="w-full mx-auto px-4 h-14 flex items-center justify-between gap-3">
         
-        {/* ── Left Side: Cendrix Brand Wordmark & Session Pill ───────────── */}
+        {/* ── Left Side: Brand Wordmark & Session Pill ─────────────────────── */}
         <div className="flex items-center gap-3 xl:gap-5 shrink-0">
-          {/* Brand Logo & Name */}
           <NavLink
             to="/dashboard"
-            className="flex items-center gap-2.5 group transition-transform active:scale-[0.97] shrink-0"
+            className="flex items-center gap-2.5 group transition-transform active:scale-[0.98] shrink-0"
           >
-            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.35)] flex items-center justify-center p-1 overflow-hidden shadow-sm shadow-[#C6A15B]/10 group-hover:border-[#C6A15B] transition-colors">
-              <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain" />
+            <div className="w-8 h-8 rounded-xl bg-[#00225A] flex items-center justify-center p-1.5 shadow-sm shadow-[#00225A]/15 group-hover:bg-[#536CF0] transition-colors">
+              <img src="/cendrix-logo.png" alt="Cendrix" className="w-full h-full object-contain brightness-0 invert" />
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5">
-                <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.14em] text-[#F5F5F2] whitespace-nowrap">
+                <span className="font-headline font-bold text-sm tracking-tight text-[#00225A] whitespace-nowrap">
                   CENDRIX CAPITAL
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" title="Live Market Feeds Active" />
+                <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse" title="Live Exchange Feeds Active" />
               </div>
-              <span className="text-[7.5px] sm:text-[8px] font-mono tracking-[0.2em] text-[#C6A15B] font-semibold uppercase whitespace-nowrap">
-                SIMULATED FUND
+              <span className="text-[9px] font-mono tracking-wider text-[#6B7A90] font-semibold uppercase whitespace-nowrap">
+                FUNDED SIMULATOR
               </span>
             </div>
           </NavLink>
 
-          {/* Cendrix Live Status Pill (Shown only on extra-wide 3xl screens >= 1800px to preserve nav space) */}
-          <div className="hidden 3xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0F192B]/80 backdrop-blur-md border border-[rgba(198,161,91,0.22)] text-[10px] font-mono text-[#C6A15B]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00c087] animate-pulse" />
-            <span className="tracking-widest uppercase font-semibold">LIVE TICKS · NSE & MCX</span>
+          {/* FundingPips Live Status Pill (Only on wide screens) */}
+          <div className="hidden 3xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#F7F8FA] border border-[#D9E2F2] text-[11px] font-mono text-[#00225A]">
+            <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse" />
+            <span className="tracking-wide uppercase font-semibold">LIVE NSE & MCX FEED</span>
           </div>
 
-          {/* Top Market Indices Badges (Shown only on extra-wide 3xl screens >= 1800px to avoid nav collision) */}
-          <div className="hidden 3xl:flex items-center gap-4 text-xs font-mono border-l border-[rgba(198,161,91,0.18)] pl-5">
-            <div className="flex items-center gap-2">
-              <span className="text-[#A1A8B3] font-medium font-sans text-[11px]">NIFTY 50</span>
-              <span className="text-[#F5F5F2] font-bold">
+          {/* Top Market Indices Badges */}
+          <div className="hidden 3xl:flex items-center gap-4 text-xs font-mono border-l border-[#D9E2F2] pl-5">
+            <div className="flex items-center gap-2 bg-[#F7F8FA] px-2.5 py-1 rounded-lg border border-[#D9E2F2]">
+              <span className="text-[#6B7A90] font-medium font-sans text-[11px]">NIFTY 50</span>
+              <span className="text-[#00225A] font-bold">
                 {niftyQuote ? fmt(niftyQuote.last_price) : '24,520.50'}
               </span>
               {niftyQuote && (
-                <span className={`text-[10px] ${niftyQuote.change >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                <span className={`text-[10px] font-bold ${niftyQuote.change >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                   {niftyQuote.change >= 0 ? '+' : ''}{niftyQuote.change.toFixed(2)} ({niftyQuote.change_percent.toFixed(2)}%)
                 </span>
               )}
             </div>
 
-            <div className="w-px h-3.5 bg-[rgba(198,161,91,0.2)]" />
-
-            <div className="flex items-center gap-2">
-              <span className="text-[#A1A8B3] font-medium font-sans text-[11px]">SENSEX</span>
-              <span className="text-[#F5F5F2] font-bold">
+            <div className="flex items-center gap-2 bg-[#F7F8FA] px-2.5 py-1 rounded-lg border border-[#D9E2F2]">
+              <span className="text-[#6B7A90] font-medium font-sans text-[11px]">SENSEX</span>
+              <span className="text-[#00225A] font-bold">
                 {sensexQuote ? fmt(sensexQuote.last_price) : '80,450.00'}
               </span>
               {sensexQuote && (
-                <span className={`text-[10px] ${sensexQuote.change >= 0 ? 'text-[#00c087]' : 'text-[#df514c]'}`}>
+                <span className={`text-[10px] font-bold ${sensexQuote.change >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                   {sensexQuote.change >= 0 ? '+' : ''}{sensexQuote.change.toFixed(2)} ({sensexQuote.change_percent.toFixed(2)}%)
                 </span>
               )}
@@ -161,7 +146,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           </div>
         </div>
 
-        {/* ── Center: Cendrix Nav Links (Apple-Style Floating Segmented Pills) ── */}
+        {/* ── Center: FundingPips Nav Links ─────────────────────────────────── */}
         <nav className="hidden lg:flex items-center gap-1 text-xs font-medium shrink-0">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path || (item.path !== '/dashboard' && location.pathname.startsWith(item.path));
@@ -169,15 +154,15 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
               <NavLink
                 key={item.path}
                 to={item.path}
-                className={`relative px-2.5 xl:px-3 py-1.5 rounded-lg transition-all duration-200 flex items-center gap-1.5 active:scale-[0.96] ${
+                className={`relative px-3 py-1.5 rounded-xl transition-all duration-150 flex items-center gap-1.5 active:scale-[0.98] ${
                   isActive
-                    ? 'bg-[#14223A] text-[#C6A15B] font-semibold border border-[rgba(198,161,91,0.28)] shadow-sm'
-                    : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-white/5'
+                    ? 'bg-[#EEF3FF] text-[#00225A] font-semibold border border-[#D9E2F2] shadow-sm'
+                    : 'text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA]'
                 }`}
               >
-                <span className="tracking-wide uppercase text-[10.5px] xl:text-[11px] font-semibold whitespace-nowrap">{item.name}</span>
+                <span className="text-[12px] font-medium whitespace-nowrap">{item.name}</span>
                 {item.badge !== undefined && (
-                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#C6A15B] text-[#0B1424]">
+                  <span className="text-[10px] font-mono font-bold px-1.5 py-0.2 rounded-full bg-[#00225A] text-white">
                     {item.badge}
                   </span>
                 )}
@@ -187,26 +172,26 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
         </nav>
 
         {/* ── Far Right: Guide, Search, Quick Order & User Profile ───────────── */}
-        <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           {/* Beginner Guide Walkthrough */}
           <button
             onClick={openGuide}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0F192B]/80 hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#C6A15B] text-xs transition-all active:scale-[0.96]"
-            title="Beginner Introduction & Trading Desk Guide"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F7F8FA] hover:bg-[#EEF3FF] border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A] text-xs font-medium transition-all active:scale-[0.97]"
+            title="Trading Desk Walkthrough & Guide"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden 2xl:inline text-[11px] font-medium">Guide</span>
+            <HelpCircle className="w-3.5 h-3.5 text-[#536CF0]" />
+            <span className="hidden 2xl:inline text-[12px]">Guide</span>
           </button>
 
           {/* Quick Search Shortcut */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#0F192B]/80 hover:bg-[#14223A] border border-[rgba(198,161,91,0.22)] text-[#A1A8B3] hover:text-[#F5F5F2] text-xs transition-all active:scale-[0.96]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F7F8FA] hover:bg-[#EEF3FF] border border-[#D9E2F2] text-[#6B7A90] hover:text-[#00225A] text-xs transition-all active:scale-[0.97]"
             title="Search Indian scrips or MCX commodities (⌘K)"
           >
-            <Search className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span className="hidden 2xl:inline text-[11px]">Search</span>
-            <kbd className="hidden sm:inline-block text-[9px] font-mono bg-[#14223A] px-1.5 py-0.2 rounded border border-[rgba(198,161,91,0.2)] text-[#C6A15B]">
+            <Search className="w-3.5 h-3.5 text-[#536CF0]" />
+            <span className="hidden 2xl:inline text-[12px] font-medium">Search</span>
+            <kbd className="hidden sm:inline-block text-[10px] font-mono bg-white px-1.5 py-0.5 rounded border border-[#D9E2F2] text-[#00225A] font-semibold shadow-2xs">
               ⌘K
             </kbd>
           </button>
@@ -214,7 +199,7 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           {/* Quick Order Trigger */}
           <button
             onClick={() => openOrderTicket()}
-            className="btn-cendrix-gold py-1.5 px-2.5 sm:px-3.5 text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 active:scale-[0.96]"
+            className="btn-primary py-1.5 px-3 sm:px-4 text-xs font-semibold rounded-xl shadow-sm flex items-center gap-1.5 active:scale-[0.97] h-9"
             title="Open Order Window"
           >
             <PlusCircle className="w-3.5 h-3.5" />
@@ -225,45 +210,45 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-              className="flex items-center gap-2 p-1 rounded-lg hover:bg-[#14223A] border border-transparent hover:border-[rgba(198,161,91,0.22)] transition-all active:scale-[0.96]"
+              className="flex items-center gap-2 p-1 rounded-xl hover:bg-[#F7F8FA] border border-transparent hover:border-[#D9E2F2] transition-all active:scale-[0.97]"
             >
-              <div className="w-7 h-7 rounded-full bg-[#0F192B] border border-[#C6A15B]/50 flex items-center justify-center text-xs font-bold font-mono text-[#C6A15B] shadow-sm">
+              <div className="w-7 h-7 rounded-xl bg-[#EEF3FF] border border-[#D9E2F2] flex items-center justify-center text-xs font-bold font-mono text-[#00225A] shadow-2xs">
                 {userName ? userName.slice(0, 2).toUpperCase() : 'CN'}
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-[#A1A8B3]" />
+              <ChevronDown className="w-3.5 h-3.5 text-[#6B7A90]" />
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 mt-2 w-56 apple-glass-panel rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans origin-top-right">
-                <div className="px-3 py-2 border-b border-[#14223A]">
-                  <p className="text-xs font-bold text-[#F5F5F2] truncate font-serif tracking-wide">{userName || 'Cendrix Institutional Client'}</p>
-                  <p className="text-[10px] text-[#C6A15B] font-mono tracking-wider font-semibold">CENDRIX CAPITAL</p>
+              <div className="absolute right-0 mt-2 w-64 bg-white border border-[#D9E2F2] rounded-2xl shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 font-sans origin-top-right">
+                <div className="px-4 py-3 border-b border-[#D9E2F2]">
+                  <p className="text-xs font-bold text-[#00225A] truncate tracking-wide">{userName || 'Cendrix Institutional Client'}</p>
+                  <p className="text-[10px] text-[#536CF0] font-mono tracking-wider font-semibold">FUNDED SIMULATOR</p>
                   {account && (
-                    <div className="mt-1 pt-1 border-t border-[rgba(198,161,91,0.15)] flex justify-between text-[10px] font-mono text-[#A1A8B3]">
+                    <div className="mt-2 pt-2 border-t border-[#D9E2F2] flex justify-between text-[11px] font-mono text-[#6B7A90]">
                       <span>Cash Balance:</span>
-                      <span className="text-[#00c087] font-bold">₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+                      <span className="text-[#12B76A] font-bold">₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
                     </div>
                   )}
                 </div>
 
-                <div className="py-1 text-xs text-[#A1A8B3]">
+                <div className="py-1 text-xs text-[#6B7A90]">
                   <button
                     onClick={() => {
                       setIsUserMenuOpen(false);
                       openGuide();
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#C6A15B] transition-colors text-left text-xs font-medium"
+                    className="w-full flex items-center gap-2 px-4 py-2 hover:bg-[#F7F8FA] hover:text-[#00225A] transition-colors text-left text-xs font-medium"
                   >
-                    <HelpCircle className="w-3.5 h-3.5 text-[#C6A15B]" />
+                    <HelpCircle className="w-4 h-4 text-[#536CF0]" />
                     <span>Beginner Desk Walkthrough</span>
                   </button>
 
                   <NavLink
                     to="/dashboard/settings"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-[#F7F8FA] hover:text-[#00225A] transition-colors font-medium"
                   >
-                    <Settings className="w-3.5 h-3.5 text-[#C6A15B]" />
+                    <Settings className="w-4 h-4 text-[#536CF0]" />
                     <span>Settings & API</span>
                   </NavLink>
 
@@ -272,41 +257,41 @@ export const MasterNavbar: React.FC<MasterNavbarProps> = ({
                       setIsUserMenuOpen(false);
                       onOpenReset();
                     }}
-                    className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-4 py-2 hover:bg-[#F7F8FA] hover:text-[#00225A] transition-colors text-left font-medium"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
+                    <RotateCcw className="w-4 h-4 text-[#536CF0]" />
                     <span>Reset Account (₹10L)</span>
                   </button>
 
                   <NavLink
                     to="/dashboard/tradebook"
                     onClick={() => setIsUserMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-[#14223A] hover:text-[#F5F5F2] transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 hover:bg-[#F7F8FA] hover:text-[#00225A] transition-colors font-medium"
                   >
-                    <BookOpenCheck className="w-3.5 h-3.5 text-[#C6A15B]" />
+                    <BookOpenCheck className="w-4 h-4 text-[#536CF0]" />
                     <span>Trade Book</span>
                   </NavLink>
                 </div>
 
-                <div className="border-t border-[#14223A] pt-1 mt-1">
+                <div className="border-t border-[#D9E2F2] pt-1 mt-1">
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[#df514c] hover:bg-[#df514c]/10 transition-colors text-left font-medium"
+                    className="w-full flex items-center gap-2 px-4 py-2 text-xs text-[#D92D20] hover:bg-[#FEF3F2] transition-colors text-left font-semibold"
                   >
-                    <LogOut className="w-3.5 h-3.5" />
-                    <span>Reset Session</span>
+                    <LogOut className="w-4 h-4 text-[#D92D20]" />
+                    <span>Sign Out</span>
                   </button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Mobile Menu Toggle Button (Visible only on mobile/tablet below lg) */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={onToggleMobileNav}
-            className="lg:hidden p-1.5 rounded text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] border border-[rgba(198,161,91,0.2)]"
+            className="lg:hidden p-1.5 rounded-xl text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA] border border-[#D9E2F2]"
           >
-            {isMobileNavOpen ? <X className="w-5 h-5 text-[#C6A15B]" /> : <Menu className="w-5 h-5 text-[#C6A15B]" />}
+            {isMobileNavOpen ? <X className="w-5 h-5 text-[#00225A]" /> : <Menu className="w-5 h-5 text-[#00225A]" />}
           </button>
         </div>
 

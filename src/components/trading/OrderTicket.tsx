@@ -5,7 +5,7 @@ import { marketDataService } from '../../services/market/MarketDataService';
 import { getExchangeContractSpec } from '../../services/market/indianInstruments';
 import { INSTRUMENT_KEY_ALIASES } from '../../services/market/UpstoxProvider';
 import type { TransactionType, ProductType, OrderType } from '../../types/trading';
-import { X, RefreshCw, Minus, Plus } from 'lucide-react';
+import { X, Minus, Plus } from 'lucide-react';
 
 export const OrderTicket: React.FC = () => {
   const {
@@ -196,25 +196,25 @@ export const OrderTicket: React.FC = () => {
   const isDerivative = contractSpec.lotSize > 1 || isCommodity || isFandO;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl select-none font-sans">
-      <div className="apple-glass-panel border-t border-white/20 border-l border-white/10 border-r border-white/10 border-b border-black/40 rounded-3xl max-w-[460px] w-full shadow-[0_32px_80px_-16px_rgba(0,0,0,0.85)] overflow-hidden animate-in fade-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#00225A]/30 backdrop-blur-sm select-none font-sans">
+      <div className="bg-[#FFFFFF] border border-[#D9E2F2] rounded-3xl max-w-[460px] w-full shadow-2xl overflow-hidden animate-in fade-in zoom-in-95">
         
-        {/* ── Cendrix Capital Modal Header (Apple Frosted Glass) ─────────── */}
+        {/* ── Modal Header ─────────────────────────────────────────────────── */}
         <div className={`px-5 py-4 flex items-center justify-between border-b ${
           transactionType === 'BUY'
-            ? 'bg-gradient-to-r from-[#0F192B]/90 via-[#0E201B]/80 to-[#0F192B]/90 border-emerald-500/25'
-            : 'bg-gradient-to-r from-[#0F192B]/90 via-[#241217]/80 to-[#0F192B]/90 border-rose-500/25'
+            ? 'bg-[#ECFDF3] border-[#12B76A]/20'
+            : 'bg-[#FEF3F2] border-[#D92D20]/20'
         }`}>
           <div className="flex items-center gap-3.5">
-            {/* Buy / Sell Toggle Pill (Apple Segmented Group) */}
-            <div className="apple-segmented-group p-0.5 rounded-xl">
+            {/* Buy / Sell Toggle Pill */}
+            <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-[#D9E2F2] shadow-2xs">
               <button
                 type="button"
                 onClick={() => setTransactionType('BUY')}
                 className={`px-3.5 py-1 text-xs font-bold rounded-lg transition-all active:scale-[0.96] ${
                   transactionType === 'BUY'
-                    ? 'bg-emerald-600 text-white shadow-[0_2px_10px_rgba(16,185,129,0.45)]'
-                    : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                    ? 'bg-[#12B76A] text-white shadow-xs'
+                    : 'text-[#6B7A90] hover:text-[#00225A]'
                 }`}
               >
                 BUY
@@ -224,8 +224,8 @@ export const OrderTicket: React.FC = () => {
                 onClick={() => setTransactionType('SELL')}
                 className={`px-3.5 py-1 text-xs font-bold rounded-lg transition-all active:scale-[0.96] ${
                   transactionType === 'SELL'
-                    ? 'bg-rose-600 text-white shadow-[0_2px_10px_rgba(239,68,68,0.45)]'
-                    : 'text-[#A1A8B3] hover:text-[#F5F5F2]'
+                    ? 'bg-[#D92D20] text-white shadow-xs'
+                    : 'text-[#6B7A90] hover:text-[#00225A]'
                 }`}
               >
                 SELL
@@ -234,15 +234,15 @@ export const OrderTicket: React.FC = () => {
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-serif text-base font-bold tracking-wide text-[#F5F5F2]">{activeInstrument.tradingsymbol}</span>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#0F192B] text-[#C6A15B] border border-[rgba(198,161,91,0.25)] font-semibold">
+                <span className="font-headline text-base font-bold tracking-tight text-[#00225A]">{activeInstrument.tradingsymbol}</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white text-[#536CF0] border border-[#D9E2F2] font-semibold">
                   {activeInstrument.exchange}
                 </span>
               </div>
               <div className="flex items-center gap-2 text-xs font-mono mt-0.5">
-                <span className="text-[#F5F5F2] font-semibold">₹{marketPrice > 0 ? marketPrice.toFixed(2) : '—'}</span>
+                <span className="text-[#111114] font-bold">₹{marketPrice > 0 ? marketPrice.toFixed(2) : '—'}</span>
                 {quote && (
-                  <span className={`text-[11px] font-medium ${quote.change >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
+                  <span className={`text-[11px] font-semibold ${quote.change >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                     {quote.change >= 0 ? '+' : ''}{quote.change.toFixed(2)} ({quote.change_percent.toFixed(2)}%)
                   </span>
                 )}
@@ -252,108 +252,108 @@ export const OrderTicket: React.FC = () => {
 
           <button
             onClick={closeOrderTicket}
-            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-colors"
+            className="p-1.5 rounded-xl text-[#6B7A90] hover:text-[#00225A] hover:bg-white/80 border border-transparent hover:border-[#D9E2F2] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* ── Cendrix Capital Order Form Body ──────────────────────────── */}
+        {/* ── Order Form Body ────────────────────────────────────────────── */}
         <form onSubmit={handleSubmit} noValidate className="p-5 space-y-4 text-xs">
           
           {/* Variety Tabs: Regular | AMO */}
-          <div className="flex items-center gap-5 pb-3 border-b border-[#14223A] text-[#A1A8B3]">
-            <label className="flex items-center gap-2 cursor-pointer">
+          <div className="flex items-center gap-5 pb-3 border-b border-[#D9E2F2] text-[#6B7A90]">
+            <label className="flex items-center gap-2 cursor-pointer font-medium">
               <input
                 type="radio"
                 name="order_variety"
                 checked={variety === 'REGULAR'}
                 onChange={() => setVariety('REGULAR')}
-                className="accent-[#C6A15B] w-3.5 h-3.5"
+                className="accent-[#00225A] w-3.5 h-3.5"
               />
-              <span className={`text-xs ${variety === 'REGULAR' ? 'text-[#C6A15B] font-bold' : ''}`}>Regular Session</span>
+              <span className={`text-xs ${variety === 'REGULAR' ? 'text-[#00225A] font-bold' : ''}`}>Regular Session</span>
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className="flex items-center gap-2 cursor-pointer font-medium">
               <input
                 type="radio"
                 name="order_variety"
                 checked={variety === 'AMO'}
                 onChange={() => setVariety('AMO')}
-                className="accent-[#C6A15B] w-3.5 h-3.5"
+                className="accent-[#00225A] w-3.5 h-3.5"
               />
-              <span className={`text-xs ${variety === 'AMO' ? 'text-[#C6A15B] font-bold' : ''}`}>AMO (After Market)</span>
+              <span className={`text-xs ${variety === 'AMO' ? 'text-[#00225A] font-bold' : ''}`}>AMO (After Market)</span>
             </label>
           </div>
 
           {/* Product Type (MIS vs CNC / NRML) */}
           <div className="space-y-1.5">
-            <span className="text-[11px] text-[#A1A8B3] uppercase font-semibold tracking-wider font-mono">Product Sizing</span>
+            <span className="text-[11px] text-[#6B7A90] uppercase font-semibold tracking-wider font-mono">Product Sizing</span>
             <div className="grid grid-cols-2 gap-2.5">
               {activeInstrument.instrument_type === 'EQUITY' ? (
                 <>
                   <label className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
-                    product === 'CNC' ? 'bg-[#14223A] border-[#C6A15B] text-[#F5F5F2] shadow-[0_0_12px_rgba(198,161,91,0.12)]' : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3] hover:border-[rgba(198,161,91,0.25)]'
+                    product === 'CNC' ? 'bg-[#EEF3FF] border-[#536CF0] text-[#00225A] shadow-2xs font-semibold' : 'bg-[#F7F8FA] border-[#D9E2F2] text-[#6B7A90] hover:border-[#BCCAE0]'
                   }`}>
                     <input
                       type="radio"
                       name="product_type"
                       checked={product === 'CNC'}
                       onChange={() => setProduct('CNC')}
-                      className="accent-[#C6A15B]"
+                      className="accent-[#00225A]"
                     />
                     <div>
-                      <span className="font-bold text-xs block text-[#F5F5F2]">CNC</span>
-                      <span className="text-[10px] text-[#A1A8B3]">Longterm (Delivery)</span>
+                      <span className="font-bold text-xs block text-[#00225A]">CNC</span>
+                      <span className="text-[10px] text-[#6B7A90]">Longterm (Delivery)</span>
                     </div>
                   </label>
 
                   <label className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
-                    product === 'MIS' ? 'bg-[#14223A] border-[#C6A15B] text-[#F5F5F2] shadow-[0_0_12px_rgba(198,161,91,0.12)]' : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3] hover:border-[rgba(198,161,91,0.25)]'
+                    product === 'MIS' ? 'bg-[#EEF3FF] border-[#536CF0] text-[#00225A] shadow-2xs font-semibold' : 'bg-[#F7F8FA] border-[#D9E2F2] text-[#6B7A90] hover:border-[#BCCAE0]'
                   }`}>
                     <input
                       type="radio"
                       name="product_type"
                       checked={product === 'MIS'}
                       onChange={() => setProduct('MIS')}
-                      className="accent-[#C6A15B]"
+                      className="accent-[#00225A]"
                     />
                     <div>
-                      <span className="font-bold text-xs block text-[#F5F5F2]">MIS</span>
-                      <span className="text-[10px] text-[#A1A8B3]">Intraday (5x Leverage)</span>
+                      <span className="font-bold text-xs block text-[#00225A]">MIS</span>
+                      <span className="text-[10px] text-[#6B7A90]">Intraday (5x Leverage)</span>
                     </div>
                   </label>
                 </>
               ) : (
                 <>
                   <label className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
-                    product === 'NRML' ? 'bg-[#14223A] border-[#C6A15B] text-[#F5F5F2] shadow-[0_0_12px_rgba(198,161,91,0.12)]' : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3] hover:border-[rgba(198,161,91,0.25)]'
+                    product === 'NRML' ? 'bg-[#EEF3FF] border-[#536CF0] text-[#00225A] shadow-2xs font-semibold' : 'bg-[#F7F8FA] border-[#D9E2F2] text-[#6B7A90] hover:border-[#BCCAE0]'
                   }`}>
                     <input
                       type="radio"
                       name="product_type"
                       checked={product === 'NRML'}
                       onChange={() => setProduct('NRML')}
-                      className="accent-[#C6A15B]"
+                      className="accent-[#00225A]"
                     />
                     <div>
-                      <span className="font-bold text-xs block text-[#F5F5F2]">NRML</span>
-                      <span className="text-[10px] text-[#A1A8B3]">Overnight / Carryforward</span>
+                      <span className="font-bold text-xs block text-[#00225A]">NRML</span>
+                      <span className="text-[10px] text-[#6B7A90]">Overnight / Carryforward</span>
                     </div>
                   </label>
 
                   <label className={`flex items-center gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
-                    product === 'MIS' ? 'bg-[#14223A] border-[#C6A15B] text-[#F5F5F2] shadow-[0_0_12px_rgba(198,161,91,0.12)]' : 'bg-[#0B1424] border-[#14223A] text-[#A1A8B3] hover:border-[rgba(198,161,91,0.25)]'
+                    product === 'MIS' ? 'bg-[#EEF3FF] border-[#536CF0] text-[#00225A] shadow-2xs font-semibold' : 'bg-[#F7F8FA] border-[#D9E2F2] text-[#6B7A90] hover:border-[#BCCAE0]'
                   }`}>
                     <input
                       type="radio"
                       name="product_type"
                       checked={product === 'MIS'}
                       onChange={() => setProduct('MIS')}
-                      className="accent-[#C6A15B]"
+                      className="accent-[#00225A]"
                     />
                     <div>
-                      <span className="font-bold text-xs block text-[#F5F5F2]">MIS</span>
-                      <span className="text-[10px] text-[#A1A8B3]">Intraday Margin</span>
+                      <span className="font-bold text-xs block text-[#00225A]">MIS</span>
+                      <span className="text-[10px] text-[#6B7A90]">Intraday Margin</span>
                     </div>
                   </label>
                 </>
@@ -364,10 +364,10 @@ export const OrderTicket: React.FC = () => {
           {/* Quantity & Lots Controls */}
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-[#A1A8B3] uppercase font-semibold font-mono tracking-wider">
+              <span className="text-[#6B7A90] uppercase font-semibold font-mono tracking-wider">
                 {isDerivative ? 'Contract Sizing & Lots' : 'Quantity'}
               </span>
-              <span className="font-mono text-[#C6A15B] font-semibold">
+              <span className="font-mono text-[#536CF0] font-semibold">
                 {contractSpec.lotDescription}
               </span>
             </div>
@@ -375,12 +375,12 @@ export const OrderTicket: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               {isDerivative ? (
                 <div>
-                  <label className="block text-[10px] text-[#A1A8B3] mb-1 font-mono">Number of Lots</label>
-                  <div className="flex items-center border border-[#14223A] rounded-lg bg-[#0B1424]">
+                  <label className="block text-[10px] text-[#6B7A90] mb-1 font-mono font-medium">Number of Lots</label>
+                  <div className="flex items-center border border-[#D9E2F2] rounded-xl bg-[#F7F8FA]">
                     <button
                       type="button"
                       onClick={() => handleLotsChange(lots - 1)}
-                      className="px-2.5 py-1.5 text-[#A1A8B3] hover:text-[#C6A15B] hover:bg-[#14223A] transition-colors rounded-l-lg"
+                      className="px-2.5 py-1.5 text-[#6B7A90] hover:text-[#00225A] hover:bg-[#EEF3FF] transition-colors rounded-l-xl"
                     >
                       <Minus className="w-3.5 h-3.5" />
                     </button>
@@ -389,12 +389,12 @@ export const OrderTicket: React.FC = () => {
                       min="1"
                       value={lots}
                       onChange={(e) => handleLotsChange(parseInt(e.target.value) || 1)}
-                      className="w-full bg-transparent text-center font-mono font-bold text-[#F5F5F2] text-xs focus:outline-none"
+                      className="w-full bg-transparent text-center font-mono font-bold text-[#00225A] text-xs focus:outline-none"
                     />
                     <button
                       type="button"
                       onClick={() => handleLotsChange(lots + 1)}
-                      className="px-2.5 py-1.5 text-[#A1A8B3] hover:text-[#C6A15B] hover:bg-[#14223A] transition-colors rounded-r-lg"
+                      className="px-2.5 py-1.5 text-[#6B7A90] hover:text-[#00225A] hover:bg-[#EEF3FF] transition-colors rounded-r-xl"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
@@ -403,19 +403,19 @@ export const OrderTicket: React.FC = () => {
               ) : null}
 
               <div className={isDerivative ? '' : 'col-span-2'}>
-                <label className="block text-[10px] text-[#A1A8B3] mb-1 font-mono">
+                <label className="block text-[10px] text-[#6B7A90] mb-1 font-mono font-medium">
                   Total {contractSpec.unit}
                 </label>
-                <div className="flex items-center border border-[#14223A] rounded-lg bg-[#0B1424] px-3 py-1.5">
+                <div className="flex items-center border border-[#D9E2F2] rounded-xl bg-[#F7F8FA] px-3 py-1.5">
                   <input
                     type="number"
                     min="1"
                     step="any"
                     value={quantity}
                     onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                    className="w-full bg-transparent font-mono font-bold text-[#F5F5F2] text-xs focus:outline-none"
+                    className="w-full bg-transparent font-mono font-bold text-[#00225A] text-xs focus:outline-none"
                   />
-                  <span className="text-[11px] font-mono text-[#C6A15B] shrink-0 ml-1 font-semibold">
+                  <span className="text-[11px] font-mono text-[#536CF0] shrink-0 ml-1 font-semibold">
                     {contractSpec.unit}
                   </span>
                 </div>
@@ -426,7 +426,7 @@ export const OrderTicket: React.FC = () => {
           {/* Price & Trigger Price */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[10px] text-[#A1A8B3] mb-1 font-mono">
+              <label className="block text-[10px] text-[#6B7A90] mb-1 font-mono font-medium">
                 Price ({orderType === 'MARKET' ? 'Market' : 'Limit'})
               </label>
               <input
@@ -435,26 +435,26 @@ export const OrderTicket: React.FC = () => {
                 disabled={orderType === 'MARKET'}
                 value={orderType === 'MARKET' ? marketPrice : price}
                 onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
-                className={`w-full border rounded-lg px-3 py-1.5 font-mono text-xs focus:outline-none transition-colors ${
+                className={`w-full border rounded-xl px-3 py-2 font-mono text-xs focus:outline-none transition-colors ${
                   orderType === 'MARKET'
-                    ? 'bg-[#070D18] border-[#14223A] text-[#6E7683] cursor-not-allowed'
-                    : 'bg-[#0B1424] border-[#14223A] text-[#F5F5F2] focus:border-[#C6A15B]'
+                    ? 'bg-[#F0F2F6] border-[#D9E2F2] text-[#94A3B8] cursor-not-allowed'
+                    : 'bg-[#FFFFFF] border-[#D9E2F2] text-[#00225A] font-bold focus:border-[#536CF0]'
                 }`}
               />
             </div>
 
             <div>
-              <label className="block text-[10px] text-[#A1A8B3] mb-1 font-mono">Trigger Price</label>
+              <label className="block text-[10px] text-[#6B7A90] mb-1 font-mono font-medium">Trigger Price</label>
               <input
                 type="number"
                 step="any"
                 disabled={orderType !== 'SL' && orderType !== 'SL_M'}
                 value={triggerPrice}
                 onChange={(e) => setTriggerPrice(parseFloat(e.target.value) || 0)}
-                className={`w-full border rounded-lg px-3 py-1.5 font-mono text-xs focus:outline-none transition-colors ${
+                className={`w-full border rounded-xl px-3 py-2 font-mono text-xs focus:outline-none transition-colors ${
                   orderType !== 'SL' && orderType !== 'SL_M'
-                    ? 'bg-[#070D18] border-[#14223A] text-[#6E7683] cursor-not-allowed'
-                    : 'bg-[#0B1424] border-[#14223A] text-[#F5F5F2] focus:border-[#C6A15B]'
+                    ? 'bg-[#F0F2F6] border-[#D9E2F2] text-[#94A3B8] cursor-not-allowed'
+                    : 'bg-[#FFFFFF] border-[#D9E2F2] text-[#00225A] font-bold focus:border-[#536CF0]'
                 }`}
               />
             </div>
@@ -462,17 +462,17 @@ export const OrderTicket: React.FC = () => {
 
           {/* Order Type Radio Pills (Market, Limit, SL, SL-M) */}
           <div className="space-y-1.5">
-            <span className="text-[11px] text-[#A1A8B3] uppercase font-semibold font-mono tracking-wider">Execution Type</span>
-            <div className="apple-segmented-group grid grid-cols-4 gap-1 w-full p-1 rounded-xl">
+            <span className="text-[11px] text-[#6B7A90] uppercase font-semibold font-mono tracking-wider">Execution Type</span>
+            <div className="grid grid-cols-4 gap-1 w-full p-1 bg-[#F0F2F6] rounded-xl border border-[#D9E2F2]">
               {(['MARKET', 'LIMIT', 'SL', 'SL_M'] as OrderType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setOrderType(type)}
-                  className={`apple-segmented-item py-1.5 text-xs font-semibold text-center rounded-lg transition-all active:scale-[0.96] ${
+                  className={`py-1.5 text-xs font-semibold text-center rounded-lg transition-all active:scale-[0.96] ${
                     orderType === type
-                      ? 'apple-segmented-item-active font-bold'
-                      : ''
+                      ? 'bg-[#00225A] text-white shadow-2xs font-bold'
+                      : 'text-[#6B7A90] hover:text-[#00225A]'
                   }`}
                 >
                   {type === 'SL_M' ? 'SL-M' : type}
@@ -483,18 +483,18 @@ export const OrderTicket: React.FC = () => {
 
           {/* Insufficient Funds Warning */}
           {isInsufficientFunds && (
-            <div className="p-3 rounded-xl bg-[#EF4444]/10 border border-[#EF4444]/30 text-[#EF4444] text-[11px] leading-relaxed">
+            <div className="p-3 rounded-xl bg-[#FEF3F2] border border-[#D92D20]/30 text-[#D92D20] text-[11px] leading-relaxed font-medium">
               Insufficient virtual funds. Margin required: ₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}, available cash: ₹{availableCash.toLocaleString('en-IN', { minimumFractionDigits: 2 })}.
             </div>
           )}
 
-          {/* ── Action Footer ─────────────────────────────────── */}
-          <div className="pt-3.5 border-t border-white/10 flex items-center justify-between">
+          {/* ── Action Footer ─────────────────────────────────────────── */}
+          <div className="pt-3.5 border-t border-[#D9E2F2] flex items-center justify-between">
             <div className="text-[11px] font-mono leading-tight">
-              <div className="text-[#A1A8B3]">
-                Margin: <span className="text-[#E2C889] font-bold">₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+              <div className="text-[#6B7A90]">
+                Margin: <span className="text-[#00225A] font-bold">₹{requiredMargin.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
               </div>
-              <div className="text-[#6E7683] mt-0.5">
+              <div className="text-[#94A3B8] mt-0.5">
                 Charges: ₹{charges.total_charges.toFixed(2)}
               </div>
             </div>
@@ -503,7 +503,7 @@ export const OrderTicket: React.FC = () => {
               <button
                 type="button"
                 onClick={closeOrderTicket}
-                className="btn-cendrix-outline px-4 py-2 text-xs rounded-xl font-semibold active:scale-[0.96]"
+                className="btn-secondary px-4 py-2 text-xs rounded-xl font-semibold active:scale-[0.96] h-10"
               >
                 Cancel
               </button>
@@ -511,10 +511,10 @@ export const OrderTicket: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting || isInsufficientFunds || (orderType === 'MARKET' && marketPrice <= 0)}
-                className={`px-6 py-2.5 text-xs font-bold rounded-xl shadow-lg active:scale-[0.96] transition-all disabled:opacity-50 cursor-pointer ${
+                className={`px-6 py-2 text-xs font-bold rounded-xl shadow-md active:scale-[0.96] transition-all disabled:opacity-50 cursor-pointer h-10 flex items-center justify-center ${
                   transactionType === 'BUY'
-                    ? 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_16px_rgba(16,185,129,0.35)]'
-                    : 'bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-500 hover:to-rose-400 text-white shadow-[0_4px_16px_rgba(239,68,68,0.35)]'
+                    ? 'bg-[#12B76A] hover:bg-[#0E9355] text-white shadow-[#12B76A]/20'
+                    : 'bg-[#D92D20] hover:bg-[#B42318] text-white shadow-[#D92D20]/20'
                 }`}
               >
                 {isSubmitting

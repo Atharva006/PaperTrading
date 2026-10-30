@@ -32,7 +32,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
   onClose,
   onOpenReset,
 }) => {
-  const { positions, orders, account, userName, openGuide } = useTradingStore();
+  const { positions, orders, account, openGuide } = useTradingStore();
   const navigate = useNavigate();
 
   if (!isOpen) return null;
@@ -48,6 +48,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
     }
     if (typeof window !== 'undefined') {
       localStorage.removeItem('tradeedge_user_session_id');
+      localStorage.removeItem('tradeedge_auth_logged_in');
     }
     useTradingStore.getState().init();
     onClose();
@@ -65,14 +66,14 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
       path: '/dashboard/positions',
       icon: Briefcase,
       badge: openPositionsCount > 0 ? openPositionsCount : undefined,
-      badgeColor: 'bg-[#D4AF65] text-[#030303] font-bold',
+      badgeColor: 'bg-[#EEF3FF] text-[#00225A] font-bold border border-[#D9E2F2]',
     },
     {
       name: 'Orders',
       path: '/dashboard/orders',
       icon: Clock,
       badge: pendingOrdersCount > 0 ? pendingOrdersCount : undefined,
-      badgeColor: 'bg-[#60A5FA] text-[#030303] font-bold',
+      badgeColor: 'bg-[#EEF1FE] text-[#536CF0] font-bold border border-[#D9E2F2]',
     },
     { name: 'Holdings', path: '/dashboard/holdings', icon: Layers3 },
     { name: 'Trade Book', path: '/dashboard/tradebook', icon: BookOpenCheck },
@@ -82,62 +83,62 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    <div className="fixed inset-0 z-50 lg:hidden font-sans">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-300"
+        className="fixed inset-0 bg-[#00225A]/25 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
       />
 
-      {/* Slide-out Menu Panel (Apple-Grade Frosted Glass) */}
-      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#0B1424]/92 backdrop-blur-2xl border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.85)] flex flex-col z-50 select-none animate-in slide-in-from-right duration-300">
+      {/* Slide-out Menu Panel (FundingPips Light) */}
+      <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-[#FFFFFF] border-l border-[#D9E2F2] shadow-2xl flex flex-col z-50 select-none animate-in slide-in-from-right duration-300">
         
         {/* Drawer Header */}
-        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#10141C]/80 backdrop-blur-md">
+        <div className="p-4 border-b border-[#D9E2F2] flex items-center justify-between bg-[#FCFCFC]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#0F192B] border border-[rgba(198,161,91,0.25)] flex items-center justify-center p-1 overflow-hidden shadow-sm">
-              <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
+            <div className="w-8 h-8 rounded-xl bg-[#00225A] flex items-center justify-center p-1.5 shadow-sm">
+              <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain brightness-0 invert" />
             </div>
             <div>
-              <span className="font-serif text-base font-bold tracking-wider text-[#F5F5F2] uppercase">
-                CENDRIX <span className="text-[#C6A15B]">CAPITAL</span>
+              <span className="font-headline text-sm font-bold tracking-tight text-[#00225A] uppercase">
+                CENDRIX CAPITAL
               </span>
-              <p className="text-[9px] text-[#A1A8B3] uppercase tracking-wider font-mono">
-                SIMULATED FUND
+              <p className="text-[9px] text-[#6B7A90] uppercase tracking-wider font-mono font-semibold">
+                FUNDED SIMULATOR
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#14223A] transition-all active:scale-[0.92]"
+            className="p-1.5 rounded-xl text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA] border border-[#D9E2F2] transition-all active:scale-[0.92]"
           >
-            <X className="w-5 h-5 text-[#C6A15B]" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Account Telemetry Summary */}
         {account && (
-          <div className="m-3 p-3.5 bg-[#0E1728]/80 backdrop-blur-md rounded-2xl border border-[rgba(198,161,91,0.2)] shadow-md">
-            <div className="flex justify-between items-center text-[10px] text-[#A1A8B3] font-mono uppercase font-bold">
+          <div className="m-3 p-3.5 bg-[#F7F8FA] rounded-2xl border border-[#D9E2F2] shadow-2xs">
+            <div className="flex justify-between items-center text-[10px] text-[#6B7A90] font-mono uppercase font-bold">
               <span>Virtual Portfolio Equity</span>
-              <span className="text-[#10B981] flex items-center gap-1 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse" />
+              <span className="text-[#12B76A] flex items-center gap-1 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
                 LIVE
               </span>
             </div>
-            <div className="text-base font-bold font-mono text-[#F5F5F2] mt-0.5">
+            <div className="text-base font-bold font-mono text-[#00225A] mt-0.5">
               ₹{account.account_equity.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </div>
-            <div className="mt-2 pt-2 border-t border-[#14223A] flex justify-between text-[11px] font-mono text-[#A1A8B3]">
+            <div className="mt-2 pt-2 border-t border-[#D9E2F2] flex justify-between text-[11px] font-mono text-[#6B7A90]">
               <span>Cash: ₹{account.cash_balance.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
-              <span className="text-[#C6A15B] font-semibold">Margin: ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
+              <span className="text-[#536CF0] font-semibold">Margin: ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}</span>
             </div>
           </div>
         )}
 
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1.5 scrollbar-hide text-xs">
+        <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-1 scrollbar-hide text-xs">
           {navLinks.map((item) => {
             const Icon = item.icon;
             return (
@@ -147,20 +148,20 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 end={item.path === '/dashboard'}
                 onClick={onClose}
                 className={({ isActive }) => `
-                  flex items-center justify-between px-3 py-2.5 rounded-xl font-medium transition-all active:scale-[0.98]
+                  flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-all active:scale-[0.98]
                   ${
                     isActive
-                      ? 'bg-[#14223A] text-[#F5F5F2] font-bold border border-[rgba(198,161,91,0.3)] shadow-[0_2px_12px_rgba(198,161,91,0.15)]'
-                      : 'text-[#A1A8B3] hover:text-[#F5F5F2] hover:bg-[#10141C]'
+                      ? 'bg-[#EEF3FF] text-[#00225A] font-bold border border-[#D9E2F2] shadow-2xs'
+                      : 'text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA]'
                   }
                 `}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className="w-4 h-4 text-[#C6A15B]" />
-                  <span className="tracking-wide">{item.name}</span>
+                  <Icon className="w-4 h-4 text-[#536CF0]" />
+                  <span className="tracking-wide text-xs">{item.name}</span>
                 </div>
                 {item.badge !== undefined && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${item.badgeColor || 'bg-white/10'}`}>
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${item.badgeColor}`}>
                     {item.badge}
                   </span>
                 )}
@@ -170,16 +171,16 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         </nav>
 
         {/* Footer Actions */}
-        <div className="p-3 border-t border-[#14223A] space-y-2 bg-[#10141C]">
+        <div className="p-3 border-t border-[#D9E2F2] space-y-2 bg-[#FCFCFC]">
           <button
             onClick={() => {
               onClose();
               openGuide();
             }}
-            className="w-full btn-cendrix-gold text-xs justify-center py-2 rounded-lg font-bold flex items-center gap-1.5 shadow-md"
+            className="w-full btn-primary text-xs justify-center py-2.5 rounded-xl font-semibold flex items-center gap-1.5 h-10"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-[#070D18]" />
-            <span>Beginner Desk Walkthrough</span>
+            <HelpCircle className="w-4 h-4" />
+            <span>Beginner Walkthrough</span>
           </button>
 
           <button
@@ -187,15 +188,15 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               onClose();
               onOpenReset();
             }}
-            className="w-full btn-cendrix-outline text-xs justify-center py-2 rounded-lg"
+            className="w-full btn-secondary text-xs justify-center py-2 rounded-xl font-semibold flex items-center gap-1.5 h-9"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-[#C6A15B]" />
-            <span>Reset Virtual Funds to ₹10L</span>
+            <RotateCcw className="w-3.5 h-3.5 text-[#536CF0]" />
+            <span>Reset Funds to ₹10L</span>
           </button>
 
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#EF4444] hover:bg-[#14223A] rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold text-[#D92D20] hover:bg-[#FEF3F2] rounded-xl transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             <span>Sign Out</span>

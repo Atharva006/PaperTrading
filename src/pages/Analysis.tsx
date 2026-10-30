@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useStore } from '../store/useStore';
-import { TrendingUp, Target, Brain, Compass, Clock, Activity, Zap, FileSpreadsheet } from 'lucide-react';
+import { TrendingUp, Target, Brain, Compass, Clock, Activity, Zap, FileSpreadsheet, LineChart } from 'lucide-react';
 import type { Trade } from '../data/mockData';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -41,40 +41,40 @@ function GroupTable({ data }: { data: ReturnType<typeof groupStats> }) {
   if (!data.length) return <EmptyState />;
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-white/5">
-            <th className="text-left px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Name</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Trades</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Win Rate</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Avg R</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Profit Factor</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Avg Win</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Avg Loss</th>
-            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#8c8c8c] uppercase tracking-wider">Net P&L</th>
+      <table className="w-full text-sm font-mono">
+        <thead className="bg-[#F7F8FA] border-b border-[#D9E2F2]">
+          <tr>
+            <th className="text-left px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Name</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Trades</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Win Rate</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Avg R</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Profit Factor</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Avg Win</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Avg Loss</th>
+            <th className="text-right px-4 py-3 text-[10px] font-bold text-[#6B7A90] uppercase tracking-wider">Net P&L</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/[0.04]">
+        <tbody className="divide-y divide-[#D9E2F2]">
           {data.map(row => (
-            <tr key={row.name} className="hover:bg-white/[0.02] transition-colors group">
-              <td className="px-4 py-4 font-medium text-[#e5e5e5]">{row.name}</td>
-              <td className="px-4 py-4 text-right text-[#8c8c8c]">{row.count}</td>
+            <tr key={row.name} className="hover:bg-[#F7F8FA] transition-colors group">
+              <td className="px-4 py-4 font-semibold text-[#00225A] font-sans">{row.name}</td>
+              <td className="px-4 py-4 text-right text-[#6B7A90]">{row.count}</td>
               <td className="px-4 py-4 text-right">
-                <span className={`font-medium ${row.winRate >= 50 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                <span className={`font-bold ${row.winRate >= 50 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                   {row.winRate.toFixed(1)}%
                 </span>
               </td>
-              <td className="px-4 py-4 text-right text-[#e5e5e5]">{row.avgR.toFixed(2)}R</td>
-              <td className="px-4 py-4 text-right text-[#e5e5e5]">
+              <td className="px-4 py-4 text-right text-[#00225A]">{row.avgR.toFixed(2)}R</td>
+              <td className="px-4 py-4 text-right text-[#00225A]">
                 {row.profitFactor === Infinity ? '∞' : row.profitFactor.toFixed(2)}
               </td>
-              <td className="px-4 py-4 text-right text-[#10b981]">
+              <td className="px-4 py-4 text-right text-[#12B76A]">
                 {row.avgWin > 0 ? `+$${row.avgWin.toFixed(0)}` : '—'}
               </td>
-              <td className="px-4 py-4 text-right text-[#ef4444]">
+              <td className="px-4 py-4 text-right text-[#D92D20]">
                 {row.avgLoss < 0 ? `-$${Math.abs(row.avgLoss).toFixed(0)}` : '—'}
               </td>
-              <td className={`px-4 py-4 text-right font-semibold ${row.totalPnl >= 0 ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+              <td className={`px-4 py-4 text-right font-bold ${row.totalPnl >= 0 ? 'text-[#12B76A]' : 'text-[#D92D20]'}`}>
                 {row.totalPnl >= 0 ? '+' : ''}${row.totalPnl.toFixed(0)}
               </td>
             </tr>
@@ -87,10 +87,10 @@ function GroupTable({ data }: { data: ReturnType<typeof groupStats> }) {
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center py-24 text-[#8c8c8c]">
-      <LineChart className="w-10 h-10 mb-4 opacity-30" />
-      <p className="text-sm font-medium text-[#e5e5e5] mb-1">No trade data yet</p>
-      <p className="text-xs">Log trades in the Journal to unlock analytics.</p>
+    <div className="flex flex-col items-center justify-center py-24 text-[#6B7A90]">
+      <LineChart className="w-10 h-10 mb-4 opacity-30 text-[#00225A]" />
+      <p className="text-sm font-bold font-display text-[#00225A] mb-1">No trade data yet</p>
+      <p className="text-xs text-[#6B7A90]">Log trades in the Journal to unlock analytics.</p>
     </div>
   );
 }
@@ -147,15 +147,15 @@ export default function Analysis() {
           <>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               {kpis.map(k => (
-                <div key={k.label} className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:bg-[#18181b]/60 transition-all">
-                  <p className="text-[10px] text-[#8c8c8c] uppercase tracking-wider font-semibold mb-2">{k.label}</p>
-                  <p className="text-xl font-medium tracking-tight text-[#e5e5e5]">{k.value}</p>
+                <div key={k.label} className="bg-white border border-[#D9E2F2] rounded-2xl p-5 hover:border-[#536CF0]/40 transition-all shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                  <p className="text-[10px] text-[#6B7A90] uppercase tracking-wider font-semibold font-mono mb-2">{k.label}</p>
+                  <p className="text-xl font-bold font-display tracking-tight text-[#00225A]">{k.value}</p>
                 </div>
               ))}
             </div>
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/5">
-                <h3 className="text-sm font-medium text-[#8c8c8c]">Net P&amp;L by Strategy</h3>
+            <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+              <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+                <h3 className="text-sm font-bold font-display text-[#00225A]">Net P&amp;L by Strategy</h3>
               </div>
               <GroupTable data={byStrategy} />
             </div>
@@ -177,15 +177,15 @@ export default function Analysis() {
                 { label: 'Max Single Loss', value: `$${Math.abs(maxDD).toFixed(0)}` },
                 { label: 'Profit Factor', value: overall.profitFactor === Infinity ? '∞' : overall.profitFactor.toFixed(2) },
               ].map(k => (
-                <div key={k.label} className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:bg-[#18181b]/60 transition-all">
-                  <p className="text-[10px] text-[#8c8c8c] uppercase tracking-wider font-semibold mb-2">{k.label}</p>
-                  <p className="text-xl font-medium tracking-tight text-[#e5e5e5]">{k.value}</p>
+                <div key={k.label} className="bg-white border border-[#D9E2F2] rounded-2xl p-5 hover:border-[#536CF0]/40 transition-all shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+                  <p className="text-[10px] text-[#6B7A90] uppercase tracking-wider font-semibold font-mono mb-2">{k.label}</p>
+                  <p className="text-xl font-bold font-display tracking-tight text-[#00225A]">{k.value}</p>
                 </div>
               ))}
             </div>
-            <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-              <div className="px-6 py-4 border-b border-white/5">
-                <h3 className="text-sm font-medium text-[#8c8c8c]">Risk breakdown by Instrument</h3>
+            <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+              <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+                <h3 className="text-sm font-bold font-display text-[#00225A]">Risk breakdown by Instrument</h3>
               </div>
               <GroupTable data={byInstrument} />
             </div>
@@ -197,9 +197,9 @@ export default function Analysis() {
       case 'Execution': {
         if (!trades.length) return <EmptyState />;
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Execution Quality</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Execution Quality</h3>
             </div>
             <GroupTable data={byExecution} />
           </div>
@@ -210,9 +210,9 @@ export default function Analysis() {
       case 'Psychology': {
         if (!trades.length) return <EmptyState />;
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Pre-Trade Emotion</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Pre-Trade Emotion</h3>
             </div>
             <GroupTable data={byPsych} />
           </div>
@@ -222,9 +222,9 @@ export default function Analysis() {
       // ── Strategy ─────────────────────────────────────────────────────────
       case 'Strategy':
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Strategy</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Strategy</h3>
             </div>
             <GroupTable data={byStrategy} />
           </div>
@@ -233,9 +233,9 @@ export default function Analysis() {
       // ── Session ───────────────────────────────────────────────────────────
       case 'Session':
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Trading Session</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Trading Session</h3>
             </div>
             <GroupTable data={bySession} />
           </div>
@@ -244,9 +244,9 @@ export default function Analysis() {
       // ── Instrument ────────────────────────────────────────────────────────
       case 'Instrument':
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Instrument</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Instrument</h3>
             </div>
             <GroupTable data={byInstrument} />
           </div>
@@ -255,9 +255,9 @@ export default function Analysis() {
       // ── Timeframe ─────────────────────────────────────────────────────────
       case 'Timeframe':
         return (
-          <div className="bg-[#18181b]/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5">
-              <h3 className="text-sm font-medium text-[#8c8c8c]">Performance by Timeframe</h3>
+          <div className="bg-white border border-[#D9E2F2] rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,34,90,0.04)]">
+            <div className="px-6 py-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
+              <h3 className="text-sm font-bold font-display text-[#00225A]">Performance by Timeframe</h3>
             </div>
             <GroupTable data={byTimeframe} />
           </div>
@@ -268,16 +268,16 @@ export default function Analysis() {
   };
 
   return (
-    <div className="space-y-6 pb-12 max-w-[1400px] mx-auto">
+    <div className="space-y-6 pb-12 max-w-[1400px] mx-auto text-[#111114] font-sans">
       {/* Header */}
-      <div className="flex items-center gap-4 border-b border-white/5 pb-6">
+      <div className="flex items-center gap-4 border-b border-[#D9E2F2] pb-6">
         <div>
-          <p className="text-[10px] text-[#8c8c8c] uppercase tracking-wider font-semibold mb-1">Deep Dive</p>
-          <h1 className="text-2xl font-medium tracking-tight text-[#e5e5e5]">Analytics</h1>
+          <p className="text-[10px] text-[#536CF0] uppercase tracking-wider font-semibold font-mono mb-1">Deep Dive</p>
+          <h1 className="text-2xl font-bold font-display tracking-tight text-[#00225A]">Analytics</h1>
         </div>
         <div className="ml-auto flex items-center gap-3">
-          <span className="text-xs text-[#8c8c8c]">{trades.length} trades analysed</span>
-          <span className="px-4 py-2 rounded-full text-xs font-medium bg-[#18181b]/50 border border-white/10 text-[#d97757] backdrop-blur-sm">
+          <span className="text-xs text-[#6B7A90] font-mono">{trades.length} trades analysed</span>
+          <span className="px-4 py-1.5 rounded-full text-xs font-semibold bg-[#EEF3FF] border border-[#D9E2F2] text-[#00225A] font-mono">
             {account?.name || 'Evaluation'}
           </span>
         </div>
@@ -289,10 +289,10 @@ export default function Analysis() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all rounded-lg whitespace-nowrap ${
+            className={`flex items-center gap-2 px-4 py-2 text-xs font-semibold transition-all rounded-xl whitespace-nowrap cursor-pointer ${
               activeTab === tab.id
-                ? 'bg-[#d97757]/10 text-[#d97757] border border-[#d97757]/20'
-                : 'text-[#8c8c8c] border border-transparent hover:text-[#e5e5e5] hover:bg-white/5'
+                ? 'bg-[#00225A] text-white shadow-xs'
+                : 'text-[#6B7A90] bg-white border border-[#D9E2F2] hover:text-[#00225A] hover:bg-[#F7F8FA]'
             }`}
           >
             <tab.icon className="w-4 h-4" />

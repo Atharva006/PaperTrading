@@ -49,10 +49,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Market Watch', path: '/dashboard/watchlist', icon: TrendingUp },
     { name: 'Terminal', path: '/dashboard/terminal', icon: Activity },
-    { name: 'Commodities (MCX)', path: '/dashboard/commodities', icon: Flame, badge: 'MCX', badgeColor: 'bg-[#D4AF65]/15 text-[#D4AF65]' },
+    { name: 'Commodities (MCX)', path: '/dashboard/commodities', icon: Flame, badge: 'MCX', badgeColor: 'bg-[#EEF3FF] text-[#00225A]' },
     { name: 'Futures Explorer', path: '/dashboard/derivatives', icon: Layers },
-    { name: 'Positions', path: '/dashboard/positions', icon: Briefcase, badge: openPositionsCount || undefined, badgeColor: 'bg-[#00C087]/20 text-[#00C087]' },
-    { name: 'Orders', path: '/dashboard/orders', icon: Clock, badge: pendingOrdersCount || undefined, badgeColor: 'bg-[#D4AF65]/20 text-[#D4AF65]' },
+    { name: 'Positions', path: '/dashboard/positions', icon: Briefcase, badge: openPositionsCount || undefined, badgeColor: 'bg-[#12B76A]/10 text-[#12B76A]' },
+    { name: 'Orders', path: '/dashboard/orders', icon: Clock, badge: pendingOrdersCount || undefined, badgeColor: 'bg-[#536CF0]/10 text-[#00225A]' },
     { name: 'Holdings', path: '/dashboard/holdings', icon: ShieldCheck },
     { name: 'Tradebook', path: '/dashboard/tradebook', icon: BookOpenCheck },
     { name: 'Portfolio Ledger', path: '/dashboard/portfolio', icon: Receipt },
@@ -61,23 +61,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
   ];
 
   return (
-    <aside className="w-64 bg-[#080808] border-r border-[#242424] flex flex-col h-screen select-none relative z-30">
+    <aside className="w-64 bg-white border-r border-[#D9E2F2] flex flex-col h-screen select-none relative z-30 text-[#111114]">
       {/* Brand & Monogram Header */}
-      <div className="p-4 border-b border-[#242424] bg-[#030303]">
+      <div className="p-4 border-b border-[#D9E2F2] bg-[#F7F8FA]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-[#080808] border border-[#242424] flex items-center justify-center p-1 overflow-hidden">
+          <div className="w-9 h-9 rounded-xl bg-white border border-[#D9E2F2] flex items-center justify-center p-1.5 overflow-hidden shadow-xs">
             <img src="/cendrix-logo.png" alt="Cendrix Capital" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-cinzel text-base font-bold tracking-wider text-[#F5F5F5] uppercase">
+              <span className="font-display text-base font-bold tracking-tight text-[#00225A]">
                 CENDRIX
               </span>
-              <span className="text-[9px] font-mono font-bold tracking-widest text-[#D4AF65] bg-[#D4AF65]/10 border border-[#D4AF65]/30 px-1 py-0.2 rounded">
+              <span className="text-[9px] font-mono font-bold tracking-widest text-[#00225A] bg-[#EEF3FF] border border-[#D9E2F2] px-1 py-0.2 rounded">
                 CNRX
               </span>
             </div>
-            <p className="text-[10px] text-[#71717A] uppercase tracking-wider font-medium">
+            <p className="text-[10px] text-[#6B7A90] uppercase tracking-wider font-semibold font-mono">
               Cendrix Capital
             </p>
           </div>
@@ -85,20 +85,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
 
         {/* Institutional Virtual Account Card */}
         {account && (
-          <div className="mt-4 p-3 bg-[#0D0D0D] rounded-xl border border-[#242424]">
-            <div className="flex items-center justify-between text-[11px] text-[#A1A1AA] font-medium mb-1">
+          <div className="mt-4 p-3.5 bg-white rounded-xl border border-[#D9E2F2] shadow-xs">
+            <div className="flex items-center justify-between text-[11px] text-[#6B7A90] font-medium mb-1">
               <span>Virtual Available Cash</span>
-              <span className="inline-flex items-center gap-1 text-[#00C087] font-mono text-[9px] font-bold bg-[#00C087]/10 px-1.5 py-0.5 rounded border border-[#00C087]/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00C087] animate-pulse" />
+              <span className="inline-flex items-center gap-1 text-[#12B76A] font-mono text-[9px] font-bold bg-[#12B76A]/10 px-1.5 py-0.5 rounded border border-[#12B76A]/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#12B76A] animate-pulse" />
                 ACTIVE
               </span>
             </div>
-            <div className="text-base font-bold font-mono text-[#F5F5F5]">
+            <div className="text-base font-bold font-mono text-[#00225A]">
               ₹{account.cash_balance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
-            <div className="mt-2 pt-2 border-t border-[#191919] flex justify-between text-[10px] text-[#71717A]">
+            <div className="mt-2 pt-2 border-t border-[#D9E2F2] flex justify-between text-[10px] text-[#6B7A90]">
               <span>Used Margin:</span>
-              <span className="font-mono text-[#D4AF65] font-semibold">
+              <span className="font-mono text-[#00225A] font-semibold">
                 ₹{account.used_margin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
               </span>
             </div>
@@ -116,20 +116,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
               to={item.path}
               end={item.path === '/dashboard'}
               className={({ isActive }) => `
-                flex items-center justify-between px-3 py-2 rounded-lg font-medium transition-colors
+                flex items-center justify-between px-3 py-2 rounded-xl font-medium transition-colors
                 ${
                   isActive
-                    ? 'bg-[#131313] text-[#F5F5F5] border border-[#242424] font-semibold'
-                    : 'text-[#A1A1AA] hover:text-[#F5F5F5] hover:bg-[#131313]/60 border border-transparent'
+                    ? 'bg-[#EEF3FF] text-[#00225A] font-bold border border-[#D9E2F2]'
+                    : 'text-[#6B7A90] hover:text-[#00225A] hover:bg-[#F7F8FA] border border-transparent'
                 }
               `}
             >
               <div className="flex items-center gap-2.5">
-                <Icon className="w-4 h-4 text-[#D4AF65]" />
+                <Icon className="w-4 h-4 text-[#00225A]" />
                 <span className="tracking-wide">{item.name}</span>
               </div>
               {item.badge !== undefined && (
-                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${item.badgeColor || 'bg-[#191919] text-[#71717A]'}`}>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-mono font-bold ${item.badgeColor || 'bg-[#F7F8FA] text-[#6B7A90]'}`}>
                   {item.badge}
                 </span>
               )}
@@ -139,26 +139,26 @@ export const Sidebar: React.FC<SidebarProps> = ({ onOpenReset }) => {
       </nav>
 
       {/* Footer Controls: Reset Virtual Balance & Logout */}
-      <div className="p-3 border-t border-[#242424] space-y-2 bg-[#080808]">
+      <div className="p-3 border-t border-[#D9E2F2] space-y-2 bg-[#F7F8FA]">
         {/* Reset Virtual Account Button */}
         <button
           onClick={onOpenReset}
-          className="w-full btn-cendrix-outline text-xs justify-center py-2"
+          className="w-full bg-white hover:bg-[#F7F8FA] text-[#00225A] border border-[#D9E2F2] rounded-xl text-xs font-semibold justify-center py-2 flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
           title="Reset your virtual funds back to ₹10,00,000"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[#D4AF65]" />
+          <RotateCcw className="w-3.5 h-3.5 text-[#D92D20]" />
           <span>Reset Virtual ₹10L</span>
         </button>
 
         {/* User Info & Sign Out */}
         <div className="flex items-center justify-between pt-1 px-1">
-          <div className="truncate text-[11px] text-[#A1A1AA]">
-            <p className="font-semibold text-[#F5F5F5] truncate">Cendrix Trader</p>
-            <p className="truncate text-[9px] font-mono text-[#D4AF65]">CNRX SIMULATOR</p>
+          <div className="truncate text-[11px] text-[#6B7A90]">
+            <p className="font-semibold text-[#00225A] truncate">Trader Account</p>
+            <p className="truncate text-[9px] font-mono text-[#536CF0]">SIMULATOR</p>
           </div>
           <button
             onClick={handleLogout}
-            className="p-1.5 rounded-lg text-[#71717A] hover:text-[#FF4D67] hover:bg-[#131313] transition-colors"
+            className="p-1.5 rounded-lg text-[#6B7A90] hover:text-[#D92D20] hover:bg-white transition-colors cursor-pointer"
             title="Sign Out"
           >
             <LogOut className="w-4 h-4" />
