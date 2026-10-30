@@ -7,3 +7,5 @@ https.get('https://nfs.faireconomy.media/ff_calendar_thisweek.json', (res) => {
     console.log("Has actual?", data.includes("actual"));
   });
 }).on('error', err => console.error(err));
+
+
