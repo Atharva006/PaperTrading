@@ -1,11 +1,14 @@
 # robots.txt for Cendrix Capital (https://cendrix-capital-stf.vercel.app/)
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 Allow: /$
 Allow: /landing
 Allow: /privacy
 Allow: /terms
 Allow: /login
+Allow: /llms.txt
+Allow: /llms-full.txt
 Disallow: /dashboard
 Disallow: /dashboard/
 Disallow: /api/
@@ -17,9 +20,53 @@ Allow: /landing
 Allow: /privacy
 Allow: /terms
 Allow: /login
+Allow: /llms.txt
+Allow: /llms-full.txt
 Disallow: /dashboard
 Disallow: /dashboard/
 Disallow: /api/
 Disallow: /upstox/
+
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /dashboard/
+Disallow: /api/
 
 Sitemap: https://cendrix-capital-stf.vercel.app/sitemap.xml

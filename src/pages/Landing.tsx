@@ -27,7 +27,9 @@ import {
   Clock,
   Award,
   Play,
-  Menu
+  Menu,
+  ChevronDown,
+  HelpCircle
 } from 'lucide-react';
 import { useTradingStore } from '../store/useTradingStore';
 import { INDIAN_INSTRUMENTS_MASTER } from '../services/market/indianInstruments';
@@ -66,7 +68,36 @@ const DEMO_MULTIPLIERS: Record<string, number> = {
   SILVERM: 5,
 };
 
+const FAQ_ITEMS = [
+  {
+    question: 'Is Cendrix Capital a 100% free paper trading platform?',
+    answer:
+      'Yes. Cendrix Capital provides a completely free paper trading platform equipped with ₹10,00,000 in virtual trading capital. Traders can practice execution on Indian equities, options, and commodities without risking actual funds or paying subscription fees.',
+  },
+  {
+    question: 'How does this live stock market simulator replicate authentic trading conditions?',
+    answer:
+      'Our live stock market simulator matches orders against real-time NSE and MCX tick feeds with sub-millisecond execution. Crucially, Cendrix Capital accounts for realistic exchange margin rules (MIS 5x Intraday, CNC/NRML) and statutory taxes including STT, CTT, GST, and Stamp Duty, ensuring your simulated edge reflects live trading reality.',
+  },
+  {
+    question: 'Which market segments does this Indian stock market simulator cover?',
+    answer:
+      'The platform covers major Indian exchange segments: NSE Cash Equities (including NIFTY 50 and large-caps), NSE F&O index derivatives (NIFTY 50, BANKNIFTY), and MCX Commodities contracts (Gold Mini, Silver Mini, Crude Oil, and Natural Gas).',
+  },
+  {
+    question: 'How does this virtual trading platform calculate margin leverage and risk?',
+    answer:
+      'Cendrix Capital implements institutional margin verification models. Intraday equity orders utilize standard MIS 5x margin leverage, while overnight and commodity positions enforce full exchange margin requirements. Real-time portfolio telemetry tracks Value-at-Risk (VaR), max drawdown, and margin utilization.',
+  },
+  {
+    question: 'Do I need brokerage credentials or KYC to use this demo trading platform?',
+    answer:
+      'No. You do not need to connect external broker APIs or submit KYC documentation. Our demo trading platform features instant 1-click institutional auto-connect, allowing you to begin simulated trading immediately.',
+  },
+];
+
 export default function Landing() {
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeAssetTab, setActiveAssetTab] = useState<'equities' | 'derivatives' | 'commodities'>('commodities');
@@ -173,10 +204,22 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white">
       <SEO
-        title="Cendrix Capital — Institutional Paper Trading Platform"
-        description="Simulate real-time trades across Indian Equities, NIFTY/BANKNIFTY Options, and MCX Commodities with zero risk. Institutional execution, analytics, and journaling."
+        title="Cendrix Capital — Free Paper Trading Platform & Indian Stock Market Simulator"
+        description="Experience Cendrix Capital: India's premier free paper trading platform & live stock market simulator. Trade NSE equities, NIFTY 50 options, and MCX commodities with ₹10,00,000 virtual capital in a zero-risk virtual trading platform."
         canonical="https://cendrix-capital-stf.vercel.app/"
-        keywords="Cendrix Capital, paper trading, simulated trading, institutional trading platform, NSE, MCX, Nifty 50, Bank Nifty, algorithmic trading, trading simulator India, options trading simulator"
+        keywords="Free Paper Trading Platform, Live Stock Market Simulator, Indian Stock Market Simulator, Virtual Trading Platform, Demo Trading Platform, Nifty 50 simulator, Bank Nifty options paper trading, MCX commodities simulator, NSE trading simulator, mock trading India, Cendrix Capital"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          'mainEntity': FAQ_ITEMS.map((item) => ({
+            '@type': 'Question',
+            'name': item.question,
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': item.answer,
+            },
+          })),
+        }}
       />
       
       {/* Background Soft Mesh Tint */}
@@ -338,7 +381,7 @@ export default function Landing() {
             {/* Live Indicator Pill */}
             <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 bg-[#EEF3FF] border border-[#D9E2F2] rounded-full text-[11px] font-semibold text-[#00225A] uppercase tracking-widest font-mono shadow-sm animate-float">
               <span className="w-2 h-2 rounded-full bg-[#12B76A] animate-pulse" />
-              <span>Direct Exchange Market Stream · Zero Synthetic Drift</span>
+              <span>Free Paper Trading Platform · Indian Stock Market Simulator</span>
             </div>
 
             {/* Main Headline (FundingPips Light Headline-Display) */}
@@ -351,7 +394,7 @@ export default function Landing() {
 
             {/* Subtitle Value Proposition */}
             <p className="text-base sm:text-lg md:text-xl text-[#6B7A90] mb-10 leading-relaxed max-w-3xl mx-auto font-normal">
-              CNRX is India’s bespoke institutional paper trading workstation for <strong className="text-[#00225A] font-semibold">NSE/BSE Equities</strong>, <strong className="text-[#00225A] font-semibold">F&O Derivatives</strong>, and <strong className="text-[#00225A] font-semibold">MCX Commodities</strong>. Execute against genuine direct exchange order flows with verified statutory tax modeling, margin calculation, and an audited double-entry portfolio ledger.
+              Cendrix Capital is India’s premier <strong className="text-[#00225A] font-semibold">free paper trading platform</strong> and <strong className="text-[#00225A] font-semibold">live stock market simulator</strong> for NSE/BSE Equities, F&amp;O Options, and MCX Commodities. Experience a high-fidelity <strong className="text-[#00225A] font-semibold">virtual trading platform</strong> and <strong className="text-[#00225A] font-semibold">demo trading platform</strong> with verified statutory tax modeling, margin calculation, and an audited double-entry cash ledger.
             </p>
 
             {/* Primary Action Buttons */}
@@ -382,7 +425,12 @@ export default function Landing() {
             <div className="relative mx-auto max-w-5xl rounded-3xl overflow-hidden border border-[#D9E2F2] shadow-[0_20px_60px_rgba(0,34,90,0.08)] bg-white p-2 sm:p-3 group">
               <img 
                 src="/cendrix-terminal-hero.jpg" 
-                alt="Cendrix Capital Institutional Trading Terminal" 
+                alt="Cendrix Capital — Free Paper Trading Platform and Live Stock Market Simulator" 
+                width={1200}
+                height={630}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="w-full h-auto rounded-2xl object-cover transform transition-transform duration-700 group-hover:scale-[1.01]"
               />
 
@@ -1118,7 +1166,56 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ── 11. The Final Call to Action ───────────────────────────────── */}
+        {/* ── 11. Frequently Asked Questions (SEO & Knowledge Base) ──── */}
+        <section id="faq" className="py-24 border-t border-[#D9E2F2] bg-[#FFFFFF]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="inline-flex items-center gap-2 mb-3 px-3.5 py-1 bg-[#EEF3FF] border border-[#D9E2F2] rounded-full text-[10px] font-semibold text-[#00225A] uppercase tracking-widest font-mono">
+                <HelpCircle className="w-3.5 h-3.5 text-[#536CF0]" />
+                <span>Frequently Asked Questions</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-display font-semibold text-[#00225A] tracking-[-0.03em] mb-4">
+                Everything About India's Leading Paper Trading Platform
+              </h2>
+              <p className="text-sm sm:text-base text-[#6B7A90] leading-relaxed">
+                Clear, transparent answers about our free simulated trading environment, live exchange data feeds, and execution models.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {FAQ_ITEMS.map((item, index) => {
+                const isOpen = openFaqIndex === index;
+                return (
+                  <div
+                    key={index}
+                    className="border border-[#D9E2F2] rounded-2xl bg-[#FCFCFC] transition-all overflow-hidden shadow-[0_2px_8px_rgba(0,34,90,0.02)]"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                      className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 hover:bg-[#F7F8FA] transition-colors focus:outline-none"
+                      aria-expanded={isOpen}
+                    >
+                      <h3 className="text-sm sm:text-base font-display font-bold text-[#00225A] pr-2">
+                        {item.question}
+                      </h3>
+                      <div className={`w-8 h-8 rounded-full border border-[#D9E2F2] flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 bg-[#EEF3FF] text-[#536CF0]' : 'text-[#6B7A90]'}`}>
+                        <ChevronDown className="w-4 h-4" />
+                      </div>
+                    </button>
+                    {isOpen && (
+                      <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#6B7A90] leading-relaxed border-t border-[#D9E2F2]/60">
+                        {item.answer}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 12. The Final Call to Action ───────────────────────────────── */}
         <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#FCFCFC] via-[#EEF3FF]/40 to-[#FCFCFC] border-t border-[#D9E2F2]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div className="w-16 h-16 mx-auto rounded-2xl bg-white border border-[#D9E2F2] flex items-center justify-center p-2.5 mb-8 shadow-md">
@@ -1168,6 +1265,8 @@ export default function Landing() {
               </div>
 
               <div className="flex flex-wrap justify-center gap-6 text-xs text-[#6B7A90] font-medium">
+                <Link to="/login" className="hover:text-[#00225A] transition-colors">Institutional Login</Link>
+                <a href="#faq" className="hover:text-[#00225A] transition-colors">FAQ</a>
                 <Link to="/privacy" className="hover:text-[#00225A] transition-colors">Privacy Policy</Link>
                 <Link to="/terms" className="hover:text-[#00225A] transition-colors">Terms of Service</Link>
                 <a href="mailto:atharva.bhosale@yahoo.com" className="hover:text-[#00225A] transition-colors">Desk Support</a>

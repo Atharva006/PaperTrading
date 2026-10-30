@@ -11,9 +11,9 @@ export interface SEOProps {
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const DEFAULT_TITLE = 'Cendrix Capital — Institutional Paper Trading Platform';
+const DEFAULT_TITLE = 'Cendrix Capital — Free Paper Trading Platform & Indian Stock Market Simulator';
 const DEFAULT_DESCRIPTION =
-  'Cendrix Capital is an institutional paper trading and quantitative analytics platform. Practice trading Indian equities, F&O derivatives, commodities, and MCX contracts in real-time with zero capital risk.';
+  "Experience Cendrix Capital: India's premier free paper trading platform & live stock market simulator. Trade NSE equities, NIFTY 50 options, and MCX commodities with ₹10,00,000 virtual capital in a zero-risk virtual trading platform.";
 const DEFAULT_CANONICAL = 'https://cendrix-capital-stf.vercel.app/';
 const DEFAULT_OG_IMAGE = 'https://cendrix-capital-stf.vercel.app/cendrix-terminal-hero.jpg';
 
@@ -28,7 +28,7 @@ export const SEO: React.FC<SEOProps> = ({
   jsonLd,
 }) => {
   useEffect(() => {
-    // 1. Update Title
+    // 1. Update Title (ensures single, clean title tag)
     document.title = title;
 
     // Helper to update or create a meta tag by name
@@ -103,32 +103,5 @@ export const SEO: React.FC<SEOProps> = ({
     }
   }, [title, description, canonical, keywords, ogType, ogImage, noindex, jsonLd]);
 
-  // Render React 19 hoisted metadata tags as well
-  return (
-    <>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      <meta
-        name="robots"
-        content={
-          noindex
-            ? 'noindex, nofollow'
-            : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-        }
-      />
-      <link rel="canonical" href={canonical} />
-
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:type" content={ogType} />
-      <meta property="og:image" content={ogImage} />
-
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:url" content={canonical} />
-      <meta name="twitter:image" content={ogImage} />
-    </>
-  );
+  return null;
 };

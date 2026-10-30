@@ -26,9 +26,10 @@ export default function Terms() {
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] font-sans py-20 px-4 sm:px-6 lg:px-8">
       <SEO
-        title="Terms of Service — Cendrix Capital"
+        title="Terms of Service — Demo Trading Platform | Cendrix Capital"
         description="Review the terms, simulated execution rules, and legal agreements for using Cendrix Capital's virtual paper trading simulator."
         canonical="https://cendrix-capital-stf.vercel.app/terms"
+        keywords="Cendrix Capital terms of service, demo trading platform rules, simulated trading disclaimer, virtual paper trading agreement"
         ogType="article"
         jsonLd={breadcrumbJsonLd}
       />

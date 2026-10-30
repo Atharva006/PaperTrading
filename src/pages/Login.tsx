@@ -315,9 +315,28 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#FCFCFC] text-[#111114] relative overflow-x-hidden font-sans selection:bg-[#536CF0] selection:text-white flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <SEO
-        title="Institutional Desk Access — Cendrix Capital"
-        description="Sign in to your Cendrix Capital simulated paper trading terminal. Access live execution, portfolio risk analytics, and quantitative metrics."
+        title="Institutional Login — Free Virtual Trading Platform | Cendrix Capital"
+        description="Sign in to your Cendrix Capital virtual trading platform. Access real-time simulated order matching, portfolio risk analytics, and quantitative trading tools."
         canonical="https://cendrix-capital-stf.vercel.app/login"
+        keywords="free paper trading platform login, virtual trading platform sign in, demo trading platform access, stock market simulator portal, Cendrix Capital login"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://cendrix-capital-stf.vercel.app/'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Institutional Login',
+              'item': 'https://cendrix-capital-stf.vercel.app/login'
+            }
+          ]
+        }}
       />
       {/* ── Background Subtle Aesthetics ──────────────────────────────────── */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
