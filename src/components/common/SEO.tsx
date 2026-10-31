@@ -75,6 +75,8 @@ export const SEO: React.FC<SEOProps> = ({
     canonicalLink.setAttribute('href', canonical);
 
     // 5. Open Graph Meta Tags
+    setMetaByProperty('og:site_name', 'Cendrix Capital');
+    setMetaByProperty('og:locale', 'en_US');
     setMetaByProperty('og:title', title);
     setMetaByProperty('og:description', description);
     setMetaByProperty('og:url', canonical);
@@ -82,6 +84,7 @@ export const SEO: React.FC<SEOProps> = ({
     setMetaByProperty('og:image', ogImage);
 
     // 6. Twitter Meta Tags
+    setMetaByName('twitter:card', 'summary_large_image');
     setMetaByName('twitter:title', title);
     setMetaByName('twitter:description', description);
     setMetaByName('twitter:url', canonical);

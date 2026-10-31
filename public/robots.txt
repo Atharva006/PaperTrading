@@ -2,26 +2,14 @@
 
 User-agent: *
 Content-Signal: search=yes, ai-input=yes, ai-train=no
-Allow: /$
-Allow: /landing
-Allow: /privacy
-Allow: /terms
-Allow: /login
-Allow: /llms.txt
-Allow: /llms-full.txt
+Allow: /
 Disallow: /dashboard
 Disallow: /dashboard/
 Disallow: /api/
 Disallow: /upstox/
 
 User-agent: Googlebot
-Allow: /$
-Allow: /landing
-Allow: /privacy
-Allow: /terms
-Allow: /login
-Allow: /llms.txt
-Allow: /llms-full.txt
+Allow: /
 Disallow: /dashboard
 Disallow: /dashboard/
 Disallow: /api/

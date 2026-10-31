@@ -70,6 +70,11 @@ const DEMO_MULTIPLIERS: Record<string, number> = {
 
 const FAQ_ITEMS = [
   {
+    question: 'What is Cendrix Capital?',
+    answer:
+      'Cendrix Capital is an institutional-grade free paper trading platform and live Indian stock market simulator for equities, F&O derivatives, and MCX commodities. It provides traders with ₹10,00,000 in virtual trading capital, real-time exchange ticks, authentic statutory tax modeling (STT, GST, Stamp Duty), and MIS 5x leverage in a zero-risk simulated environment.',
+  },
+  {
     question: 'Is Cendrix Capital a 100% free paper trading platform?',
     answer:
       'Yes. Cendrix Capital provides a completely free paper trading platform equipped with ₹10,00,000 in virtual trading capital. Traders can practice execution on Indian equities, options, and commodities without risking actual funds or paying subscription fees.',
@@ -211,6 +216,13 @@ export default function Landing() {
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
+          '@id': 'https://cendrix-capital-stf.vercel.app/#faq',
+          'isPartOf': {
+            '@id': 'https://cendrix-capital-stf.vercel.app/#website',
+          },
+          'about': {
+            '@id': 'https://cendrix-capital-stf.vercel.app/#organization',
+          },
           'mainEntity': FAQ_ITEMS.map((item) => ({
             '@type': 'Question',
             'name': item.question,
@@ -384,8 +396,11 @@ export default function Landing() {
               <span>Free Paper Trading Platform · Indian Stock Market Simulator</span>
             </div>
 
-            {/* Main Headline (FundingPips Light Headline-Display) */}
+            {/* Main Headline */}
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-semibold text-[#00225A] tracking-[-0.04em] mb-8 leading-[1.05] max-w-5xl mx-auto">
+              <span className="block text-xl sm:text-2xl md:text-3xl font-mono text-[#536CF0] uppercase tracking-widest mb-3 font-semibold">
+                Cendrix Capital
+              </span>
               Precision. Discipline.<br />
               <span className="text-[#536CF0]">
                 Institutional Execution.

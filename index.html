@@ -34,7 +34,7 @@
     <meta name="twitter:image" content="https://cendrix-capital-stf.vercel.app/cendrix-terminal-hero.jpg" />
 
     <!-- Structured Data (JSON-LD) -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="global-structured-data">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -42,16 +42,28 @@
           "@type": "Organization",
           "@id": "https://cendrix-capital-stf.vercel.app/#organization",
           "name": "Cendrix Capital",
+          "legalName": "Cendrix Capital",
           "url": "https://cendrix-capital-stf.vercel.app/",
           "logo": {
             "@type": "ImageObject",
+            "@id": "https://cendrix-capital-stf.vercel.app/#logo",
             "url": "https://cendrix-capital-stf.vercel.app/cendrix-logo.png",
+            "caption": "Cendrix Capital",
             "width": 512,
             "height": 512
           },
-          "description": "Provider of institutional-grade simulated paper trading technology and quantitative market analytics for Indian financial markets.",
+          "image": {
+            "@id": "https://cendrix-capital-stf.vercel.app/#logo"
+          },
+          "description": "Cendrix Capital provides institutional-grade simulated paper trading technology and quantitative market analytics for Indian equities, derivatives, and commodities.",
+          "founder": {
+            "@type": "Person",
+            "name": "Atharva Bhosale",
+            "url": "https://www.linkedin.com/in/atharva--bhosale"
+          },
           "sameAs": [
-            "https://www.linkedin.com/in/atharva--bhosale"
+            "https://www.linkedin.com/in/atharva--bhosale",
+            "https://github.com/Atharva006/PaperTrading"
           ]
         },
         {
@@ -59,10 +71,17 @@
           "@id": "https://cendrix-capital-stf.vercel.app/#website",
           "url": "https://cendrix-capital-stf.vercel.app/",
           "name": "Cendrix Capital",
+          "alternateName": [
+            "Cendrix",
+            "Cendrix Capital Trading Platform",
+            "Cendrix Capital Paper Trading",
+            "Cendrix Capital Simulator"
+          ],
           "description": "Free paper trading platform and live Indian stock market simulator for equities, options, and commodities.",
           "publisher": {
             "@id": "https://cendrix-capital-stf.vercel.app/#organization"
-          }
+          },
+          "inLanguage": "en-US"
         },
         {
           "@type": "WebApplication",
@@ -72,6 +91,9 @@
           "applicationCategory": "FinanceApplication",
           "operatingSystem": "Web Browser",
           "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "author": {
+            "@id": "https://cendrix-capital-stf.vercel.app/#organization"
+          },
           "offers": {
             "@type": "Offer",
             "price": "0",
